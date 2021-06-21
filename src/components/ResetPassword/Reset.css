@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.form{
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    padding: 1.5%;
+    border-radius: 3%;
+}
+.title{
+    text-align: center;
+}
+.formReset{
+    width: 80%;
+}
+.row{
+    padding-bottom: 5%;
+}
