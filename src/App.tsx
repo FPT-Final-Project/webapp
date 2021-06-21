@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
+import LayoutApp from './Layout/index';
+import "antd/dist/antd.css";
+import Dashboard from './views/Dashboard';
+import PsychologyTest from './views/PsychologyTest';
+import Appointement from './views/Appointement';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+            <Route render={(props)=>(
+            //Layout and sidebar can now receive props
+                <LayoutApp {...props}>
+                    <Switch>
+                        <Route path="/" exact component={Dashboard}/>
+                        <Route path="/psychology-test" component={PsychologyTest}/>
+                        <Route path="/appointement" component={Appointement}/>
+                    </Switch>
+                </LayoutApp>
+            )}/>
+        </Router>
     </div>
   );
 }
