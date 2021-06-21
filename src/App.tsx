@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import Dashboard from './views/Dashboard';
 import PsychologyTest from './views/PsychologyTest';
 import Appointement from './views/Appointement';
+import Home from './page/Home';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 </LayoutApp>
             )}/>
         </Router>
+      <Home/>
     </div>
   );
 }
