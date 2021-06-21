@@ -1,0 +1,35 @@
+.CustomSider {
+  background-color: #299cb4 !important;
+  .Logo {
+    text-align: center;
+    height: 32px;
+    margin: 16px;
+    color: white;
+    font-size: 25px;
+  }
+  .CustomMenu {
+    background-color: #299cb4;
+    border: none;
+    margin-top: 20px;
+    .CustomMenuItem {
+      color: white !important ;
+      font-size: 17px;
+      margin: 25px;
+      border-radius: 5px;
+      &:hover {
+        background-color: white;
+        color: #299cb4 !important;
+      }
+     
+      span > a {
+        color: white;
+        &:hover {
+          color: #299cb4 !important;
+        }
+        &:focus {
+            color: #299cb4 !important;
+        }
+      }
+    }
+  }
+}

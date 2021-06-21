@@ -11,6 +11,12 @@ import Home from './page/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
 import './App.scss';
+import './App.css';
+import LayoutApp from './Layout/index';
+import "antd/dist/antd.css";
+import Dashboard from './views/Dashboard';
+import PsychologyTest from './views/PsychologyTest';
+import Appointement from './views/Appointement';
 
 function App() {
   return (
@@ -27,6 +33,16 @@ function App() {
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
+            <Route render={(props)=>(
+            //Layout and sidebar can now receive props
+                <LayoutApp {...props}>
+                    <Switch>
+                        <Route path="/" exact component={Dashboard}/>
+                        <Route path="/psychology-test" component={PsychologyTest}/>
+                        <Route path="/appointement" component={Appointement}/>
+                    </Switch>
+                </LayoutApp>
+            )}/>
           </Switch>
         </BrowserRouter>
       </Content>
