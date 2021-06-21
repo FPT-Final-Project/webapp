@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
 .form{
-    font-family: 'Roboto', sans-serif;
+    font-family: "Nunito",'sans-serif';
     box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);	
     width: 450px;
     margin: 0 auto;

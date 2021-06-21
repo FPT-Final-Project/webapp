@@ -255,7 +255,7 @@
   /* =========== */
   .header {
     height: 550px;
-    background: url(./assets/BackgroundTablet.svg);
+    background: url(../assets/BackgroundTablet.svg);
     background-size: 100%;
     background-repeat: no-repeat;
   }
@@ -356,7 +356,7 @@
     margin-left: 150px;
     height: 400px;
     width: 100%;
-    background: url(./assets/doctor1.svg);
+    background: url(../assets/doctor1.svg);
     background-size: 60%;
     background-repeat: no-repeat;
   }
@@ -365,7 +365,7 @@
     margin-left: 150px;
     height: 400px;
     width: 100%;
-    background: url(./assets/doctor2.svg);
+    background: url(../assets/doctor2.svg);
     background-size: 60%;
     background-repeat: no-repeat;
   }
@@ -374,7 +374,7 @@
     margin-left: 150px;
     height: 420px;
     width: 100%;
-    background: url(./assets/doctor3.svg);
+    background: url(../assets/doctor3.svg);
     background-size: 60%;
     background-repeat: no-repeat;
   }
@@ -434,7 +434,7 @@
   .header {
     margin-top: 30px;
     height: 300px;
-    background: url(./assets/BackGround-Mobile.svg);
+    background: url(../assets/BackGround-Mobile.svg);
     background-size: 111%;
     background-repeat: no-repeat;
   }

@@ -8,7 +8,7 @@ const { Title } = Typography;
 const Reset = () => {
     let history = useHistory();
     const functionDirect = () => {
-        history.push('/signup');
+        history.push('/register');
     }
     return (
         <>
@@ -21,7 +21,7 @@ const Reset = () => {
                         <Row className="row" justify="space-around">
                             <Space align="center">
                                 Don't have an account yet?
-                                <Button onClick={functionDirect} >Signup</Button>
+                                <Button onClick={functionDirect} >Register</Button>
                             </Space>
                         </Row>
 

@@ -6,7 +6,7 @@ import QuestionAnswer from './components/QuestionAnswer/QuestionAnswer';
 import ResultQuiz from './components/Quiz/ResultQuiz';
 import SelectQuiz from './components/Quiz/SelectQuiz';
 import Reset from './components/ResetPassword/NewPass';
-import Signup from './components/Signup/Signup';
+import Register from './components/Register/Register';
 import Home from './page/Home';
 import ResetPass from './components/ResetPassword/Reset';
 // import './App.css';
@@ -14,12 +14,12 @@ import ResetPass from './components/ResetPassword/Reset';
 function App() {
   return (
     <div className="App">
-      <Home/>
       <Content>
         <BrowserRouter>
           <Switch>
+            <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
+            <Route path="/register" exact component={Register} />
             <Route path="/reset" exact component={Reset} />
             <Route path="/resetPass" exact component={ResetPass} />
             <Route path="/selectQuiz" exact component={SelectQuiz} />

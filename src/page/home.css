@@ -55,7 +55,7 @@ html {
   position: relative;
   width: 100%;
   height: 760px;
-  background: url(./assets/BackgroundHeader.svg);
+  background: url(../assets/BackgroundHeader.svg);
   background-repeat: no-repeat;
   background-size: 98%;
   background-origin: padding-box;
@@ -300,7 +300,7 @@ html {
 .banner__text .slider__image {
   width: 50%;
   height: 750px;
-  background: url(./assets/DoctorWoman.svg);
+  background: url(../assets/DoctorWoman.svg);
   background-repeat: no-repeat;
   background-size: 70%;
   position: absolute;
@@ -404,7 +404,7 @@ html {
   width: 45%;
   height: 680px;
   /* background: url(../styles/assets/DoctorCursor.svg); */
-  background: url(./assets/DoctorCursor.svg);
+  background: url(../assets/DoctorCursor.svg);
   background-repeat: no-repeat;
   background-size: 90%;
 }
@@ -483,7 +483,7 @@ html {
 }
 .main__connect-list .image {
   height: 500px;
-  background: url(./assets/Connect.svg);
+  background: url(../assets/Connect.svg);
   background-size: 100%;
   background-repeat: no-repeat;
   position: relative;
@@ -569,7 +569,7 @@ html {
 
 .main__quiz {
   background-color: yellowgreen;
-  background: url(./assets/BackgroundQuiz.svg);
+  background: url(../assets/BackgroundQuiz.svg);
   background-size: 100%;
   background-repeat: no-repeat;
   width: 100%;
@@ -691,21 +691,21 @@ html {
 .main__team-item .doctor__image1 {
   height: 370px;
   width: 100%;
-  background: url(./assets/doctor1.svg);
+  background: url(../assets/doctor1.svg);
   background-size: 105%;
   background-repeat: no-repeat;
 }
 .main__team-item .doctor__image2 {
   height: 370px;
   width: 100%;
-  background: url(./assets/doctor2.svg);
+  background: url(../assets/doctor2.svg);
   background-size: 105%;
   background-repeat: no-repeat;
 }
 .main__team-item .doctor__image3 {
   height: 370px;
   width: 100%;
-  background: url(./assets/doctor3.svg);
+  background: url(../assets/doctor3.svg);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -714,7 +714,7 @@ html {
 .main__chart {
   height: 400px;
   width: 100%;
-  background: url(./assets/VintageHorizal.svg);
+  background: url(../assets/VintageHorizal.svg);
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -762,7 +762,7 @@ html {
 .main__customer-image {
   width: 50%;
   height: 650px;
-  background: url(./assets/Customer.svg);
+  background: url(../assets/Customer.svg);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -773,7 +773,7 @@ html {
   height: 400px;
   padding-top: 160px;
      /* background: url(./assets/BackgroundFooter.svg); */
-  background: url(./assets/BackgroundFooter.svg);
+  background: url(../assets/BackgroundFooter.svg);
   background-size: 100%;
   background-repeat: no-repeat;
 }

@@ -1,7 +1,7 @@
 import Header from '../Header';
 import { Row, Form, Input, Button, Divider, Typography, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import './Signup.css';
+import './Register.css';
 import  gg from'../../assets/gg.png';
 const { Title } = Typography;
 
