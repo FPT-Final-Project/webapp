@@ -11,19 +11,8 @@ import Home from './page/Home';
 function App() {
   return (
     <div className="App">
-      <Router>
-            <Route render={(props)=>(
-            //Layout and sidebar can now receive props
-                <LayoutApp {...props}>
-                    <Switch>
-                        <Route path="/" exact component={Dashboard}/>
-                        <Route path="/psychology-test" component={PsychologyTest}/>
-                        <Route path="/appointement" component={Appointement}/>
-                    </Switch>
-                </LayoutApp>
-            )}/>
-        </Router>
-      <Home/>
+        <LayoutApp />
+        <Home/>
     </div>
   );
 }
