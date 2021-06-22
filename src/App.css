@@ -1,3 +1,4 @@
+@import '~antd/dist/antd.css';
 .App {
   text-align: center;
 }
@@ -36,3 +37,32 @@
     transform: rotate(360deg);
   }
 }
+
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+	display: flex;
+}
+
+.mainLeft {
+  /* background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%); */
+  background: linear-gradient(90deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+	flex: 0.8;
+  width: 70%;
+	display: flex;
+	flex-direction: column;
+}
+.mainRight {
+	padding: 22px 18px;
+  width: 30%;
+	flex: 0.2;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-left: 1px solid #2d3d42;
+}
+
+
