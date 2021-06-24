@@ -1,0 +1,74 @@
+.mainRight {
+	padding: 22px 18px;
+  width: 30%;
+	flex: 0.2;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-left: 1px solid #2d3d42;
+}
+.mainHeader {
+	text-align: center;
+	background-color: #ededed;
+	border-radius: 5px;
+}
+
+.mainHeader h4 {
+	font-weight: 700;
+	color: #4a4a4a;
+	font-size: 13px;
+}
+
+.mainChatWindow {
+	flex-grow: 1;
+	overflow-y: auto;
+}
+
+.messagesContainer {
+	list-style: none;
+}
+
+.message {
+	font-size: 13px;
+	display: block;
+}
+
+.messageHeader {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	font-size: 11px;
+	color: #8086ac;
+}
+
+.messageReceiver {
+	color: #309af6;
+}
+
+.mainMessageContainer {
+	display: flex;
+}
+.inputchatMessage{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.buttonSendMessageContainer{
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	/* width: 10%; */
+}
+
+.buttonSendMessageContainer:hover{
+	background-color: #ededed;
+	border-radius: 5px;
+}
+.buttonSendMessage{
+	vertical-align: middle;
+}
+#chatMessage {
+	width: 110%;
+	border: none;
+	font-size: 15px;
+}
