@@ -21,7 +21,6 @@ const Video = () => {
   const [secondsdisplay, setSecondsdisplay] = useState('00');
   const [minutesdisplay, setMinutesdisplay] = useState('00');
   const [hoursdisplay, setHoursdisplay] = useState('00');
-  //Baro hook
   const [count, setCount] = useState(1);
   const [startcall, setStartcall] = useState(false);
   const [startanswer, setStartanswer] = useState(false);

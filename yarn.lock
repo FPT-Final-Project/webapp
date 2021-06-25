@@ -12098,11 +12098,14 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+<<<<<<< HEAD
 value-equal@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz"
   integrity sha512-NOJ6JZCAWr0zlxZt+xqCHNTEKOsrks2HQd4MqhP1qy4z1SkbEP467eNx6TgDKXMvUOb+OENfJCZwM+16n7fRfw==
 
+=======
+>>>>>>> 1d00bb8e1a0dc341cc80f96c7ad094885c72ff10
 vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"

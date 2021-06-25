@@ -9,11 +9,11 @@ import Chatbox from './components/videochat/chat/Chatbox';
 function App() {
   return (
     <div className="App">
-      {/* <Home/> */}
-      <div className="main">
+      <Home/>
+      {/* <div className="main">
         <Video />
         <Chatbox />
-      </div>
+      </div> */}
     </div>
   );
 }
