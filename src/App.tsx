@@ -9,6 +9,7 @@ import Reset from './components/ResetPassword/NewPass';
 import Register from './components/Register/Register';
 import Home from './page/Home';
 import ResetPass from './components/ResetPassword/Reset';
+import Feedback from './components/Feedback/Feedback';
 // import './App.css';
 
 function App() {
@@ -18,13 +19,14 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/reset" exact component={Reset} />
-            <Route path="/resetPass" exact component={ResetPass} />
-            <Route path="/selectQuiz" exact component={SelectQuiz} />
-            <Route path="/resultQuiz" exact component={ResultQuiz} />
-            <Route path="/questionAnswer" exact component={QuestionAnswer} />
+            <Route path="/login"  component={Login} />
+            <Route path="/register"  component={Register} />
+            <Route path="/reset"  component={Reset} />
+            <Route path="/resetPass"  component={ResetPass} />
+            <Route path="/selectQuiz"  component={SelectQuiz} />
+            <Route path="/resultQuiz"  component={ResultQuiz} />
+            <Route path="/questionAnswer"  component={QuestionAnswer} />
+            <Route path="/feedback"  component={Feedback}/>
 
           </Switch>
         </BrowserRouter>

@@ -42,9 +42,9 @@ body{
 }
 .reply {
     box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
-    padding: 2px 5px 5px;
+    padding: 2px 4px 3px 3px;
     border-radius: 8px;
-    border: 1px solid black;
+    border: 1px solid rgb(168, 154, 154);
 
 }
 .reply span{
