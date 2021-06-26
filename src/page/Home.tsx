@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import './home.css'
+import './home.css';
 import './homeResponsive.css'
 
 
@@ -29,9 +29,9 @@ const Home = () => {
                     <li className="nav__item"><a href="#contact">About Us</a></li>
                   </ul>
                   <ul className="nav__login">
-                    <li className="nav__item-login login"><a href="/#">Login</a></li>
+                    <li className="nav__item-login login"><a href="/login">Login</a></li>
                     <li className="nav__item-login register">
-                      <a href="/#">Register</a>
+                      <a href="/register">Register</a>
                     </li>
                   </ul>
                   {/* =====Mobile====== */}

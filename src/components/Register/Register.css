@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
+
+.form{
+    font-family: "Nunito","sans-serif";
+    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);	
+    width: 450px;
+    margin: 0 auto;
+    padding: 1.5%;
+    border-radius: 3%;
+}
+.title{
+    text-align: center;
+}
+.formSignin{
+    width: 80%;
+}
+.row{
+    padding-bottom: 5%;
+}
+
+
+#bt{
+    background: rgb(22,114,134);
+    background: linear-gradient(90deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+    color: snow;
+    border-radius: 8px;
+    width: 100%;
+}
+.gg{
+    height: 40px;
+    width: 40px;
+    border: solid 2px rgb(233, 230, 230);
+    padding: 3px;
+    border-radius: 8px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
