@@ -17,6 +17,8 @@ import "antd/dist/antd.css";
 import Dashboard from './views/Dashboard';
 import PsychologyTest from './views/PsychologyTest';
 import Appointement from './views/Appointement';
+import "antd/dist/antd.css";
+
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
-            <Route render={(props)=>(
+            <Route path="/dashboard" render={(props)=>(
             //Layout and sidebar can now receive props
                 <LayoutApp {...props}>
                     <Switch>
@@ -46,6 +48,8 @@ function App() {
           </Switch>
         </BrowserRouter>
       </Content>
+        <LayoutApp />
+        <Home/>
     </div>
   );
 }
