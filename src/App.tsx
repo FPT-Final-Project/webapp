@@ -10,7 +10,7 @@ import Register from './components/Register/Register';
 import Home from './page/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
-// import './App.css';
+import './App.scss';
 
 function App() {
   return (
@@ -27,7 +27,6 @@ function App() {
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
-
           </Switch>
         </BrowserRouter>
       </Content>

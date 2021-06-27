@@ -1,9 +1,10 @@
 import score from '../../assets/Score.svg';
-import './ResultQuiz.css';
+import './ResultQuiz.scss';
+
 function ResultQuiz() {
     return (
         <>
-            <div className="resultForm">
+            <div className="result-form">
                 <div className="result">
                     <h2>Psychological self-test for depression</h2>
                     <h3>Do you to get depressed? Take the depression test.</h3>
@@ -28,4 +29,5 @@ function ResultQuiz() {
         </>
     );
 }
+
 export default ResultQuiz;
