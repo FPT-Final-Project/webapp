@@ -1,26 +1,27 @@
 import Header from '../Header';
 import { Row, Form, Input, Button, Divider, Typography, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import './Register.css';
+import '../../shared/css/form.scss';
 import  gg from'../../assets/gg.png';
 const { Title } = Typography;
 
-const Signup = () => {
+const SignUp = () => {
     let history = useHistory();
     const functionDirect = () => {
-        history.push('/login');
+      history.push('/login');
     }
+
     return (
         <>
             <Header />
             <div className="form">
                 <Title className="title" level={2} >Create Your Account</Title>
                 <Row justify="center" >
-                    <Form className="formSignin" layout="vertical" >
+                    <Form className="formSignIn" layout="vertical" >
                         <Row className="row" justify="space-around">
                             <Space align="center">
                                 Already have an account ?
-                                <Button onClick={functionDirect} >Login</Button>
+                                <Button className="btn-login" onClick={functionDirect} >Login</Button>
                             </Space>
                         </Row>
 
@@ -59,7 +60,7 @@ const Signup = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button id="bt" htmlType="submit">
+                            <Button className="btn-submit" id="bt" htmlType="submit">
                                 REGISTER
                             </Button>
                         </Form.Item>
@@ -82,4 +83,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default SignUp;

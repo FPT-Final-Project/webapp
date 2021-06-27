@@ -7,10 +7,13 @@ import ResultQuiz from './components/Quiz/ResultQuiz';
 import SelectQuiz from './components/Quiz/SelectQuiz';
 import Reset from './components/ResetPassword/NewPass';
 import Register from './components/Register/Register';
-import Home from './page/Home';
+import Home from './pages/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
-// import './App.css';
+import './App.scss';
+import LayoutApp from './layouts/index';
+import "antd/dist/antd.css";
+
 
 function App() {
   return (
@@ -27,7 +30,7 @@ function App() {
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
-
+            <Route path="/dashboard" component={LayoutApp}/>
           </Switch>
         </BrowserRouter>
       </Content>

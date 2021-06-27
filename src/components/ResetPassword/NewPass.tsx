@@ -2,7 +2,7 @@ import Header from '../Header';
 import { Row, Form, Button, Typography, Space, Input } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons';
-import './NewPass.css';
+import '../../shared/css/form.scss';
 
 const { Title } = Typography;
 const Reset = () => {
@@ -13,11 +13,10 @@ const Reset = () => {
     return (
         <>
             <Header />
-            <div className="form ">
+            <div className="form">
                 <Title className="title" level={2} >Reset Password</Title>
                 <Row justify="center">
-
-                    <Form className="formReset" layout="vertical">
+                    <Form layout="vertical">
                         <Row className="row" justify="space-around">
                             <Space align="center">
                                 Don't have an account yet?
@@ -38,7 +37,7 @@ const Reset = () => {
                             <Input.Password style={{ borderRadius: '8px' }} />
                         </Form.Item>
                         <Form.Item>
-                            <Button id="bt" htmlType="submit" >
+                            <Button className="btn-submit" htmlType="submit" >
                                 RESET PASSWORD
                             </Button>
                         </Form.Item>
@@ -50,7 +49,6 @@ const Reset = () => {
                                 </Link>
                             </Space>
                         </Row>
-
                     </Form>
                 </Row>
             </div>

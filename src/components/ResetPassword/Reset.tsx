@@ -2,22 +2,23 @@ import Header from '../Header';
 import { Row, Form, Button, Typography, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons';
-import './Reset.css';
+import '../../shared/css/form.scss';
 
 const { Title } = Typography;
 const Reset = () => {
     let history = useHistory();
     const functionDirect = () => {
-        history.push('/register');
+      history.push('/register');
     }
+
     return (
         <>
             <Header />
-            <div className="form ">
+            <div className="form">
                 <Title className="title" level={2} >Reset Password</Title>
                 <Row justify="center">
 
-                    <Form className="formReset" layout="vertical">
+                    <Form layout="vertical">
                         <Row className="row" justify="space-around">
                             <Space align="center">
                                 Don't have an account yet?
