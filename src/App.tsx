@@ -7,16 +7,11 @@ import ResultQuiz from './components/Quiz/ResultQuiz';
 import SelectQuiz from './components/Quiz/SelectQuiz';
 import Reset from './components/ResetPassword/NewPass';
 import Register from './components/Register/Register';
-import Home from './page/Home';
+import Home from './pages/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
 import './App.scss';
-import './App.css';
-import LayoutApp from './Layout/index';
-import "antd/dist/antd.css";
-import Dashboard from './views/Dashboard';
-import PsychologyTest from './views/PsychologyTest';
-import Appointement from './views/Appointement';
+import LayoutApp from './layouts/index';
 import "antd/dist/antd.css";
 
 
@@ -35,21 +30,10 @@ function App() {
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
-            <Route path="/dashboard" render={(props)=>(
-            //Layout and sidebar can now receive props
-                <LayoutApp {...props}>
-                    <Switch>
-                        <Route path="/" exact component={Dashboard}/>
-                        <Route path="/psychology-test" component={PsychologyTest}/>
-                        <Route path="/appointement" component={Appointement}/>
-                    </Switch>
-                </LayoutApp>
-            )}/>
+            <Route path="/dashboard" component={LayoutApp}/>
           </Switch>
         </BrowserRouter>
       </Content>
-        <LayoutApp />
-        <Home/>
     </div>
   );
 }

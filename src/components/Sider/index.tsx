@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./style.scss";
+import { routes } from "../../routes";
 
 const { Sider } = Layout;
 const { Item } = Menu;
@@ -14,6 +15,41 @@ const { Item } = Menu;
 interface Props {
   collapsed?: boolean;
 }
+
+const MenuItem = (path: string, index: number) => {
+  let icon, name;
+
+  switch (path) {
+    case '/dashboard': {
+      icon = <UserOutlined/>;
+      name = "Dashboard";
+      break;
+    }
+
+    case '/dashboard/appointment': {
+      icon = <VideoCameraOutlined />;
+      name = "Appointment";
+      break;
+    }
+
+    case '/dashboard/psychology-test': {
+      icon = <UploadOutlined />;
+      name = "Psychology Test";
+      break;
+    }
+  };
+
+  return (
+    <Item
+      key={index}
+      className="custom-menu-item"
+      icon={icon}
+      >
+      <Link to={path}>{name}</Link>
+    </Item>
+  )
+}
+
 const SiderMenu: React.FC<Props> = ({ collapsed }) => {
   return (
     <>
@@ -22,25 +58,13 @@ const SiderMenu: React.FC<Props> = ({ collapsed }) => {
         collapsible
         collapsed={collapsed}
         width="250"
-        className="CustomSider"
+        className="custom-sider"
       >
-        <div className="Logo">
+        <div className="sider-logo">
           <p>PsyCare.</p>
         </div>
-        <Menu  className="CustomMenu">
-          <Item key="1" className="CustomMenuItem" icon={<UserOutlined/>}>
-            <Link to="/">Dashboard </Link>
-          </Item>
-          <Item
-            key="2"
-            className="CustomMenuItem"
-            icon={<VideoCameraOutlined />}
-          >
-            <Link to="/appointement">Appointement </Link>
-          </Item>
-          <Item key="3" className="CustomMenuItem" icon={<UploadOutlined />}>
-            <Link to="/psychology-test">Psychology Test </Link>
-          </Item>
+        <Menu className="custom-menu">
+          {routes.map((route, index) => MenuItem(route.path, index))}
         </Menu>
       </Sider>
     </>

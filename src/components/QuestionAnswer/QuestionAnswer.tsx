@@ -115,7 +115,7 @@ function QuestionAnswer() {
         <div className="comment">
           <Comment
             actions={actions}
-            author={<a>Ngo Hoang The Duy</a>}
+            author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={
               <Avatar
                   src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/135023651_2810508699162789_1949264985954215586_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=LJsBQm8EMRYAX9KVZ73&_nc_ht=scontent-sin6-2.xx&oh=71d7f0cae84767dd07edbd8620263dd0&oe=60D53DEC"

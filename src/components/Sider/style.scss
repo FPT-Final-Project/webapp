@@ -1,33 +1,35 @@
-.CustomSider {
+.custom-sider {
   background-color: #299cb4 !important;
-  .Logo {
+
+  .sider-logo {
     text-align: center;
     height: 32px;
     margin: 16px;
     color: white;
     font-size: 25px;
   }
-  .CustomMenu {
+
+  .custom-menu {
     background-color: #299cb4;
     border: none;
     margin-top: 20px;
-    .CustomMenuItem {
+
+    .custom-menu-item {
       color: white !important ;
       font-size: 17px;
       margin: 25px;
       border-radius: 5px;
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: white;
         color: #299cb4 !important;
       }
      
       span > a {
         color: white;
-        &:hover {
-          color: #299cb4 !important;
-        }
+        &:hover,
         &:focus {
-            color: #299cb4 !important;
+          color: #299cb4 !important;
         }
       }
     }

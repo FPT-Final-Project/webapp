@@ -6,14 +6,16 @@ import { useState } from "react";
 import SiderMenu from "../components/Sider";
 import HeaderLayout from "../components/Header";
 import { routes } from "../routes";
-const {Content } = Layout;
+const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const toggle = () => {
     setCollapsed(!collapsed);
   };
+
   return (
     <Router>
       <Layout className="layout-main">
@@ -22,14 +24,14 @@ const LayoutApp: React.FC = () => {
           <HeaderLayout />
           <Content>
             <Switch>
-              {routes.map((route, index) => (
-                <Route
+              {routes.map((route, index) =>
+                (<Route
                   key={index}
                   path={route.path}
                   exact={route.exact}
-                  children={route.component }
-                />
-              ))}
+                  children={route.component}
+                />)
+              )}
             </Switch>
           </Content>
         </Layout>
