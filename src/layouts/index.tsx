@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./style.scss";
 import { useState } from "react";
 import SiderMenu from "../components/Sider";
-import HeaderLayout from "../components/Header";
 import { routes } from "../routes";
+import HeaderLayout from "../components/Header/index";
 const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
