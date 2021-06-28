@@ -1,4 +1,4 @@
-import {PageHeader} from 'antd';
+import { PageHeader } from 'antd';
 
 function Header(){
   return (
