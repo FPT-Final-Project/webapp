@@ -10,6 +10,7 @@ import Register from './components/Register/Register';
 import Home from './pages/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
+import VideoChat from './components/VideoChat/VideoChat';
 import './App.scss';
 import LayoutApp from './layouts/index';
 import "antd/dist/antd.css";
@@ -31,6 +32,7 @@ function App() {
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
             <Route path="/dashboard" component={LayoutApp}/>
+            <Route path="/videochat" component={VideoChat}/>
           </Switch>
         </BrowserRouter>
       </Content>

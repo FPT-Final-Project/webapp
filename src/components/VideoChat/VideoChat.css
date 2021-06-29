@@ -1,0 +1,244 @@
+@import '~antd/dist/antd.css';
+
+.main {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+  }
+
+/*======================VideoCall===================*/
+*{
+	box-sizing: content-box;
+}
+
+[class^=ant-], [class*= ant-], [class^=ant-] *, [class*= ant-] *, [class^=ant-] *::before, [class*= ant-] *::before, [class^=ant-] *::after, [class*= ant-] *::after{
+	box-sizing: content-box;
+}
+
+.mainLeft {
+	background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+	/* background: linear-gradient(90deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%); */
+	flex: 0.8;
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+}
+
+.mainVideosTop{
+	display: flex;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-top: 15px;
+	text-align: center;
+	color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 25px;
+}
+#remoteId{
+	color: black;
+}
+.idcaller{
+	margin: auto;
+	font-size: small
+}
+#btnCall{
+	color: black;
+}
+#userCall{
+	padding-left: 10px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.userScreenvideotag {
+	width: 25%;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 50px;
+	border-radius: 5px;
+	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
+	border: 2px solid white;
+}
+
+.partnerScreenvideotag {
+	width: 50%;
+	margin-top: auto;
+	margin-right: 50px;
+	margin-bottom: auto;
+	border-radius: 5px;
+	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
+	border: 2px solid white; 
+}
+.userImage{
+	border-style: solid;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+
+.mainVideos {
+  	flex-flow: row wrap;
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+}
+.mainVideosBottom{
+	margin-bottom: 20px;
+}
+.partnerName{
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.duration{
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.mainControls {
+	padding: 3px 5px 0px 5px;
+	display: flex;
+	color: #ffffff;
+	justify-content: center;
+}
+
+.mainControlsBlock {
+	display: flex;
+	padding-bottom: 8px;
+	align-items: center;
+}
+
+.mainControlsButton {
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: red;
+}
+
+.mainControlsButton svg {
+	font-size: 19px;
+	margin-bottom: 4px;
+}
+
+.mainControlsButton:hover {
+	background-color: #d92a2a;
+}
+
+.mainControlsButtonEndMeeting {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin: auto 15px auto 15px;
+	font-size: 12px;
+	height: 70px;
+	width: 70px;
+	border-radius: 50%;
+}
+
+.endMeeting {
+	height: 70px;
+	width: 70px;
+	background-color: white;
+	border-radius: 50%; 
+}
+.endMeeting img{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 15px;
+}
+.endMeeting:hover {
+	/* border: 1px solid; */
+	filter: blur(1.5px);
+	/* background-color: #299cb4; */
+}
+
+.unmute,
+.stop {
+	color: #cc3b33;
+}
+
+/*==============================ChatBox=========================*/
+.mainRight {
+	padding: 22px 18px;
+  	width: 30%;
+	flex: 0.2;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-left: 1px solid #2d3d42;
+}
+.mainHeader {
+	text-align: center;
+	background-color: #ededed;
+	border-radius: 5px;
+}
+
+.mainHeader h4 {
+	font-weight: 700;
+	color: #4a4a4a;
+	font-size: 13px;
+}
+
+.mainChatWindow {
+	flex-grow: 1;
+	overflow-y: auto;
+}
+
+.messagesContainer {
+	list-style: none;
+}
+
+.message {
+	font-size: 13px;
+	display: block;
+}
+
+.messageHeader {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	font-size: 11px;
+	color: #8086ac;
+}
+
+.messageReceiver {
+	color: #309af6;
+}
+
+.mainMessageContainer {
+	display: flex;
+}
+.inputchatMessage{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.buttonSendMessageContainer{
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	/* width: 10%; */
+}
+
+.buttonSendMessageContainer:hover{
+	background-color: #ededed;
+	border-radius: 5px;
+}
+.buttonSendMessage{
+	vertical-align: middle;
+}
+#chatMessage {
+	width: 110%;
+	border: none;
+	font-size: 15px;
+}
