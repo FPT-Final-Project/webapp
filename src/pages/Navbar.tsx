@@ -29,7 +29,7 @@ const Navbar = () => {
     window.addEventListener('scroll', changeBackgroundNav)
     
     return (
-        <div className={navbar ? 'wrap__nav activeNav' : 'wrap__nav'}>
+        <motion.div className={navbar ? 'wrap__nav activeNav' : 'wrap__nav'} initial={{opacity: 0}} animate={{ opacity: 1}} transition={{ duration: 1 }}>
             <nav className="header__nav">
                 <div className="wrap__logo">
                     <a href="#home" onClick={handleClickNav} className="logo"></a>
@@ -84,7 +84,7 @@ const Navbar = () => {
                 </div>
                 
             </nav>
-        </div>
+        </motion.div>
     )
 }
 

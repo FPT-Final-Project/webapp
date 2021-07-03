@@ -10,21 +10,21 @@ const Footer = () => {
                 </div>
                 <div className="footer__list">
                   <div className="footer__list--item">
-                    <h3>Site Map</h3>
+                    <div className="footer__title">Site Map</div>
                     <a href="/#home">Home</a>
                     <a href="/#services">Services</a>
                     <a href="/#test">Psy-Test</a>
                     <a href="/#contact">About Us</a>
                   </div>
                   <div className="footer__list--item">
-                    <h3>Services</h3>
+                    <div className="footer__title">Services</div>
                     <a href="/#">Our Services</a>
                     <a href="/#">Get In Touch</a>
                     <a href="/#">Advertising</a>
                     <a href="/#">Term of Services</a>
                   </div>
                   <div className="footer__list--item">
-                    <h3>Contact</h3>
+                    <div className="footer__title">Contact</div>
                     <a href="/#">Our Services</a> 
                     <a href="/#">Get In Touch</a>
                     <a href="/#">Advertising</a>

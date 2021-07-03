@@ -19,7 +19,7 @@ const MainConnect = () => {
         <div className="connect">
             <div className="grid">
               <div className="connect__text">
-                <h1>We connect you with top psychologists online</h1>
+                <div className="connect__text--big">We connect you with top psychologists online</div>
               </div>
               <div className="connect__list">
                 <motion.div className="connect__list__item image"
@@ -39,7 +39,8 @@ const MainConnect = () => {
                 }}
                 ></motion.div>
                 <div className="connect__list__item" >
-                  <motion.h2
+                  <motion.div
+                  className="connect__list__item--text"
                    ref={contentRef}
                    animate={animation}
                    initial='hidden'
@@ -47,7 +48,7 @@ const MainConnect = () => {
                        visible: {
                            opacity: 1,
                            x: 0,
-                           transition: { duration: 0.4, linear: 2},
+                           transition: { duration: 0.8, linear: 2},
                        },
                        hidden: {
                            opacity: 0,
@@ -56,7 +57,7 @@ const MainConnect = () => {
                    }}
                   >
                     These are the things you expect from us when consulting online
-                  </motion.h2>
+                  </motion.div>
                   <motion.div className="connect__list__item--sub"
                    ref={contentRef}
                    animate={animation}
@@ -73,10 +74,10 @@ const MainConnect = () => {
                        },
                    }}
                   >
-                    <h3>From the comfort of your own home</h3>
-                    <p>
+                    <div className="connect__title">From the comfort of your own home</div>
+                    <div className="connect__description">
                       Psychological counselling online via video, audio &amp; text chat
-                    </p>
+                    </div>
                   </motion.div>
                   <motion.div className="connect__list__item--sub"
                    ref={contentRef}
@@ -94,8 +95,8 @@ const MainConnect = () => {
                        },
                    }}
                   >
-                    <h3>No waiting</h3>
-                    <p>Initial contact with your psychologist within 24h</p>
+                    <div className="connect__title">No waiting</div>
+                    <div className="connect__description">Initial contact with your psychologist within 24h</div>
                   </motion.div>
                   <motion.div className="connect__list__item--sub"
                    ref={contentRef}
@@ -113,10 +114,10 @@ const MainConnect = () => {
                        },
                    }}
                   >
-                    <h3>From the comfort of your own home</h3>
-                    <p>
+                    <div className="connect__title">From the comfort of your own home</div>
+                    <div className="connect__description">
                       Psychological counselling online via video, audio &amp; text chat
-                    </p>
+                    </div>
                   </motion.div>
                 </div>
               </div>

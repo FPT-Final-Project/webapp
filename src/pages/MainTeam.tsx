@@ -20,11 +20,11 @@ const MainTeam = () => {
         <div className="team">
             <div className="grid">
               <div className="team__text">
-                <h1>The Best Team Doctor For You</h1>
-                <p>
+                <div className="team__text--big" >The Best Team Doctor For You</div>
+                <div className="team__text--small">
                   Psychology is the study of mind and behavior. It encompasses the
                   biological influences, social pressures.
-                </p>
+                </div>
               </div>
               <div className="team__list">
               <motion.div  ref={contentRef} animate={animation} initial='hidden'

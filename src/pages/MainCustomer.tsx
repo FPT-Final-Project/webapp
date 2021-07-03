@@ -36,14 +36,14 @@ const MainCustomer = () => {
                         y: -100,
                     },
                 }}>
-                  <h1>Our Customer Say something about us</h1>
-                  <p className="description">
+                  <div className="customer__big">Our Customer Say something about us</div>
+                  <div className="customer__description">
                     ‘’ Psychology is the study of mind and behavior. It encompasses
                     the biological influences, social pressures. It encompasses the
                     biological influences, social pressures. ’’ <br />
                     <br />
                     <span>John Husband</span>
-                  </p>
+                  </div>
                 </motion.div>
                 <motion.div className="customer__wrap--image" 
                 ref={contentRef}

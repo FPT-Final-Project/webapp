@@ -25,11 +25,11 @@ const MainServices = () => {
         <div id="service" className="services">
             <div className="grid">
               <div className="services__text">
-                <h1>The Best Services For You</h1>
-                <p>
+                <div className="services__text--big">The Best Services For You</div>
+                <div className="services__text--small">
                   Psychology is the study of mind and behavior. It encompasses the
                   biological influences, social pressures.
-                </p>
+                </div>
               </div>
               <motion.div className="services__list" 
               ref={contentRef}
@@ -74,8 +74,6 @@ const MainServices = () => {
                   <div className="services__list__item--sub">
                     <div className="wrapIcon">
                       <div className="icon">
-                        {/* <img src="./assets/test.svg" /> */}
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 512 512" x="0px" y="0px" width={512} height={512} xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlSpace="preserve" version="1.1"> */}
                         <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 512 512" x="0px" y="0px" width={512} height={512}  xmlSpace="preserve" version="1.1">
                           <g id="XMLID_1203_">
                             <g id="XMLID_1116_">
@@ -136,7 +134,6 @@ const MainServices = () => {
                   <div className="services__list__item--sub">
                     <div className="wrapIcon">
                       <div className="icon">
-                        {/* <img src="./assets/medical.svg" alt="" /> */}
                         <svg id="Layer_1" enableBackground="new 0 0 512 512" height={512} viewBox="0 0 512 512" width={512} xmlns="http://www.w3.org/2000/svg">
                           <g>
                             <path d="m464 32h-40v-8c0-13.233-10.766-24-24-24s-24 10.767-24 24v8h-240v-8c0-13.233-10.766-24-24-24s-24 10.767-24 24v8h-40c-17.645 0-32 14.355-32 32v336c0 17.645 14.355 32 32 32h112c4.418 0 8-3.582 8-8s-3.582-8-8-8h-112c-8.822 0-16-7.178-16-16v-272h448v272c0 8.822-7.178 16-16 16h-88c-4.418 0-8 3.582-8 8s3.582 8 8 8h88c17.645 0 32-14.355 32-32 0-14.641 0-319.924 0-336 0-17.645-14.355-32-32-32zm-72-8c0-4.411 3.589-8 8-8s8 3.589 8 8v40c0 4.411-3.589 8-8 8s-8-3.589-8-8zm-288 0c0-4.411 3.589-8 8-8s8 3.589 8 8v40c0 4.411-3.589 8-8 8s-8-3.589-8-8zm-72 88v-48c0-8.822 7.178-16 16-16h40v16c0 13.233 10.766 24 24 24s24-10.767 24-24v-16h240v16c0 13.233 10.766 24 24 24s24-10.767 24-24v-16h40c8.822 0 16 7.178 16 16v48z" />

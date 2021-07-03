@@ -18,11 +18,11 @@ const MainQuiz = () => {
         <div id="test" className="quiz">
             <div className="grid">
               <div className="quiz__text">
-                <h1>The most common topics in psychological test?</h1>
-                <p>
+                <div className="quiz__text--big">The most common topics in psychological test?</div>
+                <div className="quiz__text--small">
                   Discover the world of psychological test. Find out how online
                   counselling can help you with your topic.
-                </p>
+                </div>
               </div>
               <motion.div className="quiz__list"
                 ref={contenRef} 
@@ -42,31 +42,31 @@ const MainQuiz = () => {
               >
                 <div className="quiz__list--item" >
                   <div className="wrap-quiz">
-                    <h3>Psychological self-test for depression</h3>
-                    <p>
+                    <div className="wrap-quiz__big">Psychological self-test for depression</div>
+                    <div className="wrap-quiz__small">
                       Discover the world of psychological counselling. Find out how
                       online counselling can help you with your topic.
-                    </p>
+                    </div>
                     <a href="/#">Let's test now</a>
                   </div>
                 </div>
                 <div className="quiz__list--item" >
                   <div className="wrap-quiz">
-                    <h3>Psychological self-test for anxious</h3>
-                    <p>
+                    <div className="wrap-quiz__big">Psychological self-test for anxious</div>
+                    <div className="wrap-quiz__small">
                       Discover the world of psychological counselling. Find out how
                       online counselling can help you with your topic.
-                    </p>
+                    </div>
                     <a href="/#">Let's test now</a>
                   </div>
                 </div>
                 <div className="quiz__list--item" >
                   <div className="wrap-quiz">
-                    <h3>Psychological self-test for stress</h3>
-                    <p>
+                    <div className="wrap-quiz__big">Psychological self-test for stress</div>
+                    <div className="wrap-quiz__small">
                       Discover the world of psychological counselling. Find out how
                       online counselling can help you with your topic.
-                    </p>
+                    </div>
                     <a href="/#">Let's test now</a>
                     
                   </div>

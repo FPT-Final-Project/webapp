@@ -6,16 +6,16 @@ const MainChart = () => {
             <div className="grid">
               <div className="chart__list">
                 <div className="chart__list--item">
-                  <p>+10</p>
-                  <h3>Professional doctors from different countries</h3>
+                  <div className="chart__number">+10</div>
+                  <div className="chart__description">Professional doctors from different countries</div>
                 </div>
                 <div className="chart__list--item">
-                <p>+120</p>
-                <h3>Appointments are rated quality</h3>
+                <div className="chart__number">+120</div>
+                <div className="chart__description">Appointments are rated quality</div>
                 </div>                  
                 <div className="chart__list--item">
-                  <p>90%</p>
-                  <h3>Customers are satisfied with the service</h3>
+                  <div className="chart__number">90%</div>
+                  <div className="chart__description">Customers are satisfied with the service</div>
                 </div>
               </div>
             </div>
