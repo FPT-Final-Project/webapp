@@ -1,21 +1,21 @@
-import Dashboard from "./views/Dashboard";
-import Appointment from "./views/Appointment";
-import PsychologyTest from "./views/PsychologyTest"
+import Dashboard from './views/Dashboard';
+import Appointment from './views/Appointment';
+import PsychologyTest from './views/PsychologyTest';
 
 export const routes = [
   {
-    path: "/dashboard",
+    path: '/dashboard',
     exact: true,
     component: Dashboard,
   },
   {
-    path: "/dashboard/appointment",
+    path: '/dashboard/appointment',
     exact: true,
-    component:  Appointment,
+    component: Appointment,
   },
   {
-    path: "/dashboard/psychology-test",
+    path: '/dashboard/psychology-test',
     exact: true,
-    component:  PsychologyTest
-  }
+    component: PsychologyTest,
+  },
 ];

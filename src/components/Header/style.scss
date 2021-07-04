@@ -1,37 +1,41 @@
-.Header{ 
+.Header {
   background-color: white !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .LeftContainer{
+
+  .LeftContainer {
     width: 50%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    .SearchInput{
+    .SearchInput {
       width: 50%;
       border-radius: 5px !important;
     }
   }
-  .RightContainer{
+
+  .RightContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .IconSection {
       margin-right: 30px;
     }
+
     .ButtonAvatar {
       padding: 0;
-      border:  1px solid black;
+      border: 1px solid black;
       cursor: pointer;
       height: 44px;
       width: 44px;
       border-radius: 50%;
-      background-image: url(../../assets/programmer.png) ;
+      background-image: url(../../assets/programmer.png);
       background-size: 44px 44px;
     }
-   
+
   }
 }

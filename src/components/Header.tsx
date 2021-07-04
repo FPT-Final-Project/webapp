@@ -1,8 +1,8 @@
 import { PageHeader } from 'antd';
 
-function Header(){
+function Header() {
   return (
-    <PageHeader title="PSY CARE."/>
+    <PageHeader title="PSY CARE." />
   );
 }
 

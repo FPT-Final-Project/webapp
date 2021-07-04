@@ -13,18 +13,20 @@
     margin: auto;
     padding: 20px;
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       font-weight: bold;
     }
   }
-  
+
   .dotted {
     margin: auto;
     width: 30%;
     border-bottom: 5px solid #299CB4;
     padding: 5px;
   }
-  
+
   .concludeResult {
     border: 2px solid #299CB4;
     width: 70%;
@@ -33,11 +35,11 @@
     border-radius: 15px;
     background: #e1f7fc;
   }
-  
+
   .scoreSvg {
     position: relative;
   }
-  
+
   .scoreQuiz {
     position: absolute;
     top: 41%;

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Layout, Input } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import React, { useState } from 'react';
+import { Layout, Input } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
-import "./style.scss";
-import { useDate } from "../../hooks/useDate";
-import AvatarModal from "../Modals/Avatar";
+import './style.scss';
+import { useDate } from '../../hooks/useDate';
+import AvatarModal from '../Modals/Avatar';
+
 const { Header } = Layout;
 const { Search } = Input;
 
@@ -32,7 +33,7 @@ export default function HeaderLayout() {
             icon={faEnvelope}
             size="2x"
           />
-          <button onClick={showModal} className="ButtonAvatar"/>
+          <button onClick={showModal} className="ButtonAvatar" />
         </div>
         <AvatarModal
           visible={isModalVisible}
