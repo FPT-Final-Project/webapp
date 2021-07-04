@@ -1,9 +1,9 @@
 import {
   Card, Row, Col, Button,
 } from 'antd';
-import './SelectQuiz.scss';
+import './style.scss';
 
-function SelectQuiz() {
+export function SelectQuiz() {
   return (
     <>
       <div className="quiz-form">
@@ -18,7 +18,10 @@ function SelectQuiz() {
                   <h2>Psychological self-test-for depression</h2>
                 </Col>
                 <Col span={24}>
-                  <p>Please choose the answer that suits your situation to check if you are likely to be depressed according to the quiz</p>
+                  <p>
+                    Please choose the answer that suits your situation
+                    to check if you are likely to be depressed according to the quiz
+                  </p>
                 </Col>
                 <Button className="btn-submit" htmlType="submit">
                   Test now
@@ -36,7 +39,10 @@ function SelectQuiz() {
                   <h2>Psychological self-test-for depression</h2>
                 </Col>
                 <Col span={24}>
-                  <p>Please choose the answer that suits your situation to check if you are likely to be depressed according to the quiz</p>
+                  <p>
+                    Please choose the answer that suits your situation
+                    to check if you are likely to be depressed according to the quiz
+                  </p>
                 </Col>
                 <Button className="btn-submit" htmlType="submit">
                   Test now
@@ -55,7 +61,10 @@ function SelectQuiz() {
                   <h2>Psychological self-test-for depression</h2>
                 </Col>
                 <Col span={24}>
-                  <p>Please choose the answer that suits your situation to check if you are likely to be depressed according to the quiz</p>
+                  <p>
+                    Please choose the answer that suits your situation
+                    to check if you are likely to be depressed according to the quiz
+                  </p>
                 </Col>
                 <Button className="btn-submit" htmlType="submit">
                   Test now
@@ -63,11 +72,8 @@ function SelectQuiz() {
               </Row>
             </Card>
           </Col>
-
         </Row>
-
       </div>
     </>
   );
 }
-export default SelectQuiz;

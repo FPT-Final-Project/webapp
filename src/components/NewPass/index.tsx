@@ -1,9 +1,8 @@
 import {
-  Row, Form, Button, Typography, Space,
+  Row, Form, Button, Typography, Space, Input, PageHeader,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons';
-import Header from '../Header';
 import '../../shared/css/form.scss';
 
 const { Title } = Typography;
@@ -12,14 +11,12 @@ const Reset = () => {
   const functionDirect = () => {
     history.push('/register');
   };
-
   return (
     <>
-      <Header />
+      <PageHeader title="PSY CARE." />
       <div className="form">
         <Title className="title" level={2}>Reset Password</Title>
         <Row justify="center">
-
           <Form layout="vertical">
             <Row className="row" justify="space-around">
               <Space align="center">
@@ -28,10 +25,23 @@ const Reset = () => {
               </Space>
             </Row>
 
-            <p>
-              An email with a instrution how to resset your password has been sent to
-              <span> datle31399@gmail.com</span>
-            </p>
+            <p>Please enter your registered email address to reset your password </p>
+
+            <Form.Item
+              label="New Password"
+              name="password"
+              rules={[{
+                required: true,
+                message: 'Please input new password!',
+              }]}
+            >
+              <Input.Password style={{ borderRadius: '8px' }} />
+            </Form.Item>
+            <Form.Item>
+              <Button className="btn-submit" htmlType="submit">
+                RESET PASSWORD
+              </Button>
+            </Form.Item>
 
             <Row justify="space-around">
               <Space>
@@ -42,11 +52,11 @@ const Reset = () => {
                 </Link>
               </Space>
             </Row>
-
           </Form>
         </Row>
       </div>
     </>
   );
 };
+
 export default Reset;

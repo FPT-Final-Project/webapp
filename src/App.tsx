@@ -1,18 +1,18 @@
 // import React from 'react';
 import { Content } from 'antd/lib/layout/layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './components/Login/Login';
-import QuestionAnswer from './components/QuestionAnswer/QuestionAnswer';
-import ResultQuiz from './components/Quiz/ResultQuiz';
-import SelectQuiz from './components/Quiz/SelectQuiz';
-import Reset from './components/ResetPassword/NewPass';
+import Login from './components/Login';
+import QuestionAnswer from './components/QuestionAnswer';
+import Reset from './components/NewPass';
 import Register from './components/Register/Register';
-import Home from './pages/Home';
-import ResetPass from './components/ResetPassword/Reset';
-import Feedback from './components/Feedback/Feedback';
+import ResetPass from './components/ResetPassword';
+import Feedback from './components/Feedback';
 // import './App.scss';
-import LayoutApp from './layouts/index';
+import LayoutApp from './pages/app/index';
+import Home from './pages/landing-page/Home';
 import 'antd/dist/antd.css';
+import { ResultQuiz } from './components/Quiz/Result';
+import { SelectQuiz } from './components/Quiz/SelectQuiz';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
             <Route path="/resultQuiz" component={ResultQuiz} />
             <Route path="/questionAnswer" component={QuestionAnswer} />
             <Route path="/feedback" component={Feedback} />
-            <Route path="/dashboard" component={LayoutApp} />
+            <Route path="/app" component={LayoutApp} />
           </Switch>
         </BrowserRouter>
       </Content>

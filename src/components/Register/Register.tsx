@@ -1,8 +1,7 @@
 import {
-  Row, Form, Input, Button, Divider, Typography, Space,
+  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import Header from '../Header';
 import '../../shared/css/form.scss';
 import gg from '../../assets/gg.png';
 
@@ -16,7 +15,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Header />
+      <PageHeader title="PSY CARE." />
       <div className="form">
         <Title className="title" level={2}>Create Your Account</Title>
         <Row justify="center">

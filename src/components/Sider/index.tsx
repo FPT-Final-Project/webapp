@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import './style.scss';
-import { routes } from '../../routes';
+import { routes } from '../../pages/app/routes';
 
 const { Sider } = Layout;
 const { Item } = Menu;
@@ -27,13 +27,13 @@ const MenuItem = (path: string, index: number) => {
       break;
     }
 
-    case '/dashboard/appointment': {
+    case '/appointment': {
       icon = <VideoCameraOutlined />;
       name = 'Appointment';
       break;
     }
 
-    case '/dashboard/psychology-test': {
+    case '/psychology-test': {
       icon = <UploadOutlined />;
       name = 'Psychology Test';
       break;
