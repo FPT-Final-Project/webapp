@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Layout, Input } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -21,19 +21,19 @@ export default function HeaderLayout() {
   };
   return (
     <>
-      <Header className="Header">
-        <div className="LeftContainer">
-          <Search className="SearchInput" placeholder="Search..." />
-          <div>{`${date}, ${time}`}</div>
+      <Header className="app-header">
+        <div className="left-nar-bar">
+          <Search className="nar-search" placeholder="Search..." />
+          <div className="date-time-nar-bar">{`${date}, ${time}`}</div>
         </div>
-        <div className="RightContainer">
+        <div className="right-nar-bar">
           <FontAwesomeIcon className="IconSection" icon={faBell} size="2x" />
           <FontAwesomeIcon
             className="IconSection"
             icon={faEnvelope}
             size="2x"
           />
-          <button onClick={showModal} className="ButtonAvatar" />
+          <button onClick={showModal} className="avatar-profile" />
         </div>
         <AvatarModal
           visible={isModalVisible}

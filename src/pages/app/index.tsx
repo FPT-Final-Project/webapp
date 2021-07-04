@@ -3,15 +3,14 @@ import { Layout } from 'antd';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './style.scss';
 
-import SiderMenu from '../components/Sider';
-import { routes } from '../routes';
-import HeaderLayout from '../components/Header/index';
+import SiderMenu from '../../components/Sider';
+import { routes } from './routes';
+import HeaderLayout from '../../components/Header/index';
 
 const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-
   const toggle = () => {
     setCollapsed(!collapsed);
   };
@@ -28,7 +27,6 @@ const LayoutApp: React.FC = () => {
                 <Route
                   key={index}
                   path={route.path}
-                  exact={route.exact}
                 >
                   {route.component}
                 </Route>

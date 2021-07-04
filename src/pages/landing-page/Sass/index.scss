@@ -18,6 +18,7 @@ html {
   background-color: #0891ac;
   color: #fff;
 }
+
 .grid {
   margin: 0 auto;
   width: 90%;
@@ -27,7 +28,7 @@ html {
   position: relative;
   width: 100%;
   height: 760px;
-  background: url(../../assets/BackgroundHeader.svg);
+  background: url(../../../assets/BackgroundHeader.svg);
   background-repeat: no-repeat;
   background-size: 98%;
   background-origin: padding-box;
@@ -55,7 +56,7 @@ html {
 
   @include tablet768 {
     height: 550px;
-    background: url(../../assets/BackgroundTablet.svg);
+    background: url(../../../assets/BackgroundTablet.svg);
     background-size: 100%;
     background-repeat: no-repeat;
   }
@@ -63,10 +64,11 @@ html {
   @include tablet501 {
     margin-top: 30px;
     height: 300px;
-    background: url(../../assets/BackGround-Mobile.svg);
+    background: url(../../../assets/BackGround-Mobile.svg);
     background-size: 111%;
     background-repeat: no-repeat;
   }
+
   .grid {
     margin: 0 auto;
     width: 90%;
@@ -104,6 +106,7 @@ html {
       @include tablet501 {
         padding-top: 35px;
       }
+
       &--upper {
         text-transform: uppercase;
         color: #e2e2e2;
@@ -208,12 +211,10 @@ html {
       }
 
       a {
-        background-image: linear-gradient(
-          to right,
-          #e1f3f7 0%,
-          #fff 51%,
-          #e1f3f7 100%
-        );
+        background-image: linear-gradient(to right,
+            #e1f3f7 0%,
+            #fff 51%,
+            #e1f3f7 100%);
         padding: 16px 20px;
         border-radius: 25px;
         text-decoration: none;
@@ -256,7 +257,7 @@ html {
     &__slider {
       width: 50%;
       height: 750px;
-      background: url(../../assets/DoctorWoman.svg);
+      background: url(../../../assets/DoctorWoman.svg);
       background-repeat: no-repeat;
       background-size: 70%;
       position: absolute;
@@ -327,6 +328,7 @@ html {
     @include tablet768 {
       height: 50px;
     }
+
     .wrap__logo {
       width: 25%;
       height: 70px;
@@ -344,14 +346,14 @@ html {
         height: 70px;
 
         // padding-top: 5px;
-        background: url(../../assets/LogoPsyCare.svg);
+        background: url(../../../assets/LogoPsyCare.svg);
         background-repeat: no-repeat;
         background-size: 120px;
         object-fit: cover;
 
         @include tablet768 {
           margin-top: 50px;
-          background: url(../../assets/MobileLogo.svg);
+          background: url(../../../assets/MobileLogo.svg);
           background-repeat: no-repeat;
           background-size: 100px;
         }
@@ -369,6 +371,7 @@ html {
       @include tablet768 {
         display: none;
       }
+
       .nav__item {
         display: inline-block;
         margin: 0 20px;
@@ -408,6 +411,7 @@ html {
       @include tablet768 {
         display: none;
       }
+
       .nav__item-login {
         margin: 0 5px;
 
@@ -420,12 +424,10 @@ html {
 
       .login {
         a {
-          background-image: linear-gradient(
-            to right,
-            #e1f3f7 0%,
-            #fff 51%,
-            #e1f3f7 100%
-          );
+          background-image: linear-gradient(to right,
+              #e1f3f7 0%,
+              #fff 51%,
+              #e1f3f7 100%);
           border: 1.75px solid var(--text-color-blue);
           padding: 8px 32px;
           font-weight: 600;
@@ -452,12 +454,10 @@ html {
 
       .register {
         a {
-          background-image: linear-gradient(
-            to right,
-            #12d3fc 0%,
-            #177a8e 51%,
-            #12d3fc 100%
-          );
+          background-image: linear-gradient(to right,
+              #12d3fc 0%,
+              #177a8e 51%,
+              #12d3fc 100%);
           padding: 10px 25px;
           text-align: center;
           font-weight: 600;
@@ -498,6 +498,7 @@ html {
         right: 0px;
         top: 10px;
       }
+
       span {
         font-size: 24px;
         font-weight: bold;
@@ -507,11 +508,13 @@ html {
 
     .nav__input {
       display: none;
+
       &:checked {
-        ~ .nav__overlay {
+        ~.nav__overlay {
           display: block;
         }
-        ~ .nav__mobile {
+
+        ~.nav__mobile {
           transform: translate(0%);
           opacity: 1;
 
@@ -552,6 +555,7 @@ html {
         display: block;
         background-color: #fff;
       }
+
       .exit {
         height: 50px;
         display: flex;
@@ -605,12 +609,11 @@ html {
             background-color: #62949e3f;
           }
         }
+
         .ham_register {
-          background: linear-gradient(
-            84.45deg,
-            #167286 -5.05%,
-            rgba(5, 197, 239, 0.703125) 120.32%
-          );
+          background: linear-gradient(84.45deg,
+              #167286 -5.05%,
+              rgba(5, 197, 239, 0.703125) 120.32%);
           text-align: center;
           margin-top: 15px;
           border-radius: 8px;
@@ -618,6 +621,7 @@ html {
           &:hover {
             opacity: 0.8;
           }
+
           a {
             color: #fff;
           }
@@ -650,6 +654,7 @@ html {
   @include tablet501 {
     height: 750px;
   }
+
   .grid {
     margin: 0 auto;
     width: 90%;
@@ -688,6 +693,7 @@ html {
       @include tablet501 {
         font-size: 25px;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -739,7 +745,7 @@ html {
     .services__image {
       width: 45%;
       height: 500px;
-      background: url(../../assets/DoctorCursor.svg);
+      background: url(../../../assets/DoctorCursor.svg);
       background-repeat: no-repeat;
       background-size: 90%;
 
@@ -774,6 +780,7 @@ html {
       @include tablet768 {
         width: 100%;
       }
+
       &--sub {
         position: relative;
         transition: 0.2s ease-in-out;
@@ -781,6 +788,7 @@ html {
         @include tablet1024 {
           text-align: center;
         }
+
         .wrapIcon {
           transition: 0.4s;
 
@@ -799,6 +807,7 @@ html {
           @include tablet1024 {
             margin: 0 auto;
           }
+
           .icon {
             width: 60px;
             height: 60px;
@@ -838,6 +847,7 @@ html {
           @include tablet501 {
             font-size: 15px;
           }
+
           &::before {
             content: "";
             position: absolute;
@@ -884,6 +894,7 @@ html {
   @include tablet501 {
     height: 850px;
   }
+
   &__text {
     text-align: center;
     margin: 20px auto;
@@ -915,7 +926,7 @@ html {
 
     .image {
       height: 500px;
-      background: url(../../assets/ConnectLeft.svg);
+      background: url(../../../assets/ConnectLeft.svg);
       background-size: 100%;
       background-repeat: no-repeat;
       position: relative;
@@ -924,6 +935,7 @@ html {
         width: 60%;
         height: 400px;
       }
+
       @include tablet501 {
         height: 300px;
       }
@@ -939,6 +951,7 @@ html {
       @include tablet768 {
         width: 100%;
       }
+
       &--text {
         color: #8f8f8f;
         font-size: 22px;
@@ -1001,7 +1014,7 @@ html {
 
 .quiz {
   background-color: yellowgreen;
-  background: url(../../assets/BackgroundQuiz.svg);
+  background: url(../../../assets/BackgroundQuiz.svg);
   background-size: 110%;
   background-repeat: no-repeat;
   width: 100%;
@@ -1061,6 +1074,7 @@ html {
         font-size: 25px;
         line-height: 25px;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -1121,6 +1135,7 @@ html {
       width: 100%;
       justify-content: center;
     }
+
     &--item {
       max-width: 300px;
       height: 250px;
@@ -1152,6 +1167,7 @@ html {
         @include tablet1024 {
           height: 250px;
         }
+
         &__big {
           margin-bottom: 12px;
           font-size: 18px;
@@ -1206,6 +1222,7 @@ html {
   @include desktop1151 {
     height: 1150px;
   }
+
   @include tablet768 {
     height: 1650px;
   }
@@ -1223,6 +1240,7 @@ html {
     @include tablet768 {
       width: 100%;
     }
+
     &--big {
       font-size: 42px;
       font-weight: bold;
@@ -1230,6 +1248,7 @@ html {
       @include tablet501 {
         font-size: 25px;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -1272,9 +1291,11 @@ html {
     &--item {
       max-width: 340px;
       margin-top: 20px;
+
       @include desktop1151 {
         max-width: 400px;
       }
+
       .doctor__title {
         font-size: 22px;
         font-weight: bold;
@@ -1293,13 +1314,14 @@ html {
       .doctor__image1 {
         height: 350px;
         width: 100%;
-        background: url(../../assets/doctor1.svg);
+        background: url(../../../assets/doctor1.svg);
         background-size: 105%;
         background-repeat: no-repeat;
 
         @include desktop1282 {
           height: 340px;
         }
+
         @include desktop1260 {
           height: 340px;
         }
@@ -1320,7 +1342,7 @@ html {
       .doctor__image2 {
         height: 350px;
         width: 100%;
-        background: url(../../assets/doctor2.svg);
+        background: url(../../../assets/doctor2.svg);
         background-size: 105%;
         background-repeat: no-repeat;
 
@@ -1348,7 +1370,7 @@ html {
       .doctor__image3 {
         height: 350px;
         width: 100%;
-        background: url(../../assets/doctor3.svg);
+        background: url(../../../assets/doctor3.svg);
         background-size: 100%;
         background-repeat: no-repeat;
 
@@ -1381,7 +1403,7 @@ html {
 .chart {
   height: 350px;
   width: 100%;
-  background: url(../../assets/VintageHorizal.svg);
+  background: url(../../../assets/VintageHorizal.svg);
   background-repeat: no-repeat;
   background-size: 100%;
   display: flex;
@@ -1417,6 +1439,7 @@ html {
   @include tablet501 {
     background-size: 240%;
   }
+
   &__list {
     width: 90%;
     height: 400px;
@@ -1489,6 +1512,7 @@ html {
   @include tablet501 {
     height: 700px;
   }
+
   &__wrap {
     display: flex;
     flex-wrap: wrap-reverse;
@@ -1501,6 +1525,7 @@ html {
         width: 100%;
         margin-top: 50px;
       }
+
       .customer__big {
         font-weight: bold;
         font-size: 55px;
@@ -1520,6 +1545,7 @@ html {
           font-size: 30px;
           line-height: 30px;
         }
+
         &::before {
           content: "";
           position: absolute;
@@ -1544,7 +1570,7 @@ html {
         color: #8f8f8f;
         margin-top: 50px;
 
-        > span {
+        >span {
           font-weight: bold;
           font-size: 20px;
           color: #000;
@@ -1556,7 +1582,7 @@ html {
     &--image {
       width: 50%;
       height: 570px;
-      background: url(../../assets/Customer.svg);
+      background: url(../../../assets/Customer.svg);
       background-size: 100%;
       background-repeat: no-repeat;
       margin-top: 10px;
@@ -1567,6 +1593,7 @@ html {
         background-size: 100%;
         height: 410px;
       }
+
       @include tablet501 {
         height: 280px;
       }
@@ -1581,7 +1608,7 @@ html {
   width: 100%;
   height: 400px;
   padding-top: 160px;
-  background: url(../../assets/BackgroundFooter.svg);
+  background: url(../../../assets/BackgroundFooter.svg);
   background-size: 100%;
   background-repeat: no-repeat;
 
@@ -1617,6 +1644,7 @@ html {
     @include tablet501 {
       flex-wrap: wrap;
     }
+
     &--logo {
       width: 40%;
 
@@ -1627,7 +1655,7 @@ html {
       .logoup {
         width: 200px;
         height: 200px;
-        background: url(../../assets/LogoPsyCare.svg);
+        background: url(../../../assets/LogoPsyCare.svg);
         background-size: 200px;
         background-repeat: no-repeat;
         display: block;

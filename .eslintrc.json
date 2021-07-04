@@ -1,31 +1,35 @@
 {
   "env": {
-      "browser": true,
-      "es2021": true
+    "browser": true,
+    "es2021": true
   },
   "extends": [
-      "plugin:react/recommended",
-      "airbnb"
+    "plugin:react/recommended",
+    "airbnb"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      },
-      "ecmaVersion": 12,
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
   "plugins": [
-      "react",
-      "@typescript-eslint"
+    "react",
+    "@typescript-eslint"
   ],
   "rules": {
-    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "indent": ["warn", 2, {
+      "SwitchCase": 1
+    }],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "error",
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
-    "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+    "react/jsx-filename-extension": ["warn", {
+      "extensions": [".tsx"]
+    }],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -36,9 +40,16 @@
     ],
     "no-unused-vars": [
       "warn",
-      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false, "argsIgnorePattern": "^_" }
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_"
+      }
     ],
-    "max-len": ["warn", { "code": 120 }],
+    "max-len": ["warn", {
+      "code": 120
+    }],
     "react/no-unescaped-entities": "warn",
     "react/button-has-type": "off",
     "react/no-array-index-key": "warn",

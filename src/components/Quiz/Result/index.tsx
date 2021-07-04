@@ -1,7 +1,7 @@
-import score from '../../assets/Score.svg';
-import './ResultQuiz.scss';
+import score from '../../../assets/Score.svg';
+import './style.scss';
 
-function ResultQuiz() {
+export function ResultQuiz() {
   return (
     <>
       <div className="result-form">
@@ -30,5 +30,3 @@ function ResultQuiz() {
     </>
   );
 }
-
-export default ResultQuiz;

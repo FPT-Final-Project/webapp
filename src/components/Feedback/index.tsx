@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Feedback.scss';
+import './style.scss';
 import { Rate, Input, Button } from 'antd';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];

@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import { DownOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import './QuestionAnswer.scss';
+import './style.scss';
 import reply from '../../assets/reply.svg';
 
 const { TextArea } = Input;
