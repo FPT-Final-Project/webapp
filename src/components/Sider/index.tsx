@@ -38,6 +38,10 @@ const MenuItem = (path: string, index: number) => {
       name = 'Psychology Test';
       break;
     }
+    case '/aaaaa': {
+      name = 'question answer';
+      break;
+    }
     default: {
       break;
     }
