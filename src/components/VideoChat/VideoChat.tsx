@@ -1,95 +1,156 @@
 import './VideoChat.css';
-import { VideoCameraOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import { useState, useRef, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import { WechatOutlined,SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
-import io from "socket.io-client"
 import doctor from "../../assets/doctor.png"
 import phone from "../../assets/phone.png"
+import { io } from "socket.io-client";
+import {useLocation} from 'react-router-dom';
+import mute from "../../assets/mute.svg"
+import unmute from "../../assets/unmute.svg"
+import video from "../../assets/video.svg"
+import novideo from "../../assets/no-video.svg"
+// import ScrollToBottom from 'react-scroll-to-bottom';
+import Message from './Message/Message';
+import './Message/Message.css';
 
-// const socket = io('http://localhost:5000')
-const peer = new Peer()
+
+const socket = io("http://localhost:5000");
 
 const VideoChat = () => {
+  const peer = new Peer();
+  const peers: any = {};
+  const location = useLocation<any>();
 
-  const myVideo = useRef() as React.MutableRefObject<HTMLVideoElement>;
-  const partnerVideo = useRef() as React.MutableRefObject<HTMLVideoElement>;
+  const myVideo = useRef<any>()
+  const partnerVideo = useRef<any>()
+  const [statusPartner, setStatusPartner] = useState(false)
+  const [textCameraUser, setTextCameraUser] = useState<any>();
+  const [textCameraPartner, setTextCameraPartner] = useState<any>();
+
   const [username, setUsername] = useState('');
   const [partnername, setPartnername] = useState('');
   const [secondsdisplay, setSecondsdisplay] = useState('00');
   const [minutesdisplay, setMinutesdisplay] = useState('00');
   const [hoursdisplay, setHoursdisplay] = useState('00');
-  const [count, setCount] = useState(1);
-  const [startcall, setStartcall] = useState(false);
-  const [startanswer, setStartanswer] = useState(false);
-  const [inputpeer, setInputpeer] = useState("");
-  const [mypeer, setMypeer] = useState('');
-
+  const [audiobutton, setAudiobutton] = useState<any>();
+  const [videobutton, setVideobutton] = useState<any>();
   const {
     seconds,
     minutes,
     hours,
     start
   } = useStopwatch({ autoStart: false });
+  const [message, setMessage] = useState<any>();
+  const [messages, setMessages] = useState<any[]>([])
+  const messageEl = useRef<any>()
+  const [name, setName] = useState<any>();
 
-  function callPeer() {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-      myVideo.current.srcObject = stream;
-      const call = peer.call(inputpeer, stream);
-      call.on('stream', (stream) => {
-        partnerVideo.current.srcObject = stream;
-        setStartcall(true)
-      })
-    }, (err) => {
-      console.error('Failed to get local stream', err);
-    });
+  const muteUnmute = () =>{
+    let enabled = myVideo.current.srcObject.getAudioTracks()[0].enabled
+    if (enabled) {
+      setAudiobutton(unmute)
+      myVideo.current.srcObject.getAudioTracks()[0].enabled = false
+    } else {
+      setAudiobutton(mute)
+      myVideo.current.srcObject.getAudioTracks()[0].enabled = true
+    }
   }
-
-
+  const videoNovideo = () => {
+    let enabled = myVideo.current.srcObject.getVideoTracks()[0].enabled
+    if (enabled) {
+      setVideobutton(video)
+      myVideo.current.srcObject.getVideoTracks()[0].enabled = false
+    } else {
+      setVideobutton(novideo)
+      myVideo.current.srcObject.getVideoTracks()[0].enabled = true
+    }
+    setTextCameraUser(!textCameraUser)
+  }
+  const sendMessage = (e : React.KeyboardEvent<HTMLInputElement>|React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
+    e.preventDefault();
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
+  }
+  
   useEffect(() => {
+    
+      navigator.mediaDevices.getUserMedia({ video: true, audio: true,}).then((stream) => {
+        myVideo.current.srcObject = stream;
+        if(!location.state.propertyaudio){
+          myVideo.current.srcObject.getAudioTracks()[0].enabled = false
+          setAudiobutton(unmute)
+        }else{
+          setAudiobutton(mute)
+        }
+        if(!location.state.propertyvideo){
+          myVideo.current.srcObject.getVideoTracks()[0].enabled = false
+          setTextCameraUser(true)
+          setVideobutton(video)
+        }else{
+          setVideobutton(novideo)
+        }
 
-    if (startanswer === false) {
-      peer.on('call', (call) => {
-        setStartanswer(true)
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-          call.answer(stream);
-          myVideo.current.srcObject = stream;
+        socket.on('user-connected', (userId) => {
+          connectToNewUser(userId, stream)
+          alert(userId+' connected')
+        })
+
+        peer.on('call', (call) => {
+          call.answer(stream)
           call.on('stream', (stream) => {
             partnerVideo.current.srcObject = stream;
+            setStatusPartner(true)
           });
-        }, (err) => {
-          console.error('Failed to get local stream', err);
-        });
+        })
       })
-    }
+      
+      peer.on('open', (id) => {
+        socket.emit('join-room', '123456', id)
+        setName(id)
+      })
 
-    if (count === 1) {
-      peer.on('open', id => {
-        setMypeer(id)
+      const connectToNewUser = (userId: string, stream: MediaStream) => {
+        const call = peer.call(userId, stream)
+        call.on('stream', (stream) => {
+          partnerVideo.current.srcObject = stream;
+          setStatusPartner(true)
+        });
+        call.on('close', () => {
+          partnerVideo.current.srcObject = null
+          setStatusPartner(false)
+        })
+        peers[userId] = call
+      }
+
+      socket.on('user-disconnected', (userId) => {
+        partnerVideo.current.srcObject = null
+        setStatusPartner(false)
+        if (peers[userId]) peers[userId].close()
       })
-      setCount(count + 1)
-    }
 
     // ==========================================
-    if (startanswer === true || startcall === true) {
-      start()
-      if (String(seconds).length === 1) {
-        setSecondsdisplay('0' + String(seconds))
-      } else {
-        setSecondsdisplay(String(seconds))
-      }
-      if (String(minutes).length === 1) {
-        setMinutesdisplay('0' + String(minutes))
-      } else {
-        setMinutesdisplay(String(minutes))
-      }
-      if (String(hours).length === 1) {
-        setHoursdisplay('0' + String(hours))
-      } else {
-        setHoursdisplay(String(hours))
-      }
-    }
+    // if (startanswer === true || startcall === true) {
+    //   start()
+    //   if (String(seconds).length === 1) {
+    //     setSecondsdisplay('0' + String(seconds))
+    //   } else {
+    //     setSecondsdisplay(String(seconds))
+    //   }
+    //   if (String(minutes).length === 1) {
+    //     setMinutesdisplay('0' + String(minutes))
+    //   } else {
+    //     setMinutesdisplay(String(minutes))
+    //   }
+    //   if (String(hours).length === 1) {
+    //     setHoursdisplay('0' + String(hours))
+    //   } else {
+    //     setHoursdisplay(String(hours))
+    //   }
+    // }
+
 
     async function callBackendAPI() {
       const response = await fetch('/info_videocall');
@@ -102,9 +163,24 @@ const VideoChat = () => {
       return res;
     };
 
-    // callBackendAPI()
+    callBackendAPI()
 
-  })
+  },[])
+
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener('DOMNodeInserted', (event: { currentTarget: any; }) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+      });
+    }
+    // messageEl.current.scrollIntoView({top: target.scrollHeight, behavior: "smooth" })
+    socket.on('message', (message,name) => {
+      setMessages(messages => [ ...messages, message ]);
+    });
+  }, []);
+  
   // ===============================
 
   return (
@@ -117,35 +193,39 @@ const VideoChat = () => {
             <img src={doctor} alt="User ava" />
           </span>
           <div id="userCall">{username}</div>
-          <div className="idcaller">ID Call: {mypeer}</div>
-          <input type="text" id="remoteId" placeholder="Remote ID" onChange={e => setInputpeer(e.target.value)} />
-          <button id="btnCall" onClick={callPeer}>Call</button>
         </div>
         <div className="mainVideos">
-            <video className="partnerScreenvideotag" muted ref={partnerVideo} autoPlay />
-            <video className="userScreenvideotag" muted ref={myVideo} autoPlay />
+          <div className="partnerScreenvideo">
+            {!statusPartner? <div className="statusPartner">Waiting for a partner to connect ...</div> : ""}
+            {/* {textCameraPartner? <div className="textCameraPartner">{partnername}</div> : ""} */}
+            <video className="partnerScreenvideotag" ref={partnerVideo} autoPlay />
+          </div>
+          <div className="userScreenvideo">
+            {textCameraUser? <div className="textCameraUser">{username}</div> : ""}
+            <video className="userScreenvideotag" ref={myVideo} autoPlay />
+          </div>
         </div>
         <div className="mainVideosBottom">
           <div className="partnerName" id="partnerName">{partnername}</div>
-          <div className="duration">
-            <span>{hoursdisplay}</span>:<span>{minutesdisplay}</span>:<span>{secondsdisplay}</span>
-          </div>
+          {/* <div className="duration"> */}
+          {/* <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span> */}
+            {/* <span>{hoursdisplay}</span>:<span>{minutesdisplay}</span>:<span>{secondsdisplay}</span> */}
+          {/* </div> */}
         </div>
         <div className="mainControls">
           <div className="mainControlsBlock">
-            {/* onClick="muteUnmute()" */}
-            <div className="mainControlsButton mainMuteButton">
-              <AudioMutedOutlined />
+            <div className="mainControlsButton mainMuteButton" onClick={muteUnmute}>
+              <img className="mute-image" src={audiobutton} alt="mute" />
             </div>
-
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <img src={phone} alt="Hand Up" />
+                <a href="/videochat">
+                  <img src={phone} alt="Hand Up" />
+                </a>
               </span>
             </div>
-            {/* onClick="playStop()" */}
-            <div className="mainControlsButton mainVideoButton">
-              <VideoCameraOutlined />
+            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo}>
+              <img className="video-image" src={videobutton} alt="video" />
             </div>
           </div>
         </div>
@@ -158,20 +238,26 @@ const VideoChat = () => {
           <h3>Chat Box</h3>
         </div>
         <div className="mainChatWindow">
-          <ul className="messagesContainer">
-          </ul>
+          <div className="messages" ref={messageEl}>
+            {messages.map((message, i) => <div key={i}><Message message={message} userId={name}/></div>)}
+          </div>
         </div>
         <div className="mainMessageContainer">
-          <div className="inputchatMessage">
-            <input id="chatMessage" type="text" placeholder="Type message here..."/>
-          </div>
-          <div className="buttonSendMessageContainer">
-            <span className="buttonSendMessage">
-            <SendOutlined >
-          <button id="sendMessage"></button>
-          </SendOutlined>
-            </span>
-          </div>
+          <form className="formChatMesseage">
+            <div className="inputchatMessage">
+              <input
+                id="chatMessage"
+                type="text"
+                placeholder="Type message here..."
+                value={message || ''}
+                onChange={({ target: { value } }) => setMessage(value)}
+                onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
+              />
+              <span className="buttonSendMessage">
+              <button id="sendMessage" onClick={e => sendMessage(e)}><SendOutlined /></button>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
 

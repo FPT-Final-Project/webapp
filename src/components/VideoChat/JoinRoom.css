@@ -1,0 +1,60 @@
+.mainJoinRoom {
+    justify-content: center;
+	position:absolute;
+    display: block;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+}
+.mainTop{
+    margin-top: 30px;
+	text-align: center;
+	color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 25px;
+}
+.mainBottom{
+    margin-top: 30px;
+	text-align: center;
+	color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 25px;
+}
+
+
+.userScreenBlock{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: 640px;
+    height: 480px;
+    border-radius: 5px;
+	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
+	border: 2px solid white;
+
+}
+.joinButton{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#btnJoinroom{
+    color: black;
+    width: 100%;
+}
+.mute-image,.video-image {
+    width: 25px;
+    height: 20px;
+}
+.CameraOff{
+    position: absolute;
+    top: 220px;
+    left: 220px;
+    background-color: #202124;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}

@@ -20,7 +20,6 @@
 
 .mainLeft {
 	background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
-	/* background: linear-gradient(90deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%); */
 	flex: 0.8;
 	width: 70%;
 	display: flex;
@@ -53,7 +52,8 @@
 	margin-bottom: auto;
 }
 
-.userScreenvideotag {
+.userScreenvideo{
+	position: relative;
 	width: 25%;
 	margin-top: auto;
 	margin-bottom: auto;
@@ -61,9 +61,28 @@
 	border-radius: 5px;
 	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
 	border: 2px solid white;
+	background-color: #202124;
+  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}
+.textCameraUser{
+	position: absolute;
+	color: white;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+	font-size: 20px;
+	background-color: #202124;
+  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}
+.userScreenvideotag {
+	width: 100%;
+	float: left
 }
 
-.partnerScreenvideotag {
+.partnerScreenvideo {
+	position: relative;
+	background-color: #202124;
+  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
 	width: 50%;
 	margin-top: auto;
 	margin-right: 50px;
@@ -71,6 +90,25 @@
 	border-radius: 5px;
 	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
 	border: 2px solid white; 
+}
+.partnerScreenvideotag {
+	width: 100%;
+	float: left
+}
+.statusPartner{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+	animation-name: changetextcolor;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+}
+@keyframes changetextcolor {
+	from {color: white;}
+	to {color: rgb(139, 139, 138);}
 }
 .userImage{
 	border-style: solid;
@@ -152,14 +190,12 @@
 	border-radius: 50%; 
 }
 .endMeeting img{
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
 }
 .endMeeting:hover {
-	/* border: 1px solid; */
 	filter: blur(1.5px);
-	/* background-color: #299cb4; */
 }
 
 .unmute,
@@ -170,7 +206,7 @@
 /*==============================ChatBox=========================*/
 .mainRight {
 	padding: 22px 18px;
-  	width: 30%;
+	max-width: 20%;
 	flex: 0.2;
 	display: flex;
 	flex-direction: column;
@@ -198,11 +234,6 @@
 	list-style: none;
 }
 
-.message {
-	font-size: 13px;
-	display: block;
-}
-
 .messageHeader {
 	display: flex;
 	justify-content: space-between;
@@ -218,27 +249,46 @@
 .mainMessageContainer {
 	display: flex;
 }
+.formChatMesseage{
+	width: 100%;
+}
 .inputchatMessage{
-	padding-left: 20px;
-	padding-right: 20px;
+	display: flex;
 }
 .buttonSendMessageContainer{
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 20px;
 	padding-right: 20px;
-	/* width: 10%; */
 }
-
 .buttonSendMessageContainer:hover{
 	background-color: #ededed;
 	border-radius: 5px;
 }
 .buttonSendMessage{
-	vertical-align: middle;
+	text-align: center;
+	width: 15%;
 }
-#chatMessage {
-	width: 110%;
+#chatMessage{
+	width: 80%;
 	border: none;
 	font-size: 15px;
+	padding-right: 11px;
+	padding-left: 11px;
 }
+#sendMessage{
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	border: none;
+}
+#sendMessage:hover{
+	background-color: #cdced1;
+	border-radius: 50%;
+}
+.messages {
+	padding: 5% 0;
+	overflow: auto;
+	flex: auto;
+}
+

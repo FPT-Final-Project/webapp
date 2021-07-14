@@ -1,12 +1,4 @@
 // import React from 'react';
-<<<<<<< HEAD
-import Home from './page/Home';
-// import './App.css';
-import React from 'react';
-import './App.css';
-import Video from './components/videochat/video/Video';
-import Chatbox from './components/videochat/chat/Chatbox';
-=======
 import { Content } from 'antd/lib/layout/layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
@@ -19,22 +11,15 @@ import Home from './pages/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
 import VideoChat from './components/VideoChat/VideoChat';
+import JoinRoom from './components/VideoChat/JoinRoom';
 import './App.scss';
 import LayoutApp from './layouts/index';
 import "antd/dist/antd.css";
-
->>>>>>> aftermerge
+// import uuid from "uuid";
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      <Home/>
-      {/* <div className="main">
-        <Video />
-        <Chatbox />
-      </div> */}
-=======
       <Content>
         <BrowserRouter>
           <Switch>
@@ -48,11 +33,11 @@ function App() {
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
             <Route path="/dashboard" component={LayoutApp}/>
-            <Route path="/videochat" component={VideoChat}/>
+            <Route path="/videochat" component={JoinRoom}/>
+            <Route path="/123456" component={VideoChat}/>
           </Switch>
         </BrowserRouter>
       </Content>
->>>>>>> aftermerge
     </div>
   );
 }
