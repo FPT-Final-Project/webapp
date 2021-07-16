@@ -39,19 +39,30 @@
 #remoteId{
 	color: black;
 }
-.idcaller{
-	margin: auto;
-	font-size: small
-}
-#btnCall{
-	color: black;
-}
 #userCall{
 	padding-left: 10px;
 	margin-top: auto;
 	margin-bottom: auto;
 }
-
+.notification{
+	background: #202124;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 50%;
+	border-radius: 8px;
+	font-family: 'Google Sans',Roboto,Arial,sans-serif;
+	padding: 0 10px;
+	animation: seconds 5.0s forwards;
+}
+@keyframes seconds {
+	0% {
+	  opacity: 1;
+	}
+	100% {
+	  opacity: 0;
+	  left: -9999px; 
+	}
+}
 .userScreenvideo{
 	position: relative;
 	width: 25%;
@@ -159,14 +170,18 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: red;
+	background-color: #ea4335;
 }
 
 .mainControlsButton svg {
 	font-size: 19px;
 	margin-bottom: 4px;
 }
-
+.mute-phone{
+	width: 40px;
+	height: 40px;
+	transform: rotate(134deg);
+}
 .mainControlsButton:hover {
 	background-color: #d92a2a;
 }
@@ -188,12 +203,10 @@
 	width: 70px;
 	background-color: white;
 	border-radius: 50%; 
+	padding-top: 12.5px;
+	position: relative;
 }
-.endMeeting img{
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 15px;
-}
+
 .endMeeting:hover {
 	filter: blur(1.5px);
 }

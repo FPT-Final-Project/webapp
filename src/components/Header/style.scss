@@ -1,37 +1,44 @@
-.Header{ 
+.app-header {
   background-color: white !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .LeftContainer{
-    width: 50%;
+
+  .left-nar-bar {
+    width: 70%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
 
-    .SearchInput{
+    .nar-search {
       width: 50%;
-      border-radius: 5px !important;
+    }
+
+    &>* {
+      margin-right: 0.5rem;
     }
   }
-  .RightContainer{
+
+  .right-nar-bar {
+    margin-left: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .IconSection {
       margin-right: 30px;
     }
-    .ButtonAvatar {
+
+    .avatar-profile {
       padding: 0;
-      border:  1px solid black;
+      border: 1px solid black;
       cursor: pointer;
       height: 44px;
       width: 44px;
       border-radius: 50%;
-      background-image: url(../../assets/programmer.png) ;
+      background-image: url(../../assets/programmer.png);
       background-size: 44px 44px;
     }
-   
+
   }
 }

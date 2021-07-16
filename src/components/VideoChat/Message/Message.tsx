@@ -1,10 +1,7 @@
-import React from 'react';
-
 import './Message.css';
 
-
-const Message = ({message, userId}:any) => {
-  let isSentByCurrentUser = false;
+const Message = ({ message, userId }:any) => {
+  const isSentByCurrentUser = false;
   // const trimmedName = name.trim().toLowerCase();
   // if(user === trimmedName) {
   //   isSentByCurrentUser = true;
@@ -19,16 +16,16 @@ const Message = ({message, userId}:any) => {
             <p className="messageText colorWhite">{message}</p>
           </div>
         </div>
-        )
-        : (
-          <div className="messageContainer justifyStart">
-            <div className="messageBox backgroundLight">
-              <p className="messageText colorDark">{message}</p>
-            </div>
-            <p className="sentText pl-10 ">{userId}</p>
+      )
+      : (
+        <div className="messageContainer justifyStart">
+          <div className="messageBox backgroundLight">
+            <p className="messageText colorDark">{message}</p>
           </div>
-        )
+          <p className="sentText pl-10 ">{userId}</p>
+        </div>
+      )
   );
-}
+};
 
 export default Message;

@@ -6,7 +6,7 @@
     right:0px;
     bottom:0px;
     left:0px;
-    background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+    background: linear-gradient(to right, #12d3fc 0%, #177a8e 51%, #12d3fc 100%);
 }
 .mainTop{
     margin-top: 30px;
@@ -44,8 +44,13 @@
 }
 
 #btnJoinroom{
-    color: black;
+    color: white;
     width: 100%;
+    background: #ea4335;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    letter-spacing: .01785714em;
+    border-radius: 18px;
+    font-size: 1em;
 }
 .mute-image,.video-image {
     width: 25px;

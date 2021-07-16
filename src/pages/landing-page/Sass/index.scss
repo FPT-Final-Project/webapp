@@ -1,0 +1,1716 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap");
+@import "variablel";
+@import "media-query.scss";
+
+// Reset Css
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito";
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #0891ac;
+  color: #fff;
+}
+
+.grid {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 760px;
+  background: url(../../../assets/BackgroundHeader.svg);
+  background-repeat: no-repeat;
+  background-size: 98%;
+  background-origin: padding-box;
+  overflow: hidden;
+
+  @include desktop1279 {
+    height: 710px;
+  }
+
+  @include desktop1170 {
+    height: 650px;
+  }
+
+  @include desktop1118 {
+    height: 620px;
+  }
+
+  @include tablet1024 {
+    height: 570px;
+  }
+
+  @include tablet940 {
+    height: 500px;
+  }
+
+  @include tablet768 {
+    height: 550px;
+    background: url(../../../assets/BackgroundTablet.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  @include tablet501 {
+    margin-top: 30px;
+    height: 300px;
+    background: url(../../../assets/BackGround-Mobile.svg);
+    background-size: 111%;
+    background-repeat: no-repeat;
+  }
+
+  .grid {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  //==========BANNER==========
+
+  .banner {
+    width: 100%;
+    height: 750px;
+    display: flex;
+    position: relative;
+
+    @include desktop1170 {
+      height: 650px;
+    }
+
+    &__text {
+      padding-top: 150px;
+      width: 50%;
+      transition: 0.3s;
+
+      @include desktop1279 {
+        padding-top: 130px;
+      }
+
+      @include tablet1024 {
+        padding-top: 100px;
+      }
+
+      @include tablet768 {
+        padding-top: 80px;
+      }
+
+      @include tablet501 {
+        padding-top: 35px;
+      }
+
+      &--upper {
+        text-transform: uppercase;
+        color: #e2e2e2;
+        font-size: 20px;
+        margin-bottom: 15px;
+        letter-spacing: 8px;
+
+        @include desktop1279 {
+          font-size: 20px;
+        }
+
+        @include desktop1170 {
+          // margin: 20px 0px 30px 0px;
+          font-size: 17px;
+        }
+
+        @include tablet1024 {
+          font-size: 15px;
+        }
+
+        @include tablet768 {
+          display: none;
+        }
+      }
+
+      &--big {
+        color: var(--text-color-white);
+        font-size: 90px;
+        font-weight: bold;
+        line-height: 90px;
+        width: 80%;
+
+        @include desktop1279 {
+          font-size: 80px;
+          font-weight: bold;
+          line-height: 80px;
+        }
+
+        @include desktop1118 {
+          font-size: 70px;
+          line-height: 70px;
+        }
+
+        @include tablet1024 {
+          font-size: 70px;
+          font-weight: bold;
+          line-height: 70px;
+        }
+
+        @include tablet768 {
+          font-size: 65px;
+          line-height: 65px;
+        }
+
+        @include tablet501 {
+          font-size: 36px;
+          line-height: 35px;
+        }
+      }
+
+      &--para {
+        width: 90%;
+        color: #e2e2e2;
+        font-weight: bold;
+        margin: 15px 0px 40px 0px;
+        font-size: 18px;
+
+        @include desktop1279 {
+          width: 90%;
+          font-weight: bold;
+          margin: 20px 0px 40px 0px;
+          font-size: 18px;
+        }
+
+        @include desktop1170 {
+          margin: 20px 0px 30px 0px;
+          font-size: 16px;
+        }
+
+        @include desktop1118 {
+          font-size: 16px;
+          margin: 15px 0px 25px 0px;
+        }
+
+        @include tablet1024 {
+          width: 90%;
+          font-weight: bold;
+          margin: 10px 0px 30px 0px;
+          font-size: 15px;
+        }
+
+        @include tablet768 {
+          font-size: 16px;
+          margin: 10px 0px 25px 0px;
+        }
+
+        @include tablet501 {
+          width: 100%;
+          font-size: 12px;
+          margin-bottom: 15px;
+        }
+      }
+
+      a {
+        background-image: linear-gradient(to right,
+            #e1f3f7 0%,
+            #fff 51%,
+            #e1f3f7 100%);
+        padding: 16px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        background-color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        background-size: 200% auto;
+        color: var(--text-color-blue);
+        box-shadow: rgba(73, 73, 73, 0.25) 0px 54px 55px,
+          rgba(71, 71, 71, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(65, 64, 64, 0.17) 0px 12px 13px,
+          rgba(58, 57, 57, 0.09) 0px -3px 5px;
+        transition: 0.5s;
+
+        &:hover {
+          background-position: right center;
+        }
+
+        @include desktop1118 {
+          padding: 10px 15px;
+        }
+
+        @include tablet1024 {
+          font-size: 15px;
+          padding: 14px 18px;
+        }
+
+        @include tablet768 {
+          font-size: 13px;
+          padding: 10px 14px;
+        }
+
+        @include tablet501 {
+          padding: 8px 12px;
+        }
+      }
+    }
+
+    &__slider {
+      width: 50%;
+      height: 750px;
+      background: url(../../../assets/DoctorWoman.svg);
+      background-repeat: no-repeat;
+      background-size: 70%;
+      position: absolute;
+      top: 120px;
+      right: -170px;
+
+      @include tablet1024 {
+        top: 77px;
+        right: -125px;
+      }
+
+      @include tablet768 {
+        display: none;
+      }
+    }
+  }
+}
+
+//==========Navbar==========
+
+.wrap__nav {
+  width: 100%;
+  height: 70px;
+  position: -webkit-fixed;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  transition: 0.6s;
+
+  @include tablet768 {
+    background-color: #fafafa;
+    position: fixed;
+    z-index: 100;
+    border-bottom: 1px solid #0891ac !important;
+
+    height: 50px !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  &.activeNav {
+    width: 100%;
+    height: 70px;
+    background-color: #30a6bee8;
+    border-bottom: 1px solid #fafafa;
+
+    @include tablet768 {
+      width: 100%;
+      height: 80px;
+      background-color: #fff !important;
+      border-bottom: 1px solid #fafafa;
+    }
+  }
+
+  .header__nav {
+    width: 90%;
+    margin: 0 auto;
+    height: 70px;
+    display: flex;
+    // justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+
+    @include tablet1024 {
+      height: 60px;
+    }
+
+    @include tablet768 {
+      height: 50px;
+    }
+
+    .wrap__logo {
+      width: 25%;
+      height: 70px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      // background-color: rgb(138, 84, 84);
+
+      @include tablet768 {
+        height: 50px;
+      }
+
+      .logo {
+        width: 120px;
+        height: 70px;
+
+        // padding-top: 5px;
+        background: url(../../../assets/LogoPsyCare.svg);
+        background-repeat: no-repeat;
+        background-size: 120px;
+        object-fit: cover;
+
+        @include tablet768 {
+          margin-top: 50px;
+          background: url(../../../assets/MobileLogo.svg);
+          background-repeat: no-repeat;
+          background-size: 100px;
+        }
+      }
+    }
+
+    .nav__list {
+      width: 50%;
+      height: 70px;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include tablet768 {
+        display: none;
+      }
+
+      .nav__item {
+        display: inline-block;
+        margin: 0 20px;
+
+        @include desktop1118 {
+          margin: 0 15px;
+        }
+
+        @include tablet1024 {
+          margin: 0 15px;
+        }
+
+        a {
+          padding: 7px 0px;
+          border-bottom: none;
+          color: var(--text-color-white);
+          font-weight: 600;
+
+          text-decoration: none;
+          font-size: 17px;
+
+          @include tablet1024 {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    .nav__login {
+      width: 25%;
+      height: 70px;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include tablet768 {
+        display: none;
+      }
+
+      .nav__item-login {
+        margin: 0 5px;
+
+        a {
+          text-decoration: none;
+          font-size: 17px;
+          border-radius: 25px;
+        }
+      }
+
+      .login {
+        a {
+          background-image: linear-gradient(to right,
+              #e1f3f7 0%,
+              #fff 51%,
+              #e1f3f7 100%);
+          border: 1.75px solid var(--text-color-blue);
+          padding: 8px 32px;
+          font-weight: 600;
+          text-align: center;
+          background-size: 200% auto;
+          color: var(--text-color-blue);
+          box-shadow: rgba(8, 145, 172, 0.2) 0px 7px 29px 0px;
+          transition: 0.5s;
+
+          &:hover {
+            background-position: right center;
+          }
+
+          @include desktop1170 {
+            padding: 6px 26px;
+          }
+
+          @include tablet1024 {
+            padding: 6px 22px;
+            font-size: 15px;
+          }
+        }
+      }
+
+      .register {
+        a {
+          background-image: linear-gradient(to right,
+              #12d3fc 0%,
+              #177a8e 51%,
+              #12d3fc 100%);
+          padding: 10px 25px;
+          text-align: center;
+          font-weight: 600;
+          background-size: 200% auto;
+          color: white;
+          box-shadow: rgba(8, 145, 172, 0.2) 0px 7px 29px 0px;
+          transition: 0.5s;
+
+          &:hover {
+            background-position: right center;
+            color: #fff;
+          }
+
+          @include desktop1170 {
+            padding: 8px 19px;
+          }
+
+          @include tablet1024 {
+            padding: 8px 18px;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    // ====Mobile
+
+    .nav__hamburger {
+      display: none;
+      color: var(--text-color-blue);
+      font-size: 25px;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.3);
+
+      @include tablet768 {
+        display: block;
+        position: absolute;
+        right: 0px;
+        top: 10px;
+      }
+
+      span {
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+    }
+
+    .nav__input {
+      display: none;
+
+      &:checked {
+        ~.nav__overlay {
+          display: block;
+        }
+
+        ~.nav__mobile {
+          transform: translate(0%);
+          opacity: 1;
+
+          .exit__btn {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .nav__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.3);
+      animation: fadeIn linear 0.5s;
+      z-index: 5;
+    }
+
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 320px;
+      max-width: 100%;
+      background-color: #fff;
+      transform: translate(100%);
+      opacity: 0;
+      transition: all linear 0.2s;
+
+      @include tablet768 {
+        display: block;
+        background-color: #fff;
+      }
+
+      .exit {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        border-bottom: 1px solid var(--text-color-blue);
+
+        .exit__btn {
+          font-size: 24px;
+        }
+      }
+
+      .nav__hamburger-list {
+        margin-top: 24px;
+
+        .ham_under {
+          a {
+            border-bottom: 1px solid #0891ac3f;
+          }
+
+          &:hover {
+            a {
+              color: #12d3fc;
+            }
+          }
+        }
+
+        .nav__hamburger-item {
+          list-style: none;
+          margin: 0 24px;
+
+          a {
+            display: block;
+            padding: 12px 0;
+            color: var(--text-color-blue);
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+          }
+        }
+
+        .ham_login {
+          border: 2px solid #0891ac3f;
+          text-align: center;
+          margin-top: 15px;
+          border-radius: 8px;
+
+          &:hover {
+            background-color: #62949e3f;
+          }
+        }
+
+        .ham_register {
+          background: linear-gradient(84.45deg,
+              #167286 -5.05%,
+              rgba(5, 197, 239, 0.703125) 120.32%);
+          text-align: center;
+          margin-top: 15px;
+          border-radius: 8px;
+
+          &:hover {
+            opacity: 0.8;
+          }
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ============Navbar Mobile============
+
+// ============MAIN SERVICE=============
+
+.services {
+  width: 100%;
+  height: 760px;
+
+  @include desktop1170 {
+    height: 700px;
+  }
+
+  @include tablet1024 {
+    height: 710px;
+  }
+
+  @include tablet768 {
+    height: 700px;
+  }
+
+  @include tablet501 {
+    height: 750px;
+  }
+
+  .grid {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  &__text {
+    text-align: center;
+    margin: 30px auto;
+    position: relative;
+    width: 50%;
+
+    @include desktop1279 {
+      width: 70%;
+    }
+
+    @include desktop1170 {
+      width: 80%;
+    }
+
+    @include tablet768 {
+      width: 80%;
+    }
+
+    @include tablet501 {
+      width: 100%;
+    }
+
+    &--big {
+      font-size: 40px;
+      font-weight: bold;
+
+      @include tablet1024 {
+        font-size: 35px;
+      }
+
+      @include tablet501 {
+        font-size: 25px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80px;
+        height: 2px;
+        background-color: var(--text-color-blue);
+
+        @include tablet1024 {
+          top: 50px;
+        }
+      }
+    }
+
+    &--small {
+      margin-top: 35px;
+      color: #8f8f8f;
+      font-size: 18px;
+      font-weight: bold;
+      height: 30px;
+
+      @include tablet1024 {
+        margin-top: 25px;
+        color: #8f8f8f;
+        font-size: 15px;
+        font-weight: bold;
+        height: 30px;
+      }
+
+      @include tablet501 {
+        margin-top: 35px;
+        color: #8f8f8f;
+        font-size: 14px;
+        font-weight: bold;
+        height: 30px;
+      }
+    }
+  }
+
+  &__list {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .services__image {
+      width: 45%;
+      height: 500px;
+      background: url(../../../assets/DoctorCursor.svg);
+      background-repeat: no-repeat;
+      background-size: 90%;
+
+      @include desktop1170 {
+        height: 500px;
+      }
+
+      @include tablet1024 {
+        height: 500px;
+        display: none;
+      }
+
+      @include tablet768 {
+        display: none;
+      }
+    }
+
+    &__item {
+      width: 55%;
+      height: 480px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-template-rows: 1fr 1fr;
+      grid-row-gap: 20px;
+
+      @include tablet1024 {
+        margin: 0 auto;
+        width: 80%;
+      }
+
+      @include tablet768 {
+        width: 100%;
+      }
+
+      &--sub {
+        position: relative;
+        transition: 0.2s ease-in-out;
+
+        @include tablet1024 {
+          text-align: center;
+        }
+
+        .wrapIcon {
+          transition: 0.4s;
+
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          border: 1px solid #fff;
+          padding: 4px;
+          box-sizing: border-box;
+          box-shadow: rgba(163, 205, 215, 0.15) 0px 54px 55px,
+            rgba(163, 205, 215, 0.12) 0px -12px 30px,
+            rgba(114, 112, 112, 0.12) 0px 4px 6px,
+            rgba(105, 102, 102, 0.17) 0px 12px 13px,
+            rgba(126, 121, 121, 0.09) 0px -3px 5px;
+
+          @include tablet1024 {
+            margin: 0 auto;
+          }
+
+          .icon {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #0891ac;
+            padding: 12px;
+
+            svg {
+              height: 100%;
+              width: 100%;
+              display: block;
+              fill: var(--text-color-blue);
+            }
+          }
+
+          &:hover {
+            background: var(--text-color-blue);
+
+            .icon {
+              border: 2px solid #fff;
+              background-color: var(--text-color-blue);
+
+              svg {
+                fill: #fff;
+              }
+            }
+          }
+        }
+
+        .title {
+          text-transform: uppercase;
+          font-weight: 800;
+          font-size: 18px;
+          margin: 30px 0px;
+
+          @include tablet501 {
+            font-size: 15px;
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 135px;
+            width: 40px;
+            height: 2px;
+            background: var(--text-color-blue);
+
+            @include tablet1024 {
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+        }
+
+        .description {
+          color: #8f8f8f;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+// ==========Main Connect==========
+
+.connect {
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+
+  @include desktop1279 {
+    height: 600px;
+  }
+
+  @include tablet1024 {
+    height: 1100px;
+  }
+
+  @include tablet768 {
+    height: 1000px;
+  }
+
+  @include tablet501 {
+    height: 850px;
+  }
+
+  &__text {
+    text-align: center;
+    margin: 20px auto;
+    position: relative;
+    width: 50%;
+
+    @include tablet768 {
+      width: 70%;
+    }
+
+    &--big {
+      font-size: 40px;
+      line-height: 45px;
+      font-weight: bold;
+
+      @include tablet501 {
+        font-size: 25px;
+        line-height: 25px;
+      }
+    }
+  }
+
+  &__list {
+    height: 300px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    .image {
+      height: 500px;
+      background: url(../../../assets/ConnectLeft.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      position: relative;
+
+      @include tablet768 {
+        width: 60%;
+        height: 400px;
+      }
+
+      @include tablet501 {
+        height: 300px;
+      }
+    }
+
+    &__item {
+      width: 45%;
+
+      @include tablet1024 {
+        width: 60%;
+      }
+
+      @include tablet768 {
+        width: 100%;
+      }
+
+      &--text {
+        color: #8f8f8f;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+
+        @include tablet501 {
+          font-size: 20px;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 85px;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          width: 80px;
+          height: 2px;
+          background-color: var(--text-color-blue);
+        }
+      }
+
+      &--sub {
+        margin-top: 15px;
+        padding: 15px 20px;
+        height: auto;
+        width: 100%;
+        background-color: #fafafa;
+        border-left: 2px solid var(--text-color-blue);
+        border-right: 2px solid var(--text-color-blue);
+        border-radius: 25px;
+        cursor: default;
+        transition: 0.3s all;
+
+        .connect__title {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .connect__description {
+          font-size: 16px;
+        }
+
+        &:hover {
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          background-color: #f3f3f3;
+          border-left: 6px solid var(--text-color-blue);
+          border-right: 6px solid var(--text-color-blue);
+        }
+      }
+    }
+  }
+}
+
+// ==========Main Quiz===========
+
+.quiz {
+  background-color: yellowgreen;
+  background: url(../../../assets/BackgroundQuiz.svg);
+  background-size: 110%;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 740px;
+  padding-top: 50px;
+
+  @include desktop1282 {
+    height: 1000px;
+    background-size: 170%;
+  }
+
+  @include desktop1279 {
+    height: 1000px;
+    background-size: 170%;
+  }
+
+  @include desktop1170 {
+    height: 1050px;
+    background-size: 180%;
+  }
+
+  @include desktop1118 {
+    background-size: 190%;
+  }
+
+  @include tablet1024 {
+    height: 990px;
+    background-size: 202%;
+  }
+
+  @include tablet768 {
+    height: 1000px;
+    background-size: 290%;
+  }
+
+  @include tablet501 {
+    height: 1200px;
+    background-size: 540%;
+  }
+
+  &__text {
+    text-align: center;
+    margin: 20px auto;
+    position: relative;
+    width: 60%;
+
+    @include tablet1024 {
+      width: 80%;
+    }
+
+    &--big {
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 45px;
+
+      @include tablet501 {
+        font-size: 25px;
+        line-height: 25px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 105px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80px;
+        height: 2px;
+        background-color: var(--text-color-blue);
+
+        @include tablet501 {
+          top: 70px;
+        }
+      }
+    }
+
+    &--small {
+      margin: 40px 0;
+      color: #8f8f8f;
+      font-size: 18px;
+      font-weight: bold;
+      height: 30px;
+
+      @include desktop1282 {
+        margin: 35px 0px 15px 0;
+      }
+
+      @include tablet501 {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__list {
+    margin: 25px auto;
+    width: 100%;
+    height: 270px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    @include desktop1282 {
+      width: 85%;
+      justify-content: center;
+      align-items: center;
+      margin: 0px auto;
+    }
+
+    @include tablet1024 {
+      height: 400px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    @include tablet768 {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &--item {
+      max-width: 300px;
+      height: 250px;
+      background-color: #68bfd08e;
+      border-radius: 15px;
+      transition: 0.5s;
+
+      @include desktop1282 {
+        margin: 25px 15px 25px 15px;
+      }
+
+      @include desktop1279 {
+        margin: 25px 15px 25px 15px;
+      }
+
+      @include tablet1024 {
+        height: 250px;
+      }
+
+      .wrap-quiz {
+        width: 100%;
+        height: 250px;
+        border: 2px solid var(--text-color-blue);
+        margin: 10px 0 0 12px;
+        padding: 13px 15px;
+        border-radius: 15px;
+        transition: 0.5s;
+
+        @include tablet1024 {
+          height: 250px;
+        }
+
+        &__big {
+          margin-bottom: 12px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        &__small {
+          margin-bottom: 20px;
+          font-size: 16px;
+        }
+
+        a {
+          color: #000;
+          text-decoration: none;
+          font-size: 16px;
+          font-weight: bold;
+          transition: 0.5s;
+        }
+      }
+
+      &:hover {
+        background-color: #fafafa;
+
+        .wrap-quiz {
+          color: #fff;
+          background-color: var(--text-color-blue);
+
+          a {
+            color: var(--text-color-blue);
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 8px 15px;
+            font-weight: bold;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ===========Main Team==========
+
+.team {
+  width: 100%;
+  height: 640px;
+
+  @include tablet1024 {
+    height: 560px;
+  }
+
+  @include desktop1151 {
+    height: 1150px;
+  }
+
+  @include tablet768 {
+    height: 1650px;
+  }
+
+  &__text {
+    text-align: center;
+    margin: 30px auto;
+    position: relative;
+    width: 60%;
+
+    @include desktop1282 {
+      width: 70%;
+    }
+
+    @include tablet768 {
+      width: 100%;
+    }
+
+    &--big {
+      font-size: 42px;
+      font-weight: bold;
+
+      @include tablet501 {
+        font-size: 25px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80px;
+        height: 2px;
+        background-color: var(--text-color-blue);
+
+        @include tablet501 {
+          top: 55px;
+        }
+      }
+    }
+
+    &--small {
+      margin-top: 35px;
+      color: #8f8f8f;
+      font-size: 18px;
+      font-weight: bold;
+      height: 30px;
+
+      @include tablet501 {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__list {
+    height: 470px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    flex-wrap: wrap;
+
+    &--item {
+      max-width: 340px;
+      margin-top: 20px;
+
+      @include desktop1151 {
+        max-width: 400px;
+      }
+
+      .doctor__title {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: -20px;
+      }
+
+      .doctor__description {
+        font-size: 16px;
+        text-align: center;
+        color: #8f8f8f;
+        width: 80%;
+        margin: 5px auto;
+      }
+
+      .doctor__image1 {
+        height: 350px;
+        width: 100%;
+        background: url(../../../assets/doctor1.svg);
+        background-size: 105%;
+        background-repeat: no-repeat;
+
+        @include desktop1282 {
+          height: 340px;
+        }
+
+        @include desktop1260 {
+          height: 340px;
+        }
+
+        @include desktop1170 {
+          height: 340px;
+        }
+
+        @include desktop1151 {
+          height: 400px;
+        }
+
+        @include tablet1024 {
+          height: 400px;
+        }
+      }
+
+      .doctor__image2 {
+        height: 350px;
+        width: 100%;
+        background: url(../../../assets/doctor2.svg);
+        background-size: 105%;
+        background-repeat: no-repeat;
+
+        @include desktop1282 {
+          height: 340px;
+        }
+
+        @include desktop1260 {
+          height: 340px;
+        }
+
+        @include desktop1170 {
+          height: 340px;
+        }
+
+        @include desktop1151 {
+          height: 400px;
+        }
+
+        @include tablet1024 {
+          height: 400px;
+        }
+      }
+
+      .doctor__image3 {
+        height: 350px;
+        width: 100%;
+        background: url(../../../assets/doctor3.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+
+        @include desktop1282 {
+          height: 340px;
+        }
+
+        @include desktop1260 {
+          height: 340px;
+        }
+
+        @include desktop1170 {
+          height: 340px;
+        }
+
+        @include desktop1151 {
+          height: 400px;
+        }
+
+        @include tablet1024 {
+          height: 400px;
+        }
+      }
+    }
+  }
+}
+
+// ==========Main Chart===========
+
+.chart {
+  height: 350px;
+  width: 100%;
+  background: url(../../../assets/VintageHorizal.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include desktop1282 {
+    background-size: 105%;
+  }
+
+  @include desktop1279 {
+    height: 350px;
+    background-size: 110%;
+  }
+
+  @include desktop1170 {
+    background-size: 120%;
+  }
+
+  @include tablet1024 {
+    height: 300px;
+    background-size: 118%;
+  }
+
+  @include tablet940 {
+    background-size: 130%;
+  }
+
+  @include tablet768 {
+    background-size: 159%;
+  }
+
+  @include tablet501 {
+    background-size: 240%;
+  }
+
+  &__list {
+    width: 90%;
+    height: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+    align-items: center;
+
+    &--item {
+      height: auto;
+      width: 30%;
+
+      .chart__number {
+        font-size: 60px;
+        color: var(--text-color-white);
+        font-weight: 600;
+        text-align: center;
+
+        @include desktop1170 {
+          font-size: 55px;
+        }
+
+        @include tablet940 {
+          font-size: 45px;
+        }
+
+        @include tablet501 {
+          font-size: 35px;
+        }
+      }
+
+      .chart__description {
+        color: var(--text-color-white);
+        font-size: 20px;
+        text-align: center;
+        font-weight: normal;
+
+        @include desktop1170 {
+          font-size: 20px;
+        }
+
+        @include tablet940 {
+          font-size: 18px;
+          font-weight: normal;
+        }
+
+        @include tablet501 {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+// ==========Main Customer==========
+
+.customer {
+  height: 550px;
+  width: 100%;
+
+  @include tablet1024 {
+    height: 500px;
+  }
+
+  @include tablet768 {
+    height: 800px;
+  }
+
+  @include tablet501 {
+    height: 700px;
+  }
+
+  &__wrap {
+    display: flex;
+    flex-wrap: wrap-reverse;
+
+    &--text {
+      width: 50%;
+      margin-top: 90px;
+
+      @include tablet768 {
+        width: 100%;
+        margin-top: 50px;
+      }
+
+      .customer__big {
+        font-weight: bold;
+        font-size: 55px;
+        line-height: 60px;
+        position: relative;
+
+        @include desktop1170 {
+          font-size: 45px;
+        }
+
+        @include tablet1024 {
+          font-size: 40px;
+          line-height: 45px;
+        }
+
+        @include tablet501 {
+          font-size: 30px;
+          line-height: 30px;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 140px;
+          left: 0;
+          width: 80px;
+          height: 2px;
+          background-color: var(--text-color-blue);
+
+          @include tablet1024 {
+            top: 120px;
+          }
+
+          @include tablet501 {
+            top: 85px;
+          }
+        }
+      }
+
+      .customer__description {
+        font-size: 18px;
+        color: #8f8f8f;
+        margin-top: 50px;
+
+        >span {
+          font-weight: bold;
+          font-size: 20px;
+          color: #000;
+          margin-top: 30px;
+        }
+      }
+    }
+
+    &--image {
+      width: 50%;
+      height: 570px;
+      background: url(../../../assets/Customer.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-top: 10px;
+
+      @include tablet768 {
+        margin: 0 auto;
+        width: 70%;
+        background-size: 100%;
+        height: 410px;
+      }
+
+      @include tablet501 {
+        height: 280px;
+      }
+    }
+  }
+}
+
+// ==========Footer===========
+
+.footer {
+  background-color: chocolate;
+  width: 100%;
+  height: 400px;
+  padding-top: 160px;
+  background: url(../../../assets/BackgroundFooter.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  @include desktop1279 {
+    background-size: 115%;
+  }
+
+  @include desktop1170 {
+    background-size: 120%;
+  }
+
+  @include tablet1024 {
+    height: 360px;
+    padding-top: 120px;
+    background-size: 150%;
+  }
+
+  @include tablet768 {
+    background-size: 150%;
+    height: 370px;
+  }
+
+  @include tablet501 {
+    background-size: 350%;
+    height: 490px;
+  }
+
+  &__contain {
+    width: 100%;
+    height: 200px;
+    display: flex;
+
+    @include tablet501 {
+      flex-wrap: wrap;
+    }
+
+    &--logo {
+      width: 40%;
+
+      @include tablet501 {
+        width: 100%;
+      }
+
+      .logoup {
+        width: 200px;
+        height: 200px;
+        background: url(../../../assets/LogoPsyCare.svg);
+        background-size: 200px;
+        background-repeat: no-repeat;
+        display: block;
+        margin: 0 auto;
+
+        @include tablet1024 {
+          background-size: 150px;
+        }
+
+        @include tablet501 {
+          margin-top: 20px;
+          height: 100px;
+        }
+      }
+    }
+
+    .footer__list {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+
+      @include tablet501 {
+        margin-top: 20px;
+      }
+
+      &--item {
+        padding-top: 15px;
+        width: 30%;
+        color: var(--text-color-white);
+
+        .footer__title {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 15px;
+          transition: 0.3s;
+
+          &:hover {
+            color: #dfdfdf;
+            cursor: pointer;
+          }
+        }
+
+        a {
+          font-size: 16px;
+          line-height: 35px;
+          display: block;
+          text-decoration: none;
+          color: var(--text-color-white);
+
+          &:hover {
+            color: #dfdfdf;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
