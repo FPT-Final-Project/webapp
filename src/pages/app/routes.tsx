@@ -5,17 +5,17 @@ import PsychologyTest from '../../components/PsychologyTest';
 export const routes = [
   {
     path: '/dashboard',
-    // exact: true,
+    exact: true,
     component: Dashboard,
   },
   {
     path: '/appointment',
-    // exact: true,
+    exact: true,
     component: Appointment,
   },
   {
     path: '/psychology-test',
-    // exact: true,
+    exact: true,
     component: PsychologyTest,
   },
 ];

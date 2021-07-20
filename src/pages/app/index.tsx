@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './style.scss';
-
 import SiderMenu from '../../components/Sider';
 import { routes } from './routes';
 import HeaderLayout from '../../components/Header/index';
+import './style.scss';
 
 const { Content } = Layout;
 
@@ -26,7 +25,8 @@ const LayoutApp: React.FC = () => {
               {routes.map((route, index) => (
                 <Route
                   key={index}
-                  path={route.path}
+                  exact={route.exact}
+                  path={`/app/${route.path}`}
                 >
                   {route.component}
                 </Route>

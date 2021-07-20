@@ -8,18 +8,15 @@ import gg from '../../assets/gg.png';
 const { Title } = Typography;
 const Login = () => {
   const history = useHistory();
-
   const functionDirect = () => {
     history.push('/register');
   };
 
-  const functionDirectLogin = (e: any) => {
-    e.preventDefault();
-    history.push('/');
-  };
-
   const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
   const validatePass = /^.{6,}$/;
+
+  const handleLogin = () => {
+  };
 
   return (
     <>
@@ -55,7 +52,7 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit" onClick={functionDirectLogin}>
+              <Button className="btn-submit" htmlType="submit" onClick={handleLogin}>
                 LOGIN
               </Button>
             </Form.Item>
