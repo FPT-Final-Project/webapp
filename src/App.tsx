@@ -1,6 +1,6 @@
 // import React from 'react';
 import { Content } from 'antd/lib/layout/layout';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route,  Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
 import QuestionAnswer from './components/QuestionAnswer/QuestionAnswer';
 import ResultQuiz from './components/Quiz/ResultQuiz';
@@ -10,6 +10,8 @@ import Register from './components/Register/Register';
 import Home from './pages/Home';
 import ResetPass from './components/ResetPassword/Reset';
 import Feedback from './components/Feedback/Feedback';
+import MakeAnAppoinment from './components/Make-an-appointment';
+import Payment from './components/Payment';
 import './App.scss';
 import LayoutApp from './layouts/index';
 import "antd/dist/antd.css";
@@ -31,6 +33,9 @@ function App() {
             <Route path="/questionAnswer"  component={QuestionAnswer} />
             <Route path="/feedback"  component={Feedback}/>
             <Route path="/dashboard" component={LayoutApp}/>
+            <Route path="/make-an-appointment" component={MakeAnAppoinment}/>
+            <Route path="/payment" component={Payment}/>
+
           </Switch>
         </BrowserRouter>
       </Content>

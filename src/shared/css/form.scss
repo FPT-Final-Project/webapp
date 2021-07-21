@@ -7,8 +7,9 @@
   margin: 0 auto;
   padding: 1.5%;
   border-radius: 3%;
-  text-align: center;
-  
+  .title{
+    text-align: center;
+  }
   Form {
     width: 80%;
   }
@@ -26,10 +27,11 @@
     color: snow;
     width: 100%;
 
-    &:hover {
+    &:hover, &:focus {
       background: linear-gradient(90deg, rgba(22, 114, 134, 1) 0%, rgba(5, 197, 239, 1) 50%) !important;
       color: snow;
     }
+
   }
 
   .gg {

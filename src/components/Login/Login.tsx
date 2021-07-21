@@ -2,7 +2,7 @@ import Header from '../Header';
 import { Row, Form, Input, Button, Divider, Typography, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import '../../shared/css/form.scss';
-import gg from'../../assets/gg.png';
+import gg from '../../assets/gg.png';
 
 const { Title } = Typography;
 const Login = () => {
@@ -10,6 +10,11 @@ const Login = () => {
 
   const functionDirect = () => {
     history.push('/register');
+  }
+
+  const functionDirectLogin =(e : any ) =>{
+    e.preventDefault();
+    history.push('/');
   }
 
   return (
@@ -26,25 +31,35 @@ const Login = () => {
               </Space>
             </Row>
 
-            <Form.Item label="Email or Phone number" name="username" rules={[ { required: true,
-              message: 'Please input your Email or Phone number!' } ]}>
+            <Form.Item
+              label="Email or Phone number"
+              name="username"
+              rules={[{
+                required: true,
+                message: 'Please input your Email or Phone number!'
+              }]}>
               <Input style={{ borderRadius: '8px' }} />
             </Form.Item>
 
-            <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!'
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{
+                required: true,
+                message: 'Please input your password!'
               }]}>
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit">
+              <Button className="btn-submit" htmlType="submit" onClick={functionDirectLogin}>
                 LOGIN
               </Button>
             </Form.Item>
             <Divider plain>or login with</Divider>
             <Form.Item>
               <Link to="/login">
-              <img src={gg} className="gg" alt="google" />
+                <img src={gg} className="gg" alt="google" />
               </Link>
             </Form.Item>
             <Row justify="space-around">
