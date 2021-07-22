@@ -8,7 +8,6 @@ import Register from './components/Register/Register';
 import VideoChat from './components/VideoChat/VideoChat';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import 'antd/dist/antd.css';
-// import uuid from "uuid";
 import ResetPass from './components/ResetPassword';
 import Feedback from './components/Feedback';
 // import './App.scss';
@@ -34,7 +33,7 @@ function App() {
             <Route path="/feedback" component={Feedback} />
             <Route path="/app" component={LayoutApp} />
             <Route path="/videochat" component={JoinRoom} />
-            <Route path="/123456" component={VideoChat} />
+            <Route path="/videochatservice/:userid/:room" exact component={VideoChat} />
           </Switch>
         </BrowserRouter>
       </Content>

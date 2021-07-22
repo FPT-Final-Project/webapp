@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/media-has-caption */
@@ -6,7 +7,7 @@ import { useStopwatch } from 'react-timer-hook';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
 import { io } from 'socket.io-client';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import doctor from '../../assets/doctor.png';
 import phone from '../../assets/phone.svg';
 import mute from '../../assets/mute.svg';
@@ -17,36 +18,27 @@ import Message from './Message/Message';
 import './Message/Message.css';
 import './VideoChat.css';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:3000');
 
 const VideoChat = () => {
-  const peer = new Peer();
   const peers: any = {};
+  const listUserInRoom = useState<any[]>([]);
   const location = useLocation<any>();
-
+  const { userid, room } :any = useParams();
+  const peer = new Peer();
   const myVideo = useRef<any>();
   const partnerVideo = useRef<any>();
   const [statusPartner, setStatusPartner] = useState(false);
   const [textCameraUser, setTextCameraUser] = useState<any>();
-  const [textCameraPartner, setTextCameraPartner] = useState<any>();
-
-  const [username, setUsername] = useState('');
-  const [partnername, setPartnername] = useState('');
-  const [secondsdisplay, setSecondsdisplay] = useState('00');
-  const [minutesdisplay, setMinutesdisplay] = useState('00');
-  const [hoursdisplay, setHoursdisplay] = useState('00');
   const [audiobutton, setAudiobutton] = useState<any>();
   const [videobutton, setVideobutton] = useState<any>();
-  const {
-    seconds,
-    minutes,
-    hours,
-    start,
-  } = useStopwatch({ autoStart: false });
   const [message, setMessage] = useState<any>();
   const [messages, setMessages] = useState<any[]>([]);
   const messageEl = useRef<any>();
-  const [name, setName] = useState<any>();
+  const [partnerid, setPartnerid] = useState<any>();
+  const [username, setUsername] = useState('');
+  const [partnername, setPartnername] = useState('');
+  const [sendname, setSendname] = useState<any>();
 
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
@@ -58,6 +50,7 @@ const VideoChat = () => {
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
     }
   };
+
   const videoNovideo = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
@@ -69,14 +62,16 @@ const VideoChat = () => {
     }
     setTextCameraUser(!textCameraUser);
   };
+
   const sendMessage = (e : any) => {
     e.preventDefault();
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
-  const connectToNewUser = (userId: string, stream: MediaStream) => {
-    const call = peer.call(userId, stream);
+
+  const connectToNewUser = (id: string, stream: MediaStream) => {
+    const call = peer.call(id, stream);
     call.on('stream', (stream) => {
       partnerVideo.current.srcObject = stream;
       setStatusPartner(true);
@@ -85,8 +80,38 @@ const VideoChat = () => {
       partnerVideo.current.srcObject = null;
       setStatusPartner(false);
     });
-    peers[userId] = call;
+    peers[userid] = call;
   };
+
+  const userInRoom = () => {
+    socket.on('getUsersInRoom', (listUserInRoom) => {
+      listUserInRoom.forEach((id : any) => {
+        if (String(id) !== String(userid)) {
+          setPartnerid(id);
+        }
+      });
+    });
+  };
+
+  useEffect(() => {
+    if (userid === '1') {
+      setUsername('Bao');
+    } else if (userid === '2') {
+      setUsername('Vy');
+    }
+    peer.on('open', (peerid) => {
+      socket.emit('join-room', room, userid, peerid);
+    });
+  }, []);
+
+  useEffect(() => {
+    userInRoom();
+    if (partnerid === '1') {
+      setPartnername('Bao');
+    } else if (partnerid === '2') {
+      setPartnername('Vy');
+    }
+  }, [listUserInRoom]);
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
@@ -104,11 +129,15 @@ const VideoChat = () => {
       } else {
         setVideobutton(novideo);
       }
-
-      socket.on('user-connected', (userId) => {
-        connectToNewUser(userId, stream);
+      socket.on('user-connected', (partnerid, partnerpeerId) => {
+        if (partnerid === '1') {
+          setPartnername('Bao');
+        } else if (partnerid === '2') {
+          setPartnername('Vy');
+        }
+        setPartnerid(partnerid);
+        connectToNewUser(partnerpeerId, stream);
       });
-
       peer.on('call', (call) => {
         call.answer(stream);
         call.on('stream', (stream) => {
@@ -117,50 +146,13 @@ const VideoChat = () => {
         });
       });
     });
-
-    peer.on('open', (id) => {
-      socket.emit('join-room', '123456', id);
-      setName(id);
-    });
-
-    socket.on('user-disconnected', (userId) => {
+    socket.on('user-disconnected', (partnerid) => {
       partnerVideo.current.srcObject = null;
       setStatusPartner(false);
-      if (peers[userId]) peers[userId].close();
+      setPartnerid(null);
+      setPartnername('');
+      if (peers[partnerid]) peers[partnerid].close();
     });
-
-    // ==========================================
-    // if (startanswer === true || startcall === true) {
-    //   start()
-    //   if (String(seconds).length === 1) {
-    //     setSecondsdisplay('0' + String(seconds))
-    //   } else {
-    //     setSecondsdisplay(String(seconds))
-    //   }
-    //   if (String(minutes).length === 1) {
-    //     setMinutesdisplay('0' + String(minutes))
-    //   } else {
-    //     setMinutesdisplay(String(minutes))
-    //   }
-    //   if (String(hours).length === 1) {
-    //     setHoursdisplay('0' + String(hours))
-    //   } else {
-    //     setHoursdisplay(String(hours))
-    //   }
-    // }
-
-    async function callBackendAPI() {
-      const response = await fetch('/info_videocall');
-      const res = await response.json();
-      setUsername(res.username);
-      setPartnername(res.partnername);
-      if (response.status !== 200) {
-        throw Error(res.message);
-      }
-      return res;
-    }
-
-    callBackendAPI();
   }, []);
 
   useEffect(() => {
@@ -170,9 +162,15 @@ const VideoChat = () => {
         target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
       });
     }
-    socket.on('message', (message, name) => {
-      setMessages((messages) => [...messages, message]);
-      console.log(name);
+    socket.on('message', (text, userid) => {
+      setMessages((premessages) => [...premessages, text]);
+      console.log(`${userid} sent mess`);
+      console.log(text);
+      if (userid === '1') {
+        setSendname('Bao');
+      } else if (userid === '2') {
+        setSendname('Vy');
+      }
     });
   }, []);
 
@@ -189,16 +187,15 @@ const VideoChat = () => {
           <div id="userCall">{username}</div>
           {statusPartner ? (
             <div className="notification">
-              {name}
+              {partnername}
               {' '}
-              connected
+              Connected
             </div>
           ) : ''}
         </div>
         <div className="mainVideos">
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            {/* {textCameraPartner? <div className="textCameraPartner">{partnername}</div> : ""} */}
             <video className="partnerScreenvideotag" ref={partnerVideo} autoPlay />
           </div>
           <div className="userScreenvideo">
@@ -208,10 +205,6 @@ const VideoChat = () => {
         </div>
         <div className="mainVideosBottom">
           <div className="partnerName" id="partnerName">{partnername}</div>
-          {/* <div className="duration"> */}
-          {/* <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span> */}
-          {/* <span>{hoursdisplay}</span>:<span>{minutesdisplay}</span>:<span>{secondsdisplay}</span> */}
-          {/* </div> */}
         </div>
         <div className="mainControls">
           <div className="mainControlsBlock">
@@ -239,7 +232,7 @@ const VideoChat = () => {
         </div>
         <div className="mainChatWindow">
           <div className="messages" ref={messageEl}>
-            {messages.map((message, i) => <div key={i}><Message message={message} userId={name} /></div>)}
+            {messages.map((message, i) => <div key={i}><Message text={message} myname={username} sendname={sendname} /></div>)}
           </div>
         </div>
         <div className="mainMessageContainer">

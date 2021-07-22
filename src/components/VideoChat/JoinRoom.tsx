@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/media-has-caption */
 import './JoinRoom.css';
 import { useState, useRef, useEffect } from 'react';
@@ -9,6 +11,7 @@ import video from '../../assets/video.svg';
 import novideo from '../../assets/no-video.svg';
 
 const JoinRoom = () => {
+  const [userid, setUserid] = useState('');
   const myVideo = useRef<any>();
   const [audiobutton, setAudiobutton] = useState(mute);
   const [videobutton, setVideobutton] = useState(novideo);
@@ -51,6 +54,8 @@ const JoinRoom = () => {
       })
       .then((stream) => {
         myVideo.current.srcObject = stream;
+      }).catch((err) => {
+        console.log(`got an error: ${err}`);
       });
   }, []);
 
@@ -75,20 +80,24 @@ const JoinRoom = () => {
           </div>
           <div className="joinButton">
             <Link
+              onClick={(e) => ((!userid) ? e.preventDefault() : null)}
               to={{
-                pathname: '/123456',
+                pathname: `/videochatservice/${userid}/123456`,
                 state: {
                   propertyaudio,
                   propertyvideo,
                 },
               }}
             >
-              <button id="btnJoinroom">JOIN NOW</button>
+              <button id="btnJoinroom" type="submit">JOIN NOW</button>
             </Link>
           </div>
           <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
             <img className="video-image" src={videobutton} alt="video" />
           </div>
+        </div>
+        <div>
+          <input placeholder="UserID" className="joinInput" type="text" onChange={(event) => setUserid(event.target.value)} />
         </div>
       </div>
     </div>
