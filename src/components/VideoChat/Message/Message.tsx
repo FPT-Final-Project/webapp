@@ -1,11 +1,16 @@
 import './Message.css';
 
-const Message = ({ text, myname, sendname } : any) => {
+const Message = ({ message: { text, userid }, myname } : any) => {
   let isSentByCurrentUser = false;
+  let sendname = '';
+  if (userid === '1') {
+    sendname = ('Bao');
+  } else if (userid === '2') {
+    sendname = ('Long');
+  }
   if (myname === sendname) {
     isSentByCurrentUser = true;
   }
-  console.log(`${text}**`);
   return (
     isSentByCurrentUser
       ? (

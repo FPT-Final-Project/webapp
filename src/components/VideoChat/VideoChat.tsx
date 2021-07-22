@@ -38,7 +38,6 @@ const VideoChat = () => {
   const [partnerid, setPartnerid] = useState<any>();
   const [username, setUsername] = useState('');
   const [partnername, setPartnername] = useState('');
-  const [sendname, setSendname] = useState<any>();
 
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
@@ -97,7 +96,7 @@ const VideoChat = () => {
     if (userid === '1') {
       setUsername('Bao');
     } else if (userid === '2') {
-      setUsername('Vy');
+      setUsername('Long');
     }
     peer.on('open', (peerid) => {
       socket.emit('join-room', room, userid, peerid);
@@ -109,7 +108,7 @@ const VideoChat = () => {
     if (partnerid === '1') {
       setPartnername('Bao');
     } else if (partnerid === '2') {
-      setPartnername('Vy');
+      setPartnername('Long');
     }
   }, [listUserInRoom]);
 
@@ -133,7 +132,7 @@ const VideoChat = () => {
         if (partnerid === '1') {
           setPartnername('Bao');
         } else if (partnerid === '2') {
-          setPartnername('Vy');
+          setPartnername('Long');
         }
         setPartnerid(partnerid);
         connectToNewUser(partnerpeerId, stream);
@@ -162,15 +161,8 @@ const VideoChat = () => {
         target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
       });
     }
-    socket.on('message', (text, userid) => {
-      setMessages((premessages) => [...premessages, text]);
-      console.log(`${userid} sent mess`);
-      console.log(text);
-      if (userid === '1') {
-        setSendname('Bao');
-      } else if (userid === '2') {
-        setSendname('Vy');
-      }
+    socket.on('message', (message) => {
+      setMessages((premessages) => [...premessages, message]);
     });
   }, []);
 
@@ -232,7 +224,7 @@ const VideoChat = () => {
         </div>
         <div className="mainChatWindow">
           <div className="messages" ref={messageEl}>
-            {messages.map((message, i) => <div key={i}><Message text={message} myname={username} sendname={sendname} /></div>)}
+            {messages.map((message, i) => <div key={i}><Message message={message} myname={username} /></div>)}
           </div>
         </div>
         <div className="mainMessageContainer">
