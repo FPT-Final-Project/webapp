@@ -3,7 +3,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
-import { useStopwatch } from 'react-timer-hook';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
 import { io } from 'socket.io-client';
@@ -21,11 +20,11 @@ import './VideoChat.css';
 const socket = io('http://localhost:3000');
 
 const VideoChat = () => {
+  const { userid, room } :any = useParams();
+  const peer = new Peer();
   const peers: any = {};
   const listUserInRoom = useState<any[]>([]);
   const location = useLocation<any>();
-  const { userid, room } :any = useParams();
-  const peer = new Peer();
   const myVideo = useRef<any>();
   const partnerVideo = useRef<any>();
   const [statusPartner, setStatusPartner] = useState(false);
@@ -166,8 +165,6 @@ const VideoChat = () => {
     });
   }, []);
 
-  // ===============================
-
   return (
     <div className="main">
       {/* ====================VideoCall====================== */}
@@ -189,10 +186,10 @@ const VideoChat = () => {
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
             <video className="partnerScreenvideotag" ref={partnerVideo} autoPlay />
-          </div>
-          <div className="userScreenvideo">
-            {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
-            <video className="userScreenvideotag" ref={myVideo} autoPlay />
+            <div className="userScreenvideo">
+              {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
+              <video className="userScreenvideotag" ref={myVideo} autoPlay />
+            </div>
           </div>
         </div>
         <div className="mainVideosBottom">

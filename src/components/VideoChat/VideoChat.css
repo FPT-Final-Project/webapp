@@ -7,17 +7,14 @@
 	bottom: 0;
 	left: 0;
 	display: flex;
-  }
-
+}
 /*======================VideoCall===================*/
 *{
 	box-sizing: content-box;
 }
-
 [class^=ant-], [class*= ant-], [class^=ant-] *, [class*= ant-] *, [class^=ant-] *::before, [class*= ant-] *::before, [class^=ant-] *::after, [class*= ant-] *::after{
 	box-sizing: content-box;
 }
-
 .mainLeft {
 	background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
 	flex: 0.8;
@@ -25,7 +22,6 @@
 	display: flex;
 	flex-direction: column;
 }
-
 .mainVideosTop{
 	display: flex;
 	padding-left: 25px;
@@ -65,15 +61,14 @@
 }
 .userScreenvideo{
 	position: relative;
+	float: right;
 	width: 25%;
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-left: 50px;
+	margin-top: 5px;
+	margin-right: 5px;
 	border-radius: 5px;
-	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
 	border: 2px solid white;
 	background-color: #202124;
-  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+  	background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
 }
 .textCameraUser{
 	position: absolute;
@@ -83,28 +78,29 @@
 	text-align: center;
 	font-size: 20px;
 	background-color: #202124;
-  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+  	background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
 }
 .userScreenvideotag {
 	width: 100%;
 	float: left
 }
-
 .partnerScreenvideo {
 	position: relative;
 	background-color: #202124;
-  background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
-	width: 50%;
-	margin-top: auto;
-	margin-right: 50px;
-	margin-bottom: auto;
+  	background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 15px;
 	border-radius: 5px;
 	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
-	border: 2px solid white; 
+	overflow: hidden;
 }
 .partnerScreenvideotag {
-	width: 100%;
-	float: left
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	float: left;
+	border-radius: 5px;
 }
 .statusPartner{
 	position: absolute;
@@ -127,7 +123,6 @@
 	width: 50px;
 	border-radius: 50%;
 }
-
 .mainVideos {
   	flex-flow: row wrap;
 	flex-grow: 1;
@@ -135,7 +130,9 @@
 	justify-content: center;
 }
 .mainVideosBottom{
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	min-height: 31px;
 }
 .partnerName{
 	text-align: center;
@@ -156,13 +153,11 @@
 	color: #ffffff;
 	justify-content: center;
 }
-
 .mainControlsBlock {
 	display: flex;
 	padding-bottom: 8px;
 	align-items: center;
 }
-
 .mainControlsButton {
 	height: 60px;
 	width: 60px;
@@ -172,7 +167,6 @@
 	align-items: center;
 	background-color: #ea4335;
 }
-
 .mainControlsButton svg {
 	font-size: 19px;
 	margin-bottom: 4px;
@@ -185,7 +179,6 @@
 .mainControlsButton:hover {
 	background-color: #d92a2a;
 }
-
 .mainControlsButtonEndMeeting {
 	display: flex;
 	flex-direction: column;
@@ -197,7 +190,6 @@
 	width: 70px;
 	border-radius: 50%;
 }
-
 .endMeeting {
 	height: 70px;
 	width: 70px;
@@ -206,16 +198,13 @@
 	padding-top: 12.5px;
 	position: relative;
 }
-
 .endMeeting:hover {
 	filter: blur(1.5px);
 }
-
 .unmute,
 .stop {
 	color: #cc3b33;
 }
-
 /*==============================ChatBox=========================*/
 .mainRight {
 	padding: 22px 18px;
@@ -231,22 +220,18 @@
 	background-color: #ededed;
 	border-radius: 5px;
 }
-
 .mainHeader h4 {
 	font-weight: 700;
 	color: #4a4a4a;
 	font-size: 13px;
 }
-
 .mainChatWindow {
 	flex-grow: 1;
 	overflow-y: auto;
 }
-
 .messagesContainer {
 	list-style: none;
 }
-
 .messageHeader {
 	display: flex;
 	justify-content: space-between;
@@ -254,11 +239,9 @@
 	font-size: 11px;
 	color: #8086ac;
 }
-
 .messageReceiver {
 	color: #309af6;
 }
-
 .mainMessageContainer {
 	display: flex;
 }
