@@ -15,6 +15,7 @@ const MainConnect = () => {
       animation.start('visible');
     }
   }, [animation, inView]);
+
   return (
     <div className="connect">
       <div className="grid">

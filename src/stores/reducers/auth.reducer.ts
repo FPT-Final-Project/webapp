@@ -1,34 +1,62 @@
 import { Action } from 'redux';
-import { AuthActions } from '../actions/auth.action';
+import { IUser } from '../../types/user';
+import { AuthActions, LoginFailAction, LoginSuccessAction, RegisterSuccessAction } from '../actions/auth.action';
 
-interface UserState {
-  user?: {
-    _id: string;
-    name: string;
-    email: string;
-    phone: string;
-    password: string;
-  },
-  i: number;
+export interface IUserState {
+  user?: IUser,
+  loginProcessing: boolean,
+  registerProcessing: boolean,
+  error: string | undefined,
 }
 
-const initialState: UserState = {
+const initialState: IUserState = {
   user: undefined,
-  i: 0,
+  loginProcessing: false,
+  registerProcessing: false,
+  error: undefined,
 };
 
-export const authReducer = (state = initialState, action: Action): UserState => {
+export const authentication = (state = initialState, action: Action) => {
   switch (action.type) {
     case AuthActions.LOGIN: {
-      return { ...state, ...{ i: 1 } };
+      return { ...state, ...{ loginProcessing: true } };
+    }
+
+    case AuthActions.LOGIN_SUCCESS: {
+      const user = (action as LoginSuccessAction).payload;
+
+      return { ...state, ...{ loginProcessing: false, user } };
+    }
+
+    case AuthActions.LOGIN_FAIL: {
+      const { error } = (action as LoginFailAction).payload;
+
+      return { ...state, ...{ loginProcessing: false, error } };
     }
 
     case AuthActions.LOGOUT: {
       return { ...state, ...{ i: 2 } };
     }
 
+    case AuthActions.LOGOUT_FAIL: {
+      return { ...state, ...{ i: 2 } };
+    }
+
+    case AuthActions.LOGOUT_SUCCESS: {
+      return { ...state, ...{ i: 2 } };
+    }
+
     case AuthActions.REGISTER: {
-      return { ...state, ...{ i: 3 } };
+      return { ...state, ...{ registerProcessing: true } };
+    }
+
+    case AuthActions.REGISTER_SUCCESS: {
+      const user = (action as RegisterSuccessAction).payload;
+      return { ...state, ...{ registerProcessing: false, user } };
+    }
+
+    case AuthActions.REGISTER_FAIL: {
+      return { ...state, ...{ registerProcessing: false } };
     }
 
     default: {

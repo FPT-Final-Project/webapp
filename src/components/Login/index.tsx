@@ -3,11 +3,23 @@ import {
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import '../../shared/css/form.scss';
+import { connect } from 'react-redux';
 import gg from '../../assets/gg.png';
+import authAction from '../../stores/actions/auth.action';
+import { IRootState } from '../../stores/store';
+import { IUser } from '../../types/user';
 
 const { Title } = Typography;
-const Login = () => {
+
+const Login = ({ login, user }: { login: (email: string, password: string) => void, user: IUser | undefined }) => {
+  console.log('User : ', user);
   const history = useHistory();
+
+  if (user) {
+    history.push('/app');
+    return <></>;
+  }
+
   const functionDirect = () => {
     history.push('/register');
   };
@@ -18,13 +30,17 @@ const Login = () => {
   const handleLogin = () => {
   };
 
+  const submit = ({ email, password }: { email: string, password: string }) => {
+    login(email, password);
+  };
+
   return (
     <>
       <PageHeader title="PSY CARE." />
       <div className="form">
         <Title className="title" level={2}>Log Into Your Account</Title>
         <Row justify="center">
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={submit}>
             <Row className="row" justify="space-around">
               <Space align="center">
                 Don't have an account yet?
@@ -34,7 +50,7 @@ const Login = () => {
 
             <Form.Item
               label="Email or Phone number"
-              name="username"
+              name="email"
               rules={[{
                 required: true,
                 message: 'Please input your Email or Phone number!',
@@ -74,4 +90,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+const actionCreators = {
+  login: authAction.login,
+  register: authAction.register,
+};
+
+const mapStateToProps = (state: IRootState) => ({ user: state.authentication.user });
+
+const connectedState = connect(mapStateToProps, actionCreators)(Login);
+
+export { connectedState as Login };
