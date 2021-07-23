@@ -207,7 +207,7 @@ const VideoChat = () => {
                 </a>
               </span>
             </div>
-            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
               <img className="video-image" src={videobutton} alt="video" />
             </div>
           </div>
