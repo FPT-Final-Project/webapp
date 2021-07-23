@@ -1,4 +1,5 @@
 import Header from '../Header';
+// import { MouseEvent } from "react";
 import { Row, Form, Input, Button, Divider, Typography, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import '../../shared/css/form.scss';
@@ -12,10 +13,13 @@ const Login = () => {
     history.push('/register');
   }
 
-  const functionDirectLogin =(e : any ) =>{
+  const functionDirectLogin = (e: any) => {
     e.preventDefault();
     history.push('/');
   }
+
+  const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+  const validatePass = /^.{6,}$/;
 
   return (
     <>
@@ -32,27 +36,42 @@ const Login = () => {
             </Row>
 
             <Form.Item
-              label="Email or Phone number"
-              name="username"
-              rules={[{
-                required: true,
-                message: 'Please input your Email or Phone number!'
-              }]}>
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  pattern: validateEmail,
+                  message: 'The input is not valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your Email!'
+                }
+              ]}
+            >
               <Input style={{ borderRadius: '8px' }} />
             </Form.Item>
 
             <Form.Item
               label="Password"
               name="password"
-              rules={[{
-                required: true,
-                message: 'Please input your password!'
-              }]}>
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!'
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                }
+              ]}
+              hasFeedback
+            >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit" onClick={functionDirectLogin}>
+              <Button className="btn-submit" htmlType="submit" onClick={functionDirectLogin} >
                 LOGIN
               </Button>
             </Form.Item>

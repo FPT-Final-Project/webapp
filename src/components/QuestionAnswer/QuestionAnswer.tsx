@@ -25,9 +25,11 @@ const actions = [
 ];
 
 const CommentList = ({ comments }: { comments: any }) => (
-  <List dataSource={comments} header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+  <List
+    dataSource={comments}
+    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
     itemLayout="horizontal"
-    renderItem={props => <Comment content {...props} />}
+    renderItem={props => <Comment content={<p></p>} {...props} />}
   />
 );
 
@@ -51,9 +53,9 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
 
 function QuestionAnswer() {
   const [state, setState] = useState({
-    comments: [{}],
     submitting: false,
-    value: ''
+    value: '',
+    comments: [{}],
   });
 
   const handleSubmit = () => {
@@ -70,19 +72,19 @@ function QuestionAnswer() {
         submitting: false,
         value: '',
         comments: [
+          ...state.comments,
           {
             author: 'Dat Le',
-            avatar: 'https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/124975870_1803228579835211_7062742354760450803_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=ehIfWvOkQikAX-Ti49F&_nc_ht=scontent-sin6-2.xx&oh=a96a31df86fa737ce2d4c395bc146ffd&oe=60D5E5E0',
+            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
             content: <p>{state.value}</p>,
             datetime: moment().fromNow(),
           },
-          ...state.comments,
         ],
       });
     }, 1000);
-  }
+  };
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: any) => {
     setState({
       ...state,
       value: e.target.value,
@@ -119,18 +121,20 @@ function QuestionAnswer() {
             author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={
               <Avatar
-                src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/135023651_2810508699162789_1949264985954215586_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=LJsBQm8EMRYAX9KVZ73&_nc_ht=scontent-sin6-2.xx&oh=71d7f0cae84767dd07edbd8620263dd0&oe=60D53DEC"
+                src="https://hinhnen123.com/wp-content/uploads/2021/06/avt-cute-6.jpg"
                 alt="avt"
               />
             }
             content={
-              <p>Hi Doctors,
+              <div>
+                <p>Hi Doctors,</p>
                 <p>
                   I have a few problems that need to be resolved by the doctors. Lately I've been having trouble sleeping.
                   I can't sleep well, wake up in the middle of the night and during work or lose focus. I would like to seek
                   advice from a doctor.
                 </p>
-              </p>
+              </div>
+
             }
             datetime={
               <p>
@@ -145,7 +149,7 @@ function QuestionAnswer() {
               <Comment
                 avatar={
                   <Avatar
-                    src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/124975870_1803228579835211_7062742354760450803_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=ehIfWvOkQikAX-Ti49F&_nc_ht=scontent-sin6-2.xx&oh=a96a31df86fa737ce2d4c395bc146ffd&oe=60D5E5E0"
+                    src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg"
                     alt="Dat Le"
                   />
                 }

@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
 
-/* .site-card-wrapper{
-    padding: 15px;
-    width: 90%;
-    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
-    margin: 20px auto;
-    border-radius: 15px;
-
-} */
-
 .quiz-form {
   width: 90%;
   margin: 1% auto;
@@ -17,6 +8,7 @@
 
   h2 {
     text-align: center;
+    margin-top: 3%;
   }
   
   .card {
@@ -51,10 +43,10 @@
     border-radius: 20px;
   }
   
-  .site-card-wrapper h2 {
-    text-align: center;
-    padding-top: 10px;
-  }
+  // .site-card-wrapper h2 {
+  //   text-align: center;
+  //   padding-top: 10px;
+  // }
   
   .btn-submit {
     background: rgb(22, 114, 134);
@@ -63,5 +55,12 @@
     border-radius: 8px;
     width: 100px;
     margin: 0 auto;
+
+    &:hover, &:focus{
+      background: rgb(22, 114, 134);
+      background: linear-gradient(90deg, rgba(22, 114, 134, 1) 0%, rgba(5, 197, 239, 1) 75%);
+      color: white;
+      border: 1px solid #299CB4;
+    }
   }
 }

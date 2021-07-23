@@ -3,12 +3,9 @@ import { Table, Row, Divider, Col, Button, Space } from 'antd';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-
-
 const { Column } = Table;
 const Payment = () => {
   const [count, setCount] = useState(1);
-
   const data = [
     {
       key: '1',
@@ -16,7 +13,6 @@ const Payment = () => {
       price: '$50',
       quantity:
         <Space align="center">
-
           <Button onClick={() => setCount(count - 1)}>-</Button>
           <p>{count}</p>
           <Button onClick={() => setCount(count + 1)}>+</Button>
@@ -39,7 +35,6 @@ const Payment = () => {
       <div className="order-sumary">
         <h2>Order Sumary</h2>
         <Divider style={{ marginTop: '15px' }} />
-
         <Row justify="space-between">
           <Col span={8}><h3>Item Total</h3></Col>
           <Col span={8} className="col-total" >$50</Col>

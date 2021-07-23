@@ -10,6 +10,9 @@ const Reset = () => {
   const functionDirect = () => {
     history.push('/register');
   }
+
+  const validatePass = /^.{6,}$/;
+
   return (
     <>
       <Header />
@@ -23,16 +26,22 @@ const Reset = () => {
                 <Button onClick={functionDirect} >Register</Button>
               </Space>
             </Row>
-
             <p>Please enter your registered email address to reset your password </p>
 
             <Form.Item
               label="New Password"
               name="password"
-              rules={[{
-                required: true,
-                message: 'Please input new password!'
-              }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input new password!'
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                }
+              ]}
+              hasFeedback
             >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
