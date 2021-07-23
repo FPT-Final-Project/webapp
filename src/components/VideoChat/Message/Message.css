@@ -59,7 +59,7 @@
 }
 
 .backgroundBlue {
-  background: #2979FF;
+  background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
   overflow: auto;
 }
 
