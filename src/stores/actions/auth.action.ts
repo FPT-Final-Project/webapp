@@ -74,7 +74,7 @@ const register = (name: string, email: string, role: string, password: string) =
 
 const logout = () => {
   localStorage.clear();
-}
+};
 
 export default {
   login,
