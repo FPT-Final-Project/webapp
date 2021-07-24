@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
 /* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/media-has-caption */
-import './JoinRoom.css';
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import doctor from '../../assets/doctor.png';
-import mute from '../../assets/mute.svg';
-import unmute from '../../assets/unmute.svg';
-import video from '../../assets/video.svg';
-import novideo from '../../assets/no-video.svg';
+import doctor from '../../../assets/doctor.png';
+import mute from '../../../assets/mute.svg';
+import unmute from '../../../assets/unmute.svg';
+import video from '../../../assets/video.svg';
+import novideo from '../../../assets/no-video.svg';
+import './style.scss';
 
 const JoinRoom = () => {
   const [userid, setUserid] = useState('');

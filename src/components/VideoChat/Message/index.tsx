@@ -1,4 +1,4 @@
-import './Message.css';
+import './style.scss';
 
 const Message = ({ message: { text, userid }, myname } : any) => {
   let isSentByCurrentUser = false;

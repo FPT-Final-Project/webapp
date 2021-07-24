@@ -1,5 +1,5 @@
+/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
@@ -7,15 +7,15 @@ import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
 import { io } from 'socket.io-client';
 import { useLocation, useParams } from 'react-router-dom';
-import doctor from '../../assets/doctor.png';
-import phone from '../../assets/phone.svg';
-import mute from '../../assets/mute.svg';
-import unmute from '../../assets/unmute.svg';
-import video from '../../assets/video.svg';
-import novideo from '../../assets/no-video.svg';
-import Message from './Message/Message';
-import './Message/Message.css';
-import './VideoChat.css';
+import doctor from '../../../assets/doctor.png';
+import phone from '../../../assets/phone.svg';
+import mute from '../../../assets/mute.svg';
+import unmute from '../../../assets/unmute.svg';
+import video from '../../../assets/video.svg';
+import novideo from '../../../assets/no-video.svg';
+import Message from '../Message';
+import './style.scss';
+import '../Message/style.scss';
 
 const socket = io('http://localhost:3000');
 
@@ -166,7 +166,7 @@ const VideoChat = () => {
   }, []);
 
   return (
-    <div className="main">
+    <div className="main-video">
       {/* ====================VideoCall====================== */}
       <div className="mainLeft">
         <div className="mainVideosTop">

@@ -1,0 +1,130 @@
+.make-an-appointment{
+  margin: 0 2%;
+    
+  .appointment-right{
+    width: 73%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 2%;
+    padding: 10px ;
+    border-radius: 15px;
+    
+    h1{
+      margin: 0;
+      margin-left: 1%;
+      font-weight: bold;
+    }
+    .drop-down{
+      margin: 0 2%;
+      width: 25%;
+
+      h3{
+        margin: 0 10px ;
+        font-weight: bold;
+      }
+
+      Button{
+        border:1px solid black;
+
+        &:hover {
+          color: black;
+          border:1px solid black;
+        }
+        &:focus{
+          color: black;
+          border:1px solid black;
+        }
+      }
+      .select{
+        
+        .ant-select-selector {
+          border-radius: 10px;
+          border:1px solid black  !important;
+          &:hover , &:focus{
+            outline: none !important;
+          }
+        }
+      }       
+    }    
+  }
+
+    .doctor-schedule{
+      width: 98%;
+      margin: 2% auto;
+      background: #d2eff5;
+      border-radius: 10px;
+      padding: 10px;
+
+      .doctor-details{
+        width: 55%;
+        
+        .avt-doctor{
+          width: 30%;
+          margin: 3% auto;
+          padding-left: 3%;
+        }
+        .doctor-content{
+          width: 65%;
+          margin: 4% 2% 4% 0;
+          
+          h2{
+            margin: 0;
+          }
+
+        }
+        Button{
+          
+          margin: 5px 4%;
+          color: #299CB4;
+          background: #d2eff5;
+          border: 1px solid #299CB4;
+
+          &:hover,k &:focus{
+            border: 2px solid #299CB4;
+          }
+        }
+
+        
+      }
+      .schedule{
+        width: 45%;
+        .select-day{        
+          .ant-select-selector{
+            background:#d2eff5 ;
+            border-radius: 10px;
+            border: 1px solid #299CB4 !important;
+            &:focus{
+              border-color: transparent !important;
+            }
+          }
+        }
+        p{
+          margin: 0;
+        }
+        h3{
+          margin: 0;
+          font-weight: bold;
+        }
+        .btn-schedule{
+          Button{
+            margin: 5px 10px 5px 0;
+            background: #299CB4;
+            color: white;
+
+            &:hover, &:focus{
+              border: 1px solid #299CB4;
+            }
+          }
+
+        }
+      }
+    }
+  
+  .peak-time{
+    width: 25%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px ;
+    border-radius: 15px;
+
+  }
+
+}

@@ -26,10 +26,11 @@
     color: snow;
     width: 100%;
 
-    &:hover {
+    &:hover, &:focus {
       background: linear-gradient(90deg, rgba(22, 114, 134, 1) 0%, rgba(5, 197, 239, 1) 50%) !important;
       color: snow;
     }
+
   }
 
   .gg {
