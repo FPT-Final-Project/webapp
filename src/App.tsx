@@ -9,12 +9,13 @@ import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import QuestionAnswer from './components/QuestionAnswer';
 import Feedback from './components/Feedback';
-import Reset from './components/ResetPassword/ResetPass';
 import SelectQuiz from './components/Quiz/SelectQuiz';
 import ResultQuiz from './components/Quiz/Result';
 import { Login } from './components/Login';
-import { Register } from './components/Register/Register';
+import { Register } from './components/Register';
 import { store } from './stores/store';
+import Reset from './components/ResetPassword';
+import NewPass from './components/NewPass';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/resetPass" component={Reset} />
+              <Route path="/newPass" component={NewPass} />
               <Route path="/selectQuiz" component={SelectQuiz} />
               <Route path="/resultQuiz" component={ResultQuiz} />
               <Route path="/questionAnswer" component={QuestionAnswer} />

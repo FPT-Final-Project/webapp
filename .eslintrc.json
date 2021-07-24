@@ -62,9 +62,7 @@
     "react/jsx-one-expression-per-line": "off",
     "object-curly-newline": "off",
     "semi": "warn",
-    "arrow-body-style": {
-      "requireReturnForObjectLiteral": true
-    },
+    "arrow-body-style": "off"
   },
   "settings": {
     "import/resolver": {

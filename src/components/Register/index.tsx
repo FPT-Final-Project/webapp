@@ -17,7 +17,10 @@ const Register = ({ register }: { register: Function }) => {
     history.push('/login');
   };
 
-  const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => register(name, email, role, password);
+  // eslint-disable-next-line max-len
+  const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => {
+    return register(name, email, role, password);
+  };
 
   return (
     <>
