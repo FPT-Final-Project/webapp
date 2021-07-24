@@ -1,0 +1,54 @@
+.question-form {
+  width: 80%;
+  margin: 1% auto;
+
+  h2 {
+    margin-left: 5%;
+  }
+
+  .drop-menu {
+    border-radius: 10px;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: right;
+    width: 30%;
+    margin-bottom: 15px;
+
+    &:hover,
+    &:focus {
+      color: #299CB4;
+      border: 1px solid #299CB4;
+    }
+  }
+
+  .question-input {
+    border-radius: 8px;
+  }
+
+  .comment {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 3%;
+    padding: 1% 2%;
+    border-radius: 8px;
+
+    a {
+      font-size: medium;
+      font-weight: bolder;
+    }
+  }
+
+  .reply {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2px 4px 3px 3px;
+    border-radius: 8px;
+    border: 1px solid rgb(168, 154, 154);
+
+    span {
+      font-size: small;
+    }
+  }
+
+  .reply-image {
+    width: 25px;
+    height: 20px;
+  }
+}

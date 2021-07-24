@@ -1,61 +1,51 @@
-import Header from '../Header';
-import { Row, Form, Input, Button, Divider, Typography, Space } from 'antd';
+import {
+  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+} from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import '../../shared/css/form.scss';
 import gg from '../../assets/gg.png';
 
 const { Title } = Typography;
 
-const SignUp = () => {
-
-  const [form] = Form.useForm();
-  let history = useHistory();
+const Register = () => {
+  const history = useHistory();
   const functionDirect = () => {
     history.push('/login');
-  }
+  };
 
-  const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-  const validatePass = /^.{6,}$/;
-  
   return (
     <>
-      <Header />
+      <PageHeader title="PSY CARE." />
       <div className="form">
-        <Title className="title" level={2} >Create Your Account</Title>
-        <Row justify="center" >
-          <Form className="formSignIn" layout="vertical" form={form} >
+        <Title className="title" level={2}>Create Your Account</Title>
+        <Row justify="center">
+          <Form className="formSignIn" layout="vertical">
             <Row className="row" justify="space-around">
               <Space align="center">
                 Already have an account ?
-                <Button className="btn-login" onClick={functionDirect} >Login</Button>
+                <Button className="btn-login" onClick={functionDirect}>Login</Button>
               </Space>
             </Row>
 
             <Form.Item
               label="Fullname"
               name="fullname"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input you Fullname!'
-                },
-              ]}
+              rules={[{
+                required: true,
+                message: 'Please input you Fullname!',
+              }]}
             >
               <Input style={{ borderRadius: '8px' }} />
             </Form.Item>
 
             <Form.Item
-              label="Email"
-              name="email"
+              label="Email or Phone number"
+              name="username"
               rules={[
                 {
-                  pattern: validateEmail,
-                  message: 'The input is not valid E-mail!',
-                },
-                {
                   required: true,
-                  message: 'Please input your E-mail!',
-                }
+                  message: 'Please input your Email or Phone number!',
+                },
               ]}
             >
               <Input style={{ borderRadius: '8px' }} />
@@ -64,17 +54,10 @@ const SignUp = () => {
             <Form.Item
               label="Password"
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Password!',
-                },
-                {
-                  pattern: validatePass,
-                  message: 'The input must be least 6 characters in length!',
-                }
-              ]}
-              hasFeedback
+              rules={[{
+                required: true,
+                message: 'Please input your password!',
+              }]}
             >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
@@ -100,7 +83,7 @@ const SignUp = () => {
         </Row>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SignUp;
+export default Register;
