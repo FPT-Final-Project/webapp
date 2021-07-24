@@ -8,13 +8,16 @@ import 'antd/dist/antd.css';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import QuestionAnswer from './components/QuestionAnswer';
+import Reset from './components/NewPass';
+import ResetPass from './components/ResetPassword';
 import Feedback from './components/Feedback';
-import Reset from './components/ResetPassword/ResetPass';
-import SelectQuiz from './components/Quiz/SelectQuiz';
-import ResultQuiz from './components/Quiz/Result';
-import { Login } from './components/Login';
-import { Register } from './components/Register/Register';
 import { store } from './stores/store';
+import { Login } from './components/Login';
+import ResultQuiz from './components/Quiz/Result';
+import SelectQuiz from './components/Quiz/SelectQuiz';
+import { Register } from './components/Register';
+import JoinRoom from './components/VideoChat/JoinRoom';
+import VideoChat from './components/VideoChat/VideoCall';
 
 function App() {
   return (
@@ -26,7 +29,8 @@ function App() {
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <Route path="/resetPass" component={Reset} />
+              <Route path="/reset" component={Reset} />
+              <Route path="/resetPass" component={ResetPass} />
               <Route path="/selectQuiz" component={SelectQuiz} />
               <Route path="/resultQuiz" component={ResultQuiz} />
               <Route path="/questionAnswer" component={QuestionAnswer} />
@@ -34,6 +38,8 @@ function App() {
               <Route path="/app" component={LayoutApp} />
               <Route path="/make-an-appointment" component={MakeAnAppointment} />
               <Route path="/payment" component={Payment} />
+              <Route path="/videochat" component={JoinRoom} />
+              <Route path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>

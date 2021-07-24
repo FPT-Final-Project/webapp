@@ -1,16 +1,19 @@
 import {
-  Row, Form, Button, Typography, Space, PageHeader,
+  Row, Form, Button, Typography, Space, Input, PageHeader,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons';
 import '../../shared/css/form.scss';
 
 const { Title } = Typography;
+
 const Reset = () => {
   const history = useHistory();
   const functionDirect = () => {
     history.push('/register');
   };
+
+  const validatePass = /^.{6,}$/;
 
   return (
     <>
@@ -18,7 +21,6 @@ const Reset = () => {
       <div className="form">
         <Title className="title" level={2}>Reset Password</Title>
         <Row justify="center">
-
           <Form layout="vertical">
             <Row className="row" justify="space-around">
               <Space align="center">
@@ -26,11 +28,30 @@ const Reset = () => {
                 <Button onClick={functionDirect}>Register</Button>
               </Space>
             </Row>
+            <p>Please enter your registered email address to reset your password </p>
 
-            <p>
-              An email with a instrution how to resset your password has been sent to
-              <span> datle31399@gmail.com</span>
-            </p>
+            <Form.Item
+              label="New Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input new password!',
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password style={{ borderRadius: '8px' }} />
+            </Form.Item>
+            <Form.Item>
+              <Button className="btn-submit" htmlType="submit">
+                RESET PASSWORD
+              </Button>
+            </Form.Item>
 
             <Row justify="space-around">
               <Space>
@@ -41,11 +62,11 @@ const Reset = () => {
                 </Link>
               </Space>
             </Row>
-
           </Form>
         </Row>
       </div>
     </>
   );
 };
+
 export default Reset;
