@@ -7,7 +7,7 @@ import { VideoCameraOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
-const MakeAnAppoinment = () => (
+const MakeAnAppointment = () => (
   <div className="make-an-appointment">
     <Row>
       <div className="appointment-right">
@@ -228,4 +228,5 @@ const MakeAnAppoinment = () => (
     </Row>
   </div>
 );
-export default MakeAnAppoinment;
+
+export default MakeAnAppointment;

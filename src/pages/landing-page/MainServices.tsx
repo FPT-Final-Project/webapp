@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';

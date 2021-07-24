@@ -1,17 +1,23 @@
 import {
-  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+  Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import '../../shared/css/form.scss';
+import { connect } from 'react-redux';
+import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
 
 const { Title } = Typography;
+const { Option } = Select;
 
-const Register = () => {
+const Register = ({ register }: { register: Function }) => {
   const history = useHistory();
+
   const functionDirect = () => {
     history.push('/login');
   };
+
+  const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => register(name, email, role, password);
 
   return (
     <>
@@ -19,7 +25,7 @@ const Register = () => {
       <div className="form">
         <Title className="title" level={2}>Create Your Account</Title>
         <Row justify="center">
-          <Form className="formSignIn" layout="vertical">
+          <Form className="formSignIn" layout="vertical" onFinish={handleRegister}>
             <Row className="row" justify="space-around">
               <Space align="center">
                 Already have an account ?
@@ -29,7 +35,7 @@ const Register = () => {
 
             <Form.Item
               label="Fullname"
-              name="fullname"
+              name="name"
               rules={[{
                 required: true,
                 message: 'Please input you Fullname!',
@@ -40,11 +46,11 @@ const Register = () => {
 
             <Form.Item
               label="Email or Phone number"
-              name="username"
+              name="email"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Email or Phone number!',
+                  message: 'Please input your Email!',
                 },
               ]}
             >
@@ -60,6 +66,20 @@ const Register = () => {
               }]}
             >
               <Input.Password style={{ borderRadius: '8px' }} />
+            </Form.Item>
+
+            <Form.Item
+              label="Role"
+              name="role"
+              rules={[{
+                required: true,
+                message: 'Please select your role!',
+              }]}
+            >
+              <Select style={{ borderRadius: '8px', textAlign: 'left' }}>
+                <Option value="patient">Patient</Option>
+                <Option value="doctor">Doctor</Option>
+              </Select>
             </Form.Item>
 
             <Form.Item>
@@ -86,4 +106,10 @@ const Register = () => {
   );
 };
 
-export default Register;
+const actionCreators = {
+  register: authAction.register,
+};
+
+const connectedState = connect(null, actionCreators)(Register);
+
+export { connectedState as Register };
