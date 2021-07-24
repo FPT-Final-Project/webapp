@@ -8,6 +8,7 @@ import './style.scss';
 import reply from '../../assets/reply.svg';
 
 const { TextArea } = Input;
+
 const menu = (
   <Menu>
     <Menu.Item key="1">Option1</Menu.Item>
@@ -75,13 +76,13 @@ function QuestionAnswer() {
         submitting: false,
         value: '',
         comments: [
+          ...state.comments,
           {
             author: 'Dat Le',
-            avatar: 'https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/124975870_1803228579835211_7062742354760450803_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=ehIfWvOkQikAX-Ti49F&_nc_ht=scontent-sin6-2.xx&oh=a96a31df86fa737ce2d4c395bc146ffd&oe=60D5E5E0',
+            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
             content: <p>{state.value}</p>,
             datetime: moment().fromNow(),
           },
-          ...state.comments,
         ],
       });
     }, 1000);
@@ -152,7 +153,7 @@ function QuestionAnswer() {
               <Comment
                 avatar={(
                   <Avatar
-                    src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/124975870_1803228579835211_7062742354760450803_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=ehIfWvOkQikAX-Ti49F&_nc_ht=scontent-sin6-2.xx&oh=a96a31df86fa737ce2d4c395bc146ffd&oe=60D5E5E0"
+                    src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg"
                     alt="Dat Le"
                   />
                 )}

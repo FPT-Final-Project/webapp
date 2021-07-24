@@ -3,7 +3,7 @@ import {
 } from 'antd';
 import './style.scss';
 
-export function SelectQuiz() {
+export default function SelectQuiz() {
   return (
     <>
       <div className="quiz-form">

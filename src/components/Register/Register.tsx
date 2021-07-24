@@ -7,7 +7,7 @@ import gg from '../../assets/gg.png';
 
 const { Title } = Typography;
 
-const SignUp = () => {
+const Register = () => {
   const history = useHistory();
   const functionDirect = () => {
     history.push('/login');
@@ -86,4 +86,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;

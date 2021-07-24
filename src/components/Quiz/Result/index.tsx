@@ -1,7 +1,7 @@
 import score from '../../../assets/Score.svg';
 import './style.scss';
 
-export function ResultQuiz() {
+export default function ResultQuiz() {
   return (
     <>
       <div className="result-form">

@@ -13,6 +13,14 @@ const Login = () => {
     history.push('/register');
   };
 
+  const functionDirectLogin = (e: any) => {
+    e.preventDefault();
+    history.push('/');
+  };
+
+  const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+  const validatePass = /^.{6,}$/;
+
   return (
     <>
       <PageHeader title="PSY CARE." />
@@ -47,7 +55,7 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit">
+              <Button className="btn-submit" htmlType="submit" onClick={functionDirectLogin}>
                 LOGIN
               </Button>
             </Form.Item>
