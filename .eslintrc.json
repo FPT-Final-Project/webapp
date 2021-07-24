@@ -50,12 +50,21 @@
     "max-len": ["warn", {
       "code": 120
     }],
-    "react/no-unescaped-entities": "warn",
+    "react/no-unescaped-entities": "off",
     "react/button-has-type": "off",
     "react/no-array-index-key": "warn",
     "jsx-a11y/control-has-associated-label": "off",
     "react/jsx-props-no-spreading": "off",
-    "jsx-a11y/anchor-has-content": "off"
+    "jsx-a11y/anchor-has-content": "off",
+    "react/jsx-indent": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": "off",
+    "semi": "warn",
+    "arrow-body-style": {
+      "requireReturnForObjectLiteral": true
+    },
   },
   "settings": {
     "import/resolver": {
