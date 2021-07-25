@@ -54,7 +54,7 @@ const Editor = ({
   </>
 );
 
-function QuestionAnswer() {
+const QuestionAnswer = () => {
   const [state, setState] = useState({
     comments: [{}],
     submitting: false,
@@ -171,6 +171,6 @@ function QuestionAnswer() {
       </div>
     </>
   );
-}
+};
 
 export default QuestionAnswer;

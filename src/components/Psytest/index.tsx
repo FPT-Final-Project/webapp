@@ -7,7 +7,6 @@ const getResultOfTest = (score: number) => {
   if (score <= 9) return 'A little bit';
   if (score <= 14) return 'Little';
   if (score <= 19) return 'Immediate';
-
   return 'Hard';
 };
 
