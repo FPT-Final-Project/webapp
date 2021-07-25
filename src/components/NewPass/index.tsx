@@ -11,6 +11,7 @@ const NewPass = () => {
   const functionDirect = () => {
     history.push('/register');
   };
+
   return (
     <>
       <PageHeader title="PSY CARE." />

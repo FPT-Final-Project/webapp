@@ -25,9 +25,6 @@ const Login = ({ login, user }: { login: (email: string, password: string) => vo
     history.push('/register');
   };
 
-  const handleLogin = () => {
-  };
-
   const submit = ({ email, password }: { email: string, password: string }) => {
     login(email, password);
   };
@@ -66,7 +63,7 @@ const Login = ({ login, user }: { login: (email: string, password: string) => vo
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit" onClick={handleLogin}>
+              <Button className="btn-submit" htmlType="submit">
                 LOGIN
               </Button>
             </Form.Item>

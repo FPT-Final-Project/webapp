@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
-import MakeAnAppointment from './components/Make-an-appointment';
+import MakeAnAppointment from './components/MakeAnAppointment';
 import Payment from './components/Payment';
 import './App.scss';
 import 'antd/dist/antd.css';
