@@ -10,6 +10,7 @@ const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+
   const toggle = () => {
     setCollapsed(!collapsed);
   };
