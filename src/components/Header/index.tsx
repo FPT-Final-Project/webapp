@@ -26,7 +26,7 @@ export default function HeaderLayout() {
           <div>{`${date}, ${time}`}</div>
         </div>
         <div className="RightContainer">
-          <FontAwesomeIcon className="IconSection" icon={faBell} size="2x" />
+          <FontAwesomeIcon className="IconSection" icon={faBell} />
           <FontAwesomeIcon
             className="IconSection"
             icon={faEnvelope}

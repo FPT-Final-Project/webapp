@@ -13,6 +13,10 @@ import Feedback from './components/Feedback/Feedback';
 // import './App.scss';
 import LayoutApp from './layouts/index';
 import "antd/dist/antd.css";
+import ListDoctors from './components/AdminDoctors/ListDoctors/index';
+import ListPatients from './components/ListPatients/index';
+import EditDoctor from './components/AdminDoctors/EditDoctors/index';
+import ProfileUser from './components/Profile/ProfileUser/index';
 
 
 
@@ -30,8 +34,15 @@ function App() {
             <Route path="/selectQuiz"  component={SelectQuiz} />
             <Route path="/resultQuiz"  component={ResultQuiz} />
             <Route path="/questionAnswer"  component={QuestionAnswer} />
-            <Route path="/feedback"  component={Feedback}/>
-            <Route path="/dashboard" component={LayoutApp}/>
+            <Route path="/feedback"  component={Feedback} />
+            <Route path="/dashboard" component={LayoutApp} />
+            {/* Admin */}
+            <Route path="/listDoctors" component={ListDoctors}/>
+            <Route path="/editdoctor/:id" component={EditDoctor}/>
+            {/* Profile User */}
+            <Route path="/myProfile" component={ProfileUser}/>
+
+            <Route path="/listPatients" component={ListPatients}/>
           </Switch>
         </BrowserRouter>
       </Content>

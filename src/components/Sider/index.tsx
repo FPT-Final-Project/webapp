@@ -37,6 +37,24 @@ const MenuItem = (path: string, index: number) => {
       name = "Psychology Test";
       break;
     }
+
+    case '/dashboard/questionanswer': {
+      icon = <UserOutlined />;
+      name = "Questions & Answers";
+      break;
+    }
+
+    case '/dashboard/feedback': {
+      icon = <UploadOutlined />;
+      name = "Feedback";
+      break;
+    }
+
+    case '/dashboard/payment': {
+      icon = <UserOutlined />;
+      name = "Payment";
+      break;
+    }
   };
 
   return (
@@ -50,7 +68,7 @@ const MenuItem = (path: string, index: number) => {
   )
 }
 
-const SiderMenu: React.FC<Props> = ({ collapsed }) => {
+const SiderMenu: React.FC<Props> = ({ collapsed }) => { 
   return (
     <>
       <Sider

@@ -12,23 +12,28 @@
   .custom-menu {
     background-color: #299cb4;
     border: none;
-    margin-top: 20px;
+    margin-top: 25px;
 
     .custom-menu-item {
-      color: white !important ;
-      font-size: 17px;
-      margin: 25px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 16px 20px 0 20px;
       border-radius: 5px;
-      &:hover,
-      &:focus {
+      &:hover {
         background-color: white;
         color: #299cb4 !important;
       }
-     
+
+      &:focus {
+        background-color: white;
+        color: #299cb4;
+      }
+
       span > a {
         color: white;
         &:hover,
-        &:focus {
+        &:active {
           color: #299cb4 !important;
         }
       }
