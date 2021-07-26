@@ -14,7 +14,6 @@ import Feedback from './components/Feedback';
 import { store } from './stores/store';
 import { Login } from './components/Login';
 import ResultQuiz from './components/Quiz/Result';
-import SelectQuiz from './components/Quiz/SelectQuiz';
 import ListDoctors from './components/AdminDoctors/ListDoctors/index';
 import ListPatients from './components/ListPatients/index';
 import EditDoctor from './components/AdminDoctors/EditDoctors/index';
@@ -22,6 +21,8 @@ import { Register } from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProfileUser from './components/Profile/ProfileUser';
+import ProtectedRoute from './config/private-route.config';
+import { SelectQuiz } from './components/Quiz/SelectQuiz';
 
 function App() {
   return (
@@ -35,23 +36,23 @@ function App() {
               <Route path="/register" component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
-              <Route path="/selectQuiz" component={SelectQuiz} />
-              <Route path="/resultQuiz" component={ResultQuiz} />
-              <Route path="/questionAnswer" component={QuestionAnswer} />
-              <Route path="/feedback" component={Feedback} />
-              <Route path="/app" component={LayoutApp} />
-              <Route path="/make-an-appointment" component={MakeAnAppointment} />
-              <Route path="/payment" component={Payment} />
+              <ProtectedRoute path="/selectQuiz" component={SelectQuiz} />
+              <ProtectedRoute path="/resultQuiz" component={ResultQuiz} />
+              <ProtectedRoute path="/questionAnswer" component={QuestionAnswer} />
+              <ProtectedRoute path="/feedback" component={Feedback} />
+              <ProtectedRoute path="/app" component={LayoutApp} />
+              <ProtectedRoute path="/make-an-appointment" component={MakeAnAppointment} />
+              <ProtectedRoute path="/payment" component={Payment} />
               {/* Admin */}
-              <Route path="/listDoctors" component={ListDoctors} />
-              <Route path="/editdoctor/:id" component={EditDoctor} />
+              <ProtectedRoute path="/listDoctors" component={ListDoctors} />
+              <ProtectedRoute path="/editdoctor/:id" component={EditDoctor} />
               {/* Profile User */}
-              <Route path="/myProfile" component={ProfileUser} />
+              <ProtectedRoute path="/myProfile" component={ProfileUser} />
 
-              <Route path="/listPatients" component={ListPatients} />
+              <ProtectedRoute path="/listPatients" component={ListPatients} />
               {/* VideoCall */}
-              <Route path="/videochat" component={JoinRoom} />
-              <Route path="/videochatservice/:userid/:room" exact component={VideoChat} />
+              <ProtectedRoute path="/videochat" component={JoinRoom} />
+              <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>
