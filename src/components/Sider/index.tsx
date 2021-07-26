@@ -38,10 +38,25 @@ const MenuItem = (path: string, index: number) => {
       name = 'Psychology Test';
       break;
     }
-    default: {
+
+    case '/dashboard/questionanswer': {
+      icon = <UserOutlined />;
+      name = "Questions & Answers";
       break;
     }
-  }
+
+    case '/dashboard/feedback': {
+      icon = <UploadOutlined />;
+      name = "Feedback";
+      break;
+    }
+
+    case '/dashboard/payment': {
+      icon = <UserOutlined />;
+      name = "Payment";
+      break;
+    }
+  };
 
   return (
     <Item
@@ -51,27 +66,29 @@ const MenuItem = (path: string, index: number) => {
     >
       <Link to={path}>{name}</Link>
     </Item>
+  )
+}
+
+const SiderMenu: React.FC<Props> = ({ collapsed }) => { 
+  return (
+    <>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        width="250"
+        className="custom-sider"
+      >
+        <div className="sider-logo">
+          <p>PsyCare.</p>
+        </div>
+        <Menu className="custom-menu">
+          {routes.map((route, index) => MenuItem(route.path, index))}
+        </Menu>
+      </Sider>
+    </>
   );
 };
-
-const SiderMenu: React.FC<Props> = ({ collapsed = false }: Props) => (
-  <>
-    <Sider
-      trigger={null}
-      collapsible
-      collapsed={collapsed}
-      width="250"
-      className="custom-sider"
-    >
-      <div className="sider-logo">
-        <p>PsyCare.</p>
-      </div>
-      <Menu className="custom-menu">
-        {routes.map((route, index) => MenuItem(route.path, index))}
-      </Menu>
-    </Sider>
-  </>
-);
 
 SiderMenu.defaultProps = {
   collapsed: false,

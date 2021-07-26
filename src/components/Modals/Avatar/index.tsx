@@ -21,17 +21,20 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
       footer={null}
     >
       <div className="Option">
-        <FontAwesomeIcon icon={faUser} />
-        <span> Profile</span>
-      </div>
-      <div className="Option">
-        <FontAwesomeIcon icon={faUser} />
-        <span> Change Password</span>
-      </div>
-      <div className="Option">
-        <FontAwesomeIcon icon={faUser} />
-        <span> Logout</span>
-      </div>
+            {/* <FontAwesomeIcon icon={faUser}/> */}
+            <i className="fas fa-user-alt"></i>
+            <span> My Profile</span>
+        </div>
+        <div className="Option">
+            {/* <FontAwesomeIcon icon={faUser}/> */}
+            <i className="fas fa-lock"></i>
+            <span> Change Password</span>
+        </div>
+        <div className="Option">
+            {/* <FontAwesomeIcon icon={faUser}/> */}
+            <i className="fas fa-sign-out-alt"></i>
+            <span> Sign Out</span>
+        </div>
     </Modal>
   </>
 );
