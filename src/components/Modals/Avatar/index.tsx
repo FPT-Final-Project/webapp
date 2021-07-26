@@ -1,25 +1,26 @@
-import React from "react";
-import { Modal } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import "./style.scss"
+/* eslint-disable max-len */
+import React from 'react';
+import { Modal } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import './style.scss';
+
 interface Props {
   visible: boolean;
   handleCancelDropAvatar: () => void
 }
-const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }) => {
-  return (
-    <>
-      <Modal
-        className="AvatarModal"
-        onCancel={handleCancelDropAvatar}
-        visible={visible}
-        closable={false}
-        mask={false}
-        footer={null}
 
-      >
-        <div className="Option">
+const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props) => (
+  <>
+    <Modal
+      className="AvatarModal"
+      onCancel={handleCancelDropAvatar}
+      visible={visible}
+      closable={false}
+      mask={false}
+      footer={null}
+    >
+      <div className="Option">
             {/* <FontAwesomeIcon icon={faUser}/> */}
             <i className="fas fa-user-alt"></i>
             <span> My Profile</span>
@@ -34,9 +35,8 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }) => {
             <i className="fas fa-sign-out-alt"></i>
             <span> Sign Out</span>
         </div>
-      </Modal>
-    </>
-  );
-};
+    </Modal>
+  </>
+);
 
 export default AvatarModal;
