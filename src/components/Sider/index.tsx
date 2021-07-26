@@ -41,22 +41,26 @@ const MenuItem = (path: string, index: number) => {
 
     case '/dashboard/questionanswer': {
       icon = <UserOutlined />;
-      name = "Questions & Answers";
+      name = 'Questions & Answers';
       break;
     }
 
     case '/dashboard/feedback': {
       icon = <UploadOutlined />;
-      name = "Feedback";
+      name = 'Feedback';
       break;
     }
 
     case '/dashboard/payment': {
       icon = <UserOutlined />;
-      name = "Payment";
+      name = 'Payment';
       break;
     }
-  };
+
+    default: {
+      break;
+    }
+  }
 
   return (
     <Item
@@ -66,10 +70,10 @@ const MenuItem = (path: string, index: number) => {
     >
       <Link to={path}>{name}</Link>
     </Item>
-  )
-}
+  );
+};
 
-const SiderMenu: React.FC<Props> = ({ collapsed }) => { 
+const SiderMenu: React.FC<Props> = ({ collapsed }: Props) => {
   return (
     <>
       <Sider
