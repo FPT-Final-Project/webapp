@@ -18,7 +18,6 @@ import SelectQuiz from './components/Quiz/SelectQuiz';
 import { Register } from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
-import JoinAppointment from './components/JoinAppointment';
 
 function App() {
   return (
@@ -41,7 +40,6 @@ function App() {
               <Route path="/payment" component={Payment} />
               <Route path="/videochat" component={JoinRoom} />
               <Route path="/videochatservice/:userid/:room" exact component={VideoChat} />
-              <Route path="/join-appointment" component={JoinAppointment} />
             </Switch>
           </BrowserRouter>
         </Content>

@@ -66,7 +66,7 @@ const JoinRoom = () => {
       <div className="mainTop">
         <span>
           <img src={doctor} alt="User ava" />
-          <p>VideoChat Service</p>
+          <p>Room: </p>
         </span>
       </div>
       <div className="mainBottom">
