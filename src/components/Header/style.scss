@@ -14,7 +14,7 @@
       width: 50%;
     }
 
-    &>* {
+    & > * {
       margin-right: 0.5rem;
     }
   }
@@ -27,6 +27,7 @@
 
     .IconSection {
       margin-right: 30px;
+      font-size: 22px;
     }
 
     .avatar-profile {
@@ -39,6 +40,5 @@
       background-image: url(../../assets/programmer.png);
       background-size: 44px 44px;
     }
-
   }
 }

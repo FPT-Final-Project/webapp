@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import SiderMenu from '../../components/Sider';
 import { routes } from './routes';
 import HeaderLayout from '../../components/Header/index';
 import './style.scss';
+import ProtectedRoute from '../../config/private-route.config';
 
 const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+
   const toggle = () => {
     setCollapsed(!collapsed);
   };
@@ -23,13 +25,12 @@ const LayoutApp: React.FC = () => {
           <Content>
             <Switch>
               {routes.map((route, index) => (
-                <Route
+                <ProtectedRoute
                   key={index}
                   exact={route.exact}
-                  path={`/app/${route.path}`}
-                >
-                  {route.component}
-                </Route>
+                  path={route.path}
+                  component={route.component}
+                />
               ))}
             </Switch>
           </Content>
