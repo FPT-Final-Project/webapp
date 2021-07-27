@@ -144,7 +144,6 @@ const ListDoctors = () => {
         );
       },
     },
-
     {
       title: 'Settings',
       key: 'settings',
