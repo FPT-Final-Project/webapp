@@ -7,7 +7,7 @@ import '../../shared/css/form.scss';
 
 const { Title } = Typography;
 
-const Reset = () => {
+const ResetPass = () => {
   const history = useHistory();
   const functionDirect = () => {
     history.push('/register');
@@ -69,4 +69,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default ResetPass;
