@@ -1,9 +1,10 @@
+import React from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
 import './style.scss';
 
-export default function SelectQuiz() {
+export const SelectQuiz: React.FC = () => {
   return (
     <>
       <div className="quiz-form">
@@ -76,4 +77,4 @@ export default function SelectQuiz() {
       </div>
     </>
   );
-}
+};

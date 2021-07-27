@@ -10,9 +10,10 @@ import { IRootState } from '../../stores/store';
 import { IUser } from '../../types/user';
 
 const { Title } = Typography;
+const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+const validatePass = /^.{6,}$/;
 
 const Login = ({ login, user }: { login: (email: string, password: string) => void, user: IUser | undefined }) => {
-  console.log('User : ', user);
   const history = useHistory();
 
   if (user) {
@@ -22,12 +23,6 @@ const Login = ({ login, user }: { login: (email: string, password: string) => vo
 
   const functionDirect = () => {
     history.push('/register');
-  };
-
-  const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-  const validatePass = /^.{6,}$/;
-
-  const handleLogin = () => {
   };
 
   const submit = ({ email, password }: { email: string, password: string }) => {
@@ -68,7 +63,7 @@ const Login = ({ login, user }: { login: (email: string, password: string) => vo
             </Form.Item>
 
             <Form.Item>
-              <Button className="btn-submit" htmlType="submit" onClick={handleLogin}>
+              <Button className="btn-submit" htmlType="submit">
                 LOGIN
               </Button>
             </Form.Item>

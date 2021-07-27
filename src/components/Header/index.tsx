@@ -24,7 +24,7 @@ export default function HeaderLayout() {
       <Header className="app-header">
         <div className="left-nar-bar">
           <Search className="nar-search" placeholder="Search..." />
-          <div className="date-time-nar-bar">{`${date}, ${time}`}</div>
+          {/* <div className="date-time-nar-bar">{`${date}, ${time}`}</div> */}
         </div>
         <div className="right-nar-bar">
           <FontAwesomeIcon className="IconSection" icon={faBell} size="2x" />
