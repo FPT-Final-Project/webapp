@@ -64,7 +64,7 @@
     "semi": "warn",
     "arrow-body-style": {
       "requireReturnForObjectLiteral": true
-    },
+    }
   },
   "settings": {
     "import/resolver": {
