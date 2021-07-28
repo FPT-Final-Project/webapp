@@ -22,7 +22,7 @@ import Canvas from '../Canvas';
 const socket = io('http://localhost:3000');
 
 const VideoChat = () => {
-  const { userid, room } :any = useParams();
+  const { userid, room }: any = useParams();
   const peer = new Peer();
   const peers: any = {};
   const listUserInRoom = useState<any[]>([]);
@@ -63,7 +63,7 @@ const VideoChat = () => {
     setTextCameraUser(!textCameraUser);
   };
 
-  const sendMessage = (e : any) => {
+  const sendMessage = (e: any) => {
     e.preventDefault();
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
@@ -85,7 +85,7 @@ const VideoChat = () => {
 
   const userInRoom = () => {
     socket.on('getUsersInRoom', (listUserInRoom) => {
-      listUserInRoom.forEach((id : any) => {
+      listUserInRoom.forEach((id: any) => {
         if (String(id) !== String(userid)) {
           setPartnerid(id);
         }
@@ -168,85 +168,87 @@ const VideoChat = () => {
   }, []);
 
   return (
-    <div className="main-video">
-      {/* ====================VideoCall====================== */}
-      <div className="mainLeft">
-        <div className="mainVideosTop">
-          <span className="userImage">
-            <img src={doctor} alt="User ava" />
-          </span>
-          <div id="userCall">{username}</div>
-          {statusPartner ? (
-            <div className="notification">
-              {partnername}
-              {' '}
-              Connected
+    <div className="wrap-videoCall">
+      <div className="main-video">
+        {/* ====================VideoCall====================== */}
+        <div className="mainLeft">
+          <div className="mainVideosTop">
+            <span className="userImage">
+              <img src={doctor} alt="User ava" />
+            </span>
+            <div id="userCall">{username}</div>
+            {statusPartner ? (
+              <div className="notification">
+                {partnername}
+                {' '}
+                Connected
+              </div>
+            ) : ''}
+          </div>
+          <div className="mainVideos">
+            <div className="partnerScreenvideo">
+              {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
+              <video ref={partnerVideo} autoPlay />
+              <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />
+              <div className="userScreenvideo">
+                <video ref={myVideo} autoPlay />
+                <Canvas videoRef={myVideo} className="userScreenvideotag" />
+                {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
+              </div>
             </div>
-          ) : ''}
-        </div>
-        <div className="mainVideos">
-          <div className="partnerScreenvideo">
-            {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            <video ref={partnerVideo} autoPlay />
-            <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />
-            <div className="userScreenvideo">
-              <video ref={myVideo} autoPlay />
-              <Canvas videoRef={myVideo} className="userScreenvideotag" />
-              {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
+          </div>
+          <div className="mainVideosBottom">
+            <div className="partnerName" id="partnerName">{partnername}</div>
+          </div>
+          <div className="mainControlsVideo">
+            <div className="mainControlsBlock">
+              <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-image" src={audiobutton} alt="mute" />
+              </div>
+              <div className="mainControlsButtonEndMeeting">
+                <span className="endMeeting">
+                  <a href="/videochat">
+                    <img className="mute-phone" src={phone} alt="Hand Up" />
+                  </a>
+                </span>
+              </div>
+              <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="video-image" src={videobutton} alt="video" />
+              </div>
             </div>
           </div>
         </div>
-        <div className="mainVideosBottom">
-          <div className="partnerName" id="partnerName">{partnername}</div>
-        </div>
-        <div className="mainControlsVideo">
-          <div className="mainControlsBlock">
-            <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-              <img className="mute-image" src={audiobutton} alt="mute" />
-            </div>
-            <div className="mainControlsButtonEndMeeting">
-              <span className="endMeeting">
-                <a href="/videochat">
-                  <img className="mute-phone" src={phone} alt="Hand Up" />
-                </a>
-              </span>
-            </div>
-            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-              <img className="video-image" src={videobutton} alt="video" />
+        {/* ====================ChatBox====================== */}
+        <div className="mainRight">
+          <div className="mainHeader">
+            <span><WechatOutlined /></span>
+            <h3>Chat Box</h3>
+          </div>
+          <div className="mainChatWindow">
+            <div className="messages" ref={messageEl}>
+              {messages.map((message, i) => <div key={i}><Message message={message} myname={username} /></div>)}
             </div>
           </div>
+          <div className="mainMessageContainer">
+            <form className="formChatMesseage">
+              <div className="inputchatMessage">
+                <input
+                  id="chatMessage"
+                  type="text"
+                  placeholder="Type message here..."
+                  value={message || ''}
+                  onChange={({ target: { value } }) => setMessage(value)}
+                  onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
+                />
+                <span className="buttonSendMessage">
+                  <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
+                </span>
+              </div>
+            </form>
+          </div>
         </div>
+        {/* ====================End----VideoChat====================== */}
       </div>
-      {/* ====================ChatBox====================== */}
-      <div className="mainRight">
-        <div className="mainHeader">
-          <span><WechatOutlined /></span>
-          <h3>Chat Box</h3>
-        </div>
-        <div className="mainChatWindow">
-          <div className="messages" ref={messageEl}>
-            {messages.map((message, i) => <div key={i}><Message message={message} myname={username} /></div>)}
-          </div>
-        </div>
-        <div className="mainMessageContainer">
-          <form className="formChatMesseage">
-            <div className="inputchatMessage">
-              <input
-                id="chatMessage"
-                type="text"
-                placeholder="Type message here..."
-                value={message || ''}
-                onChange={({ target: { value } }) => setMessage(value)}
-                onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
-              />
-              <span className="buttonSendMessage">
-                <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
-              </span>
-            </div>
-          </form>
-        </div>
-      </div>
-      {/* ====================End----VideoChat====================== */}
     </div>
   );
 };

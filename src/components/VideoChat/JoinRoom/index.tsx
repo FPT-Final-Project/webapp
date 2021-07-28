@@ -2,7 +2,7 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import doctor from '../../../assets/doctor.png';
 import mute from '../../../assets/mute.svg';
 import unmute from '../../../assets/unmute.svg';
@@ -61,53 +61,59 @@ const JoinRoom = () => {
       });
   }, []);
 
+  const history = useHistory();
+  const functionDirect = () => {
+    history.push('/join-appointment');
+  };
   // ===============================
 
   return (
-    <div className="mainJoinRoom">
-      <div className="mainTop">
-        <span>
-          <img src={doctor} alt="User ava" />
-          <p>Room: 123456</p>
-        </span>
-      </div>
-      <div className="mainBottom">
-        <div className="userScreenBlock">
-          {!textCamera ? <div className="CameraOff">Camera is off</div> : ''}
-          <div className="mainControlsJoinRoom">
-            <div className="mainControlsButtonJoinRoom mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-              <img className="mute-image" src={audiobutton} alt="mute" />
-            </div>
-            <div className="mainControlsButtonJoinRoom mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-              <img className="video-image" src={videobutton} alt="video" />
-            </div>
-          </div>
-          <video ref={myVideo} autoPlay />
-          <Canvas videoRef={myVideo} size={myVideoSize} className="userScreenJoinRoom" />
+    <div className="wrap-joinRoom">
+      <div className="mainJoinRoom">
+        <div className="mainTop">
+          <span>
+            <img src={doctor} alt="User ava" />
+            <p>Room: 123456</p>
+          </span>
         </div>
-        <div className="joinButton">
-          <div className="ready">
-            Ready to join?
+        <div className="mainBottom">
+          <div className="userScreenBlock">
+            {!textCamera ? <div className="CameraOff">Camera is off</div> : ''}
+            <div className="mainControlsJoinRoom">
+              <div className="mainControlsButtonJoinRoom mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-image" src={audiobutton} alt="mute" />
+              </div>
+              <div className="mainControlsButtonJoinRoom mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="video-image" src={videobutton} alt="video" />
+              </div>
+            </div>
+            <video ref={myVideo} autoPlay />
+            <Canvas videoRef={myVideo} size={myVideoSize} className="userScreenJoinRoom" />
           </div>
-          <div>
-            <Link
-              onClick={(e) => ((!userid) ? e.preventDefault() : null)}
-              to={{
-                pathname: `/videochatservice/${userid}/123456`,
-                state: {
-                  propertyaudio,
-                  propertyvideo,
-                },
-              }}
-            >
-              <button className="btnJoinroom" type="submit">Join now</button>
-            </Link>
-            <a href="/join-appointment"><button className="btnBack">Back</button></a>
+          <div className="joinButton">
+            <div className="ready">
+              Ready to join?
+            </div>
+            <div>
+              <Link
+                onClick={(e) => ((!userid) ? e.preventDefault() : null)}
+                to={{
+                  pathname: `/videochatservice/${userid}/123456`,
+                  state: {
+                    propertyaudio,
+                    propertyvideo,
+                  },
+                }}
+              >
+                <button className="btnJoinroom" type="submit">Join now</button>
+              </Link>
+              <button onClick={functionDirect} className="btnBack">Back</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <input placeholder="UserID" type="text" onChange={(event) => setUserid(event.target.value)} />
+        <div>
+          <input placeholder="UserID" type="text" onChange={(event) => setUserid(event.target.value)} />
+        </div>
       </div>
     </div>
   );

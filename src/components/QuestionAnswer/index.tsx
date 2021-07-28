@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+/* eslint-disable max-len */
+import React, { ChangeEvent, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
 } from 'antd';
@@ -17,15 +18,6 @@ const menu = (
   </Menu>
 );
 
-// const hideReply = {};
-
-const actions = [
-  <span className="reply" key="comment-basic-reply-to">
-    <img className="reply-image" src={reply} alt="reply" />
-    <span>Reply</span>
-  </span>,
-];
-
 const CommentList = ({ comments }: { comments: any }) => (
   <List
     dataSource={comments}
@@ -35,9 +27,7 @@ const CommentList = ({ comments }: { comments: any }) => (
   />
 );
 
-const Editor = ({
-  onChange, onSubmit, submitting, value,
-}: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
+const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
@@ -55,7 +45,8 @@ const Editor = ({
   </>
 );
 
-function QuestionAnswer() {
+const QuestionAnswer = () => {
+  const [showReply, setShowReply] = React.useState(false);
   const [state, setState] = useState({
     comments: [{}],
     submitting: false,
@@ -95,6 +86,14 @@ function QuestionAnswer() {
     });
   };
 
+  // const actions = [
+  //   <div>
+  //     <span className="reply" key="comment-basic-reply-to">
+  //       <img className="reply-image" src={reply} alt="reply" />
+  //       <span>Reply</span>
+  //     </span>
+  //   </div>,
+  // ];
   const { comments, submitting, value } = state;
 
   return (
@@ -115,7 +114,7 @@ function QuestionAnswer() {
         </Row>
         <Row className="question-input" justify="space-between">
           <Input
-            style={{ width: '96%', borderRadius: '8px' }}
+            style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
           />
           <Button>
@@ -125,7 +124,7 @@ function QuestionAnswer() {
         </Row>
         <div className="comment">
           <Comment
-            actions={actions}
+            // actions={actions}
             author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={(
               <Avatar
@@ -172,6 +171,6 @@ function QuestionAnswer() {
       </div>
     </>
   );
-}
+};
 
 export default QuestionAnswer;
