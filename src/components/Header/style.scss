@@ -1,38 +1,47 @@
 .app-header {
-  background-color: white !important;
+  width: 100%;
+  height: 64px !important;
+  background-color: orchid !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: fixed;
+  z-index: 2;
 
   .left-nar-bar {
-    width: 70%;
+    background-color: palegoldenrod;
+    width: 50%;
     display: flex;
     flex-direction: row;
     align-items: center;
 
     .nar-search {
-      width: 50%;
+      width: 300px;
     }
 
-    & > * {
-      margin-right: 0.5rem;
-    }
+    // & > * {
+    //   margin-right: 0.5rem;
+    // }
   }
 
   .right-nar-bar {
-    margin-left: auto;
+    width: 28%;
+    // margin-right: 10px;
+    background-color: paleturquoise;
+    // margin-left: auto;
     display: flex;
-    flex-direction: row;
+    // flex-direction: row;
     align-items: center;
+    // position: absolute;
 
     .IconSection {
-      margin-right: 30px;
-      font-size: 22px;
+      margin-right: 24px;
+      font-size: 20px;
     }
 
     .avatar-profile {
-      padding: 0;
-      border: 3px solid #1f8ba3;
+      padding: 2px;
+      border: 1px solid black;
       cursor: pointer;
       height: 44px;
       width: 44px;

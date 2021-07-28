@@ -1,9 +1,9 @@
 .AvatarModal {
-  max-width: 270px !important;
+  max-width: 240px !important;
   text-align: center !important;
-  position: absolute !important;
+  position: fixed !important;
   top: 70px !important;
-  right: 5px;
+  right: 20px;
   border-radius: 8px !important;
   // background-color: #299cb4 !important;
   .ant-modal-body {

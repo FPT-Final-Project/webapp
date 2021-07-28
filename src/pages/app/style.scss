@@ -1,9 +1,6 @@
-.layout-main {
-  height: 100vh;
-
-  .layout-content {
-    max-height: calc(100% - 64px);
-    overflow-y: hidden;
-    overflow: scroll;
+.ant-scrolling-effect {
+  overflow: scroll !important;
+  .layout-main {
+    height: 100vh;
   }
 }
