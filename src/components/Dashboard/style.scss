@@ -124,15 +124,6 @@
         justify-content: space-between;
         margin-bottom: 10px;
 
-        .ant-table-wrapper {
-          overflow-x: hidden;
-          overflow: scroll;
-
-          .ant-table-thead > tr > th {
-            font-weight: bold !important;
-          }
-        }
-
         .apm-title {
           font-size: 22px;
           font-weight: bold;
@@ -142,6 +133,15 @@
           border-radius: 10px;
           border: 2px solid;
           font-weight: bold;
+        }
+      }
+
+      .ant-table-wrapper {
+        overflow-x: hidden;
+        overflow: scroll;
+
+        .ant-table-thead > tr > th {
+          font-weight: bold !important;
         }
       }
     }
