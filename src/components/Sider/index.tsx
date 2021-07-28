@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import './style.scss';
 import { routes } from '../../pages/app/routes';
 
@@ -16,44 +16,51 @@ const { Item } = Menu;
 
 interface Props {
   collapsed?: boolean;
+  matchPath: string;
 }
 
-const MenuItem = (path: string, index: number) => {
+const MenuItem = (path: string, index: number, matchPath: string, _currentPath: string) => {
   let icon;
   let name;
 
   switch (path) {
-    case routes[0].path: {
+    case matchPath + routes[0].path: {
       icon = <UserOutlined />;
       name = 'Dashboard';
       break;
     }
 
-    case routes[1].path: {
+    case matchPath + routes[1].path: {
       icon = <VideoCameraOutlined />;
       name = 'Appointment';
       break;
     }
 
-    case routes[2].path: {
+    case matchPath + routes[2].path: {
+      icon = <UploadOutlined />;
+      name = 'Doctor';
+      break;
+    }
+
+    case matchPath + routes[3].path: {
       icon = <UploadOutlined />;
       name = 'Psychology Test';
       break;
     }
 
-    case routes[3].path: {
+    case matchPath + routes[4].path: {
       icon = <UserOutlined />;
       name = 'Questions & Answers';
       break;
     }
 
-    case routes[4].path: {
+    case matchPath + routes[5].path: {
       icon = <UploadOutlined />;
       name = 'Feedback';
       break;
     }
 
-    case routes[5].path: {
+    case matchPath + routes[6].path: {
       icon = <UserOutlined />;
       name = 'Payment';
       break;
@@ -75,8 +82,10 @@ const MenuItem = (path: string, index: number) => {
   );
 };
 
-const SiderMenu: React.FC<Props> = ({ collapsed = false }: Props) => {
+const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => {
   const history = useHistory();
+  const routeMatch = useRouteMatch();
+  console.log('Route Match Sider : ', routeMatch);
 
   const redirectToApp = () => {
     history.push('/app');
@@ -95,7 +104,7 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false }: Props) => {
           <p>PsyCare.</p>
         </div>
         <Menu className="custom-menu">
-          {routes.map((route, index) => MenuItem(route.path, index))}
+          {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, routeMatch.path))}
         </Menu>
       </Sider>
     </>
