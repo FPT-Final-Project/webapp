@@ -16,6 +16,10 @@ export const QuizActions = {
   CREATE_QUIZ_SUCCESS: '[Quiz] Create Quiz Success',
   CREATE_QUIZ_FAIL: '[Quiz] Create Quiz Fail',
 
+  CREATE_RESULT: '[Quiz] Create Quiz Result',
+  CREATE_RESULT_SUCCESS: '[Quiz] Create Quiz Result Success',
+  CREATE_RESULT_FAIL: '[Quiz] Create Quiz Result Fail',
+
   GET_QUIZ_RESULT: '[Quiz] Get Quiz Result',
   GET_QUIZ_RESULT_SUCCESS: '[Quiz] Get Quiz Result Success',
   GET_QUIZ_RESULT_FAIL: '[Quiz] Get Quiz Result Fail',
@@ -64,6 +68,10 @@ const getQuestions = (quizId: string) => (dispatch: Dispatch) => {
     .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUESTIONS_SUCCESS, { questions: result.data })))
     .catch((error) => dispatch(doFailure(QuizActions.GET_QUESTIONS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
+
+// const getQuizResult = (userId: string) => (dispatch: Dispatch) => {
+//   userService.c
+// }
 
 export default {
   getQuizzes,

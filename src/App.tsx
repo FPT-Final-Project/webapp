@@ -1,5 +1,5 @@
-import { connect, Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Route, Router, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
@@ -17,6 +17,7 @@ import { PsyTest } from './components/PsyTest';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
+import history from './config/history';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -28,15 +29,15 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Content>
-          <BrowserRouter>
+          <Router history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/register" exact component={Register} />
-              <Route path="/reset" exact component={Reset} />
-              <Route path="/resetPass" exact component={ResetPass} />
-              <ProtectedRoute path="/quiz/:quizId" exact component={PsyTest} />
-              <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
+              <Route path="/login" component={Login} />
+              <Route path="/register/:userId" component={Register} />
+              <Route path="/reset" component={Reset} />
+              <Route path="/resetPass" component={ResetPass} />
+              <Route path="/quiz/:quizId" component={PsyTest} />
+              <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
               {/*
@@ -50,7 +51,7 @@ function App() {
               <ProtectedRoute path="/videochat" exact component={JoinRoom} />
               <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
-          </BrowserRouter>
+          </Router>
         </Content>
       </div>
     </Provider>
