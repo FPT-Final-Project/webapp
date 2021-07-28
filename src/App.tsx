@@ -51,8 +51,8 @@ function App() {
 
               <ProtectedRoute path="/listPatients" component={ListPatients} />
               {/* VideoCall */}
-              <ProtectedRoute path="/videochat" component={JoinRoom} />
-              <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
+              <Route path="/videochat" component={JoinRoom} />
+              <Route path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>
