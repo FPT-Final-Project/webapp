@@ -6,7 +6,6 @@
     right:0px;
     bottom:0px;
     left:0px;
-    background: linear-gradient(to right, #12d3fc 0%, #177a8e 51%, #12d3fc 100%);
 }
 .mainTop{
     margin-top: 30px;
@@ -25,16 +24,20 @@
     flex-wrap: wrap;
 }
 .userScreenBlock{
+    margin-left: 20px;
     position: relative;
-    width: 70%;
-    min-width: 666px;
+    width: 65%;
+    height: 100%;
+    min-width: 750px;
 }
-.userScreen{
+.userScreenJoinRoom{
     transform: scaleX(-1);
     border-radius: 12px;
-	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
-	border: 2px solid white;
-    height: 100%;
+	box-shadow:  0 10px 20px 10px rgba(0,0,0,0.19); 
+    width: 100%;
+}
+video{
+    display : none;
 }
 .mainControlsJoinRoom {
     top: 90%;
@@ -66,16 +69,32 @@
     background-color: #948484;
 }
 .joinButton{
+    width: 30%;
     margin-top: auto;
     margin-bottom: auto;
+    margin-right: 20px;
 }
-#btnJoinroom{
+.btnJoinroom{
     color: white;
-    width: 100%;
-    background: #ea4335;
+    width: 40%;
+    margin-right: 5px;
+    background: linear-gradient(to right, #12d3fc 0%, #177a8e 51%, #12d3fc 100%);
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    letter-spacing: .01785714em;
+    border-radius: 25px;
+    font-size: 1em;
+    border: none;
+	box-shadow:  0 6px 10px 0 rgba(0,0,0,0.19); 
+}
+.btnBack{
+    color: #12d3fc;
+    width: 40%;
+    margin-left: 5px;
+    border: none;
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     letter-spacing: .01785714em;
     border-radius: 18px;
+	box-shadow:  0 6px 10px 0 rgba(0,0,0,0.19); 
     font-size: 1em;
 }
 .joinInput{
@@ -98,4 +117,9 @@
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     margin-bottom: 20px;
     padding-left: 5px;
+    color: black;
+    font-size: 1.5em;
+}
+p{
+    color: black;
 }

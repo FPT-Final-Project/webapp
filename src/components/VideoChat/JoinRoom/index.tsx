@@ -9,6 +9,7 @@ import unmute from '../../../assets/unmute.svg';
 import video from '../../../assets/video.svg';
 import novideo from '../../../assets/no-video.svg';
 import './style.scss';
+import Canvas from '../Canvas';
 
 const JoinRoom = () => {
   const [userid, setUserid] = useState('');
@@ -18,6 +19,7 @@ const JoinRoom = () => {
   const [textCamera, setTextCamera] = useState(true);
   const [propertyaudio, setPropertyaudio] = useState(true);
   const [propertyvideo, setPropertyvideo] = useState(true);
+  const myVideoSize = { width: '740', height: '456' };
 
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
@@ -66,7 +68,7 @@ const JoinRoom = () => {
       <div className="mainTop">
         <span>
           <img src={doctor} alt="User ava" />
-          <p>Room: </p>
+          <p>Room: 123456</p>
         </span>
       </div>
       <div className="mainBottom">
@@ -80,7 +82,8 @@ const JoinRoom = () => {
               <img className="video-image" src={videobutton} alt="video" />
             </div>
           </div>
-          <video className="userScreen" ref={myVideo} autoPlay />
+          <video ref={myVideo} autoPlay />
+          <Canvas videoRef={myVideo} size={myVideoSize} className="userScreenJoinRoom" />
         </div>
         <div className="joinButton">
           <div className="ready">
@@ -97,8 +100,9 @@ const JoinRoom = () => {
                 },
               }}
             >
-              <button id="btnJoinroom" type="submit">Join now</button>
+              <button className="btnJoinroom" type="submit">Join now</button>
             </Link>
+            <a href="/join-appointment"><button className="btnBack">Back</button></a>
           </div>
         </div>
       </div>

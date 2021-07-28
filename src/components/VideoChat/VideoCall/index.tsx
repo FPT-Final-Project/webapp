@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
@@ -16,6 +17,7 @@ import novideo from '../../../assets/no-video.svg';
 import Message from '../Message';
 import './style.scss';
 import '../Message/style.scss';
+import Canvas from '../Canvas';
 
 const socket = io('http://localhost:3000');
 
@@ -185,10 +187,12 @@ const VideoChat = () => {
         <div className="mainVideos">
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            <video className="partnerScreenvideotag" ref={partnerVideo} autoPlay />
+            <video ref={partnerVideo} autoPlay />
+            <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />
             <div className="userScreenvideo">
+              <video ref={myVideo} autoPlay />
+              <Canvas videoRef={myVideo} className="userScreenvideotag" />
               {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
-              <video className="userScreenvideotag" ref={myVideo} autoPlay />
             </div>
           </div>
         </div>
