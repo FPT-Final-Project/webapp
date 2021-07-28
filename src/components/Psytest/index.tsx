@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { faArrowLeft, faSpinner, faTruckLoading } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+import quizService from '../../services/quiz.service';
 import quizAction from '../../stores/actions/quiz.action';
 import { IRootState } from '../../stores/store';
 import { IQuestion } from '../../types/question';
@@ -34,7 +36,6 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
   const history = useHistory();
   const [score, setScore] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [showScore, setShowScore] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -62,13 +63,22 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
         setLoading(false);
       }, 400);
     } else {
-      setShowScore(true);
+      const userId = user ? user._id : uuid();
+      quizService.createQuizResult(userId, quizId, score);
+
+      if (user) {
+        history.push(`/quiz/${quiz?._id}/result`);
+        return;
+      }
+
+      history.push(`/register/${userId}`);
     }
   };
 
   const showModal = () => {
     setIsModalVisible(true);
   };
+
   const handleCancelDropAvatar = () => {
     setIsModalVisible(false);
   };
@@ -77,7 +87,7 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
     <div className="psy-test-section">
       <div className="header-wrapper">
         <div className="left-header">
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app')} />
+          <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app/dashboard')} />
         </div>
         <div className="right-header" role="button">
           <p>{user?.name}</p>

@@ -1,8 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { IUser } from '../../../types/user';
 import './style.scss';
 
-const ProfileUser = () => {
+interface Props {
+  user: IUser | undefined;
+}
+
+const ProfileUser: React.FC<Props> = () => {
   return (
     <div className="wrap-content">
       {/* root */}
@@ -30,7 +35,7 @@ const ProfileUser = () => {
       <div className="container">
         <form>
           <div className="container__title">
-            <div className="container__title--text">Personal Infomation</div>
+            <div className="container__title--text">Personal Information</div>
             <div className="container__title--btn">
               <button className="btn-edit">Icon Edit</button>
             </div>

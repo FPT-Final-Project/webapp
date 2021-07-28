@@ -5,6 +5,7 @@ import './style.scss';
 import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IRootState } from '../../stores/store';
 
 interface Props {}
 
@@ -209,6 +210,6 @@ const Dashboard = (_props: Props) => (
   </div>
 );
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state: IRootState) => ({});
 
 export default connect()(Dashboard);

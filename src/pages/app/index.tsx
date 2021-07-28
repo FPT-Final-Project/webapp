@@ -29,7 +29,6 @@ const LayoutApp: React.FC = () => {
               {routes.map((route, index) => (
                 <ProtectedRoute
                   key={index}
-                  exact={route.exact}
                   path={`${routeMatch.path}${route.path}`}
                   component={route.component}
                 />
