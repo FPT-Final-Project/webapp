@@ -1,4 +1,4 @@
-export const doRequest = (type: string, payload: any) => ({
+export const doRequest = (type: string, payload?: any) => ({
   type,
   payload,
 });

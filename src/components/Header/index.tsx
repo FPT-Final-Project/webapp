@@ -34,11 +34,11 @@ export default function HeaderLayout() {
             size="2x"
           />
           <button onClick={showModal} className="avatar-profile" />
+          <AvatarModal
+            visible={isModalVisible}
+            handleCancelDropAvatar={handleCancelDropAvatar}
+          />
         </div>
-        <AvatarModal
-          visible={isModalVisible}
-          handleCancelDropAvatar={handleCancelDropAvatar}
-        />
       </Header>
     </>
   );
