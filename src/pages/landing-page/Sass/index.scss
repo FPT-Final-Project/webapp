@@ -10,15 +10,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-::selection {
-  background-color: #0891ac;
-  color: #fff;
-}
-
 .grid {
   margin: 0 auto;
   width: 90%;

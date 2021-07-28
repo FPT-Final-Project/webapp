@@ -2,8 +2,8 @@ import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import '../../shared/css/form.scss';
 import { connect } from 'react-redux';
+import '../../shared/css/form.scss';
 import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
 

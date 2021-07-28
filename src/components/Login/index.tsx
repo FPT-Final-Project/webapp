@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
@@ -9,16 +10,20 @@ import authAction from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';
 import { IUser } from '../../types/user';
 
+interface Props {
+  login: (email: string, password: string) => void,
+  user: IUser | undefined
+}
+
 const { Title } = Typography;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 const validatePass = /^.{6,}$/;
 
-const Login = ({ login, user }: { login: (email: string, password: string) => void, user: IUser | undefined }) => {
+const Login: React.FC<Props> = ({ login, user }: Props) => {
   const history = useHistory();
 
   if (user) {
     history.push('/app');
-    return <></>;
   }
 
   const functionDirect = () => {

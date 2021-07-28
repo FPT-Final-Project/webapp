@@ -9,7 +9,8 @@
     height: 32px;
     margin: 16px;
     color: white;
-    font-size: 25px;
+    font-size: xx-large;
+    font-weight: 900;
     cursor: pointer;
   }
 
@@ -24,6 +25,7 @@
       font-weight: 700;
       margin: 16px 20px 0 20px;
       border-radius: 5px;
+
       &:hover {
         background-color: white;
         color: #299cb4 !important;
