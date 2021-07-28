@@ -32,14 +32,6 @@ export interface LogoutAction extends Action {
   payload: {}
 }
 
-export interface RegisterAction extends Action {
-  payload: {
-    name: string,
-    email: string,
-    password: string,
-  }
-}
-
 export interface RegisterSuccessAction extends Action {
   payload: IUser
 }
@@ -56,6 +48,7 @@ const login = (email: string, password: string) => (dispatch: Dispatch): void =>
   userService.login(email, password)
     .then((result : any) => {
       localStorage.setItem('token', result.data.token);
+      localStorage.setItem('user', JSON.stringify(result.data));
       dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result.data));
     })
     .catch((error : any) => {
@@ -69,6 +62,7 @@ const register = (name: string, email: string, role: string, password: string) =
   userService.register(name, email, password, role)
     .then((result : any) => {
       localStorage.setItem('token', result.data.token);
+      localStorage.setItem('user', JSON.stringify(result.data));
       dispatch(doSuccess(AuthActions.REGISTER_SUCCESS, result.data));
     })
     .catch((error : any) => {

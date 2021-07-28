@@ -50,7 +50,8 @@
     ],
     "max-len": ["warn", {
       "code": 120,
-      "ignoreStrings": true
+      "ignoreStrings": true,
+      "ignoreComments": true
     }],
     "react/no-unescaped-entities": "off",
     "react/button-has-type": "off",
@@ -64,7 +65,8 @@
     "react/jsx-one-expression-per-line": "off",
     "object-curly-newline": "off",
     "semi": "error",
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {
