@@ -9,6 +9,8 @@ import gg from '../../assets/gg.png';
 
 const { Title } = Typography;
 const { Option } = Select;
+const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+const validatePass = /^.{6,}$/;
 
 const Register = ({ register }: { register: Function }) => {
   const history = useHistory();
@@ -48,12 +50,16 @@ const Register = ({ register }: { register: Function }) => {
             </Form.Item>
 
             <Form.Item
-              label="Email or Phone number"
+              label="Email"
               name="email"
               rules={[
                 {
                   required: true,
                   message: 'Please input your Email!',
+                },
+                {
+                  pattern: validateEmail,
+                  message: 'The input is not valid E-mail!',
                 },
               ]}
             >
@@ -63,10 +69,17 @@ const Register = ({ register }: { register: Function }) => {
             <Form.Item
               label="Password"
               name="password"
-              rules={[{
-                required: true,
-                message: 'Please input your password!',
-              }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                },
+              ]}
+              hasFeedback
             >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
@@ -99,7 +112,7 @@ const Register = ({ register }: { register: Function }) => {
             </Form.Item>
             <Row justify="space-around">
               <Space>
-                <Link to="/reset">Forgot login or password?</Link>
+                <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
             </Row>
           </Form>

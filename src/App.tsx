@@ -8,7 +8,6 @@ import 'antd/dist/antd.css';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import QuestionAnswer from './components/QuestionAnswer';
-import Reset from './components/NewPass';
 import ResetPass from './components/ResetPassword';
 import Feedback from './components/Feedback';
 import { store } from './stores/store';
@@ -34,7 +33,6 @@ function App() {
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
               <ProtectedRoute path="/selectQuiz" component={SelectQuiz} />
               <ProtectedRoute path="/resultQuiz" component={ResultQuiz} />
