@@ -20,6 +20,8 @@ const MainServices = () => {
     if (inView) {
       animation.start('visible');
     }
+
+    return () => animation.stop();
   }, [animation, inView]);
 
   return (

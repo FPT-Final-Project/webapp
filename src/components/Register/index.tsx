@@ -2,11 +2,10 @@ import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../shared/css/form.scss';
-
 import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
-import { connect } from 'react-redux';
 
 const { Title } = Typography;
 const { Option } = Select;
