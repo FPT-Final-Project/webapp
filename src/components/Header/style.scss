@@ -1,15 +1,12 @@
 .app-header {
   width: 100%;
-  height: 64px !important;
-  background-color: orchid !important;
+  background-color: #ffffff !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  position: fixed;
-  z-index: 2;
 
   .left-nar-bar {
-    background-color: palegoldenrod;
+    // background-color: palegoldenrod;
     width: 50%;
     display: flex;
     flex-direction: row;
@@ -25,14 +22,11 @@
   }
 
   .right-nar-bar {
-    width: 28%;
-    // margin-right: 10px;
-    background-color: paleturquoise;
-    // margin-left: auto;
+    width: 50%;
+    // background-color: paleturquoise;
     display: flex;
-    // flex-direction: row;
     align-items: center;
-    // position: absolute;
+    justify-content: flex-end;
 
     .IconSection {
       margin-right: 24px;

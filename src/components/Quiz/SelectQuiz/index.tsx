@@ -4,17 +4,17 @@ import {
 } from 'antd';
 import './style.scss';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import quizAction from '../../../stores/actions/quiz.action';
 import { IRootState } from '../../../stores/store';
 import { IQuiz } from '../../../types/quiz';
-import history from '../../../config/history';
 
 interface Props {
   getQuizzes: () => void;
   quizzes: IQuiz[] | undefined;
 }
 
-const Quiz = ({ _id, name, description }: IQuiz) => (
+const Quiz = ({ _id, name, description }: IQuiz, history: any) => (
   <Col span={8} xs={24} sm={12} xl={8} lg={12}>
     <Card hoverable className="card">
       <Row>
@@ -36,6 +36,8 @@ const Quiz = ({ _id, name, description }: IQuiz) => (
 );
 
 const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
+  const history = useHistory();
+
   if (!quizzes) {
     getQuizzes();
     return (<></>);
@@ -45,7 +47,7 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
     <>
       <div className="quiz-form">
         <Row gutter={[16, 16]}>
-          {(quizzes || []).map((quiz) => Quiz(quiz))}
+          {(quizzes || []).map((quiz) => Quiz(quiz, history))}
         </Row>
       </div>
     </>

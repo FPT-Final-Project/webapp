@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { Route, Router, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
@@ -17,7 +17,6 @@ import { PsyTest } from './components/PsyTest';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-import history from './config/history';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -29,7 +28,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Content>
-          <Router history={history}>
+          <BrowserRouter>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
@@ -51,7 +50,7 @@ function App() {
               <ProtectedRoute path="/videochat" exact component={JoinRoom} />
               <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
-          </Router>
+          </BrowserRouter>
         </Content>
       </div>
     </Provider>
