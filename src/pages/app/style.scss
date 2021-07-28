@@ -1,3 +1,6 @@
-.layout-main {
-  height: 100vh;
+.ant-scrolling-effect {
+  overflow: scroll !important;
+  .layout-main {
+    height: 100vh;
+  }
 }

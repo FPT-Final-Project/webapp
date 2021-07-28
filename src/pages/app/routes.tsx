@@ -1,6 +1,7 @@
 import Dashboard from '../../components/Dashboard';
 import Appointment from '../../components/Appointment';
 import PsychologyTest from '../../components/PsychologyTest';
+import Feedback from '../../components/Feedback';
 
 export const routes = [
   {
@@ -26,7 +27,7 @@ export const routes = [
   {
     path: '/app/feedback',
     exact: true,
-    component: PsychologyTest,
+    component: Feedback,
   },
   {
     path: '/app/payment',
