@@ -41,10 +41,10 @@ const VideoChat = () => {
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
     if (enabled) {
-      setAudiobutton(unmute);
+      setAudiobutton(mute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
     } else {
-      setAudiobutton(mute);
+      setAudiobutton(unmute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
     }
   };
@@ -52,10 +52,10 @@ const VideoChat = () => {
   const videoNovideo = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
-      setVideobutton(video);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-    } else {
       setVideobutton(novideo);
+    } else {
+      setVideobutton(video);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
     }
     setTextCameraUser(!textCameraUser);
@@ -116,16 +116,16 @@ const VideoChat = () => {
       myVideo.current.srcObject = stream;
       if (!location.state.propertyaudio) {
         myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-        setAudiobutton(unmute);
-      } else {
         setAudiobutton(mute);
+      } else {
+        setAudiobutton(unmute);
       }
       if (!location.state.propertyvideo) {
         myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
         setTextCameraUser(true);
-        setVideobutton(video);
-      } else {
         setVideobutton(novideo);
+      } else {
+        setVideobutton(video);
       }
       socket.on('user-connected', (partnerid, partnerpeerId) => {
         if (partnerid === '1') {
@@ -195,7 +195,7 @@ const VideoChat = () => {
         <div className="mainVideosBottom">
           <div className="partnerName" id="partnerName">{partnername}</div>
         </div>
-        <div className="mainControls">
+        <div className="mainControlsVideo">
           <div className="mainControlsBlock">
             <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
               <img className="mute-image" src={audiobutton} alt="mute" />

@@ -15,7 +15,8 @@
   }
 
   .mainLeft {
-    background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+    // background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+    background: #202124;
     flex: 0.8;
     width: 70%;
     display: flex;
@@ -42,9 +43,8 @@
     margin-top: auto;
     margin-bottom: auto;
   }
-
-  .notification {
-    background: #202124;
+  .notification{
+    background: black;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 25%;
@@ -72,6 +72,7 @@
     margin-right: 5px;
     border-radius: 5px;
     border: 2px solid white;
+    transform: scaleX(-1);
     background-color: #202124;
     background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
   }
@@ -94,7 +95,7 @@
   .partnerScreenvideo {
     position: relative;
     background-color: #202124;
-      background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -106,6 +107,7 @@
     position: absolute;
     min-width: 100%;
     min-height: 100%;
+    transform: scaleX(-1);
     float: left;
     border-radius: 5px;
   }
@@ -131,7 +133,7 @@
     border-radius: 50%;
   }
   .mainVideos {
-      flex-flow: row wrap;
+    flex-flow: row wrap;
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -154,7 +156,7 @@
     font-size: 20px;
     font-family:Arial, Helvetica, sans-serif;
   }
-  .mainControls {
+  .mainControlsVideo {
     padding: 3px 5px 0px 5px;
     display: flex;
     color: #ffffff;
@@ -172,7 +174,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ea4335;
+    background-color: #3c4043;
   }
   .mainControlsButton svg {
     font-size: 19px;
@@ -226,6 +228,11 @@
     text-align: center;
     background-color: #ededed;
     border-radius: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    h3{
+      margin: 0;
+    }
   }
   .mainHeader h4 {
     font-weight: 700;
