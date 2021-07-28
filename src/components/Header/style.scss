@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0 30px;
 
   .left-nar-bar {
     // background-color: palegoldenrod;
@@ -14,6 +15,13 @@
 
     .nar-search {
       width: 300px;
+    }
+
+    .app-header-title {
+      margin-bottom: 0;
+      text-transform: capitalize;
+      font-size: 20px;
+      font-weight: 900;
     }
 
     // & > * {

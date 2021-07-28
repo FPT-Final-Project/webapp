@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Layout, Input } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 import './style.scss';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 // import { useDate } from '../../hooks/useDate';
 import AvatarModal from '../Modals/Avatar';
+
+interface Props {}
 
 const { Header } = Layout;
 // const { Search } = Input;
 
-export default function HeaderLayout() {
-  const matchRoute = useRouteMatch();
-  console.log('Match Route : ', matchRoute);
+const HeaderLayout: React.FC<Props> = () => {
   // const { date, time } = useDate();
+  const location = useLocation();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -29,7 +30,7 @@ export default function HeaderLayout() {
     <>
       <Header className="app-header">
         <div className="left-nar-bar">
-          {matchRoute.path.split('/')[1]}
+          <p className="app-header-title">{location.pathname.split('/')[2]}</p>
           {/* <Search className="nar-search" placeholder="Search..." /> */}
           {/* <div className="date-time-nar-bar">{`${date}, ${time}`}</div> */}
         </div>
@@ -49,4 +50,6 @@ export default function HeaderLayout() {
       </Header>
     </>
   );
-}
+};
+
+export default HeaderLayout;
