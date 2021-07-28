@@ -23,6 +23,7 @@ import VideoChat from './components/VideoChat/VideoCall';
 import ProfileUser from './components/Profile/ProfileUser';
 import ProtectedRoute from './config/private-route.config';
 import { SelectQuiz } from './components/Quiz/SelectQuiz';
+import DoctorDetail from './components/AdminDoctors/DoctorDetail';
 
 function App() {
   return (
@@ -32,26 +33,26 @@ function App() {
           <BrowserRouter>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/reset" component={Reset} />
-              <Route path="/resetPass" component={ResetPass} />
-              <ProtectedRoute path="/selectQuiz" component={SelectQuiz} />
-              <ProtectedRoute path="/resultQuiz" component={ResultQuiz} />
-              <ProtectedRoute path="/questionAnswer" component={QuestionAnswer} />
-              <ProtectedRoute path="/feedback" component={Feedback} />
-              <ProtectedRoute path="/app" component={LayoutApp} />
-              <ProtectedRoute path="/make-an-appointment" component={MakeAnAppointment} />
-              <ProtectedRoute path="/payment" component={Payment} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/reset" exact component={Reset} />
+              <Route path="/resetPass" exact component={ResetPass} />
+              <ProtectedRoute path="/selectQuiz" exact component={SelectQuiz} />
+              <ProtectedRoute path="/resultQuiz" exact component={ResultQuiz} />
+              {/* <ProtectedRoute path="/questionAnswer" component={QuestionAnswer} /> */}
+              {/* <ProtectedRoute path="/feedback" component={Feedback} /> */}
+              <ProtectedRoute path="/app" exact component={LayoutApp} />
+              <ProtectedRoute path="/make-an-appointment" exact component={MakeAnAppointment} />
+              <ProtectedRoute path="/payment" exact component={Payment} />
               {/* Admin */}
-              <ProtectedRoute path="/listDoctors" component={ListDoctors} />
-              <ProtectedRoute path="/editdoctor/:id" component={EditDoctor} />
+              {/* <ProtectedRoute path="/listDoctors" exact component={ListDoctors} /> */}
+              <ProtectedRoute path="/app/doctor/detail/:id" exact component={DoctorDetail} />
               {/* Profile User */}
-              <ProtectedRoute path="/myProfile" component={ProfileUser} />
+              <ProtectedRoute path="/myProfile" exact component={ProfileUser} />
 
-              <ProtectedRoute path="/listPatients" component={ListPatients} />
+              <ProtectedRoute path="/app/patient" exact component={ListPatients} />
               {/* VideoCall */}
-              <ProtectedRoute path="/videochat" component={JoinRoom} />
+              <ProtectedRoute path="/videochat" exact component={JoinRoom} />
               <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
             </Switch>
           </BrowserRouter>

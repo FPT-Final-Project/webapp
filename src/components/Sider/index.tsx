@@ -37,23 +37,29 @@ const MenuItem = (path: string, index: number) => {
 
     case routes[2].path: {
       icon = <UploadOutlined />;
-      name = 'Psychology Test';
+      name = 'Doctor';
       break;
     }
 
     case routes[3].path: {
+      icon = <UploadOutlined />;
+      name = 'Psychology Test';
+      break;
+    }
+
+    case routes[4].path: {
       icon = <UserOutlined />;
       name = 'Questions & Answers';
       break;
     }
 
-    case routes[4].path: {
+    case routes[5].path: {
       icon = <UploadOutlined />;
       name = 'Feedback';
       break;
     }
 
-    case routes[5].path: {
+    case routes[6].path: {
       icon = <UserOutlined />;
       name = 'Payment';
       break;

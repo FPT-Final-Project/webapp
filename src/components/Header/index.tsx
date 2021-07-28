@@ -23,7 +23,7 @@ export default function HeaderLayout() {
     <>
       <Header className="app-header">
         <div className="left-nar-bar">
-          <Search className="nar-search" placeholder="Search..." />
+          {/* <Search className="nar-search" placeholder="Search..." /> */}
           {/* <div className="date-time-nar-bar">{`${date}, ${time}`}</div> */}
         </div>
         <div className="right-nar-bar">

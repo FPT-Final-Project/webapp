@@ -22,7 +22,7 @@ const LayoutApp: React.FC = () => {
         <SiderMenu collapsed={collapsed} />
         <Layout>
           <HeaderLayout />
-          <Content>
+          <Content className="layout-content">
             <Switch>
               {routes.map((route, index) => (
                 <ProtectedRoute

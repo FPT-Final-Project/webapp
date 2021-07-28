@@ -34,11 +34,10 @@ const ListDoctors = () => {
       name: 'Joe Black',
       email: 'maicels@psycare.com',
       phone: '0905619225',
-      specialist: 'Auxious',
+      specialist: 'Anxious',
       schedule: 'Sidney No. 1 Lake Park',
       appointment: '2 Appointments',
       status: 'Online',
-
     },
     {
       key: '4',
@@ -68,7 +67,7 @@ const ListDoctors = () => {
       name: 'Joe Black',
       email: 'maicels@psycare.com',
       phone: '0905619225',
-      specialist: 'Auxious',
+      specialist: 'Anxious',
       schedule: 'Sidney No. 1 Lake Park',
       appointment: '5 Appointments',
       // status: ['Offline'],
@@ -87,20 +86,16 @@ const ListDoctors = () => {
       dataIndex: 'id',
       key: 'id',
     },
-
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text: any, record : any) => {
-        // console.log('tên nè',params);
-        return (
-          <div className="userEmail">
-            <span>{record.name}</span>
-            <span> {record.email}</span>
-          </div>
-        );
-      },
+      render: (text: any, record : any) => (
+        <div className="userEmail">
+          <span>{record.name}</span>
+          <span> {record.email}</span>
+        </div>
+      ),
     },
     {
       title: 'Phone Number',
@@ -149,7 +144,7 @@ const ListDoctors = () => {
       key: 'settings',
       render: (text : any, record: any) => (
         <Space size="middle">
-          <Link to={`/editdoctor/${record.id}`}>
+          <Link to={`/app/doctor/${record.id}`}>
             <Button type="primary"><EditOutlined />Edit</Button>
           </Link>
 
@@ -160,20 +155,19 @@ const ListDoctors = () => {
     },
   ];
 
-  // const datas =
   return (
-    <div>
+    <div className="doctor-list">
       <Table columns={columns} dataSource={data} />
 
       {/* <Select  style={{ width: 200, border: 0 }}  >
-          <OptGroup label="Manager">
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-          </OptGroup>
-          <OptGroup label="Engineer">
-            <Option value="Yiminghe">yiminghe</Option>
-          </OptGroup>
-        </Select> */}
+            <OptGroup label="Manager">
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+            </OptGroup>
+            <OptGroup label="Engineer">
+              <Option value="Yiminghe">yiminghe</Option>
+            </OptGroup>
+          </Select> */}
 
     </div>
   );
