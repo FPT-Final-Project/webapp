@@ -26,46 +26,48 @@ const PsyTest: React.FC = () => {
   };
 
   return (
-    <div className="test-section">
-      {showScore ? (
-        <div className="score-section">
-          <p>
+    <div className="wrapper">
+      <div className="test-section">
+        {showScore ? (
+          <div className="score-section">
+            <p>
             You scored
-            {score}
-            {' '}
+              {score}
+              {' '}
             out of
-            {Tests.length}
-          </p>
-          <p>{getResultOfTest(score)}</p>
-        </div>
-      ) : (
-        <>
-          <div className="question-section">
-            <div className="question-count">
-              <span>
+              {Tests.length}
+            </p>
+            <p>{getResultOfTest(score)}</p>
+          </div>
+        ) : (
+          <>
+            <div className="question-section">
+              <div className="question-count">
+                <span>
                 Question
-                {' '}
-                {currentQuestion + 1}
+                  {' '}
+                  {currentQuestion + 1}
                 /
-                {Tests.length}
-              </span>
+                  {Tests.length}
+                </span>
+              </div>
+              <div className="question-test">
+                {Tests[currentQuestion].questionTest}
+              </div>
             </div>
-            <div className="question-test">
-              {Tests[currentQuestion].questionTest}
+            <div className="answer-section">
+              {Tests[currentQuestion].answerOptions.map((test, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleAnswerButtonClick(test.mark)}
+                >
+                  {test.answerTest}
+                </button>
+              ))}
             </div>
-          </div>
-          <div className="answer-section">
-            {Tests[currentQuestion].answerOptions.map((test, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerButtonClick(test.mark)}
-              >
-                {test.answerTest}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

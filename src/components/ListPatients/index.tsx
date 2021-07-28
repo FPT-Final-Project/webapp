@@ -16,15 +16,12 @@ const ListPatients: React.FC<Props> = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text: any, record : any) => {
-        // console.log('tên nè',params);
-        return (
-          <div className="userEmail">
-            <span>{record.name}</span>
-            <span> {record.email}</span>
-          </div>
-        );
-      },
+      render: (text: any, record : any) => (
+        <div className="userEmail">
+          <span>{record.name}</span>
+          <span> {record.email}</span>
+        </div>
+      ),
     },
     {
       title: 'Gender',

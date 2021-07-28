@@ -8,37 +8,37 @@ import { SelectQuiz } from '../../components/Quiz/SelectQuiz';
 
 export const routes = [
   {
-    path: '/app/dashboard',
+    path: '/dashboard',
     exact: true,
     component: Dashboard,
   },
   {
-    path: '/app/appointment',
+    path: '/appointment',
     exact: true,
     component: Appointment,
   },
   {
-    path: '/app/doctor',
+    path: '/doctor',
     exact: true,
     component: ListDoctors,
   },
   {
-    path: '/app/psychology-test',
+    path: '/psychology-test',
     exact: true,
     component: SelectQuiz,
   },
   {
-    path: '/app/questionanswer',
+    path: '/questionanswer',
     exact: true,
     component: QuestionAnswer,
   },
   {
-    path: '/app/feedback',
+    path: '/feedback',
     exact: true,
     component: Feedback,
   },
   {
-    path: '/app/payment',
+    path: '/payment',
     exact: true,
     component: Payment,
   },
