@@ -1,6 +1,8 @@
 import React from 'react';
 
-const EditDoctor = () => {
+interface Props {}
+
+const EditDoctor: React.FC<Props> = () => {
   return (
     <div>
       <h1>Edit Doctor</h1>

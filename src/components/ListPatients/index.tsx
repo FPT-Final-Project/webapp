@@ -2,7 +2,9 @@ import React from 'react';
 import { Table, Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-const ListPatients = () => {
+interface Props {}
+
+const ListPatients: React.FC<Props> = () => {
   const columns = [
     {
       title: 'ID',
@@ -14,15 +16,12 @@ const ListPatients = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text: any, record : any) => {
-        // console.log('tên nè',params);
-        return (
-          <div className="userEmail">
-            <span>{record.name}</span>
-            <span> {record.email}</span>
-          </div>
-        );
-      },
+      render: (text: any, record : any) => (
+        <div className="userEmail">
+          <span>{record.name}</span>
+          <span> {record.email}</span>
+        </div>
+      ),
     },
     {
       title: 'Gender',
