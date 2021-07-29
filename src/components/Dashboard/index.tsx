@@ -209,6 +209,7 @@ const Dashboard = (_props: Props) => (
   </div>
 );
 
-const mapStateToProps = state => ({});
+// const mapStateToProps = state => ({});
 
-export default connect()(Dashboard);
+// export default connect()(Dashboard);
+export default Dashboard;
