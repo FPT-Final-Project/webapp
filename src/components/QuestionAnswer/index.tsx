@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { ChangeEvent, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
@@ -5,7 +6,6 @@ import {
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './style.scss';
-import reply from '../../assets/reply.svg';
 
 const { TextArea } = Input;
 
@@ -17,27 +17,16 @@ const menu = (
   </Menu>
 );
 
-// const hideReply = {};
-
-const actions = [
-  <span className="reply" key="comment-basic-reply-to">
-    <img className="reply-image" src={reply} alt="reply" />
-    <span>Reply</span>
-  </span>,
-];
-
 const CommentList = ({ comments }: { comments: any }) => (
   <List
     dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+    header={`${comments.length - 1} ${comments.length > 1 ? 'replies' : 'reply'}`}
     itemLayout="horizontal"
     renderItem={(props) => <Comment content {...props} />}
   />
 );
 
-const Editor = ({
-  onChange, onSubmit, submitting, value,
-}: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
+const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
@@ -47,7 +36,6 @@ const Editor = ({
         htmlType="submit"
         loading={submitting}
         onClick={onSubmit}
-        type="primary"
       >
         Add Comment
       </Button>
@@ -61,6 +49,8 @@ function QuestionAnswer() {
     submitting: false,
     value: '',
   });
+
+  const [show, toggleShow] = useState(false);
 
   const handleSubmit = () => {
     if (!state.value) {
@@ -115,17 +105,18 @@ function QuestionAnswer() {
         </Row>
         <Row className="question-input" justify="space-between">
           <Input
-            style={{ width: '96%', borderRadius: '8px' }}
+            style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
           />
-          <Button>
+          <Button
+            style={{ width: '4%' }}
+          >
             <PlusOutlined />
           </Button>
 
         </Row>
         <div className="comment">
           <Comment
-            actions={actions}
             author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={(
               <Avatar
@@ -136,13 +127,11 @@ function QuestionAnswer() {
             content={(
               <p>
                 Hi Doctors,
-                <p>
-                  I have a few problems that need to be resolved by the doctors.
-                  &nbsp;Lately I've been having trouble sleeping.
-                  I can't sleep well, wake up in the middle of the night
-                  :&nbsp;and during work or lose focus. I would like to seek
-                  advice from a doctor.
-                </p>
+                I have a few problems that need to be resolved by the doctors.
+                &nbsp;Lately I've been having trouble sleeping.
+                I can't sleep well, wake up in the middle of the night
+                :&nbsp;and during work or lose focus. I would like to seek
+                advice from a doctor.
               </p>
             )}
             datetime={(
@@ -153,21 +142,29 @@ function QuestionAnswer() {
               </p>
             )}
           >
-            <div className="">
+            <div className="reply-comment">
+              <Button onClick={() => toggleShow(!show)}><i className="fas fa-reply" />Reply</Button>
               {comments.length > 0 && <CommentList comments={comments} />}
-              <Comment
-                avatar={(
-                  <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+              {show
+                && (
+                  <div>
+                    <div>
+                      <Comment
+                        avatar={(
+                          <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+                        )}
+                        content={(
+                          <Editor
+                            onChange={handleChange}
+                            onSubmit={handleSubmit}
+                            submitting={submitting}
+                            value={value}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
                 )}
-                content={(
-                  <Editor
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    submitting={submitting}
-                    value={value}
-                  />
-                )}
-              />
             </div>
           </Comment>
         </div>
