@@ -5,14 +5,13 @@
     display: block;
   }
   .mainTop{
-    margin-top: 30px;
+    margin-top: 10px;
     text-align: center;
     color: white;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 25px;
   }
   .mainBottom{
-    margin-top: 30px;
     text-align: center;
     color: white;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -21,7 +20,7 @@
     flex-wrap: wrap;
   }
   .userScreenBlock{
-    margin-left: 20px;
+    margin-left: 50px;
     position: relative;
     width: 65%;
     height: 100%;
@@ -37,7 +36,7 @@
     display : none;
   }
   .mainControlsJoinRoom {
-    top: 90%;
+    top: 88%;
     left: 50%;
     display: flex;
     color: #ffffff;
