@@ -1,17 +1,31 @@
+import React from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../shared/css/form.scss';
 import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
+import { IUser } from '../../types/user';
+import { IRootState } from '../../stores/store';
+
+interface Props {
+  register: (id: string, name: string, email: string, password: string, role: string, isTested: boolean) => void;
+  user: IUser | undefined;
+}
 
 const { Title } = Typography;
 const { Option } = Select;
 
-const Register = ({ register }: { register: Function }) => {
+const Register: React.FC<Props> = ({ register, user }: Props) => {
   const history = useHistory();
+  const { userId } = useParams<{ userId: string }>();
+
+  if (user) {
+    history.push('/app/dashboard');
+    return (<></>);
+  }
 
   const functionDirect = () => {
     history.push('/login');
@@ -19,7 +33,7 @@ const Register = ({ register }: { register: Function }) => {
 
   // eslint-disable-next-line max-len
   const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => {
-    return register(name, email, role, password);
+    return register(userId, name, email, role, password, !!userId);
   };
 
   return (
@@ -113,6 +127,10 @@ const actionCreators = {
   register: authAction.register,
 };
 
-const connectedState = connect(null, actionCreators)(Register);
+const mapState = (state: IRootState) => ({
+  user: state.authentication.user,
+});
+
+const connectedState = connect(mapState, actionCreators)(Register);
 
 export { connectedState as Register };

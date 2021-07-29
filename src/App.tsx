@@ -1,4 +1,4 @@
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
@@ -32,12 +32,12 @@ function App() {
           <BrowserRouter>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/register" exact component={Register} />
-              <Route path="/reset" exact component={Reset} />
-              <Route path="/resetPass" exact component={ResetPass} />
-              <ProtectedRoute path="/quiz/:quizId" exact component={PsyTest} />
-              <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
+              <Route path="/login" component={Login} />
+              <Route path="/register/:userId" component={Register} />
+              <Route path="/reset" component={Reset} />
+              <Route path="/resetPass" component={ResetPass} />
+              <Route path="/quiz/:quizId" component={PsyTest} />
+              <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
               {/*

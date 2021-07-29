@@ -5,6 +5,7 @@ import './style.scss';
 import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IRootState } from '../../stores/store';
 
 interface Props {}
 
@@ -86,15 +87,12 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (text: any, record : any) => {
-      // console.log('tên nè',params);
-      return (
-        <div className="userEmail">
-          <span>{record.name}</span>
-          <span> {record.email}</span>
-        </div>
-      );
-    },
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record.name}</span>
+        <span> {record.email}</span>
+      </div>
+    ),
   },
   {
     title: 'Phone Number',
@@ -209,7 +207,7 @@ const Dashboard = (_props: Props) => (
   </div>
 );
 
-// const mapStateToProps = state => ({});
+const mapStateToProps = (state: IRootState) => ({});
 
 // export default connect()(Dashboard);
 export default Dashboard;

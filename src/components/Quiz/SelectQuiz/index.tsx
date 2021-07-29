@@ -3,8 +3,8 @@ import {
   Card, Row, Col, Button,
 } from 'antd';
 import './style.scss';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import quizAction from '../../../stores/actions/quiz.action';
 import { IRootState } from '../../../stores/store';
 import { IQuiz } from '../../../types/quiz';
@@ -40,6 +40,7 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
 
   if (!quizzes) {
     getQuizzes();
+    return (<></>);
   }
 
   return (
