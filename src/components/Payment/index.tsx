@@ -3,10 +3,19 @@ import {
   Table, Row, Divider, Col, Button, Space,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { momoRequest } from '../../config/momo.config';
+import { IRootState } from '../../stores/store';
+import { IUser } from '../../types/user';
+
+interface Props {
+  user: IUser;
+}
 
 const { Column } = Table;
-const Payment = () => {
+
+const Payment: React.FC<Props> = ({ user }: Props) => {
   const [count, setCount] = useState(1);
   const data = [
     {
@@ -27,6 +36,10 @@ const Payment = () => {
     },
   ];
 
+  const handlePurchasing = () => {
+    momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
+  };
+
   return (
     <div className="wrapper">
       <div className="payment-form">
@@ -39,7 +52,7 @@ const Payment = () => {
           </Table>
         </div>
         <div className="order-sumary">
-          <h2>Order Sumary</h2>
+          <h2>Order Summary</h2>
           <Divider style={{ marginTop: '15px' }} />
           <Row justify="space-between">
             <Col span={8}><h3>Item Total</h3></Col>
@@ -53,7 +66,7 @@ const Payment = () => {
             </Col>
           </Row>
           <Divider style={{ marginTop: '15px' }} />
-          <Button className="btn-payment">Purchase Now</Button>
+          <Button className="btn-payment" onClick={() => handlePurchasing()}>Purchase Now</Button>
           <Divider plain>or select other payment method</Divider>
           <Link to="/#">
             <img
@@ -68,4 +81,8 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+const mapState = (state: IRootState) => ({
+  user: state.authentication.user,
+});
+
+export default connect(mapState, undefined)(Payment);
