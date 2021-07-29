@@ -1,11 +1,10 @@
 /* eslint-disable no-empty */
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
-import React, { createRef, useEffect } from 'react';
+import { createRef, useEffect } from 'react';
 
 export default function Canvas({ videoRef, className } : any) {
   const canvasRef = createRef<any>();
-
   useEffect(() => {
     if (canvasRef.current && videoRef.current) {
       const interval = setInterval(() => {
@@ -21,7 +20,6 @@ export default function Canvas({ videoRef, className } : any) {
       return () => clearInterval(interval);
     }
   });
-
   return (
     <canvas ref={canvasRef} className={className} width="720" height="480" />
   );

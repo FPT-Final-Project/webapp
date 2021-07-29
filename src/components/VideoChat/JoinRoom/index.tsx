@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/media-has-caption */
@@ -14,8 +15,6 @@ import Canvas from '../Canvas';
 const JoinRoom = () => {
   const [userid, setUserid] = useState('');
   const myVideo = useRef<any>();
-  // const [audiobutton, setAudiobutton] = useState(unmute);
-  // const [videobutton, setVideobutton] = useState(video);
   const [textCamera, setTextCamera] = useState(true);
   const [propertyaudio, setPropertyaudio] = useState(true);
   const [propertyvideo, setPropertyvideo] = useState(true);
@@ -24,11 +23,9 @@ const JoinRoom = () => {
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
     if (enabled) {
-      // setAudiobutton(mute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
       setPropertyaudio(false);
     } else {
-      // setAudiobutton(unmute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
       setPropertyaudio(true);
     }
@@ -37,11 +34,9 @@ const JoinRoom = () => {
   const videoNovideo = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
-      // setVideobutton(novideo);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
       setPropertyvideo(false);
     } else {
-      // setVideobutton(video);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
       setPropertyvideo(true);
     }
