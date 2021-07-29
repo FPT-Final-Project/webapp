@@ -1,10 +1,6 @@
 .question-form {
-  width: 80%;
+  width: 90%;
   margin: 1% auto;
-
-  h2 {
-    margin-left: 5%;
-  }
 
   .drop-menu {
     border-radius: 10px;
@@ -22,6 +18,21 @@
 
   .question-input {
     border-radius: 8px;
+    
+    Input{
+      &:hover,
+      &:focus {
+      border: 1px solid #299CB4;
+      }
+    }
+
+    Button{
+      &:hover,
+      &:focus {
+      color: #299CB4;
+      border: 1px solid #299CB4;
+      }
+    }
   }
 
   .comment {

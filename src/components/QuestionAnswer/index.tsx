@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+/* eslint-disable max-len */
+import React, { ChangeEvent, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
 } from 'antd';
-import { DownOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './style.scss';
 import reply from '../../assets/reply.svg';
@@ -17,15 +18,6 @@ const menu = (
   </Menu>
 );
 
-// const hideReply = {};
-
-const actions = [
-  <span className="reply" key="comment-basic-reply-to">
-    <img className="reply-image" src={reply} alt="reply" />
-    <span>Reply</span>
-  </span>,
-];
-
 const CommentList = ({ comments }: { comments: any }) => (
   <List
     dataSource={comments}
@@ -35,9 +27,7 @@ const CommentList = ({ comments }: { comments: any }) => (
   />
 );
 
-const Editor = ({
-  onChange, onSubmit, submitting, value,
-}: { onChange: any, onSubmit: any, submitting: any, value: any}) => (
+const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
@@ -55,7 +45,8 @@ const Editor = ({
   </>
 );
 
-function QuestionAnswer() {
+const QuestionAnswer = () => {
+  const [showReply, setShowReply] = React.useState(false);
   const [state, setState] = useState({
     comments: [{}],
     submitting: false,
@@ -95,6 +86,14 @@ function QuestionAnswer() {
     });
   };
 
+  // const actions = [
+  //   <div>
+  //     <span className="reply" key="comment-basic-reply-to">
+  //       <img className="reply-image" src={reply} alt="reply" />
+  //       <span>Reply</span>
+  //     </span>
+  //   </div>,
+  // ];
   const { comments, submitting, value } = state;
 
   return (
@@ -115,21 +114,21 @@ function QuestionAnswer() {
         </Row>
         <Row className="question-input" justify="space-between">
           <Input
-            style={{ width: '97%', padding: '8px', borderRadius: '8px' }}
+            style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
           />
-          <PlusSquareOutlined style={{ fontSize: 30, margin: 'auto' }} />
+          <Button>
+            <PlusOutlined />
+          </Button>
+
         </Row>
         <div className="comment">
           <Comment
-            actions={actions}
+            // actions={actions}
             author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={(
               <Avatar
-                src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/
-                135023651_2810508699162789_1949264985954215586_n.jpg?_nc_cat=
-                109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=LJsBQm8EMRYAX9KVZ73&_nc_ht=scontent-sin6-2.xx&oh=
-                71d7f0cae84767dd07edbd8620263dd0&oe=60D53DEC"
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="avt"
               />
             )}
@@ -172,6 +171,6 @@ function QuestionAnswer() {
       </div>
     </>
   );
-}
+};
 
 export default QuestionAnswer;
