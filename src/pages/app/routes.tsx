@@ -4,7 +4,7 @@ import QuestionAnswer from '../../components/QuestionAnswer';
 import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
-import { SelectQuiz } from '../../components/Quiz/SelectQuiz';
+import { Quizzes } from '../../components/Quiz/SelectQuiz';
 
 export const routes = [
   {
@@ -25,7 +25,11 @@ export const routes = [
   {
     path: '/psychology-test',
     exact: true,
+<<<<<<< HEAD
     component: SelectQuiz,
+=======
+    component: Quizzes,
+>>>>>>> develop
   },
   {
     path: '/questionanswer',

@@ -7,8 +7,6 @@ import HeaderLayout from '../../components/Header/index';
 import './style.scss';
 import ProtectedRoute from '../../config/private-route.config';
 import DoctorDetail from '../../components/AdminDoctors/DoctorDetail';
-import PsyTest from '../../components/Psytest';
-import ResultQuiz from '../../components/Quiz/Result';
 
 const { Content } = Layout;
 
@@ -31,7 +29,6 @@ const LayoutApp: React.FC = () => {
               {routes.map((route, index) => (
                 <ProtectedRoute
                   key={index}
-                  exact={route.exact}
                   path={`${routeMatch.path}${route.path}`}
                   component={route.component}
                 />
@@ -39,14 +36,6 @@ const LayoutApp: React.FC = () => {
               <ProtectedRoute
                 path={`${routeMatch.path}/doctor/:doctorId`}
                 component={DoctorDetail}
-              />
-              <ProtectedRoute
-                path={`${routeMatch.path}/quiz/:quizId`}
-                component={PsyTest}
-              />
-              <ProtectedRoute
-                path={`${routeMatch.path}/quiz/:quizId/result`}
-                component={ResultQuiz}
               />
             </Switch>
           </Content>

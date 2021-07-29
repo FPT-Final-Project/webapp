@@ -6,8 +6,10 @@
 .doctor-list {
   padding: 1.375rem 1.625rem;
 
-  table {
-    padding: 1.5rem 1.625rem;
+  .ant-table-wrapper {
+    padding-right: 1.625rem;
+    overflow-x: hidden;
+    overflow: scroll;
   }
 
   .ant-table-cell {

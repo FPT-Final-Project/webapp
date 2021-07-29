@@ -85,7 +85,6 @@ const MenuItem = (path: string, index: number, matchPath: string, _currentPath: 
 const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => {
   const history = useHistory();
   const routeMatch = useRouteMatch();
-  console.log('Route Match Sider : ', routeMatch);
 
   const redirectToApp = () => {
     history.push('/app');

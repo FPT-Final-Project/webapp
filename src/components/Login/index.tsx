@@ -23,7 +23,8 @@ const Login: React.FC<Props> = ({ login, user }: Props) => {
   const history = useHistory();
 
   if (user) {
-    history.push('/app');
+    history.push('/app/dashboard');
+    return (<></>);
   }
   const functionDirect = () => {
     history.push('/register');
