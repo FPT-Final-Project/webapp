@@ -43,10 +43,10 @@ const VideoChat = () => {
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
     if (enabled) {
-      setAudiobutton(mute);
+      setAudiobutton(false);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
     } else {
-      setAudiobutton(unmute);
+      setAudiobutton(true);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
     }
   };
@@ -55,9 +55,9 @@ const VideoChat = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
       myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-      setVideobutton(novideo);
+      setVideobutton(false);
     } else {
-      setVideobutton(video);
+      setVideobutton(true);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
     }
     setTextCameraUser(!textCameraUser);
@@ -118,16 +118,16 @@ const VideoChat = () => {
       myVideo.current.srcObject = stream;
       if (!location.state.propertyaudio) {
         myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-        setAudiobutton(mute);
+        setAudiobutton(false);
       } else {
-        setAudiobutton(unmute);
+        setAudiobutton(true);
       }
       if (!location.state.propertyvideo) {
         myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
         setTextCameraUser(true);
-        setVideobutton(novideo);
+        setVideobutton(false);
       } else {
-        setVideobutton(video);
+        setVideobutton(true);
       }
       socket.on('user-connected', (partnerid, partnerpeerId) => {
         if (partnerid === '1') {
@@ -189,7 +189,7 @@ const VideoChat = () => {
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
             <video ref={partnerVideo} autoPlay />
-            <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />
+            {!statusPartner ? '' : <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />}
             <div className="userScreenvideo">
               <video ref={myVideo} autoPlay />
               <Canvas videoRef={myVideo} className="userScreenvideotag" />
@@ -202,9 +202,15 @@ const VideoChat = () => {
         </div>
         <div className="mainControlsVideo">
           <div className="mainControlsBlock">
-            <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-              <img className="mute-img" src={audiobutton} alt="mute" />
-            </div>
+            {audiobutton ? (
+              <div className="mainControlsButton mainMuteButton unmute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-img" src={unmute} alt="unmute" />
+              </div>
+            ) : (
+              <div className="mainControlsButton mainMuteButton mute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-img" src={mute} alt="mute" />
+              </div>
+            )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
                 <a href="/videochat">
@@ -212,9 +218,15 @@ const VideoChat = () => {
                 </a>
               </span>
             </div>
-            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-              <img className="video-img" src={videobutton} alt="video" />
-            </div>
+            {videobutton ? (
+              <div className="mainControlsButton mainVideoButton video" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="video-img" src={video} alt="video" />
+              </div>
+            ) : (
+              <div className="mainControlsButton mainVideoButton novideo" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="mute-img" src={novideo} alt="novideo" />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -230,21 +242,19 @@ const VideoChat = () => {
           </div>
         </div>
         <div className="mainMessageContainer">
-          <form className="formChatMesseage">
-            <div className="inputchatMessage">
-              <input
-                id="chatMessage"
-                type="text"
-                placeholder="Type message here..."
-                value={message || ''}
-                onChange={({ target: { value } }) => setMessage(value)}
-                onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
-              />
-              <span className="buttonSendMessage">
-                <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
-              </span>
-            </div>
-          </form>
+          <div className="inputchatMessage">
+            <input
+              id="chatMessage"
+              type="text"
+              placeholder="Type message here..."
+              value={message || ''}
+              onChange={({ target: { value } }) => setMessage(value)}
+              onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
+            />
+          </div>
+          <div className="buttonSendMessage">
+            <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
+          </div>
         </div>
       </div>
       {/* ====================End----VideoChat====================== */}

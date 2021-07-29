@@ -14,8 +14,8 @@ import Canvas from '../Canvas';
 const JoinRoom = () => {
   const [userid, setUserid] = useState('');
   const myVideo = useRef<any>();
-  const [audiobutton, setAudiobutton] = useState(unmute);
-  const [videobutton, setVideobutton] = useState(video);
+  // const [audiobutton, setAudiobutton] = useState(unmute);
+  // const [videobutton, setVideobutton] = useState(video);
   const [textCamera, setTextCamera] = useState(true);
   const [propertyaudio, setPropertyaudio] = useState(true);
   const [propertyvideo, setPropertyvideo] = useState(true);
@@ -24,11 +24,11 @@ const JoinRoom = () => {
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
     if (enabled) {
-      setAudiobutton(mute);
+      // setAudiobutton(mute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
       setPropertyaudio(false);
     } else {
-      setAudiobutton(unmute);
+      // setAudiobutton(unmute);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
       setPropertyaudio(true);
     }
@@ -37,11 +37,11 @@ const JoinRoom = () => {
   const videoNovideo = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
-      setVideobutton(novideo);
+      // setVideobutton(novideo);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
       setPropertyvideo(false);
     } else {
-      setVideobutton(video);
+      // setVideobutton(video);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
       setPropertyvideo(true);
     }
@@ -80,12 +80,24 @@ const JoinRoom = () => {
           <div className="userScreenBlock">
             {!textCamera ? <div className="CameraOff">Camera is off</div> : ''}
             <div className="mainControlsJoinRoom">
-              <div className="mainControlsButtonJoinRoom mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-                <img className="mute-image" src={audiobutton} alt="mute" />
-              </div>
-              <div className="mainControlsButtonJoinRoom mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-                <img className="video-image" src={videobutton} alt="video" />
-              </div>
+              {propertyaudio ? (
+                <div className="mainControlsButtonJoinRoom mainMuteButton unmute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                  <img className="mute-image" src={unmute} alt="unmute" />
+                </div>
+              ) : (
+                <div className="mainControlsButtonJoinRoom mainMuteButton mute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                  <img className="mute-image" src={mute} alt="mute" />
+                </div>
+              )}
+              {propertyvideo ? (
+                <div className="mainControlsButtonJoinRoom mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                  <img className="video-image" src={video} alt="video" />
+                </div>
+              ) : (
+                <div className="mainControlsButtonJoinRoom mainVideoButton mute" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                  <img className="mute-image" src={novideo} alt="novideo" />
+                </div>
+              )}
             </div>
             <video ref={myVideo} autoPlay />
             <Canvas videoRef={myVideo} size={myVideoSize} className="userScreenJoinRoom" />
@@ -94,7 +106,7 @@ const JoinRoom = () => {
             <div className="ready">
               Ready to join?
             </div>
-            <div>
+            <div className="twoButton">
               <Link
                 onClick={(e) => ((!userid) ? e.preventDefault() : null)}
                 to={{
