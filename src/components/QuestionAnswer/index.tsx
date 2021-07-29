@@ -153,22 +153,20 @@ function QuestionAnswer() {
               </p>
             )}
           >
-            <div className="">
-              {comments.length > 0 && <CommentList comments={comments} />}
-              <Comment
-                avatar={(
-                  <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
-                )}
-                content={(
-                  <Editor
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    submitting={submitting}
-                    value={value}
-                  />
-                )}
-              />
-            </div>
+            {comments.length > 0 && <CommentList comments={comments} />}
+            <Comment
+              avatar={(
+                <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+              )}
+              content={(
+                <Editor
+                  onChange={handleChange}
+                  onSubmit={handleSubmit}
+                  submitting={submitting}
+                  value={value}
+                />
+              )}
+            />
           </Comment>
         </div>
       </div>

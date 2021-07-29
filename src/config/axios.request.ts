@@ -1,9 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { baseUrl } from './config';
 
 const axiosInstance = axios.create();
+const token = localStorage.getItem('token');
 
-axiosInstance.interceptors.request.use();
+axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+  config.headers.authorization = `Bearer ${token}`;
+  return config;
+});
 
 const joinUrl = (resources: string[]) => resources.join('/');
 

@@ -13,7 +13,10 @@ const MainTeam = () => {
     if (inView) {
       animation.start('visible');
     }
+
+    return () => animation.stop();
   }, [animation, inView]);
+
   return (
     <div className="team">
       <div className="grid">

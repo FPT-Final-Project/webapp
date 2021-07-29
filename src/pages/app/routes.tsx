@@ -1,36 +1,45 @@
 import Dashboard from '../../components/Dashboard';
 import Appointment from '../../components/Appointment';
-import PsychologyTest from '../../components/PsychologyTest';
+import QuestionAnswer from '../../components/QuestionAnswer';
+import Feedback from '../../components/Feedback';
+import Payment from '../../components/Payment';
+import ListDoctors from '../../components/AdminDoctors/ListDoctors';
+import { Quizzes } from '../../components/Quiz/SelectQuiz';
 
 export const routes = [
   {
-    path: '/app/dashboard',
+    path: '/dashboard',
     exact: true,
     component: Dashboard,
   },
   {
-    path: '/app/appointment',
+    path: '/appointment',
     exact: true,
     component: Appointment,
   },
   {
-    path: '/app/psychology-test',
+    path: '/doctor',
     exact: true,
-    component: PsychologyTest,
+    component: ListDoctors,
   },
   {
-    path: '/app/questionanswer',
+    path: '/psychology-test',
     exact: true,
-    component: PsychologyTest,
+    component: Quizzes,
   },
   {
-    path: '/app/feedback',
+    path: '/questionanswer',
     exact: true,
-    component: PsychologyTest,
+    component: QuestionAnswer,
   },
   {
-    path: '/app/payment',
+    path: '/feedback',
     exact: true,
-    component: PsychologyTest,
+    component: Feedback,
+  },
+  {
+    path: '/payment',
+    exact: true,
+    component: Payment,
   },
 ];
