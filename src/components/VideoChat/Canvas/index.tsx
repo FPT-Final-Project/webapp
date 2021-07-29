@@ -12,6 +12,10 @@ export default function Canvas({ videoRef, className } : any) {
         try {
           const ctx = canvasRef.current.getContext('2d');
           ctx.drawImage(videoRef.current, 0, 0, 1280, 720);
+          ctx.shadowColor = 'black';
+          ctx.shadowBlur = 6;
+          ctx.shadowOffsetX = 6;
+          ctx.shadowOffsetY = 6;
         } catch {}
       }, 10);
       return () => clearInterval(interval);

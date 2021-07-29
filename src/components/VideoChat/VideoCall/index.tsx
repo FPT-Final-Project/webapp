@@ -203,7 +203,7 @@ const VideoChat = () => {
         <div className="mainControlsVideo">
           <div className="mainControlsBlock">
             <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-              <img className="mute-image" src={audiobutton} alt="mute" />
+              <img className="mute-img" src={audiobutton} alt="mute" />
             </div>
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
@@ -213,7 +213,7 @@ const VideoChat = () => {
               </span>
             </div>
             <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-              <img className="video-image" src={videobutton} alt="video" />
+              <img className="video-img" src={videobutton} alt="video" />
             </div>
           </div>
         </div>

@@ -71,10 +71,6 @@
     height: 30%;
     margin-top: 5px;
     margin-right: 5px;
-    border-radius: 5px;
-    border: 2px solid white;
-    background-color: #202124;
-    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
   }
 
   .textCameraUser {
@@ -84,6 +80,7 @@
     right: 0px;
     text-align: center;
     font-size: 20px;
+    border-radius: 10px 10px 0 0;
     background-color: #202124;
     background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
   }
@@ -93,6 +90,8 @@
     height: 100%;
     float: left;
     transform: scaleX(-1);
+    border-radius: 10px;
+    box-shadow: -1px 2px 6px #202124;
   }
   .partnerScreenvideo {
     position: relative;
@@ -101,7 +100,7 @@
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
   }
   .partnerScreenvideotag {
@@ -111,6 +110,9 @@
     transform: scaleX(-1);
     float: left;
     border-radius: 5px;
+  }
+  video{
+    display: none;
   }
   .statusPartner{
     position: absolute;
@@ -187,6 +189,10 @@
     height: 40px;
     transform: rotate(134deg);
   }
+  .mute-img, .video-img{
+    width: 25px;
+    height: 20px;
+  }
   .mainControlsButton:hover {
     background-color: #d92a2a;
   }
@@ -216,6 +222,7 @@
   .stop {
     color: #cc3b33;
   }
+  
   /*==============================ChatBox=========================*/
   .mainRight {
     padding: 22px 18px;
