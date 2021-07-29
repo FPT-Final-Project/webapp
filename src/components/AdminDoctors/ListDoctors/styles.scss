@@ -1,0 +1,22 @@
+.userEmail {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-list {
+  padding: 1.375rem 1.625rem;
+
+  .ant-table-wrapper {
+    padding-right: 1.625rem;
+    overflow-x: hidden;
+    overflow: scroll;
+  }
+
+  .ant-table-cell {
+    background-color: white;
+  }
+
+  .ant-table-pagination {
+    justify-content: flex-start;
+  }
+}

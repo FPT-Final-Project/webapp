@@ -1,7 +1,13 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import score from '../../../assets/Score.svg';
 import './style.scss';
 
-export function ResultQuiz() {
+interface Props {}
+
+const ResultQuiz: React.FC<Props> = () => {
+  const { quizId: _a } = useParams<{ quizId: string }>();
+
   return (
     <>
       <div className="result-form">
@@ -29,4 +35,6 @@ export function ResultQuiz() {
       </div>
     </>
   );
-}
+};
+
+export default ResultQuiz;

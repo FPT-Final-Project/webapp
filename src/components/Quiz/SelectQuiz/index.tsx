@@ -1,79 +1,67 @@
+import React from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
 import './style.scss';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import quizAction from '../../../stores/actions/quiz.action';
+import { IRootState } from '../../../stores/store';
+import { IQuiz } from '../../../types/quiz';
 
-export function SelectQuiz() {
+interface Props {
+  getQuizzes: () => void;
+  quizzes: IQuiz[] | undefined;
+}
+
+const Quiz = ({ _id, name, description }: IQuiz, history: any) => (
+  <Col span={8} xs={24} sm={12} xl={8} lg={12}>
+    <Card hoverable className="card">
+      <Row>
+        <Col span={24}>
+          <div className="image1" />
+        </Col>
+        <Col span={24}>
+          <h2>{name}</h2>
+        </Col>
+        <Col span={24}>
+          <p>{description}</p>
+        </Col>
+        <Button className="btn-submit" onClick={() => history.push(`/quiz/${_id}`)}>
+          Test now
+        </Button>
+      </Row>
+    </Card>
+  </Col>
+);
+
+const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
+  const history = useHistory();
+
+  if (!quizzes) {
+    getQuizzes();
+    return (<></>);
+  }
+
   return (
     <>
       <div className="quiz-form">
         <Row gutter={[16, 16]}>
-          <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-            <Card hoverable className="card">
-              <Row>
-                <Col span={24}>
-                  <div className="image1" />
-                </Col>
-                <Col span={24}>
-                  <h2>Psychological self-test-for depression</h2>
-                </Col>
-                <Col span={24}>
-                  <p>
-                    Please choose the answer that suits your situation
-                    to check if you are likely to be depressed according to the quiz
-                  </p>
-                </Col>
-                <Button className="btn-submit" htmlType="submit">
-                  Test now
-                </Button>
-              </Row>
-            </Card>
-          </Col>
-          <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-            <Card hoverable className="card">
-              <Row>
-                <Col span={24}>
-                  <div className="image2" />
-                </Col>
-                <Col span={24}>
-                  <h2>Psychological self-test-for depression</h2>
-                </Col>
-                <Col span={24}>
-                  <p>
-                    Please choose the answer that suits your situation
-                    to check if you are likely to be depressed according to the quiz
-                  </p>
-                </Col>
-                <Button className="btn-submit" htmlType="submit">
-                  Test now
-                </Button>
-              </Row>
-            </Card>
-          </Col>
-          <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-            <Card hoverable className="card">
-              <Row>
-
-                <Col span={24}>
-                  <div className="image3" />
-                </Col>
-                <Col span={24}>
-                  <h2>Psychological self-test-for depression</h2>
-                </Col>
-                <Col span={24}>
-                  <p>
-                    Please choose the answer that suits your situation
-                    to check if you are likely to be depressed according to the quiz
-                  </p>
-                </Col>
-                <Button className="btn-submit" htmlType="submit">
-                  Test now
-                </Button>
-              </Row>
-            </Card>
-          </Col>
+          {(quizzes || []).map((quiz) => Quiz(quiz, history))}
         </Row>
       </div>
     </>
   );
-}
+};
+
+const actionCreators = {
+  getQuizzes: quizAction.getQuizzes,
+};
+
+const mapState = (state: IRootState) => ({
+  quizzes: state.quiz.quizzes,
+});
+
+const connectedState = connect(mapState, actionCreators)(Quizzes);
+
+export { connectedState as Quizzes };

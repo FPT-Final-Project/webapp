@@ -14,7 +14,10 @@ const MainConnect = () => {
     if (inView) {
       animation.start('visible');
     }
+
+    return () => animation.stop();
   }, [animation, inView]);
+
   return (
     <div className="connect">
       <div className="grid">

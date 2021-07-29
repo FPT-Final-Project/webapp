@@ -1,0 +1,304 @@
+@import '~antd/dist/antd.css';
+
+.main-video {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+  box-sizing: content-box;
+
+  /*======================VideoCall===================*/
+  [class^=ant-], [class*= ant-], [class^=ant-] *, [class*= ant-] *, [class^=ant-] *::before, [class*= ant-] *::before, [class^=ant-] *::after, [class*= ant-] *::after{
+    box-sizing: content-box;
+  }
+
+  .mainLeft {
+    // background: linear-gradient(216deg, rgba(22,114,134,1) 0%, rgba(5,197,239,1) 75%);
+    background: #202124;
+    flex: 0.8;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainVideosTop {
+    display: flex;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 15px;
+    text-align: center;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 25px;
+  }
+
+  #remoteId {
+    color: black;
+  }
+
+  #userCall {
+    padding-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .notification{
+    background: black;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 25%;
+    border-radius: 8px;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    padding: 0 10px;
+    animation: seconds 5.0s forwards;
+  }
+
+  @keyframes seconds {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      left: -9999px; 
+    }
+  }
+
+  .userScreenvideo {
+    position: relative;
+    float: right;
+    width: 25%;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 2px solid white;
+    transform: scaleX(-1);
+    background-color: #202124;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+  }
+
+  .textCameraUser {
+    position: absolute;
+    color: white;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #202124;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+  }
+
+  .userScreenvideotag {
+    width: 100%;
+    float: left
+  }
+  .partnerScreenvideo {
+    position: relative;
+    background-color: #202124;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
+    overflow: hidden;
+  }
+  .partnerScreenvideotag {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    transform: scaleX(-1);
+    float: left;
+    border-radius: 5px;
+  }
+  .statusPartner{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    animation-name: changetextcolor;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes changetextcolor {
+    from {color: white;}
+    to {color: rgb(139, 139, 138);}
+  }
+  .userImage{
+    border-style: solid;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+  .mainVideos {
+    flex-flow: row wrap;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .mainVideosBottom{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-height: 31px;
+  }
+  .partnerName{
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .duration{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  .mainControlsVideo {
+    padding: 3px 5px 0px 5px;
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+  }
+  .mainControlsBlock {
+    display: flex;
+    padding-bottom: 8px;
+    align-items: center;
+  }
+  .mainControlsButton {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3c4043;
+  }
+  .mainControlsButton svg {
+    font-size: 19px;
+    margin-bottom: 4px;
+  }
+  .mute-phone{
+    width: 40px;
+    height: 40px;
+    transform: rotate(134deg);
+  }
+  .mainControlsButton:hover {
+    background-color: #d92a2a;
+  }
+  .mainControlsButtonEndMeeting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: auto 15px auto 15px;
+    font-size: 12px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+  }
+  .endMeeting {
+    height: 70px;
+    width: 70px;
+    background-color: white;
+    border-radius: 50%; 
+    padding-top: 12.5px;
+    position: relative;
+  }
+  .endMeeting:hover {
+    filter: blur(1.5px);
+  }
+  .unmute,
+  .stop {
+    color: #cc3b33;
+  }
+  /*==============================ChatBox=========================*/
+  .mainRight {
+    padding: 22px 18px;
+    max-width: 20%;
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-left: 1px solid #2d3d42;
+  }
+  .mainHeader {
+    text-align: center;
+    background-color: #ededed;
+    border-radius: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    h3{
+      margin: 0;
+    }
+  }
+  .mainHeader h4 {
+    font-weight: 700;
+    color: #4a4a4a;
+    font-size: 13px;
+  }
+  .mainChatWindow {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  .messagesContainer {
+    list-style: none;
+  }
+  .messageHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #8086ac;
+  }
+  .messageReceiver {
+    color: #309af6;
+  }
+  .mainMessageContainer {
+    display: flex;
+  }
+  .formChatMesseage{
+    width: 100%;
+  }
+  .inputchatMessage{
+    display: flex;
+  }
+  .buttonSendMessageContainer{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .buttonSendMessageContainer:hover{
+    background-color: #ededed;
+    border-radius: 5px;
+  }
+  .buttonSendMessage{
+    text-align: center;
+    width: 15%;
+  }
+  #chatMessage{
+    width: 80%;
+    border: none;
+    font-size: 15px;
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+  #sendMessage{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+  }
+  #sendMessage:hover{
+    background-color: #cdced1;
+    border-radius: 50%;
+  }
+  .messages {
+    padding: 5% 0;
+    overflow: auto;
+    flex: auto;
+  }  
+}

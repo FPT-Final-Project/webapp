@@ -6,11 +6,12 @@ import { LeftOutlined } from '@ant-design/icons';
 import '../../shared/css/form.scss';
 
 const { Title } = Typography;
-const Reset = () => {
+const NewPass = () => {
   const history = useHistory();
   const functionDirect = () => {
     history.push('/register');
   };
+
   return (
     <>
       <PageHeader title="PSY CARE." />
@@ -59,4 +60,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default NewPass;

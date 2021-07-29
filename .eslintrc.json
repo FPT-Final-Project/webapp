@@ -26,6 +26,7 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "error",
     "react/react-in-jsx-scope": "off",
+    "linebreak-style": "off",
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": ["warn", {
       "extensions": [".tsx"]
@@ -48,14 +49,24 @@
       }
     ],
     "max-len": ["warn", {
-      "code": 120
+      "code": 120,
+      "ignoreStrings": true,
+      "ignoreComments": true
     }],
-    "react/no-unescaped-entities": "warn",
+    "react/no-unescaped-entities": "off",
     "react/button-has-type": "off",
     "react/no-array-index-key": "warn",
     "jsx-a11y/control-has-associated-label": "off",
     "react/jsx-props-no-spreading": "off",
-    "jsx-a11y/anchor-has-content": "off"
+    "jsx-a11y/anchor-has-content": "off",
+    "react/jsx-indent": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": "off",
+    "semi": "error",
+    "arrow-body-style": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {

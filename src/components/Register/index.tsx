@@ -1,16 +1,39 @@
+import React from 'react';
 import {
-  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+  Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../shared/css/form.scss';
+import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
+import { IUser } from '../../types/user';
+import { IRootState } from '../../stores/store';
+
+interface Props {
+  register: (id: string, name: string, email: string, password: string, role: string, isTested: boolean) => void;
+  user: IUser | undefined;
+}
 
 const { Title } = Typography;
+const { Option } = Select;
 
-const SignUp = () => {
+const Register: React.FC<Props> = ({ register, user }: Props) => {
   const history = useHistory();
+  const { userId } = useParams<{ userId: string }>();
+
+  if (user) {
+    history.push('/app/dashboard');
+    return (<></>);
+  }
+
   const functionDirect = () => {
     history.push('/login');
+  };
+
+  // eslint-disable-next-line max-len
+  const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => {
+    return register(userId, name, email, role, password, !!userId);
   };
 
   return (
@@ -19,7 +42,7 @@ const SignUp = () => {
       <div className="form">
         <Title className="title" level={2}>Create Your Account</Title>
         <Row justify="center">
-          <Form className="formSignIn" layout="vertical">
+          <Form className="formSignIn" layout="vertical" onFinish={handleRegister}>
             <Row className="row" justify="space-around">
               <Space align="center">
                 Already have an account ?
@@ -29,7 +52,7 @@ const SignUp = () => {
 
             <Form.Item
               label="Fullname"
-              name="fullname"
+              name="name"
               rules={[{
                 required: true,
                 message: 'Please input you Fullname!',
@@ -40,11 +63,11 @@ const SignUp = () => {
 
             <Form.Item
               label="Email or Phone number"
-              name="username"
+              name="email"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Email or Phone number!',
+                  message: 'Please input your Email!',
                 },
               ]}
             >
@@ -60,6 +83,20 @@ const SignUp = () => {
               }]}
             >
               <Input.Password style={{ borderRadius: '8px' }} />
+            </Form.Item>
+
+            <Form.Item
+              label="Role"
+              name="role"
+              rules={[{
+                required: true,
+                message: 'Please select your role!',
+              }]}
+            >
+              <Select style={{ borderRadius: '8px', textAlign: 'left' }}>
+                <Option value="patient">Patient</Option>
+                <Option value="doctor">Doctor</Option>
+              </Select>
             </Form.Item>
 
             <Form.Item>
@@ -86,4 +123,14 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const actionCreators = {
+  register: authAction.register,
+};
+
+const mapState = (state: IRootState) => ({
+  user: state.authentication.user,
+});
+
+const connectedState = connect(mapState, actionCreators)(Register);
+
+export { connectedState as Register };

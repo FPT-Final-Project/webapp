@@ -1,0 +1,101 @@
+.mainJoinRoom {
+    justify-content: center;
+	position:absolute;
+    display: block;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    background: linear-gradient(to right, #12d3fc 0%, #177a8e 51%, #12d3fc 100%);
+}
+.mainTop{
+    margin-top: 30px;
+	text-align: center;
+	color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 25px;
+}
+.mainBottom{
+    margin-top: 30px;
+	text-align: center;
+	color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-size: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.userScreenBlock{
+    position: relative;
+    width: 70%;
+    min-width: 666px;
+}
+.userScreen{
+    transform: scaleX(-1);
+    border-radius: 12px;
+	box-shadow:  0 6px 20px 0 rgba(0,0,0,0.19); 
+	border: 2px solid white;
+    height: 100%;
+}
+.mainControlsJoinRoom {
+    top: 90%;
+    left: 50%;
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 999;
+}
+.mainMuteButton{
+    margin-right: 10px;
+}
+.mainVideoButton{
+    margin-left: 10px;
+}
+.mainControlsButtonJoinRoom {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+.mainControlsButtonJoinRoom:hover {
+    background-color: #948484;
+}
+.joinButton{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#btnJoinroom{
+    color: white;
+    width: 100%;
+    background: #ea4335;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    letter-spacing: .01785714em;
+    border-radius: 18px;
+    font-size: 1em;
+}
+.joinInput{
+    color: #202124;
+}
+.mute-image,.video-image {
+    width: 25px;
+    height: 20px;
+}
+.CameraOff{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #202124;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0.7) 0,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0) 100%);
+}
+.ready{
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}

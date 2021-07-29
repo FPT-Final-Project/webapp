@@ -1,39 +1,50 @@
+import React, { useState } from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
-import { useState } from 'react';
+
 import {
   Link, useHistory, useLocation,
 } from 'react-router-dom';
-import { fakeAuth } from '../../utils/fakeAuth';
 import '../../shared/css/form.scss';
+import { connect } from 'react-redux';
 import gg from '../../assets/gg.png';
+import authAction from '../../stores/actions/auth.action';
+import { IRootState } from '../../stores/store';
+import { IUser } from '../../types/user';
+
+interface Props {
+  login: (email: string, password: string) => void,
+  user: IUser | undefined
+}
 
 const { Title } = Typography;
+const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+const validatePass = /^.{6,}$/;
 
-const Login = () => {
-  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+const Login: React.FC<Props> = ({ login, user }: Props) => {
   const history = useHistory();
+
+  if (user) {
+    history.push('/app/dashboard');
+    return (<></>);
+  }
 
   const functionDirect = () => {
     history.push('/register');
   };
-  const { state }: { state: any} = useLocation();
-  const login = () => fakeAuth.authenticate(() => {
-    setRedirectToReferrer(true);
-  });
-  const onFinish = () => {
-    if (redirectToReferrer) {
-      history.push('/app');
-    }
+
+  const submit = ({ email, password }: { email: string, password: string }) => {
+    login(email, password);
   };
+
   return (
     <>
       <PageHeader title="PSY CARE." />
       <div className="form">
         <Title className="title" level={2}>Log Into Your Account</Title>
         <Row justify="center">
-          <Form layout="vertical" onFinish={onFinish} onClick={login}>
+          <Form layout="vertical" onFinish={submit}>
             <Row className="row" justify="space-around">
               <Space align="center">
                 Don't have an account yet?
@@ -43,7 +54,7 @@ const Login = () => {
 
             <Form.Item
               label="Email or Phone number"
-              name="username"
+              name="email"
               rules={[{
                 required: true,
                 message: 'Please input your Email or Phone number!',
@@ -83,4 +94,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+const actionCreators = {
+  login: authAction.login,
+  register: authAction.register,
+};
+
+const mapStateToProps = (state: IRootState) => ({ user: state.authentication.user });
+
+const connectedState = connect(mapStateToProps, actionCreators)(Login);
+
+export { connectedState as Login };

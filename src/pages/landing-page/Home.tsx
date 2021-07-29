@@ -1,7 +1,4 @@
 import Navbar from './Navbar';
-
-import './Sass/index.scss';
-
 import MainServices from './MainServices';
 import MainConnect from './MainConnect';
 import MainQuiz from './MainQuiz';
@@ -10,6 +7,7 @@ import MainChart from './MainChart';
 import MainCustomer from './MainCustomer';
 import Footer from './Footer';
 import Banner from './Banner';
+import './Sass/index.scss';
 
 const Home = () => {
   const fadeLeft = {

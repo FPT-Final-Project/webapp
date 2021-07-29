@@ -1,4 +1,10 @@
 // Desktop
+
+@mixin desktop1350 {
+  @media screen and (max-width: 1350px) {
+    @content;
+  }
+}
 @mixin desktop1282 {
   @media screen and (max-width: 1282px) {
     @content;
