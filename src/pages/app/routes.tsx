@@ -25,11 +25,7 @@ export const routes = [
   {
     path: '/psychology-test',
     exact: true,
-<<<<<<< HEAD
-    component: SelectQuiz,
-=======
     component: Quizzes,
->>>>>>> develop
   },
   {
     path: '/questionanswer',

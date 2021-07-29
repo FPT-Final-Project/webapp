@@ -30,10 +30,7 @@ const HeaderLayout: React.FC<Props> = () => {
     <>
       <Header className="app-header">
         <div className="left-nar-bar">
-<<<<<<< HEAD
-=======
           <p className="app-header-title">{location.pathname.split('/')[2]}</p>
->>>>>>> develop
           {/* <Search className="nar-search" placeholder="Search..." /> */}
           {/* <div className="date-time-nar-bar">{`${date}, ${time}`}</div> */}
         </div>
