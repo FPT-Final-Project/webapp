@@ -105,7 +105,7 @@ const JoinRoom = () => {
               <Link
                 onClick={(e) => ((!userid) ? e.preventDefault() : null)}
                 to={{
-                  pathname: `/videochatservice/${userid}/123456`,
+                  pathname: '/appointment/123456/join',
                   state: {
                     propertyaudio,
                     propertyvideo,

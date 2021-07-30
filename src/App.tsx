@@ -13,7 +13,6 @@ import { Register } from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProtectedRoute from './config/private-route.config';
-// import { PsyTest } from './components/PsyTest';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
@@ -48,8 +47,8 @@ function App() {
                 <ProtectedRoute path="/app/patient" exact component={ListPatients} />
                */}
               {/* VideoCall */}
-              <ProtectedRoute path="/appointment" component={JoinRoom} />
-              <ProtectedRoute path="/appointment/:userid/:room" component={VideoChat} />
+              <ProtectedRoute path="/appointment/:room/start" component={JoinRoom} />
+              <ProtectedRoute exact path="/appointment/:room/join" component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>
