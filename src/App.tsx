@@ -36,7 +36,7 @@ function App() {
               <Route path="/register/:userId" component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
-              <Route path="/quiz/:quizId" component={PsyTest} />
+              <Route exact path="/quiz/:quizId" component={PsyTest} />
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
@@ -48,8 +48,8 @@ function App() {
                 <ProtectedRoute path="/app/patient" exact component={ListPatients} />
                */}
               {/* VideoCall */}
-              <ProtectedRoute path="/videochat" exact component={JoinRoom} />
-              <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
+              <ProtectedRoute path="/appointment" component={JoinRoom} />
+              <ProtectedRoute path="/appointment/:userid/:room" component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>
