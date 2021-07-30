@@ -3,6 +3,6 @@ export interface IQuiz {
   name: string;
   type: string;
   description: string;
-  createdAt: number;
-  updatedAt: number;
+  createdAt?: number;
+  updatedAt?: number;
 }

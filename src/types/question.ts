@@ -9,6 +9,6 @@ export interface IQuestion {
   psyTestId: string;
   questionText: string;
   alternatives: IAnswer[];
-  createdAt: number;
-  updatedAt: number;
+  createdAt?: number;
+  updatedAt?: number;
 }

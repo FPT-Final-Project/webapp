@@ -87,7 +87,7 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
   const routeMatch = useRouteMatch();
 
   const redirectToApp = () => {
-    history.push('/app');
+    history.push('/app/dashboard');
   };
 
   return (
