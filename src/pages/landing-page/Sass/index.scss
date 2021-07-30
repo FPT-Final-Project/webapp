@@ -10,6 +10,14 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-y: scroll;
+}
+
 .grid {
   margin: 0 auto;
   width: 90%;
@@ -382,16 +390,22 @@
         }
 
         a {
-          padding: 7px 0px;
+          padding: 5px 0px;
           border-bottom: none;
           color: var(--text-color-white);
           font-weight: 600;
 
           text-decoration: none;
           font-size: 17px;
+          transition: 0.1s;
 
           @include tablet1024 {
             font-size: 15px;
+          }
+
+          &:hover {
+            // text-decoration: underline;
+            border-bottom: 3px solid #f1f1f1;
           }
         }
       }

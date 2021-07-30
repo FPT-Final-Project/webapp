@@ -41,7 +41,11 @@ const Payment: React.FC<Props> = ({ user }: Props) => {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper-payment">
+      <div className="banner-payment">
+        <div className="banner-payment__h2">Payment Form</div>
+        <div className="banner-payment__description">Where to pay for the doctor's appointment</div>
+      </div>
       <div className="payment-form">
         <div className="table-payment">
           <Table dataSource={data}>

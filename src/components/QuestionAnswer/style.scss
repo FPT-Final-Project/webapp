@@ -1,65 +1,91 @@
-.question-form {
-  width: 90%;
-  margin: 1% auto;
+.wrap-qa {
+  width: 100% !important;
+  height: 700px !important;
+  background-color: #fafafa;
+  padding: 16px !important;
+  margin-top: 64px;
 
-  .drop-menu {
-    border-radius: 10px;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    float: right;
-    width: 30%;
-    margin-bottom: 15px;
+  .banner-qa {
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    margin-bottom: 16px;
+    // background-color: #fff;
+    border-radius: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // overflow: hidden;
+    background: url(../../assets/headerForum.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    &:hover,
-    &:focus {
-      color: #299CB4;
-      border: 1px solid #299CB4;
+    &__h2 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    &__description {
+      font-size: 16px;
+      width: 500px;
+      line-height: 20px;
+      color: #838383;
     }
   }
 
-  .question-input {
-    border-radius: 8px;
-    
-    Input{
+  .question-form {
+    // width: 60%;
+    // margin: 1% auto;
+
+    h2 {
+      margin-left: 5%;
+    }
+
+    .drop-menu {
+      border-radius: 10px;
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      float: right;
+      width: 30%;
+      margin-bottom: 15px;
+
       &:hover,
       &:focus {
-      border: 1px solid #299CB4;
+        color: #299cb4;
+        border: 1px solid #299cb4;
       }
     }
 
-    Button{
-      &:hover,
-      &:focus {
-      color: #299CB4;
-      border: 1px solid #299CB4;
+    .question-input {
+      border-radius: 8px;
+    }
+
+    .comment {
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-top: 3%;
+      padding: 1% 2%;
+      border-radius: 8px;
+
+      a {
+        font-size: medium;
+        font-weight: bolder;
       }
     }
-  }
 
-  .comment {
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-top: 3%;
-    padding: 1% 2%;
-    border-radius: 8px;
+    .reply {
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      padding: 2px 4px 3px 3px;
+      border-radius: 8px;
+      border: 1px solid rgb(168, 154, 154);
 
-    a {
-      font-size: medium;
-      font-weight: bolder;
+      span {
+        font-size: small;
+      }
     }
-  }
 
-  .reply {
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 2px 4px 3px 3px;
-    border-radius: 8px;
-    border: 1px solid rgb(168, 154, 154);
-
-    span {
-      font-size: small;
+    .reply-image {
+      width: 25px;
+      height: 20px;
     }
-  }
-
-  .reply-image {
-    width: 25px;
-    height: 20px;
   }
 }

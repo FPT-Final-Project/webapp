@@ -1,5 +1,6 @@
 import { Table } from 'antd';
 import React, { useState } from 'react';
+import './styles.scss';
 
 interface Props {}
 
@@ -34,7 +35,7 @@ const Appointment: React.FC<Props> = () => {
 
   return (
     <div>
-      <div className="">
+      <div className="wrap-aptm">
         <Table columns={columns} dataSource={data} />
 
         {/* <Select  style={{ width: 200, border: 0 }}  >
