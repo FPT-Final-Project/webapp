@@ -236,7 +236,7 @@ body {
         transition: 0.5s;
 
         &:hover {
-          background-position: right center;
+          background-position: left center;
         }
 
         @include desktop1118 {

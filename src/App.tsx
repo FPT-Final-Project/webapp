@@ -22,7 +22,7 @@ import { PsyTest } from './components/Psytest';
 function App() {
   const user = localStorage.getItem('user');
   if (user) {
-    store.dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, { user: JSON.parse(user) }));
+    store.dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, JSON.parse(user)));
   }
 
   return (
