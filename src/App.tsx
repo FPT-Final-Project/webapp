@@ -17,7 +17,7 @@ import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-import { PsyTest } from './components/Psytest';
+import { PsyTest } from './components/PsyTest';
 
 function App() {
   const user = localStorage.getItem('user');
