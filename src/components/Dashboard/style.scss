@@ -5,8 +5,8 @@
   padding: 16px;
   margin-top: 64px;
   position: relative;
-  overflow-y: hidden;
-  overflow: scroll;
+  // overflow-y: hidden;
+  // overflow: scroll;
 
   .header-top {
     width: 100%;
@@ -63,6 +63,7 @@
       padding: 16px 24px;
       background-color: #fff;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border: 2px solid #1295b1;
 
       &--h2 {
         font-size: 18px;
@@ -111,7 +112,7 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    padding-top: 16px;
+    padding: 16px 0;
 
     &__select {
       width: 69%;
@@ -139,8 +140,8 @@
       }
 
       .ant-table-wrapper {
-        overflow-x: hidden;
-        overflow: scroll;
+        // overflow-x: hidden;
+        // overflow: scroll;
 
         .ant-table-thead > tr > th {
           font-weight: bold !important;

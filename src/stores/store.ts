@@ -9,6 +9,7 @@ import { IQuizState } from './reducers/quiz.reducer';
 export interface IRootState {
   authentication: IUserState,
   quiz: IQuizState,
+  users: IUserState
 }
 
 export const store = createStore(

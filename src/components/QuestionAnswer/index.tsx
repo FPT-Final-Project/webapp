@@ -98,7 +98,12 @@ function QuestionAnswer() {
   const { comments, submitting, value } = state;
 
   return (
-    <>
+
+    <div className="wrap-qa">
+      <div className="banner-qa">
+        <div className="banner-qa__h2">Forum Questions</div>
+        <div className="banner-qa__description">To have a stable psychological health, our PsyCare will give you the best counselling service for you</div>
+      </div>
       <div className="question-form">
         <Row justify="space-between">
           <Col span={8} xs={24} sm={12}>
@@ -170,7 +175,8 @@ function QuestionAnswer() {
           </Comment>
         </div>
       </div>
-    </>
+    </div>
+
   );
 }
 
