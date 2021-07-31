@@ -5,11 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducers from './reducers';
 import { IUserState } from './reducers/auth.reducer';
 import { IQuizState } from './reducers/quiz.reducer';
+import { IDashboardState } from './reducers/dashboard.reducer';
 
 export interface IRootState {
   authentication: IUserState,
   quiz: IQuizState,
-  users: IUserState
+  users: IDashboardState
 }
 
 export const store = createStore(
