@@ -18,7 +18,6 @@ import './style.scss';
 import '../Message/style.scss';
 
 const socket = io('http://localhost:3000');
-
 const VideoChat = () => {
   const { userid, room } :any = useParams();
   const peer = new Peer();
@@ -69,6 +68,7 @@ const VideoChat = () => {
   };
 
   const connectToNewUser = (id: string, stream: MediaStream) => {
+    console.log(1);
     const call = peer.call(id, stream);
     call.on('stream', (stream) => {
       partnerVideo.current.srcObject = stream;
@@ -98,11 +98,13 @@ const VideoChat = () => {
       setUsername('Long');
     }
     peer.on('open', (peerid) => {
+      console.log(2);
       socket.emit('join-room', room, userid, peerid);
     });
   }, []);
 
   useEffect(() => {
+    console.log(3);
     userInRoom();
     if (partnerid === '1') {
       setPartnername('Bao');

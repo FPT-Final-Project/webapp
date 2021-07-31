@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Spin } from 'antd';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -30,7 +31,7 @@ const getResultOfTest = (score: number) => {
   if (score <= 19) return 'Immediate';
   return 'Hard';
 };
-
+const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 30, color: '#1f8ba3' }} spin />;
 const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions, user }: Props) => {
   const history = useHistory();
   const [score, setScore] = useState<number>(0);
@@ -63,13 +64,12 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
       }, 400);
     } else {
       const userId = user ? user._id : uuid();
-      quizService.createQuizResult(userId, quizId, score);
-
+      quizService.createQuizResult(userId, quizId, score)
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
       if (user) {
-        history.push(`/quiz/${quiz?._id}/result`);
-        return;
+        history.push('/login');
       }
-
       history.push(`/register/${userId}`);
     }
   };
@@ -107,7 +107,7 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
           loading ? (
             <div className="test-section">
               <div className="test-loading">
-                <FontAwesomeIcon icon={faSpinner} size="5x" />
+                <Spin indicator={antIcon} />
               </div>
             </div>
           ) : (

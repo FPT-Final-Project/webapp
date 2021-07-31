@@ -38,7 +38,7 @@ export const authentication = (state = initialState, action: Action) => {
 
     case AuthActions.LOGIN_FAIL: {
       const { error } = (action as LoginFailAction).payload;
-
+      console.log(error);
       return { ...state, ...{ loginProcessing: false, error } };
     }
 
