@@ -1,174 +1,160 @@
-import { Table, Tag, Space, Button } from 'antd';
-import './styles.scss';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'antd';
+import Search from 'antd/lib/input/Search';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { IUser } from '../../../types/user';
+import './styles.scss';
 
-const ListDoctors = () => {
-  const [data, setData] = useState([
+interface Props {}
+
+const DoctorRow = ({ _id, name, picture }: IUser) => (
+  <div className="doctor-card" key={_id}>
+    <div className="doctor-card-left">
+      <div className="doctor-card-avatar">
+        <img src={picture} alt={name} />
+        <Button className="btn-detail">
+          <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
+        </Button>
+      </div>
+      <div className="doctor-card-details">
+        <div className="doctor-card-name">Dr. {name}</div>
+        <div className="doctor-card-description">A doctor is responsible for all sides of care of a patient. They diagnose, educate, and treat patients to ensure that they have the best possible care.</div>
+      </div>
+    </div>
+    <div className="doctor-card-right">
+      <div className="doctor-card-schedule">
+        <span>Consultation Schedule</span>
+        <div className="doctor-card-schedules">
+          <div className="doctor-schedule">
+            <FontAwesomeIcon icon={faVideo} size="sm" />
+            <span>08:00 - 09:00</span>
+          </div>
+          <div className="doctor-schedule">
+            <FontAwesomeIcon icon={faVideo} size="sm" />
+            <span>09:30 - 10:30</span>
+          </div>
+          <div className="doctor-schedule">
+            <FontAwesomeIcon icon={faVideo} size="sm" />
+            <span>14:00 - 15:00</span>
+          </div>
+          <div className="doctor-schedule">
+            <FontAwesomeIcon icon={faVideo} size="sm" />
+            <span>15:30 - 16:30</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style={{ fontWeight: 700 }}>Consultation Fee : 50$</div>
+        <div>Costs Incurred: 5$</div>
+      </div>
+    </div>
+  </div>
+);
+
+const ListDoctors: React.FC<Props> = () => {
+  const [doctors, setDoctors] = useState([
     {
-      key: '1',
-      id: 13,
-      name: 'Ngô Hoàng Thế Duy',
-      email: 'maicels@psycare.com',
-      phone: '0905619755',
-      specialist: 'Stress',
-      schedule: 'New York No. 1 Lake Park',
-      appointment: '1 Appointment',
-      status: 'Online',
-    },
-    {
-      key: '2',
-      id: 33,
-      name: 'Jim Green',
-      email: 'maicels@psycare.com',
-      phone: '0905213551',
-      specialist: 'Depression',
-      schedule: 'London No. 1 Lake Park',
-      appointment: 'No Appointment',
-      status: 'Offline',
-    },
-    {
-      key: '3',
-      id: 15,
+      _id: '1',
       name: 'Joe Black',
+      role: 'doctor',
       email: 'maicels@psycare.com',
       phone: '0905619225',
       specialist: 'Anxious',
-      schedule: 'Sidney No. 1 Lake Park',
-      appointment: '2 Appointments',
-      status: 'Online',
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
     },
     {
-      key: '4',
-      id: 53,
-      name: 'John Brown',
-      email: 'maicels@psycare.com',
-      phone: '0905619755',
-      specialist: 'Stress',
-      schedule: 'New York No. 1 Lake Park',
-      appointment: '1 Appointment',
-      status: 'Online',
-    },
-    {
-      key: '5',
-      id: 65,
-      name: 'Jim Green',
-      email: 'maicels@psycare.com',
-      phone: '0905213551',
-      specialist: 'Stress',
-      schedule: 'London No. 1 Lake Park',
-      appointment: 'No Appointment',
-      status: 'Offline',
-    },
-    {
-      key: '6',
-      id: 44,
-      name: 'Joe Black',
-      email: 'maicels@psycare.com',
+      _id: '2',
+      name: 'Dat',
+      role: 'doctor',
+      email: 'datlv@psycare.com',
       phone: '0905619225',
       specialist: 'Anxious',
-      schedule: 'Sidney No. 1 Lake Park',
-      appointment: '5 Appointments',
-      // status: ['Offline'],
-      status: 'Offline',
-
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
+    },
+    {
+      _id: '3',
+      name: 'Duy',
+      role: 'doctor',
+      email: 'duynht@psycare.com',
+      phone: '0905619225',
+      specialist: 'abc',
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
+    },
+    {
+      _id: '4',
+      name: 'Long',
+      role: 'doctor',
+      email: 'longph@psycare.com',
+      phone: '0905619225',
+      specialist: 'xyz',
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
+    },
+    {
+      _id: '5',
+      name: 'Long',
+      role: 'doctor',
+      email: 'longph@psycare.com',
+      phone: '0905619225',
+      specialist: 'xyz',
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
+    },
+    {
+      _id: '6',
+      name: 'Long',
+      role: 'doctor',
+      email: 'longph@psycare.com',
+      phone: '0905619225',
+      specialist: 'xyz',
+      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
     },
   ]);
 
-  const handleDelete = (id : number | string) => {
-    setData(data.filter((item) => item.id !== id));
-  };
-
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text: any, record : any) => (
-        <div className="userEmail">
-          <span>{record.name}</span>
-          <span> {record.email}</span>
-        </div>
-      ),
-    },
-    {
-      title: 'Phone Number',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Specialist',
-      dataIndex: 'specialist',
-      key: 'specialist',
-    },
-    {
-      title: 'Schedule',
-      dataIndex: 'schedule',
-      key: 'schedule',
-    },
-    {
-      title: 'Appointment',
-      key: 'appointment',
-      dataIndex: 'appointment',
-      render: (app: string) => {
-        const color = app === 'No Appointment' ? 'grey' : 'green';
-        return (
-          <Tag color={color}>
-            {app}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-
-      render: (status: string) => {
-        const color = status === 'Online' ? 'green' : 'volcano';
-        return (
-          <Tag color={color}>
-            {status}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: 'Settings',
-      key: 'settings',
-      render: (text : any, record: any) => (
-        <Space size="middle">
-          <Link to={`/app/doctor/${record.id}`}>
-            <Button type="primary"><EditOutlined />Edit</Button>
-          </Link>
-
-          {/* <Divider type="vertical"></Divider> */}
-          <Button type="default" danger onClick={() => handleDelete(record.id)}><DeleteOutlined />Delete</Button>
-        </Space>
-      ),
-    },
-  ];
-
   return (
-    <div className="doctor-list">
-      <Table columns={columns} dataSource={data} />
-
-      {/* <Select  style={{ width: 200, border: 0 }}  >
-            <OptGroup label="Manager">
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-            </OptGroup>
-            <OptGroup label="Engineer">
-              <Option value="Yiminghe">yiminghe</Option>
-            </OptGroup>
-          </Select> */}
-
+    <div className="wrap-doctor-list">
+      <div className="doctor-list-content">
+        <div className="doctor-filter">
+          <div className="doctor-filter-section">
+            <span>Search Name:&nbsp;</span>
+            <Search className="doctor-search" placeholder="Doctor name" />
+          </div>
+          <div className="doctor-filter-section">
+            <span>Specialty</span>
+            <select name="specialty" id="doctor-specialty">
+              <option value="all">All</option>
+              <option value="a">A</option>
+              <option value="b">B</option>
+            </select>
+          </div>
+          <div className="doctor-filter-section">
+            <span>Gender</span>
+            <select name="gender" id="doctor-gender">
+              <option value="all">All</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        {doctors.map((doctor) => DoctorRow(doctor))}
+      </div>
+      <div className="doctor-top-list">
+        <div className="doctor-top-title">Top 5:</div>
+        {
+          doctors.slice(0, 5).map(({ _id, name, picture, email }) => (
+            <div className="doctor-top-content" key={_id}>
+              <div className="doctor-content-avatar">
+                <img src={picture} alt={name} />
+              </div>
+              <div className="doctor-content-details">
+                <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
+                <div className="doctor-content-name">Dr. {name}</div>
+                <div>{email}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 };
