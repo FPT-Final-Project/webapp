@@ -16,7 +16,7 @@ import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-import { PsyTest } from './components/PsyTest';
+// import { PsyTest } from './components/PsyTest';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -35,7 +35,7 @@ function App() {
               <Route path="/register/:userId" component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
-              <Route exact path="/quiz/:quizId" component={PsyTest} />
+              {/* <Route exact path="/quiz/:quizId" component={PsyTest} /> */}
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
