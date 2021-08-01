@@ -13,7 +13,7 @@ const initialState: IDashboardState = {
   users: undefined,
 };
 
-export const dashboard = (state = initialState, action: Action): IDashboardState => {
+const dashboardReducer = (state = initialState, action: Action): IDashboardState => {
   switch (action.type) {
     case DashboardActions.GET_USERS: {
       const { users } = (action as GetDashboardUsersAction).payload;
@@ -27,3 +27,5 @@ export const dashboard = (state = initialState, action: Action): IDashboardState
       return state;
   }
 };
+
+export default dashboardReducer;

@@ -8,7 +8,7 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'https://90d031aac955.ngrok.io/v1/payment/momo';
+const notifyUrl = 'https://a0fd3e739794.ngrok.io/v1/payment/momo';
 const returnUrl = 'http://localhost:3000/app/dashboard';
 
 const momoRequest = async (
