@@ -9,10 +9,6 @@ export const AuthActions = {
   LOGIN_SUCCESS: '[Auth] Login Success',
   LOGIN_FAIL: '[Auth] Login Fail',
 
-  LOGOUT: '[Auth] Logout',
-  LOGOUT_SUCCESS: '[Auth] Logout Success',
-  LOGOUT_FAIL: '[Auth] Logout Fail',
-
   REGISTER: '[Auth] Register',
   REGISTER_SUCCESS: '[Auth] Register Success',
   REGISTER_FAIL: '[Auth] Register Fail',
@@ -26,10 +22,6 @@ export interface LoginFailAction extends Action {
   payload: {
     error: string;
   };
-}
-
-export interface LogoutAction extends Action {
-  payload: {};
 }
 
 export interface RegisterAction extends Action {
@@ -48,33 +40,31 @@ export interface RegisterFailAction extends Action {
   };
 }
 
-const login = (email: string, password: string) => (dispatch: Dispatch): void => {
-  dispatch(doRequest(AuthActions.LOGIN, { email, password }));
+const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
+  try {
+    dispatch(doRequest(AuthActions.LOGIN, { email, password }));
+    const user = await userService.login(email, password);
 
-  userService.login(email, password)
-    .then((result : any) => {
-      localStorage.setItem('token', result.data.token);
-      localStorage.setItem('user', JSON.stringify(result.data));
-      dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result.data));
-    })
-    .catch((error : any) => {
-      dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
-    });
+    localStorage.setItem('token', user.token || '');
+    localStorage.setItem('user', JSON.stringify(user));
+    dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
+  } catch (error : any) {
+    dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
 };
 
 const register = (id: string, name: string, email: string, role: string, password: string, isTested: boolean) => {
-  return (dispatch: Dispatch): void => {
-    dispatch(doRequest(AuthActions.REGISTER, { isTested }));
+  return async (dispatch: Dispatch): Promise<void> => {
+    try {
+      dispatch(doRequest(AuthActions.REGISTER, { isTested }));
+      const user = await userService.register(id, name, email, password, role);
 
-    userService.register(id, name, email, password, role)
-      .then((result: any) => {
-        localStorage.setItem('token', result.data.token);
-        localStorage.setItem('user', JSON.stringify(result.data));
-        dispatch(doSuccess(AuthActions.REGISTER_SUCCESS, result.data));
-      })
-      .catch((error: any) => {
-        dispatch(doFailure(AuthActions.REGISTER_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
-      });
+      localStorage.setItem('token', user.token || '');
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch(doSuccess(AuthActions.REGISTER_SUCCESS, user));
+    } catch (error) {
+      dispatch(doFailure(AuthActions.REGISTER_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    }
   };
 };
 

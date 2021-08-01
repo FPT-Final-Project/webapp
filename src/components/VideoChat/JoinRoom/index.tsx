@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable max-len */
-/* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,6 +8,8 @@ import video from '../../../assets/video.svg';
 import novideo from '../../../assets/no-video.svg';
 import './style.scss';
 import Canvas from '../Canvas';
+import { IRootState } from '../../../stores/store';
+import appointmentAction from '../../../stores/actions/appointment.action';
 
 const JoinRoom = () => {
   const [userid, setUserid] = useState('');
@@ -58,7 +57,7 @@ const JoinRoom = () => {
 
   const history = useHistory();
   const functionDirect = () => {
-    history.push('/join-appointment');
+    history.push('/app/appointment');
   };
   // ===============================
 
@@ -118,12 +117,18 @@ const JoinRoom = () => {
             </div>
           </div>
         </div>
-        <div>
-          <input placeholder="UserID" type="text" onChange={(event) => setUserid(event.target.value)} />
-        </div>
       </div>
     </div>
   );
 };
+
+const actionCreators = {
+  getAppointment: appointmentAction.getAppointment,
+};
+
+const mapState = (state: IRootState) => ({
+  user: state.authentication.user,
+  appointment: state.appointment.appointment,
+});
 
 export default JoinRoom;

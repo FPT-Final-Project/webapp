@@ -3,8 +3,8 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
-  picture?: string;
   token?: string;
+  picture?: string;
   avatar?: string;
   gender?: number;
   phone?: string;
