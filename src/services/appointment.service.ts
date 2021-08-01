@@ -1,8 +1,9 @@
 import { getRequest } from '../config/axios.request';
+import { IAppointment } from '../types/appointment';
 
-const getAppointment = (appointmentId: string) => getRequest(`/appointment/${appointmentId}`);
+const getAppointment = (appointmentId: string): Promise<IAppointment> => getRequest(`appointment/${appointmentId}`);
 
-const getAppointments = () => getRequest('/appointment');
+const getAppointments = (): Promise<IAppointment[]> => getRequest('appointment');
 
 export default {
   getAppointment,

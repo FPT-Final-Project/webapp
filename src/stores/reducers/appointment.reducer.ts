@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { IAppointment } from '../../types/appointment';
-import { AppointmentActions } from '../actions/appointment.action';
+import { AppointmentActions, GetAppointmentSuccessAction } from '../actions/appointment.action';
 
 export interface IAppointmentState {
   appointment: IAppointment | undefined;
@@ -17,7 +17,8 @@ const initialState: IAppointmentState = {
 const appointmentReducer = (state = initialState, action: Action): IAppointmentState => {
   switch (action.type) {
     case AppointmentActions.GET_APPOINTMENT_SUCCESS: {
-      return { ...state };
+      const { appointment } = (action as GetAppointmentSuccessAction).payload;
+      return { ...state, ...{ appointment } };
     }
 
     default: {

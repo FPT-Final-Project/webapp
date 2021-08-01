@@ -7,7 +7,7 @@ export interface IAppointment {
   doctorId: string;
   doctorName: string;
   status: string;
-  roomLink: string;
+  roomId: string;
   isCanceled?: boolean;
   createdAt?: number;
   updatedAt?: number;
