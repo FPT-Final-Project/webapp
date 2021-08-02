@@ -4,6 +4,7 @@ import QuestionAnswer from '../../components/QuestionAnswer';
 import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
+import { PsyTest } from '../../components/Psytest';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
 
 export const routes = [
