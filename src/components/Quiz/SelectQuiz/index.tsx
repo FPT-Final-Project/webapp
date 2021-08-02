@@ -50,7 +50,7 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
       <div className="quiz-form">
         <Row className="content">
           <Col span={12} className="col-1">
-            <p> 10 SENTENCES QUICK CHECK</p>
+            <p> 9 SENTENCES QUICK CHECK</p>
           </Col>
           <Col span={12} className="col-2">
             <p>This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions. Join now, it's free</p>
