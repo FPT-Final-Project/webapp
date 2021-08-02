@@ -2,13 +2,12 @@ import { Action } from 'redux';
 import { IQuestion } from '../../types/question';
 import { IQuiz } from '../../types/quiz';
 import {
-  GetQuestionsFailAction,
   GetQuestionsSuccessAction,
-  GetQuizzesFailAction,
   GetQuizzesSuccessAction,
   QuizActions,
   CreateResultSuccessAction,
 } from '../actions/quiz.action';
+import { FailAction } from '../actions/utils';
 
 export interface IQuizState {
   quizzes: IQuiz[] | undefined;
@@ -26,7 +25,7 @@ const initialState: IQuizState = {
   quizzesScore: {},
 };
 
-export const quiz = (state = initialState, action: Action) => {
+const quizReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case QuizActions.GET_QUIZZES_SUCCESS: {
       const { quizzes } = (action as GetQuizzesSuccessAction).payload;
@@ -34,7 +33,7 @@ export const quiz = (state = initialState, action: Action) => {
     }
 
     case QuizActions.GET_QUIZZES_FAIL: {
-      const { error } = (action as GetQuizzesFailAction).payload;
+      const { error } = (action as FailAction).payload;
       return { ...state, ...{ error } };
     }
 
@@ -44,7 +43,7 @@ export const quiz = (state = initialState, action: Action) => {
     }
 
     case QuizActions.GET_QUESTIONS_FAIL: {
-      const { error } = (action as GetQuestionsFailAction).payload;
+      const { error } = (action as FailAction).payload;
       return { ...state, ...{ error } };
     }
     case QuizActions.CREATE_QUIZ_SUCCESS: {
@@ -57,3 +56,5 @@ export const quiz = (state = initialState, action: Action) => {
     }
   }
 };
+
+export default quizReducer;

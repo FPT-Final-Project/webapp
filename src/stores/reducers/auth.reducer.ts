@@ -2,11 +2,11 @@ import { Action } from 'redux';
 import { IUser } from '../../types/user';
 import {
   AuthActions,
-  LoginFailAction,
   LoginSuccessAction,
   RegisterAction,
   RegisterSuccessAction,
 } from '../actions/auth.action';
+import { FailAction } from '../actions/utils';
 
 export interface IUserState {
   user?: IUser;
@@ -24,7 +24,7 @@ const initialState: IUserState = {
   error: undefined,
 };
 
-export const authentication = (state = initialState, action: Action) => {
+const authenticationReducer = (state = initialState, action: Action): IUserState => {
   switch (action.type) {
     case AuthActions.LOGIN: {
       return { ...state, ...{ loginProcessing: true } };
@@ -37,20 +37,13 @@ export const authentication = (state = initialState, action: Action) => {
     }
 
     case AuthActions.LOGIN_FAIL: {
+<<<<<<< HEAD
       const { error } = (action as LoginFailAction).payload;
+=======
+      const { error } = (action as FailAction).payload;
+
+>>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
       return { ...state, ...{ loginProcessing: false, error } };
-    }
-
-    case AuthActions.LOGOUT: {
-      return { ...state, ...{ i: 2 } };
-    }
-
-    case AuthActions.LOGOUT_FAIL: {
-      return { ...state, ...{ i: 2 } };
-    }
-
-    case AuthActions.LOGOUT_SUCCESS: {
-      return { ...state, ...{ i: 2 } };
     }
 
     case AuthActions.REGISTER: {
@@ -64,7 +57,8 @@ export const authentication = (state = initialState, action: Action) => {
     }
 
     case AuthActions.REGISTER_FAIL: {
-      return { ...state, ...{ registerProcessing: false } };
+      const { error } = (action as FailAction).payload;
+      return { ...state, ...{ registerProcessing: false, error } };
     }
 
     default: {
@@ -72,3 +66,5 @@ export const authentication = (state = initialState, action: Action) => {
     }
   }
 };
+
+export default authenticationReducer;

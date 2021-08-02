@@ -7,35 +7,30 @@ import {
   Link, useHistory, useLocation,
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';
-import { IUser } from '../../types/user';
-
-interface Props {
-  login: (email: string, password: string) => void,
-  user: IUser | undefined
-}
 
 const { Title } = Typography;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 const validatePass = /^.{6,}$/;
 
-const Login: React.FC<Props> = ({ login, user }: Props) => {
+const Login: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state: IRootState) => state.authentication.user);
 
   if (user) {
     history.push('/app/dashboard');
     return (<></>);
   }
-
   const functionDirect = () => {
-    history.push('/register');
+    history.push('/register/new');
   };
 
   const submit = ({ email, password }: { email: string, password: string }) => {
-    login(email, password);
+    dispatch(authAction.login(email, password));
   };
 
   return (
@@ -53,12 +48,18 @@ const Login: React.FC<Props> = ({ login, user }: Props) => {
             </Row>
 
             <Form.Item
-              label="Email or Phone number"
+              label="Email"
               name="email"
-              rules={[{
-                required: true,
-                message: 'Please input your Email or Phone number!',
-              }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Email!',
+                },
+                {
+                  pattern: validateEmail,
+                  message: 'The input is not valid E-mail!',
+                },
+              ]}
             >
               <Input style={{ borderRadius: '8px' }} />
             </Form.Item>
@@ -66,7 +67,17 @@ const Login: React.FC<Props> = ({ login, user }: Props) => {
             <Form.Item
               label="Password"
               name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                },
+              ]}
+              hasFeedback
             >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
@@ -84,7 +95,7 @@ const Login: React.FC<Props> = ({ login, user }: Props) => {
             </Form.Item>
             <Row justify="space-around">
               <Space>
-                <Link to="/reset">Forgot login or password?</Link>
+                <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
             </Row>
           </Form>
@@ -94,13 +105,4 @@ const Login: React.FC<Props> = ({ login, user }: Props) => {
   );
 };
 
-const actionCreators = {
-  login: authAction.login,
-  register: authAction.register,
-};
-
-const mapStateToProps = (state: IRootState) => ({ user: state.authentication.user });
-
-const connectedState = connect(mapStateToProps, actionCreators)(Login);
-
-export { connectedState as Login };
+export default Login;

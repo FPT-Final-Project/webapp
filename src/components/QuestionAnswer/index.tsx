@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+/* eslint-disable max-len */
+import React, { ChangeEvent, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
 } from 'antd';
-import { DownOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './style.scss';
 import reply from '../../assets/reply.svg';
@@ -17,15 +18,6 @@ const menu = (
   </Menu>
 );
 
-// const hideReply = {};
-
-const actions = [
-  <span className="reply" key="comment-basic-reply-to">
-    <img className="reply-image" src={reply} alt="reply" />
-    <span>Reply</span>
-  </span>,
-];
-
 const CommentList = ({ comments }: { comments: any }) => (
   <List
     dataSource={comments}
@@ -35,9 +27,7 @@ const CommentList = ({ comments }: { comments: any }) => (
   />
 );
 
-const Editor = ({
-  onChange, onSubmit, submitting, value,
-}: { onChange: any, onSubmit: any, submitting: any, value: any}) => (
+const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
     <Form.Item>
       <TextArea rows={4} onChange={onChange} value={value} />
@@ -56,6 +46,10 @@ const Editor = ({
 );
 
 const QuestionAnswer = () => {
+<<<<<<< HEAD
+=======
+  const [showReply, setShowReply] = React.useState(false);
+>>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
   const [state, setState] = useState({
     comments: [{}],
     submitting: false,
@@ -95,10 +89,23 @@ const QuestionAnswer = () => {
     });
   };
 
+  // const actions = [
+  //   <div>
+  //     <span className="reply" key="comment-basic-reply-to">
+  //       <img className="reply-image" src={reply} alt="reply" />
+  //       <span>Reply</span>
+  //     </span>
+  //   </div>,
+  // ];
   const { comments, submitting, value } = state;
 
   return (
-    <>
+
+    <div className="wrap-qa">
+      <div className="banner-qa">
+        <div className="banner-qa__h2">Forum Questions</div>
+        <div className="banner-qa__description">To have a stable psychological health, our PsyCare will give you the best counselling service for you</div>
+      </div>
       <div className="question-form">
         <Row justify="space-between">
           <Col span={8} xs={24} sm={12}>
@@ -115,21 +122,21 @@ const QuestionAnswer = () => {
         </Row>
         <Row className="question-input" justify="space-between">
           <Input
-            style={{ width: '97%', padding: '8px', borderRadius: '8px' }}
+            style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
           />
-          <PlusSquareOutlined style={{ fontSize: 30, margin: 'auto' }} />
+          <Button>
+            <PlusOutlined />
+          </Button>
+
         </Row>
         <div className="comment">
           <Comment
-            actions={actions}
+            // actions={actions}
             author={<a href="/#">Ngo Hoang The Duy</a>}
             avatar={(
               <Avatar
-                src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.6435-9/
-                135023651_2810508699162789_1949264985954215586_n.jpg?_nc_cat=
-                109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=LJsBQm8EMRYAX9KVZ73&_nc_ht=scontent-sin6-2.xx&oh=
-                71d7f0cae84767dd07edbd8620263dd0&oe=60D53DEC"
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="avt"
               />
             )}
@@ -170,7 +177,8 @@ const QuestionAnswer = () => {
           </Comment>
         </div>
       </div>
-    </>
+    </div>
+
   );
 };
 

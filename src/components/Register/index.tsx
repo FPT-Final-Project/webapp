@@ -3,24 +3,22 @@ import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader, Select,
 } from 'antd';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../shared/css/form.scss';
 import authAction from '../../stores/actions/auth.action';
 import gg from '../../assets/gg.png';
-import { IUser } from '../../types/user';
 import { IRootState } from '../../stores/store';
-
-interface Props {
-  register: (id: string, name: string, email: string, password: string, role: string, isTested: boolean) => void;
-  user: IUser | undefined;
-}
 
 const { Title } = Typography;
 const { Option } = Select;
+const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+const validatePass = /^.{6,}$/;
 
-const Register: React.FC<Props> = ({ register, user }: Props) => {
+const Register: React.FC = () => {
   const history = useHistory();
-  const { userId } = useParams<{ userId: string }>();
+  const dispatch = useDispatch();
+  let { userId } = useParams<{ userId: string }>();
+  const user = useSelector((state: IRootState) => state.authentication.user);
 
   if (user) {
     history.push('/app/dashboard');
@@ -33,7 +31,10 @@ const Register: React.FC<Props> = ({ register, user }: Props) => {
 
   // eslint-disable-next-line max-len
   const handleRegister = ({ name, email, password, role }: { name: string, email: string, password: string, role: string }) => {
-    return register(userId, name, email, role, password, !!userId);
+    if (userId === 'new') {
+      userId = '';
+    }
+    dispatch(authAction.register(userId, name, email, role, password, !!userId));
   };
 
   return (
@@ -62,12 +63,16 @@ const Register: React.FC<Props> = ({ register, user }: Props) => {
             </Form.Item>
 
             <Form.Item
-              label="Email or Phone number"
+              label="Email"
               name="email"
               rules={[
                 {
                   required: true,
                   message: 'Please input your Email!',
+                },
+                {
+                  pattern: validateEmail,
+                  message: 'The input is not valid E-mail!',
                 },
               ]}
             >
@@ -77,10 +82,17 @@ const Register: React.FC<Props> = ({ register, user }: Props) => {
             <Form.Item
               label="Password"
               name="password"
-              rules={[{
-                required: true,
-                message: 'Please input your password!',
-              }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+                {
+                  pattern: validatePass,
+                  message: 'The input must be least 6 characters in length!',
+                },
+              ]}
+              hasFeedback
             >
               <Input.Password style={{ borderRadius: '8px' }} />
             </Form.Item>
@@ -113,7 +125,7 @@ const Register: React.FC<Props> = ({ register, user }: Props) => {
             </Form.Item>
             <Row justify="space-around">
               <Space>
-                <Link to="/reset">Forgot login or password?</Link>
+                <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
             </Row>
           </Form>
@@ -123,14 +135,4 @@ const Register: React.FC<Props> = ({ register, user }: Props) => {
   );
 };
 
-const actionCreators = {
-  register: authAction.register,
-};
-
-const mapState = (state: IRootState) => ({
-  user: state.authentication.user,
-});
-
-const connectedState = connect(mapState, actionCreators)(Register);
-
-export { connectedState as Register };
+export default Register;

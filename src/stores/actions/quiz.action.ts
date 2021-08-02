@@ -35,18 +35,13 @@ export interface GetQuizzesSuccessAction extends Action {
   };
 }
 
-export interface GetQuizzesFailAction extends Action {
-  payload: {
-    error: string;
-  };
-}
-
 export interface GetQuestionsSuccessAction extends Action {
   payload: {
     questions: any[];
   };
 }
 
+<<<<<<< HEAD
 export interface GetQuestionsFailAction extends Action {
   payload: {
     error: string;
@@ -58,11 +53,13 @@ export interface CreateResultSuccessAction extends Action {
   };
 }
 
+=======
+>>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
 const getQuizzes = () => (dispatch: Dispatch): void => {
   dispatch(doRequest(QuizActions.GET_QUIZZES, {}));
 
   quizService.getQuizzes()
-    .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUIZZES_SUCCESS, { quizzes: result.data })))
+    .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUIZZES_SUCCESS, { quizzes: result })))
     .catch((error) => dispatch(doFailure(QuizActions.GET_QUIZZES_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
@@ -70,7 +67,7 @@ const getQuestions = (quizId: string) => (dispatch: Dispatch) => {
   dispatch(doRequest(QuizActions.GET_QUESTIONS, {}));
 
   quizService.getQuestions(quizId)
-    .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUESTIONS_SUCCESS, { questions: result.data })))
+    .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUESTIONS_SUCCESS, { questions: result })))
     .catch((error) => dispatch(doFailure(QuizActions.GET_QUESTIONS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 

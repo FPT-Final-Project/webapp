@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
@@ -16,10 +17,11 @@ import novideo from '../../../assets/no-video.svg';
 import Message from '../Message';
 import './style.scss';
 import '../Message/style.scss';
+import Canvas from '../Canvas';
 
 const socket = io('http://localhost:3000');
 const VideoChat = () => {
-  const { userid, room } :any = useParams();
+  const { userid, room }: any = useParams();
   const peer = new Peer();
   const peers: any = {};
   const listUserInRoom = useState<any[]>([]);
@@ -40,10 +42,10 @@ const VideoChat = () => {
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
     if (enabled) {
-      setAudiobutton(mute);
+      setAudiobutton(false);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
     } else {
-      setAudiobutton(unmute);
+      setAudiobutton(true);
       myVideo.current.srcObject.getAudioTracks()[0].enabled = true;
     }
   };
@@ -52,15 +54,15 @@ const VideoChat = () => {
     const { enabled } = myVideo.current.srcObject.getVideoTracks()[0];
     if (enabled) {
       myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-      setVideobutton(novideo);
+      setVideobutton(false);
     } else {
-      setVideobutton(video);
+      setVideobutton(true);
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
     }
     setTextCameraUser(!textCameraUser);
   };
 
-  const sendMessage = (e : any) => {
+  const sendMessage = (e: any) => {
     e.preventDefault();
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
@@ -83,7 +85,7 @@ const VideoChat = () => {
 
   const userInRoom = () => {
     socket.on('getUsersInRoom', (listUserInRoom) => {
-      listUserInRoom.forEach((id : any) => {
+      listUserInRoom.forEach((id: any) => {
         if (String(id) !== String(userid)) {
           setPartnerid(id);
         }
@@ -118,16 +120,16 @@ const VideoChat = () => {
       myVideo.current.srcObject = stream;
       if (!location.state.propertyaudio) {
         myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-        setAudiobutton(mute);
+        setAudiobutton(false);
       } else {
-        setAudiobutton(unmute);
+        setAudiobutton(true);
       }
       if (!location.state.propertyvideo) {
         myVideo.current.srcObject.getVideoTracks()[0].enabled = false;
         setTextCameraUser(true);
-        setVideobutton(novideo);
+        setVideobutton(false);
       } else {
-        setVideobutton(video);
+        setVideobutton(true);
       }
       socket.on('user-connected', (partnerid, partnerpeerId) => {
         if (partnerid === '1') {
@@ -168,6 +170,7 @@ const VideoChat = () => {
   }, []);
 
   return (
+    // <div className="wrap-videoCall">
     <div className="main-video">
       {/* ====================VideoCall====================== */}
       <div className="mainLeft">
@@ -180,17 +183,19 @@ const VideoChat = () => {
             <div className="notification">
               {partnername}
               {' '}
-              Connected
+                Connected
             </div>
           ) : ''}
         </div>
         <div className="mainVideos">
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            <video className="partnerScreenvideotag" ref={partnerVideo} autoPlay />
+            <video ref={partnerVideo} autoPlay />
+            {!statusPartner ? '' : <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />}
             <div className="userScreenvideo">
+              <video ref={myVideo} autoPlay />
+              <Canvas videoRef={myVideo} className="userScreenvideotag" />
               {textCameraUser ? <div className="textCameraUser">{username}</div> : ''}
-              <video className="userScreenvideotag" ref={myVideo} autoPlay />
             </div>
           </div>
         </div>
@@ -199,19 +204,31 @@ const VideoChat = () => {
         </div>
         <div className="mainControlsVideo">
           <div className="mainControlsBlock">
-            <div className="mainControlsButton mainMuteButton" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
-              <img className="mute-image" src={audiobutton} alt="mute" />
-            </div>
+            {audiobutton ? (
+              <div className="mainControlsButton mainMuteButton unmute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-img" src={unmute} alt="unmute" />
+              </div>
+            ) : (
+              <div className="mainControlsButton mainMuteButton mute" onClick={muteUnmute} onKeyPress={muteUnmute} role="button" tabIndex={0}>
+                <img className="mute-img" src={mute} alt="mute" />
+              </div>
+            )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <a href="/videochat">
+                <a href="/appointment/123456/start">
                   <img className="mute-phone" src={phone} alt="Hand Up" />
                 </a>
               </span>
             </div>
-            <div className="mainControlsButton mainVideoButton" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
-              <img className="video-image" src={videobutton} alt="video" />
-            </div>
+            {videobutton ? (
+              <div className="mainControlsButton mainVideoButton video" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="video-img" src={video} alt="video" />
+              </div>
+            ) : (
+              <div className="mainControlsButton mainVideoButton novideo" onClick={videoNovideo} onKeyPress={videoNovideo} role="button" tabIndex={0}>
+                <img className="mute-img" src={novideo} alt="novideo" />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -227,25 +244,24 @@ const VideoChat = () => {
           </div>
         </div>
         <div className="mainMessageContainer">
-          <form className="formChatMesseage">
-            <div className="inputchatMessage">
-              <input
-                id="chatMessage"
-                type="text"
-                placeholder="Type message here..."
-                value={message || ''}
-                onChange={({ target: { value } }) => setMessage(value)}
-                onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
-              />
-              <span className="buttonSendMessage">
-                <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
-              </span>
-            </div>
-          </form>
+          <div className="inputchatMessage">
+            <input
+              id="chatMessage"
+              type="text"
+              placeholder="Type message here..."
+              value={message || ''}
+              onChange={({ target: { value } }) => setMessage(value)}
+              onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
+            />
+          </div>
+          <div className="buttonSendMessage">
+            <button id="sendMessage" onClick={(e) => sendMessage(e)}><SendOutlined /></button>
+          </div>
         </div>
       </div>
       {/* ====================End----VideoChat====================== */}
     </div>
+    // </div>
   );
 };
 
