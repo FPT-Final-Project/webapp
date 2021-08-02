@@ -2,9 +2,6 @@
   width: 90%;
   margin: 1% auto;
 
-  h2 {
-  }
-
   .drop-menu {
     border-radius: 10px;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -60,6 +57,12 @@
         .fas{
           padding-right: 3px;
         }
+      }
+    }
+
+    TextArea{
+      &:hover, &:focus {
+        border: 1px solid #299CB4;
       }
     }
   }

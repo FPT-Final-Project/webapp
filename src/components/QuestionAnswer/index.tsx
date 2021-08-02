@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
 } from 'antd';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './style.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from '../../stores/store';
+import questionAnswerAction from '../../stores/actions/questionAnswer.action';
 
 const { TextArea } = Input;
 
@@ -43,14 +46,32 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
   </>
 );
 
-function QuestionAnswer() {
+const QuestionAnswer: React.FC = () => {
+  // const dispatch = useDispatch();
+  // const { post } = useSelector((state: IRootState) => ({ post: state.authentication.user }));
+  // if (!post) {
+  //   dispatch(questionAnswerAction.getPosts());
+  //   return <></>;
+  // }
   const [state, setState] = useState({
-    comments: [{}],
+    comments: [{
+      author: 'Ngo Hoang The Duy',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      content:
+        <p>
+          Hi Doctors,
+          I have a few problems that need to be resolved by the doctors.
+          &nbsp;Lately I've been having trouble sleeping.
+          I can't sleep well, wake up in the middle of the night
+          :&nbsp;and during work or lose focus. I would like to seek
+          advice from a doctor.
+        </p>,
+      datetime: moment().fromNow(),
+      show: false,
+    }],
     submitting: false,
     value: '',
   });
-
-  const [show, toggleShow] = useState(false);
 
   const handleSubmit = () => {
     if (!state.value) {
@@ -59,7 +80,6 @@ function QuestionAnswer() {
     setState({
       ...state,
       submitting: true,
-
     });
     setTimeout(() => {
       setState({
@@ -72,10 +92,24 @@ function QuestionAnswer() {
             avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
             content: <p>{state.value}</p>,
             datetime: moment().fromNow(),
+            show: false,
           },
         ],
       });
     }, 1000);
+  };
+
+  const handleToggle = (i: number) => {
+    setState({
+      submitting: false,
+      value: '',
+      comments: state.comments.map((comment, index) => {
+        if (index === i) {
+          comment.show = true;
+        } else { comment.show = false; }
+        return comment;
+      }),
+    });
   };
 
   const handleChange = (e: ChangeEvent<any>) => {
@@ -84,9 +118,7 @@ function QuestionAnswer() {
       value: e.target.value,
     });
   };
-
   const { comments, submitting, value } = state;
-
   return (
     <>
       <div className="question-form">
@@ -103,74 +135,71 @@ function QuestionAnswer() {
             </Dropdown>
           </Col>
         </Row>
+        {/* post */}
         <Row className="question-input" justify="space-between">
           <Input
             style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
+            onChange={handleChange}
           />
           <Button
             style={{ width: '4%' }}
+            onClick={handleSubmit}
           >
             <PlusOutlined />
           </Button>
-
         </Row>
-        <div className="comment">
-          <Comment
-            author={<a href="/#">Ngo Hoang The Duy</a>}
-            avatar={(
-              <Avatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="avt"
-              />
-            )}
-            content={(
-              <p>
-                Hi Doctors,
-                I have a few problems that need to be resolved by the doctors.
-                &nbsp;Lately I've been having trouble sleeping.
-                I can't sleep well, wake up in the middle of the night
-                :&nbsp;and during work or lose focus. I would like to seek
-                advice from a doctor.
-              </p>
-            )}
-            datetime={(
-              <p>
-                <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                  {moment().fromNow()}
-                </Tooltip>
-              </p>
-            )}
-          >
-            <div className="reply-comment">
-              <Button onClick={() => toggleShow(!show)}><i className="fas fa-reply" />Reply</Button>
-              {comments.length > 0 && <CommentList comments={comments} />}
-              {show
-                && (
-                  <div>
-                    <div>
-                      <Comment
-                        avatar={(
-                          <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
-                        )}
-                        content={(
-                          <Editor
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            submitting={submitting}
-                            value={value}
-                          />
-                        )}
-                      />
-                    </div>
-                  </div>
+        {state.comments.map((comment: any, i) => {
+          return (
+            <div className="comment">
+              <Comment
+                author={<a href="/#">Ngo Hoang The Duy</a>}
+                avatar={(
+                  <Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    alt="avt"
+                  />
                 )}
+                content={comment.content}
+                datetime={(
+                  <p>
+                    <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                      {moment().fromNow()}
+                    </Tooltip>
+                  </p>
+                )}
+              >
+                <div className="reply-comment">
+                  <Button onClick={() => handleToggle(i)}><i className="fas fa-reply" />Reply</Button>
+                  {comment.show
+                    && (
+                      <div>
+                        <div>
+                          {comments.length > 0 && <CommentList comments={comments} />}
+                          <Comment
+                            avatar={(
+                              <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+                            )}
+                            content={(
+                              <Editor
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                submitting={submitting}
+                                value={value}
+                              />
+                            )}
+                          />
+                        </div>
+                      </div>
+                    )}
+                </div>
+              </Comment>
             </div>
-          </Comment>
-        </div>
+          );
+        })}
       </div>
     </>
   );
-}
+};
 
 export default QuestionAnswer;

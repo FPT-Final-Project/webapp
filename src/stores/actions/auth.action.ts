@@ -19,35 +19,33 @@ export const AuthActions = {
 };
 
 export interface LoginSuccessAction extends Action {
-  payload: IUser,
+  payload: IUser;
 }
 
 export interface LoginFailAction extends Action {
   payload: {
-    error: string,
-  }
+    error: string;
+  };
 }
 
 export interface LogoutAction extends Action {
-  payload: {}
+  payload: {};
 }
 
 export interface RegisterAction extends Action {
   payload: {
-    name: string,
-    email: string,
-    password: string,
-  }
+    isTested: boolean;
+  };
 }
 
 export interface RegisterSuccessAction extends Action {
-  payload: IUser
+  payload: IUser;
 }
 
 export interface RegisterFailAction extends Action {
   payload: {
-    error: string
-  }
+    error: string;
+  };
 }
 
 const login = (email: string, password: string) => (dispatch: Dispatch): void => {
@@ -56,6 +54,7 @@ const login = (email: string, password: string) => (dispatch: Dispatch): void =>
   userService.login(email, password)
     .then((result : any) => {
       localStorage.setItem('token', result.data.token);
+      localStorage.setItem('user', JSON.stringify(result.data));
       dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result.data));
     })
     .catch((error : any) => {
@@ -63,17 +62,20 @@ const login = (email: string, password: string) => (dispatch: Dispatch): void =>
     });
 };
 
-const register = (name: string, email: string, role: string, password: string) => (dispatch: Dispatch): void => {
-  dispatch(doRequest(AuthActions.REGISTER, {}));
+const register = (id: string, name: string, email: string, role: string, password: string, isTested: boolean) => {
+  return (dispatch: Dispatch): void => {
+    dispatch(doRequest(AuthActions.REGISTER, { isTested }));
 
-  userService.register(name, email, password, role)
-    .then((result : any) => {
-      localStorage.setItem('token', result.data.token);
-      dispatch(doSuccess(AuthActions.REGISTER_SUCCESS, result.data));
-    })
-    .catch((error : any) => {
-      dispatch(doFailure(AuthActions.REGISTER_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
-    });
+    userService.register(id, name, email, password, role)
+      .then((result: any) => {
+        localStorage.setItem('token', result.data.token);
+        localStorage.setItem('user', JSON.stringify(result.data));
+        dispatch(doSuccess(AuthActions.REGISTER_SUCCESS, result.data));
+      })
+      .catch((error: any) => {
+        dispatch(doFailure(AuthActions.REGISTER_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+      });
+  };
 };
 
 const logout = () => {
