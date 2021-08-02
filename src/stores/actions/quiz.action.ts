@@ -41,6 +41,17 @@ export interface GetQuestionsSuccessAction extends Action {
   };
 }
 
+export interface GetQuestionsFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+export interface CreateResultSuccessAction extends Action {
+  payload: {
+    quizzesScore: string;
+  };
+}
+
 const getQuizzes = () => (dispatch: Dispatch): void => {
   dispatch(doRequest(QuizActions.GET_QUIZZES, {}));
 
@@ -57,11 +68,18 @@ const getQuestions = (quizId: string) => (dispatch: Dispatch) => {
     .catch((error) => dispatch(doFailure(QuizActions.GET_QUESTIONS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
-// const getQuizResult = (userId: string) => (dispatch: Dispatch) => {
-//   userService.c
-// }
+const createQuizResult = (userId: string, quizId: string, score:number) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(QuizActions.CREATE_QUIZ, {}));
+    const result = await quizService.createQuizResult(userId, quizId, score);
+    dispatch(doSuccess(QuizActions.CREATE_QUIZ_SUCCESS, { quizzesScore: result }));
+  } catch (error) {
+    dispatch(doFailure(QuizActions.CREATE_QUIZ_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
+};
 
 export default {
   getQuizzes,
   getQuestions,
+  createQuizResult,
 };

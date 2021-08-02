@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
+
+import {
+  Link, useHistory, useLocation,
+} from 'react-router-dom';
 import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
