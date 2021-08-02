@@ -37,12 +37,8 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
     }
 
     case AuthActions.LOGIN_FAIL: {
-<<<<<<< HEAD
-      const { error } = (action as LoginFailAction).payload;
-=======
       const { error } = (action as FailAction).payload;
 
->>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
       return { ...state, ...{ loginProcessing: false, error } };
     }
 

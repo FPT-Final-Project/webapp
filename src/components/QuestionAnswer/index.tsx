@@ -46,10 +46,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
 );
 
 const QuestionAnswer = () => {
-<<<<<<< HEAD
-=======
   const [showReply, setShowReply] = React.useState(false);
->>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
   const [state, setState] = useState({
     comments: [{}],
     submitting: false,

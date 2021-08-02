@@ -11,7 +11,7 @@ interface Props {
 const ResultQuiz: React.FC<Props> = () => {
   const { quizId: _a } = useParams<{ quizId: string }>();
   const quizResult = useSelector((state: any) => state.quiz.quizzesScore);
-  const { result } = quizResult || undefined;
+  const { result } = quizResult;
   return (
     <>
       <div className="result-form">

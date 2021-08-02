@@ -33,11 +33,7 @@ const LayoutApp: React.FC = () => {
               />
             ))}
             <ProtectedRoute
-<<<<<<< HEAD
-              path={`${routeMatch.path}/doctor/:doctorId`}
-=======
               path={`${routeMatch.path}/doctor/:doctorId/detail`}
->>>>>>> c86bc605ef1d18b28ecb5d585014e92b76f501a5
               component={DoctorDetail}
             />
           </Switch>
