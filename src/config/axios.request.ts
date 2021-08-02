@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
+  (config: AxiosRequestConfig) => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -25,6 +25,8 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   }
 
   return response;
+}, (error) => {
+  return Promise.reject(error.response);
 });
 
 const joinUrl = (resources: string[]) => resources.join('/');
