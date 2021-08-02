@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import quizService from '../../services/quiz.service';
 import quizAction from '../../stores/actions/quiz.action';
 import { IRootState } from '../../stores/store';
 import { IQuestion } from '../../types/question';
@@ -15,20 +16,21 @@ import './style.scss';
 // import { Tests } from './tests';
 
 interface Props {
-  getQuestions: (quizId: string) => void;
-  questions: IQuestion[] | undefined;
+  // getQuestions: (quizId: string) => void;
+  // questions: IQuestion[] | undefined;
   user: IUser | undefined;
   createResultOfTest: (userId: string, quizId: string, score: number) => void;
 }
 const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 30, color: '#1f8ba3' }} spin />;
-const PsyTest: React.FC<Props> = ({ getQuestions, questions, user, createResultOfTest }: Props) => {
+const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
   const history = useHistory();
   const [score, setScore] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingApi, setLoadingApi] = useState(true);
   const [showScore, setShowScore] = useState(false);
-
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
   const { quizId } = useParams<{ quizId: string }>();
   const quizzes = useSelector((state: any) => state.quiz.quizzes);
   const userDemo = useSelector((state: any) => state.authentication.user.user);
@@ -47,11 +49,21 @@ const PsyTest: React.FC<Props> = ({ getQuestions, questions, user, createResultO
     }
   }, [showScore]);
 
-  if (!questions) {
-    getQuestions(quizId);
-    return (<></>);
-  }
-
+  useEffect(() => {
+    // eslint-disable-next-line consistent-return
+    const getQuestionsApi = async () => {
+      try {
+        const data: any = await quizService.getQuestions(quizId);
+        if (data.length) {
+          setQuestions(data);
+          setLoadingApi(false);
+        }
+      } catch (error) {
+        setLoadingApi(true);
+      }
+    };
+    getQuestionsApi();
+  }, []);
   const handleAnswerButtonClick = (mark: number) => {
     setScore((state) => state + mark);
     const nextQuestion = currentQuestion + 1;
@@ -75,65 +87,78 @@ const PsyTest: React.FC<Props> = ({ getQuestions, questions, user, createResultO
   };
 
   return (
-    <div className="psy-test-section">
-      <div className="header-wrapper">
-        <div className="left-header">
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app/psychology-test')} />
+    <>
+      <div className="psy-test-section">
+
+        <div className="header-wrapper">
+          <div className="left-header">
+            <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app/psychology-test')} />
+          </div>
+          <div className="right-header" role="button">
+            <p>{user?.name}</p>
+            <button className="avatar-profile" onClick={showModal} />
+            <AvatarModal
+              visible={isModalVisible}
+              handleCancelDropAvatar={handleCancelDropAvatar}
+            />
+          </div>
         </div>
-        <div className="right-header" role="button">
-          <p>{user?.name}</p>
-          <button className="avatar-profile" onClick={showModal} />
-          <AvatarModal
-            visible={isModalVisible}
-            handleCancelDropAvatar={handleCancelDropAvatar}
-          />
-        </div>
-      </div>
-      <div className="wrapper">
-        <div className="test-header">
-          <h2>
-            {quiz?.name}
-          </h2>
-        </div>
-        {
-          loading ? (
-            <div className="test-section">
-              <div className="test-loading">
-                <Spin indicator={antIcon} />
-              </div>
-            </div>
-          ) : (
-            <div className="test-section">
-              <div className="question-section">
-                <div className="question-count">
-                  <span>
-                Question {currentQuestion + 1}
-                  </span>
+        {loadingApi ? (
+          <div className="loading-api">
+            <Spin indicator={antIcon} />
+          </div>
+        )
+          : (
+            <div className="psy-test-section">
+              <div className="wrapper">
+                <div className="test-header">
+                  <h2>
+                    {quiz?.name}
+                  </h2>
                 </div>
-              </div>
-              <div className="question-text">
-                {questions[currentQuestion].questionText}
-              </div>
-              <div className="answer-section">
-                {questions[currentQuestion].alternatives.map((test, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswerButtonClick(test.mark)}
-                  >
-                    {test.text}
-                  </button>
-                ))}
+                {
+                  loading ? (
+                    <div className="test-section">
+                      <div className="test-loading">
+                        <Spin indicator={antIcon} />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="test-section">
+                      <div className="question-section">
+                        <div className="question-count">
+                          <span>
+                Question {currentQuestion + 1}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="question-text">
+                        {questions[currentQuestion].questionText}
+                      </div>
+                      <div className="answer-section">
+                        {questions[currentQuestion].alternatives.map((test, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handleAnswerButtonClick(test.mark)}
+                          >
+                            {test.text}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
               </div>
             </div>
-          )
-        }
+
+          )}
       </div>
-    </div>
+    </>
   );
 };
 
 const actionCreators = {
-  getQuestions: quizAction.getQuestions,
+  // getQuestions: quizAction.getQuestions,
   createResultOfTest: quizAction.createQuizResult,
 };
 
