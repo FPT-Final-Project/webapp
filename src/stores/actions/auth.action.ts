@@ -3,6 +3,7 @@ import _ from 'lodash';
 import userService from '../../services/user.service';
 import { doFailure, doRequest, doSuccess } from './utils';
 import { IUser } from '../../types/user';
+import openNotification from '../../utils/notification';
 
 export const AuthActions = {
   LOGIN: '[Auth] Login',
@@ -42,14 +43,14 @@ export interface RegisterFailAction extends Action {
 
 const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    dispatch(doRequest(AuthActions.LOGIN, { email, password }));
+    dispatch(doRequest(AuthActions.LOGIN));
     const user = await userService.login(email, password);
-
     localStorage.setItem('token', user.token || '');
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    openNotification('error', error.data.message);
   }
 };
 
@@ -70,6 +71,7 @@ const register = (id: string, name: string, email: string, role: string, passwor
 
 const logout = () => {
   localStorage.clear();
+  openNotification('success', 'Goodbye!');
 };
 
 export default {
