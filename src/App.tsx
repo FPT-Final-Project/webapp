@@ -8,8 +8,8 @@ import Home from './pages/landing-page/Home';
 import Reset from './components/NewPass';
 import ResetPass from './components/ResetPassword';
 import { store } from './stores/store';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
+import Login from './components/Login';
+import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProtectedRoute from './config/private-route.config';
@@ -32,7 +32,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
-              <Route path="/register/:userId" component={Register} />
+              <Route path="/register/:userId" exact component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
               {/* <Route exact path="/quiz/:quizId" component={PsyTest} /> */}
