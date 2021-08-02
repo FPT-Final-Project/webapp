@@ -19,29 +19,27 @@ const LayoutApp: React.FC = () => {
   };
 
   return (
-    <Router>
-      <Layout className="layout-main">
-        <SiderMenu collapsed={collapsed} matchPath={routeMatch.path} />
-        <Layout>
-          <HeaderLayout />
-          <Content className="layout-content">
-            <Switch>
-              {routes.map((route, index) => (
-                <ProtectedRoute
-                  key={index}
-                  path={`${routeMatch.path}${route.path}`}
-                  component={route.component}
-                />
-              ))}
+    <Layout className="layout-main">
+      <SiderMenu collapsed={collapsed} matchPath={routeMatch.path} />
+      <Layout>
+        <HeaderLayout />
+        <Content className="layout-content">
+          <Switch>
+            {routes.map((route, index) => (
               <ProtectedRoute
-                path={`${routeMatch.path}/doctor/:doctorId`}
-                component={DoctorDetail}
+                key={index}
+                path={`${routeMatch.path}${route.path}`}
+                component={route.component}
               />
-            </Switch>
-          </Content>
-        </Layout>
+            ))}
+            <ProtectedRoute
+              path={`${routeMatch.path}/doctor/:doctorId/detail`}
+              component={DoctorDetail}
+            />
+          </Switch>
+        </Content>
       </Layout>
-    </Router>
+    </Layout>
   );
 };
 

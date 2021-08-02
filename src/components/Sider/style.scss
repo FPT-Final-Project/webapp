@@ -36,20 +36,25 @@
       margin: 16px 20px 0 20px;
       border-radius: 5px;
 
-      &:hover {
-        background-color: white;
-        color: #299cb4 !important;
-      }
-
+      &:hover,
       &:focus {
         background-color: white;
-        color: #299cb4;
+        color: #299cb4 !important;
       }
 
       span > a {
         color: white;
         &:hover,
         &:active {
+          color: #299cb4 !important;
+        }
+      }
+
+      &.active {
+        background-color: white;
+        color: #299cb4 !important;
+
+        a {
           color: #299cb4 !important;
         }
       }

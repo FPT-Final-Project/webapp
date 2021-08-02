@@ -8,8 +8,8 @@ import Home from './pages/landing-page/Home';
 import Reset from './components/NewPass';
 import ResetPass from './components/ResetPassword';
 import { store } from './stores/store';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
+import Login from './components/Login';
+import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProtectedRoute from './config/private-route.config';
@@ -32,10 +32,10 @@ function App() {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
-              <Route path="/register/:userId" component={Register} />
+              <Route path="/register/:userId" exact component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
-              <Route path="/quiz/:quizId" component={PsyTest} />
+              <Route exact path="/quiz/:quizId" component={PsyTest} />
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
@@ -47,8 +47,8 @@ function App() {
                 <ProtectedRoute path="/app/patient" exact component={ListPatients} />
                */}
               {/* VideoCall */}
-              <ProtectedRoute path="/videochat" exact component={JoinRoom} />
-              <ProtectedRoute path="/videochatservice/:userid/:room" exact component={VideoChat} />
+              <ProtectedRoute path="/appointment/:room/start" component={JoinRoom} />
+              <ProtectedRoute exact path="/appointment/:room/join" component={VideoChat} />
             </Switch>
           </BrowserRouter>
         </Content>
