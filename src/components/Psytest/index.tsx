@@ -2,15 +2,13 @@
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Spin } from 'antd';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
-import quizService from '../../services/quiz.service';
 import quizAction from '../../stores/actions/quiz.action';
 import { IRootState } from '../../stores/store';
 import { IQuestion } from '../../types/question';
-import { IQuiz } from '../../types/quiz';
 import { IUser } from '../../types/user';
 import AvatarModal from '../Modals/Avatar';
 import './style.scss';
@@ -18,43 +16,44 @@ import './style.scss';
 
 interface Props {
   getQuestions: (quizId: string) => void;
-  getQuizzes: () => void;
-  quizzes: IQuiz[] | undefined;
   questions: IQuestion[] | undefined;
   user: IUser | undefined;
+  createResultOfTest: (userId: string, quizId: string, score: number) => void;
 }
-
-const getResultOfTest = (score: number) => {
-  if (score <= 4) return 'Normal';
-  if (score <= 9) return 'A little bit';
-  if (score <= 14) return 'Little';
-  if (score <= 19) return 'Immediate';
-  return 'Hard';
-};
 const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 30, color: '#1f8ba3' }} spin />;
-const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions, user }: Props) => {
+const PsyTest: React.FC<Props> = ({ getQuestions, questions, user, createResultOfTest }: Props) => {
   const history = useHistory();
   const [score, setScore] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showScore, setShowScore] = useState(false);
 
   const { quizId } = useParams<{ quizId: string }>();
+  const quizzes = useSelector((state: any) => state.quiz.quizzes);
+  const userDemo = useSelector((state: any) => state.authentication.user.user);
 
-  if (!quizzes) {
-    getQuizzes();
-    return (<></>);
-  }
+  const quiz = quizzes.find((q: any) => q._id === quizId);
+
+  useEffect(() => {
+    if (showScore) {
+      const userId = userDemo ? userDemo._id : uuid();
+      createResultOfTest(userId, quizId, score);
+      if (user) {
+        history.push(`/quiz/${quiz._id}/result`);
+      } else {
+        history.push(`/register/${userId}`);
+      }
+    }
+  }, [showScore]);
 
   if (!questions) {
     getQuestions(quizId);
     return (<></>);
   }
 
-  const quiz = quizzes.find((q) => q._id === quizId);
-
   const handleAnswerButtonClick = (mark: number) => {
-    setScore(score + mark);
+    setScore((state) => state + mark);
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setLoading(true);
@@ -63,14 +62,7 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
         setLoading(false);
       }, 400);
     } else {
-      const userId = user ? user._id : uuid();
-      quizService.createQuizResult(userId, quizId, score)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
-      if (user) {
-        history.push('/login');
-      }
-      history.push(`/register/${userId}`);
+      setShowScore(true);
     }
   };
 
@@ -86,7 +78,7 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
     <div className="psy-test-section">
       <div className="header-wrapper">
         <div className="left-header">
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app/dashboard')} />
+          <FontAwesomeIcon icon={faArrowLeft} onClick={() => history.push('/app/psychology-test')} />
         </div>
         <div className="right-header" role="button">
           <p>{user?.name}</p>
@@ -142,7 +134,7 @@ const PsyTest: React.FC<Props> = ({ getQuestions, getQuizzes, quizzes, questions
 
 const actionCreators = {
   getQuestions: quizAction.getQuestions,
-  getQuizzes: quizAction.getQuizzes,
+  createResultOfTest: quizAction.createQuizResult,
 };
 
 const mapState = (state: IRootState) => ({

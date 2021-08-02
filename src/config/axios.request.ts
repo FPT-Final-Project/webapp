@@ -1,7 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { baseUrl } from './config';
 
-const axiosInstance = axios.create();
+const axiosInstance = axios.create({
+  baseURL: baseUrl,
+});
 const token = localStorage.getItem('token');
 
 axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {

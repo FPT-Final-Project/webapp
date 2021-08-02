@@ -7,6 +7,7 @@ import {
   GetQuizzesFailAction,
   GetQuizzesSuccessAction,
   QuizActions,
+  CreateResultSuccessAction,
 } from '../actions/quiz.action';
 
 export interface IQuizState {
@@ -14,6 +15,7 @@ export interface IQuizState {
   questions: IQuestion[] | undefined;
   quiz: IQuiz | undefined;
   error: string | undefined;
+  quizzesScore: Object
 }
 
 const initialState: IQuizState = {
@@ -21,6 +23,7 @@ const initialState: IQuizState = {
   quiz: undefined,
   questions: undefined,
   error: undefined,
+  quizzesScore: {},
 };
 
 export const quiz = (state = initialState, action: Action) => {
@@ -43,6 +46,10 @@ export const quiz = (state = initialState, action: Action) => {
     case QuizActions.GET_QUESTIONS_FAIL: {
       const { error } = (action as GetQuestionsFailAction).payload;
       return { ...state, ...{ error } };
+    }
+    case QuizActions.CREATE_QUIZ_SUCCESS: {
+      const { quizzesScore } = (action as CreateResultSuccessAction).payload;
+      return { ...state, ...{ quizzesScore } };
     }
 
     default: {
