@@ -13,16 +13,10 @@ import { Register } from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProtectedRoute from './config/private-route.config';
-// import { PsyTest } from './components/PsyTest';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-<<<<<<< HEAD
-import { PsyTest } from './components/Psytest';
-// import { PsyTest } from './components/PsyTest';
-=======
 import { PsyTest } from './components/PsyTest';
->>>>>>> 78ca914db0660f7583196a4d044db37a844f5c7e
 
 function App() {
   const user = localStorage.getItem('user');

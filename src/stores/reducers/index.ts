@@ -6,7 +6,7 @@ import { dashboard } from './dashboard.reducer';
 const rootReducers = combineReducers({
   authentication,
   quiz,
-  dashboard,
+  userDashboard: dashboard,
 });
 
 export default rootReducers;

@@ -10,7 +10,7 @@ import { IDashboardState } from './reducers/dashboard.reducer';
 export interface IRootState {
   authentication: IUserState,
   quiz: IQuizState,
-  users: IDashboardState
+  dashboard: IDashboardState
 }
 
 export const store = createStore(
