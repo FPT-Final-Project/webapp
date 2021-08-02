@@ -4,6 +4,9 @@ import React from 'react';
 import { Modal } from 'antd';
 import './style.scss';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import userService from '../../../services/user.service';
+import authAction from '../../../stores/actions/auth.action';
 
 interface Props {
   visible: boolean;
@@ -12,9 +15,9 @@ interface Props {
 
 const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props) => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    localStorage.clear();
+    dispatch(authAction.logout);
     history.push('/');
   };
 

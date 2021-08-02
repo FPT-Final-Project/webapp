@@ -25,6 +25,8 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   }
 
   return response;
+}, (error) => {
+  return Promise.reject(error.response);
 });
 
 const joinUrl = (resources: string[]) => resources.join('/');
