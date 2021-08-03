@@ -3,7 +3,8 @@ export interface IAppointment {
   name: string;
   startOfAppointment: number;
   endOfAppointment: number;
-  patentId: string;
+  patientId: string;
+  patientName: string;
   doctorId: string;
   doctorName: string;
   status: string;

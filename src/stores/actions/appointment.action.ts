@@ -3,6 +3,7 @@ import _ from 'lodash';
 import appointmentService from '../../services/appointment.service';
 import { IAppointment } from '../../types/appointment';
 import { doFailure, doRequest, doSuccess } from './utils';
+import { IUser } from '../../types/user';
 
 export const AppointmentActions = {
   GET_APPOINTMENT: '[Appointment] Get Appointment',
@@ -26,6 +27,12 @@ export interface GetAppointmentSuccessAction extends Action {
   };
 }
 
+export interface GetAppointmentFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+
 export interface GetAppointmentsAction extends Action {
   payload: {
     userId: string;
@@ -35,6 +42,12 @@ export interface GetAppointmentsAction extends Action {
 export interface GetAppointmentsSuccessAction extends Action {
   payload: {
     appointments: IAppointment[];
+  };
+}
+
+export interface GetAppointmentsFailAction extends Action {
+  payload: {
+    error: string;
   };
 }
 
@@ -49,10 +62,10 @@ const getAppointment = (appointmentId: string) => async (dispatch: Dispatch) => 
   }
 };
 
-const getAppointments = () => async (dispatch: Dispatch) => {
+const getAppointments = (user: IUser) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.GET_APPOINTMENTS));
-    const appointments = await appointmentService.getAppointments();
+    const appointments = await appointmentService.getAppointments(user);
 
     dispatch(doSuccess(AppointmentActions.GET_APPOINTMENTS_SUCCESS, { appointments }));
   } catch (error) {
