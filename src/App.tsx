@@ -34,7 +34,7 @@ function App() {
               <Route path="/register/:userId" exact component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
-              {/* <Route exact path="/quiz/:quizId" component={PsyTest} /> */}
+              <Route exact path="/quiz/:quizId" component={PsyTest} />
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
