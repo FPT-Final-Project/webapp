@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
 import mute from '../../../assets/mute.svg';
 import unmute from '../../../assets/unmute.svg';
@@ -12,12 +14,24 @@ import { IRootState } from '../../../stores/store';
 import appointmentAction from '../../../stores/actions/appointment.action';
 
 const JoinRoom = () => {
-  const [userid, setUserid] = useState('');
   const myVideo = useRef<any>();
   const [textCamera, setTextCamera] = useState(true);
   const [propertyaudio, setPropertyaudio] = useState(true);
   const [propertyvideo, setPropertyvideo] = useState(true);
   const myVideoSize = { width: '740', height: '456' };
+  const { appointmentId } = useParams<{ appointmentId: string }>();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { user: _user, appointment } = useSelector((state: IRootState) => ({
+    user: state.authentication.user,
+    appointment: state.appointment.appointment,
+  }));
+
+  useEffect(() => {
+    console.log('Zo day : ', appointmentId);
+    dispatch(appointmentAction.getAppointment(appointmentId));
+  },
+  []);
 
   const muteUnmute = () => {
     const { enabled } = myVideo.current.srcObject.getAudioTracks()[0];
@@ -55,7 +69,6 @@ const JoinRoom = () => {
       });
   }, []);
 
-  const history = useHistory();
   const functionDirect = () => {
     history.push('/app/appointment');
   };
@@ -67,7 +80,7 @@ const JoinRoom = () => {
         <div className="mainTop">
           <span>
             <img src={doctor} alt="User ava" />
-            <p>Room: 123456</p>
+            <p>Room: {appointment?.name}</p>
           </span>
         </div>
         <div className="mainBottom">
@@ -102,9 +115,9 @@ const JoinRoom = () => {
             </div>
             <div className="twoButton">
               <Link
-                onClick={(e) => ((!userid) ? e.preventDefault() : null)}
+                // onClick={(e) => ((!userid) ? e.preventDefault() : null)}
                 to={{
-                  pathname: '/appointment/123456/join',
+                  pathname: `/appointment/${appointment?._id}/join`,
                   state: {
                     propertyaudio,
                     propertyvideo,
@@ -121,14 +134,5 @@ const JoinRoom = () => {
     </div>
   );
 };
-
-const actionCreators = {
-  getAppointment: appointmentAction.getAppointment,
-};
-
-const mapState = (state: IRootState) => ({
-  user: state.authentication.user,
-  appointment: state.appointment.appointment,
-});
 
 export default JoinRoom;

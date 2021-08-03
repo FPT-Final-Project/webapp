@@ -16,7 +16,7 @@ import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-import { PsyTest } from './components/PsyTest';
+// import { PsyTest } from './components/PsyTest';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -46,8 +46,8 @@ function App() {
                 <ProtectedRoute path="/app/patient" exact component={ListPatients} />
                */}
               {/* VideoCall */}
-              <ProtectedRoute path="/appointment/:room/start" component={JoinRoom} />
-              <ProtectedRoute exact path="/appointment/:room/join" component={VideoChat} />
+              <ProtectedRoute path="/appointment/:appointmentId/start" exact component={JoinRoom} />
+              <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
             </Switch>
           </Router>
         </Content>

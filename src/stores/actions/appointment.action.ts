@@ -38,20 +38,26 @@ export interface GetAppointmentsSuccessAction extends Action {
   };
 }
 
-const getAppointment = (appointmentId: string) => (dispatch: Dispatch) => {
-  dispatch(doRequest(AppointmentActions.GET_APPOINTMENT));
+const getAppointment = (appointmentId: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(AppointmentActions.GET_APPOINTMENT));
+    const appointment = await appointmentService.getAppointment(appointmentId);
 
-  appointmentService.getAppointment(appointmentId)
-    .then((result: any) => doSuccess(AppointmentActions.GET_APPOINTMENT_SUCCESS, { appointments: result }))
-    .catch((error) => doFailure(AppointmentActions.GET_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    dispatch(doSuccess(AppointmentActions.GET_APPOINTMENT_SUCCESS, { appointment }));
+  } catch (error) {
+    dispatch(doFailure(AppointmentActions.GET_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
 };
 
-const getAppointments = () => (dispatch: Dispatch) => {
-  dispatch(doRequest(AppointmentActions.GET_APPOINTMENTS));
+const getAppointments = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(AppointmentActions.GET_APPOINTMENTS));
+    const appointments = await appointmentService.getAppointments();
 
-  appointmentService.getAppointments()
-    .then((result: any) => doSuccess(AppointmentActions.GET_APPOINTMENTS_SUCCESS, { appointments: result }))
-    .catch((error) => doFailure(AppointmentActions.GET_APPOINTMENTS_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    dispatch(doSuccess(AppointmentActions.GET_APPOINTMENTS_SUCCESS, { appointments }));
+  } catch (error) {
+    dispatch(doFailure(AppointmentActions.GET_APPOINTMENTS_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
 };
 
 export default {

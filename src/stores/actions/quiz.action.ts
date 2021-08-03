@@ -57,7 +57,7 @@ const getQuizzes = () => (dispatch: Dispatch): void => {
 
   quizService.getQuizzes()
     .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUIZZES_SUCCESS, { quizzes: result })))
-    .catch((error) => dispatch(doFailure(QuizActions.GET_QUIZZES_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
+    .catch((error: any) => dispatch(doFailure(QuizActions.GET_QUIZZES_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
 const getQuestions = (quizId: string) => (dispatch: Dispatch) => {
@@ -65,7 +65,7 @@ const getQuestions = (quizId: string) => (dispatch: Dispatch) => {
 
   quizService.getQuestions(quizId)
     .then((result: any) => dispatch(doSuccess(QuizActions.GET_QUESTIONS_SUCCESS, { questions: result })))
-    .catch((error) => dispatch(doFailure(QuizActions.GET_QUESTIONS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
+    .catch((error: any) => dispatch(doFailure(QuizActions.GET_QUESTIONS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
 const createQuizResult = (userId: string, quizId: string, score:number) => async (dispatch: Dispatch) => {
