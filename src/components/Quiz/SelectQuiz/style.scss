@@ -1,11 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
 
 .quiz-form {
-  width: 90%;
-  margin: 1% auto;
+  margin-top: 64px !important;
+  padding: 1.5rem 1.625rem;
+  width: 100%;
   border-radius: 15px;
   font-family: "Nunito", 'sans-serif';
-
+  .content{
+    background-color: white;
+    height: 130px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    padding: 10px;
+    .col-1{
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      border-right: 1px solid #299CB4;
+      p{
+        color:#299CB4;
+        font-weight: bold;
+        margin: 0;
+        font-size: 30px;
+      }
+    }
+    .col-2{
+      height: 100%;
+      align-items: center;
+      background-image: url(../../../assets/BackgroundQuizHeader.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      padding: 30px;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
   h2 {
     text-align: center;
     margin-top: 3%;

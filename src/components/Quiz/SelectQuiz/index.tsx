@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
@@ -14,26 +14,28 @@ interface Props {
   quizzes: IQuiz[] | undefined;
 }
 
-const Quiz = ({ _id, name, description }: IQuiz, history: any) => (
-  <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-    <Card hoverable className="card">
-      <Row>
-        <Col span={24}>
-          <div className="image1" />
-        </Col>
-        <Col span={24}>
-          <h2>{name}</h2>
-        </Col>
-        <Col span={24}>
-          <p>{description}</p>
-        </Col>
-        <Button className="btn-submit" onClick={() => history.push(`/quiz/${_id}`)}>
+const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
+  return (
+    <Col span={8} xs={24} sm={12} xl={8} lg={12}>
+      <Card hoverable className="card">
+        <Row>
+          <Col span={24}>
+            <div className="image1" />
+          </Col>
+          <Col span={24}>
+            <h2>{name}</h2>
+          </Col>
+          <Col span={24}>
+            <p>{description}</p>
+          </Col>
+          <Button className="btn-submit" onClick={() => history.replace(`/quiz/${_id}`)}>
           Test now
-        </Button>
-      </Row>
-    </Card>
-  </Col>
-);
+          </Button>
+        </Row>
+      </Card>
+    </Col>
+  );
+};
 
 const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   const history = useHistory();
@@ -46,6 +48,14 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   return (
     <>
       <div className="quiz-form">
+        <Row className="content">
+          <Col span={12} className="col-1">
+            <p> 9 SENTENCES QUICK CHECK</p>
+          </Col>
+          <Col span={12} className="col-2">
+            <p>This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions. Join now, it's free</p>
+          </Col>
+        </Row>
         <Row gutter={[16, 16]}>
           {(quizzes || []).map((quiz) => Quiz(quiz, history))}
         </Row>

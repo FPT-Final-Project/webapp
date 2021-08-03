@@ -209,4 +209,5 @@ const Dashboard = (_props: Props) => (
 
 const mapStateToProps = (state: IRootState) => ({});
 
-export default connect()(Dashboard);
+// export default connect()(Dashboard);
+export default Dashboard;

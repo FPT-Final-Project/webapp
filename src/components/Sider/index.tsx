@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
 import { routes } from '../../pages/app/routes';
 
@@ -19,7 +19,7 @@ interface Props {
   matchPath: string;
 }
 
-const MenuItem = (path: string, index: number, matchPath: string, _currentPath: string) => {
+const MenuItem = (path: string, index: number, matchPath: string, currentPath: string) => {
   let icon;
   let name;
 
@@ -74,7 +74,7 @@ const MenuItem = (path: string, index: number, matchPath: string, _currentPath: 
   return (
     <Item
       key={index}
-      className="custom-menu-item"
+      className={`custom-menu-item${currentPath === path ? ' active' : ''}`}
       icon={icon}
     >
       <Link to={path}>{name}</Link>
@@ -84,10 +84,10 @@ const MenuItem = (path: string, index: number, matchPath: string, _currentPath: 
 
 const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => {
   const history = useHistory();
-  const routeMatch = useRouteMatch();
+  const location = useLocation();
 
   const redirectToApp = () => {
-    history.push('/app');
+    history.push('/app/dashboard');
   };
 
   return (
@@ -103,7 +103,7 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
           <p>PsyCare.</p>
         </div>
         <Menu className="custom-menu">
-          {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, routeMatch.path))}
+          {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
         </Menu>
       </Sider>
     </>

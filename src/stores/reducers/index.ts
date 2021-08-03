@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import { authentication } from './auth.reducer';
-import questionAnswerReducer from './questionAnswer.reducer';
-import { quiz } from './quiz.reducer';
+import appointmentReducer from './appointment.reducer';
+import authenticationReducer from './auth.reducer';
+import dashboardReducer from './dashboard.reducer';
+import quizReducer from './quiz.reducer';
 
 const rootReducers = combineReducers({
-  authentication,
-  quiz,
-  questionAnswer: questionAnswerReducer,
+  authentication: authenticationReducer,
+  quiz: quizReducer,
+  dashboard: dashboardReducer,
+  appointment: appointmentReducer,
 });
 
 export default rootReducers;

@@ -3,8 +3,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../stores/store';
 
 const Navbar = () => {
+  const user = useSelector((state: IRootState) => state.authentication.user);
   // Behavior Smooth
   const handleClickNav = (e: any) => {
     e.preventDefault();
@@ -47,12 +50,27 @@ const Navbar = () => {
           <li className="nav__item"><a href="#test" onClick={handleClickNav}>Psy-Test</a></li>
           <li className="nav__item"><a href="#aboutus" onClick={handleClickNav}>About Us</a></li>
         </ul>
-        <ul className="nav__login">
-          <li className="nav__item-login login"><a href="/login">Login</a></li>
-          <li className="nav__item-login register">
-            <a href="/register">Register</a>
-          </li>
-        </ul>
+        {
+          !user
+            ? (
+              <>
+                <ul className="nav__login">
+                  <li className="nav__item-login login"><a href="/login">Login</a></li>
+                  <li className="nav__item-login register">
+                    <a href="/register">Register</a>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <ul className="nav__login">
+                  <li className="nav__item-login register">
+                    <a href="/app/dashboard">Go to App</a>
+                  </li>
+                </ul>
+              </>
+            )
+        }
         {/* =====Mobile====== */}
         <label htmlFor="nav__mobile-input" className="nav__hamburger">
           <span>Menu</span>
@@ -82,12 +100,26 @@ const Navbar = () => {
             <li className="nav__hamburger-item ham_under">
               <a href="#aboutus">About Us</a>
             </li>
-            <li className="nav__hamburger-item ham_login">
-              <a href="/login">Login</a>
-            </li>
-            <li className="nav__hamburger-item ham_register">
-              <a href="/register">Register</a>
-            </li>
+            {
+              !user
+                ? (
+                  <>
+                    <li className="nav__hamburger-item ham_login">
+                      <a href="/login">Login</a>
+                    </li>
+                    <li className="nav__hamburger-item ham_register">
+                      <a href="/register">Register</a>
+                    </li>
+                  </>
+                )
+                : (
+                  <>
+                    <li className="nav__hamburger-item ham_register">
+                      <a href="/app/dashboard">Go to App</a>
+                    </li>
+                  </>
+                )
+            }
           </ul>
         </div>
 
