@@ -22,7 +22,7 @@ const JoinRoom = () => {
   const { appointmentId } = useParams<{ appointmentId: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { user: _user, appointment } = useSelector((state: IRootState) => ({
+  const { user, appointment } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointment: state.appointment.appointment,
   }));

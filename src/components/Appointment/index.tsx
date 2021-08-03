@@ -9,8 +9,10 @@ import './styles.scss';
 
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state: IRootState) => state.authentication.user);
-  const appointments = useSelector((state: IRootState) => state.appointment.appointments);
+  const { user, appointments } = useSelector((state: IRootState) => ({
+    user: state.authentication.user,
+    appointments: state.appointment.appointments,
+  }));
   const [data, setData] = useState(appointments);
   const [clickCount, setClickCount] = useState(0);
   useEffect(() => {
