@@ -6,6 +6,7 @@ import {
 } from '../actions/questionAnswer.action';
 
 export interface IQuestionAnswerState {
+  [x: string]: any;
   posts: any[] | undefined;
   comments: any[] | undefined;
 }
@@ -15,16 +16,22 @@ const initialState: IQuestionAnswerState = {
   comments: undefined,
 };
 
-export const questionAnswerReducer = (state = initialState, action: Action) => {
+export const questionAnswerReducer = (state = initialState, action: Action): IQuestionAnswerState => {
   switch (action.type) {
     case QuestionAnswerActions.GET_POSTS_SUCCESS: {
       const { posts } = (action as GetPostsSuccessAction).payload;
-      return { ...state, ...{ posts } };
+      return {
+        ...state,
+        ...{ posts },
+      };
     }
 
     case QuestionAnswerActions.GET_COMMENTS_SUCCESS: {
       const { comments } = (action as GetCommentsSuccessAction).payload;
-      return { ...state, ...{ comments } };
+      return {
+        ...state,
+        ...{ comments },
+      };
     }
 
     default: {

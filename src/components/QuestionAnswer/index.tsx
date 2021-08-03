@@ -47,12 +47,14 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
 );
 
 const QuestionAnswer: React.FC = () => {
-  // const dispatch = useDispatch();
-  // const { post } = useSelector((state: IRootState) => ({ post: state.authentication.user }));
-  // if (!post) {
-  //   dispatch(questionAnswerAction.getPosts());
-  //   return <></>;
-  // }
+  const dispatch = useDispatch();
+
+  const { posts } = useSelector((state: IRootState) => ({ posts: state.questionAnswer }));
+
+  const datas = (posts || []).map((post: any) => ({
+    ...post,
+  }));
+
   const [state, setState] = useState({
     comments: [{
       author: 'Ngo Hoang The Duy',
@@ -99,6 +101,13 @@ const QuestionAnswer: React.FC = () => {
     }, 1000);
   };
 
+  const handleChange = (e: ChangeEvent<any>) => {
+    setState({
+      ...state,
+      value: e.target.value,
+    });
+  };
+
   const handleToggle = (i: number) => {
     setState({
       submitting: false,
@@ -109,13 +118,6 @@ const QuestionAnswer: React.FC = () => {
         } else { comment.show = false; }
         return comment;
       }),
-    });
-  };
-
-  const handleChange = (e: ChangeEvent<any>) => {
-    setState({
-      ...state,
-      value: e.target.value,
     });
   };
   const { comments, submitting, value } = state;

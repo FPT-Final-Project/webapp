@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import { doRequest, doSuccess, doFailure } from './utils';
