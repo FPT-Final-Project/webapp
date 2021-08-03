@@ -201,7 +201,7 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <a href="/appointment/123456/start">
+                <a href="/app/appointment">
                   <img className="mute-phone" src={phone} alt="Hand Up" />
                 </a>
               </span>

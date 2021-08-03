@@ -2,23 +2,29 @@
 import { Table, Space, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
 import './styles.scss';
 
 const Appointment: React.FC = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state: IRootState) => state.authentication.user);
   const appointments = useSelector((state: IRootState) => state.appointment.appointments);
+  const [data, setData] = useState(appointments);
+  const [clickCount, setClickCount] = useState(0);
   useEffect(() => {
-    console.log(user?._id);
     if (user) {
       dispatch(appointmentAction.getAppointments(user));
+      setData(appointments);
     }
-  }, []);
-  const [data, setData] = useState(appointments);
+  }, [clickCount]);
+  const cancelAppointment = (appointmentId : string) => {
+    if (user) {
+      dispatch(appointmentAction.cancelAppointment(user, appointmentId));
+      setClickCount(clickCount + 1);
+    }
+  };
 
   const columns = [
     {
@@ -43,9 +49,6 @@ const Appointment: React.FC = () => {
         const d = new Date(startOfAppointment);
         return new Date(d).toLocaleString();
       },
-      // sorter: (a: any, b: any) => {
-      //   parseFloat(a.startOfAppointment) - parseFloat(b.startOfAppointment);
-      // },
     },
     {
       title: 'Time close',
@@ -59,12 +62,33 @@ const Appointment: React.FC = () => {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
-        <Space size="middle">
-          <Button disabled>Join</Button>
-          <Button>Cancel</Button>
-        </Space>
-      ),
+      data: '',
+      render: (_data: any, row: any) => {
+        const d = new Date();
+        const n = d.getTime();
+        if (n >= Number(row.startOfAppointment) && n <= Number(row.endOfAppointment)) {
+          return (
+            <Space size="middle">
+              <Link
+                to={{
+                  pathname: `/appointment/${row._id}/start`,
+                }}
+              >
+                <Button>Join</Button>
+              </Link>
+              {user?.role === 'patient' ? (<Button className="buttonDisable" disabled>Cancel<span className="tooltiptext">Appointment is in progress</span></Button>) : ''}
+            </Space>
+          );
+        }
+        return (
+          <Space size="middle">
+            <Button className="buttonDisable" disabled>Join
+              <span className="tooltiptext">Please comeback on time</span>
+            </Button>
+            {user?.role === 'patient' ? (<Button onClick={() => cancelAppointment(row._id)}>Cancel</Button>) : ''}
+          </Space>
+        );
+      },
     },
   ];
   return (

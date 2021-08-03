@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { IAppointment } from '../../types/appointment';
-import { AppointmentActions, GetAppointmentSuccessAction, GetAppointmentFailAction, GetAppointmentsSuccessAction, GetAppointmentsFailAction } from '../actions/appointment.action';
+import { AppointmentActions, GetAppointmentSuccessAction, GetAppointmentFailAction, GetAppointmentsSuccessAction, GetAppointmentsFailAction, CreateAppointmentSuccessAction, CreateAppointmentFailAction, CancelAppointmentFailAction, CancelAppointmentSuccessAction } from '../actions/appointment.action';
 
 export interface IAppointmentState {
   appointment: IAppointment | undefined;
@@ -33,6 +33,26 @@ const appointmentReducer = (state = initialState, action: Action): IAppointmentS
 
     case AppointmentActions.GET_APPOINTMENTS_FAIL: {
       const { error } = (action as GetAppointmentsFailAction).payload;
+      return { ...state, ...{ error } };
+    }
+
+    case AppointmentActions.CANCEL_APPOINTMENT_SUCCESS: {
+      const { appointment } = (action as CancelAppointmentSuccessAction).payload;
+      return { ...state, ...{ appointment } };
+    }
+
+    case AppointmentActions.CANCEL_APPOINTMENT_FAIL: {
+      const { error } = (action as CancelAppointmentFailAction).payload;
+      return { ...state, ...{ error } };
+    }
+
+    case AppointmentActions.CREATE_APPOINTMENT_SUCCESS: {
+      const { appointment } = (action as CreateAppointmentSuccessAction).payload;
+      return { ...state, ...{ appointment } };
+    }
+
+    case AppointmentActions.CREATE_APPOINTMENT_FAIL: {
+      const { error } = (action as CreateAppointmentFailAction).payload;
       return { ...state, ...{ error } };
     }
 
