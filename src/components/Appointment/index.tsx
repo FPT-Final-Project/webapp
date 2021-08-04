@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-expressions */
 import { Table, Space, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
 import './styles.scss';
@@ -14,19 +13,19 @@ const Appointment: React.FC = () => {
     appointments: state.appointment.appointments,
   }));
   const [data, setData] = useState(appointments);
-  const [clickCount, setClickCount] = useState(0);
+
+  const cancelAppointment = (appointmentId : string) => {
+    if (user) {
+      dispatch(appointmentAction.cancelAppointment(user, appointmentId));
+    }
+  };
+
   useEffect(() => {
     if (user) {
       dispatch(appointmentAction.getAppointments(user));
       setData(appointments);
     }
-  }, [clickCount]);
-  const cancelAppointment = (appointmentId : string) => {
-    if (user) {
-      dispatch(appointmentAction.cancelAppointment(user, appointmentId));
-      setClickCount(clickCount + 1);
-    }
-  };
+  }, [appointments]);
 
   const columns = [
     {
@@ -47,6 +46,7 @@ const Appointment: React.FC = () => {
     {
       title: 'Time open',
       dataIndex: 'startOfAppointment',
+      sorter: (a: any, b: any) => (a.startOfAppointment - b.startOfAppointment),
       render: (startOfAppointment: string) => {
         const d = new Date(startOfAppointment);
         return new Date(d).toLocaleString();
@@ -56,6 +56,7 @@ const Appointment: React.FC = () => {
       title: 'Time close',
       dataIndex: 'endOfAppointment',
       key: 'endOfAppointment',
+      sorter: (a: any, b: any) => (a.endOfAppointment - b.endOfAppointment),
       render: (endOfAppointment: string) => {
         const d = new Date(endOfAppointment);
         return new Date(d).toLocaleString();

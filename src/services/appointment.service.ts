@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import { getRequest, postRequest } from '../config/axios.request';
-import { IAppointment } from '../types/appointment';
 import { IUser } from '../types/user';
 
 const getAppointment = (appointmentId: string): Promise<AxiosResponse<any>> => getRequest(`appointment/${appointmentId}`);
