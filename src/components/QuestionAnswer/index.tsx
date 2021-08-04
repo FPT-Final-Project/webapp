@@ -8,7 +8,6 @@ import moment from 'moment';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../stores/store';
-import questionAnswerAction from '../../stores/actions/questionAnswer.action';
 
 const { TextArea } = Input;
 
@@ -23,7 +22,7 @@ const menu = (
 const CommentList = ({ comments }: { comments: any }) => (
   <List
     dataSource={comments}
-    header={`${comments.length - 1} ${comments.length > 1 ? 'replies' : 'reply'}`}
+    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
     itemLayout="horizontal"
     renderItem={(props) => <Comment content {...props} />}
   />
@@ -49,14 +48,13 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
 const QuestionAnswer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { posts } = useSelector((state: IRootState) => ({ posts: state.questionAnswer }));
-
-  const datas = (posts || []).map((post: any) => ({
-    ...post,
+  const { postAnswer, replyComment } = useSelector((state: IRootState) => ({
+    postAnswer: state.questionAnswer,
+    replyComment: state.questionAnswer,
   }));
 
   const [state, setState] = useState({
-    comments: [{
+    posts: [{
       author: 'Ngo Hoang The Duy',
       avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       content:
@@ -70,12 +68,24 @@ const QuestionAnswer: React.FC = () => {
         </p>,
       datetime: moment().fromNow(),
       show: false,
+      comments: [{
+        author: 'Dat Le',
+        avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+        content:
+          <p>
+            Hello, Duy. I know you're stressed out at work. We can meet in person if you make an appointment!
+          </p>,
+        datetime: moment().fromNow(),
+        show: false,
+      }],
     }],
+
     submitting: false,
     value: '',
+    valuePost: '',
   });
-
-  const handleSubmit = () => {
+  // comment
+  const handleSubmit = (i: any) => {
     if (!state.value) {
       return;
     }
@@ -84,19 +94,23 @@ const QuestionAnswer: React.FC = () => {
       submitting: true,
     });
     setTimeout(() => {
+      const newPost = {
+        ...state.posts[i],
+        comments: [...state.posts[i].comments, {
+          author: 'Dat Le',
+          avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+          content: <p>{state.value}</p>,
+          datetime: moment().fromNow(),
+          show: false,
+        }],
+      };
+      const postes = [...state.posts];
+      postes[i] = newPost;
       setState({
         submitting: false,
         value: '',
-        comments: [
-          ...state.comments,
-          {
-            author: 'Dat Le',
-            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
-            content: <p>{state.value}</p>,
-            datetime: moment().fromNow(),
-            show: false,
-          },
-        ],
+        valuePost: '',
+        posts: postes,
       });
     }, 1000);
   };
@@ -108,19 +122,56 @@ const QuestionAnswer: React.FC = () => {
     });
   };
 
+  // post
+  const handleSubmitPost = () => {
+    if (!state.valuePost) {
+      return;
+    }
+    setState({
+      ...state,
+      submitting: true,
+    });
+    setTimeout(() => {
+      setState({
+        submitting: false,
+        value: '',
+        valuePost: '',
+        posts: [
+          ...state.posts,
+          {
+            author: 'Duy',
+            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+            content: <p>{state.valuePost}</p>,
+            datetime: moment().fromNow(),
+            show: false,
+            comments: [],
+          },
+        ],
+      });
+    }, 1000);
+  };
+
+  const handleChangePost = (e: ChangeEvent<any>) => {
+    setState({
+      ...state,
+      valuePost: e.target.value,
+    });
+  };
+
   const handleToggle = (i: number) => {
     setState({
       submitting: false,
       value: '',
-      comments: state.comments.map((comment, index) => {
+      valuePost: '',
+      posts: state.posts.map((post, index) => {
         if (index === i) {
-          comment.show = true;
-        } else { comment.show = false; }
-        return comment;
+          post.show = true;
+        } else { post.show = false; }
+        return post;
       }),
     });
   };
-  const { comments, submitting, value } = state;
+  const { submitting, value } = state;
   return (
 
     <div className="wrap-qa">
@@ -147,16 +198,16 @@ const QuestionAnswer: React.FC = () => {
           <Input
             style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
-            onChange={handleChange}
+            onChange={handleChangePost}
           />
           <Button
             style={{ width: '4%' }}
-            onClick={handleSubmit}
+            onClick={handleSubmitPost}
           >
             <PlusOutlined />
           </Button>
         </Row>
-        {state.comments.map((comment: any, i) => {
+        {state.posts.map((post: any, i) => {
           return (
             <div className="comment">
               <Comment
@@ -167,7 +218,7 @@ const QuestionAnswer: React.FC = () => {
                     alt="avt"
                   />
                 )}
-                content={comment.content}
+                content={post.content}
                 datetime={(
                   <p>
                     <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
@@ -178,11 +229,11 @@ const QuestionAnswer: React.FC = () => {
               >
                 <div className="reply-comment">
                   <Button onClick={() => handleToggle(i)}><i className="fas fa-reply" />Reply</Button>
-                  {comment.show
+                  {post.show
                     && (
                       <div>
                         <div>
-                          {comments.length > 0 && <CommentList comments={comments} />}
+                          {post.comments.length > 0 && <CommentList comments={post.comments} />}
                           <Comment
                             avatar={(
                               <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
@@ -190,7 +241,7 @@ const QuestionAnswer: React.FC = () => {
                             content={(
                               <Editor
                                 onChange={handleChange}
-                                onSubmit={handleSubmit}
+                                onSubmit={() => handleSubmit(i)}
                                 submitting={submitting}
                                 value={value}
                               />
@@ -206,7 +257,6 @@ const QuestionAnswer: React.FC = () => {
         })}
       </div>
     </div>
-
   );
 };
 
