@@ -7,11 +7,12 @@ const getQuestions = (quizId: string) => getRequest(`psytest/${quizId}/question`
 const createQuizResult = (userId: string, quizId: string, score: number) => {
   return postRequest(`psytest/${quizId}/result`, { userId, score });
 };
-
-// const getQuizResult = (quizId: string) => getRequest('/psytest/');
-
+const recommendDoctor = (result: any) => {
+  return postRequest('psytest/suggestion', { result });
+};
 export default {
   getQuizzes,
   getQuestions,
   createQuizResult,
+  recommendDoctor,
 };

@@ -17,6 +17,7 @@ import ResultQuiz from './components/Quiz/Result';
 import { PsyTest } from './components/Psytest';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
+import SuggestionPage from './components/Quiz/Suggestion';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -35,6 +36,7 @@ function App() {
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
               <Route exact path="/quiz/:quizId" component={PsyTest} />
+              <Route path="/suggestion" exact component={SuggestionPage} />;
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 

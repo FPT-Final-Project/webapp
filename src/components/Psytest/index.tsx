@@ -16,12 +16,12 @@ import './style.scss';
 // import { Tests } from './tests';
 
 interface Props {
-  // getQuestions: (quizId: string) => void;
-  // questions: IQuestion[] | undefined;
   user: IUser | undefined;
   createResultOfTest: (userId: string, quizId: string, score: number) => void;
 }
+
 const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 30, color: '#1f8ba3' }} spin />;
+
 const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
   const history = useHistory();
   const [score, setScore] = useState<number>(0);

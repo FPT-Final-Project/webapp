@@ -41,13 +41,14 @@ export interface RegisterFailAction extends Action {
   };
 }
 
-const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
+// eslint-disable-next-line consistent-return
+const login = (email: string, password: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
     const user = await userService.login(email, password);
     localStorage.setItem('token', user.token || '');
     localStorage.setItem('user', JSON.stringify(user));
-    dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
+    return dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     openNotification('error', error.data.message);
