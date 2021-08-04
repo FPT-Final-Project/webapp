@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
+import { Button } from 'antd';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import Reset from './components/NewPass';
