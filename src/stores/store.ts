@@ -7,12 +7,16 @@ import { IUserState } from './reducers/auth.reducer';
 import { IQuizState } from './reducers/quiz.reducer';
 import { IDashboardState } from './reducers/dashboard.reducer';
 import { IAppointmentState } from './reducers/appointment.reducer';
+import { IDoctorState } from './reducers/doctor.reducer';
+import { IScheduleState } from './reducers/schedule.reducer';
 
 export interface IRootState {
   authentication: IUserState,
   quiz: IQuizState,
   dashboard: IDashboardState,
   appointment: IAppointmentState,
+  doctor: IDoctorState,
+  schedule: IScheduleState,
 }
 
 export const store = createStore(
