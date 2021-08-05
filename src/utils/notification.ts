@@ -1,4 +1,3 @@
-import { BulbFilled } from '@ant-design/icons';
 import { notification } from 'antd';
 
 const notificationTs: any = notification;
