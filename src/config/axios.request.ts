@@ -1,13 +1,23 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { baseUrl } from './config';
 
-const axiosInstance = axios.create();
-const token = localStorage.getItem('token');
-
-axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
-  config.headers.authorization = `Bearer ${token}`;
-  return config;
+const axiosInstance = axios.create({
+  baseURL: baseUrl,
 });
+
+axiosInstance.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    config.headers['Content-Type'] = 'application/json';
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  },
+);
 
 axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   if (response && response.data) {
@@ -15,6 +25,8 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   }
 
   return response;
+}, (error) => {
+  return Promise.reject(error.response);
 });
 
 const joinUrl = (resources: string[]) => resources.join('/');

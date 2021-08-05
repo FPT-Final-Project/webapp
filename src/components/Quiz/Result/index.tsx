@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import score from '../../../assets/Score.svg';
+import { IRootState } from '../../../stores/store';
 import './style.scss';
 
-interface Props {}
+interface Props {
+}
 
 const ResultQuiz: React.FC<Props> = () => {
   const { quizId: _a } = useParams<{ quizId: string }>();
-
+  const quizResult = useSelector((state: any) => state.quiz.quizzesScore);
+  const { result } = quizResult;
   return (
     <>
       <div className="result-form">
@@ -24,7 +28,7 @@ const ResultQuiz: React.FC<Props> = () => {
           <h1>Your Results</h1>
           <div className="scoreSvg">
             <img src={score} alt="score" />
-            <div className="scoreQuiz">27/50</div>
+            <div className="scoreQuiz">{result}/27</div>
           </div>
 
           <div className="concludeResult">
@@ -36,5 +40,4 @@ const ResultQuiz: React.FC<Props> = () => {
     </>
   );
 };
-
 export default ResultQuiz;

@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
@@ -25,15 +25,15 @@ function App() {
   if (user) {
     store.dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, JSON.parse(user)));
   }
-
   return (
     <Provider store={store}>
       <div className="App">
         <Content>
-          <BrowserRouter>
+          <Router>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
               <Route path="/register/:userId" exact component={Register} />
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
@@ -54,7 +54,7 @@ function App() {
               <ProtectedRoute path="/appointment/:room/start" component={JoinRoom} />
               <ProtectedRoute exact path="/appointment/:room/join" component={VideoChat} />
             </Switch>
-          </BrowserRouter>
+          </Router>
         </Content>
       </div>
     </Provider>
