@@ -41,7 +41,7 @@ export interface GetAppointmentsSuccessAction extends Action {
 const getAppointment = (appointmentId: string) => (dispatch: Dispatch) => {
   dispatch(doRequest(AppointmentActions.GET_APPOINTMENT));
 
-  appointmentService.getAppointment(appointmentId)
+    appointmentService.getAppointment(appointmentId)
     .then((result: any) => doSuccess(AppointmentActions.GET_APPOINTMENT_SUCCESS, { appointments: result }))
     .catch((error) => doFailure(AppointmentActions.GET_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
 };

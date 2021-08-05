@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
+import { Button } from 'antd';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import Reset from './components/NewPass';
@@ -13,10 +14,11 @@ import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import VideoChat from './components/VideoChat/VideoCall';
 import ProtectedRoute from './config/private-route.config';
+import { PsyTest } from './components/Psytest';
 import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
-import { PsyTest } from './components/PsyTest';
+import SuggestionPage from './components/Quiz/Suggestion';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -36,6 +38,7 @@ function App() {
               <Route path="/reset" component={Reset} />
               <Route path="/resetPass" component={ResetPass} />
               <Route exact path="/quiz/:quizId" component={PsyTest} />
+              <Route path="/suggestion" exact component={SuggestionPage} />;
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
 
