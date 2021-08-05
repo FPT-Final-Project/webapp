@@ -10,7 +10,6 @@ import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { uniqueId } from 'lodash';
 import loadUsers from '../../stores/actions/dashboard.action';
 import { IUser } from '../../types/user';
 import { IRootState } from '../../stores/store';
@@ -68,15 +67,12 @@ const columns = [
 ];
 
 const Dashboard: React.FC<Props> = () => {
-  // const [gridData, setGridData] = useState([]);
-
   const dispatch = useDispatch();
 
   const { users } = useSelector((state : IRootState) => state.dashboard);
 
   const datas = (users || []).map((user) => ({
     ...user,
-    // id: uniqueId,
   }));
 
   useEffect(() => {
@@ -97,7 +93,6 @@ const Dashboard: React.FC<Props> = () => {
           <div className="wrap-block__section--h2">Appointments</div>
           <div className="wrap-block__section--bottom">
             <div className="bottom-icon aptm">
-              {/* enableBackground="new 0 0 512 512" */}
               <svg id="Layer_1" height="60" width="60" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m461.814 57.09h-6.859v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.978v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.977v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-42v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.978v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.977v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-6.859c-27.673 0-50.186 22.513-50.186 50.185v326.589c0 27.673 22.513 50.186 50.186 50.186h411.628c27.672 0 50.186-22.513 50.186-50.186v-326.589c0-27.672-22.513-50.185-50.186-50.185zm-411.628 30h6.859v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.977v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h42v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h6.859c11.13 0 20.186 9.055 20.186 20.186v29.814h-452.001v-29.814c0-11.131 9.055-20.186 20.186-20.186zm411.628 366.96h-411.628c-11.131 0-20.186-9.055-20.186-20.186v-266.774h452v266.774c0 11.131-9.055 20.186-20.186 20.186z" /><path d="m349.203 265.741h-48.266v-48.27c0-8.284-6.716-15-15-15h-59.866c-8.284 0-15 6.716-15 15v48.27h-48.274c-8.284 0-15 6.716-15 15v59.867c0 8.284 6.716 15 15 15h48.274v48.27c0 8.284 6.716 15 15 15h59.866c8.284 0 15-6.716 15-15v-48.27h48.266c8.284 0 15-6.716 15-15v-59.867c0-8.284-6.716-15-15-15zm-15 59.866h-48.266c-8.284 0-15 6.716-15 15v48.27h-29.866v-48.27c0-8.284-6.716-15-15-15h-48.274v-29.867h48.274c8.284 0 15-6.716 15-15v-48.27h29.866v48.27c0 8.284 6.716 15 15 15h48.266z" /></g></svg>
             </div>
             <div className="bottom-number">105</div>
@@ -146,20 +141,8 @@ const Dashboard: React.FC<Props> = () => {
           </div>
 
           <div className="list-top">
-            {/* {users?.map((user) => (
-
-              <div className="list-top__item">
-                <div className="list-top__item--name">
-                  {user.name}
-                </div>
-                <div className="list-top__item--rate">
-                  ⭐️5
-                </div>
-              </div>
-
-            ))} */}
             {
-              users?.filter((user, index) => index < 5).map((user, index) => {
+              users?.slice(0, 5).map((user, index) => {
                 return (
                   <div className="list-top__item" key={index}>
                     <div className="list-top__item--name">
@@ -171,7 +154,6 @@ const Dashboard: React.FC<Props> = () => {
                   </div>
                 );
               })
-
             }
           </div>
         </div>
@@ -180,5 +162,4 @@ const Dashboard: React.FC<Props> = () => {
   );
 };
 
-// export default connect()(Dashboard);
 export default Dashboard;

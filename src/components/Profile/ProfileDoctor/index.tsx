@@ -1,7 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable import/order */
 import React, { useState } from 'react';
-import { Form, Input, InputNumber, Button } from 'antd';
-import { IUser } from '../../../types/user';
+import { Form, Input, Button } from 'antd';
 import './style.scss';
 import { EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,21 +20,7 @@ const ProfileDoctor = () => {
     wrapperCol: { span: 16 },
   };
 
-  /* eslint-disable no-template-curly-in-string */
-  const validateMessages = {
-    required: '${label} is required!',
-    types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
-    },
-    number: {
-      range: '${label} must be between ${min} and ${max}',
-    },
-  };
-  /* eslint-enable no-template-curly-in-string */
-
   const onFinish = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
-    // console.log(name);
     dispatch(authAction.updateUser(id, name, job, gender, phone, address, avatar, specialist));
     setEditable(!editable);
   };
@@ -166,7 +152,6 @@ const ProfileDoctor = () => {
             )}
         </div>
       </div>
-
     </div>
   );
 };

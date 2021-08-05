@@ -4,7 +4,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, InputNumber, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import authAction from '../../../stores/actions/auth.action';
 import { IRootState } from '../../../stores/store';
 import { IUser } from '../../../types/user';
@@ -27,17 +27,6 @@ const ProfileUser: React.FC<Props> = () => {
   };
 
   /* eslint-disable no-template-curly-in-string */
-  const validateMessages = {
-    required: '${label} is required!',
-    types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
-    },
-    number: {
-      range: '${label} must be between ${min} and ${max}',
-    },
-  };
-  /* eslint-enable no-template-curly-in-string */
 
   const onFinish = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
     // console.log(name);
@@ -47,7 +36,6 @@ const ProfileUser: React.FC<Props> = () => {
 
   return (
     <div className="wrap-content">
-      {/* root */}
       <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
@@ -96,7 +84,6 @@ const ProfileUser: React.FC<Props> = () => {
             )
             : (
               <div className="container">
-
                 <Form {...layout} name="nest-messages" onFinish={onFinish}>
                   <div className="title-top">Edit My Profile</div>
                   <div className="container__title">
@@ -166,12 +153,10 @@ const ProfileUser: React.FC<Props> = () => {
                     </div>
                   </div>
                 </Form>
-
               </div>
             )}
         </div>
       </div>
-
     </div>
   );
 };

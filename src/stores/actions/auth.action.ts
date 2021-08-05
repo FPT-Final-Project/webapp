@@ -15,9 +15,9 @@ export const AuthActions = {
   REGISTER_SUCCESS: '[Auth] Register Success',
   REGISTER_FAIL: '[Auth] Register Fail',
 
-  UPDATE_USER: '[SET_USER] Set User',
-  UPDATE_USER_SUCCESS: '[SET_USER_SUCCESS] Set User Success',
-  UPDATE_USER_FAIL: '[SET_USER_FAIL] Set User Fail',
+  UPDATE_USER: '[Auth] Update User',
+  UPDATE_USER_SUCCESS: '[Auth] Update User Success',
+  UPDATE_USER_FAIL: '[Auth] Update User Fail',
 
 };
 

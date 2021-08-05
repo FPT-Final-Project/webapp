@@ -37,11 +37,13 @@ export const routes = [
   {
     path: '/feedback',
     exact: true,
-    component: ProfileUser,
+    component: Feedback,
+    // component: ProfileUser,
   },
   {
     path: '/payment',
     exact: true,
-    component: ProfileDoctor,
+    component: Payment,
+    // component: ProfileDoctor,
   },
 ];
