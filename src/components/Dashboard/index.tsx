@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-undef */
 /* eslint-disable max-len */
 // import { useState } from 'react';
@@ -5,29 +8,36 @@ import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
 import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../stores/store';
-import dashboardAction from '../../stores/actions/dashboard.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { uniqueId } from 'lodash';
+import loadUsers from '../../stores/actions/dashboard.action';
 import { IUser } from '../../types/user';
+import { IRootState } from '../../stores/store';
 
 interface Props {
   getUser: () => void;
   user: IUser[] | undefined;
 }
-// Data user
-const datas : any[] = [];
 
 const columns = [
   {
     title: 'ID',
     dataIndex: 'id',
     key: 'id',
+    width: 100,
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.id : '_'}</span>
+      </div>
+    ),
   },
 
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
+    width: 250,
     render: (text: any, record : any) => (
       <div className="userEmail">
         <span>{record.name}</span>
@@ -39,32 +49,41 @@ const columns = [
     title: 'Phone Number',
     dataIndex: 'phone',
     key: 'phone',
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.phone : '_'}</span>
+      </div>
+    ),
   },
   {
     title: 'Specialist',
     dataIndex: 'specialist',
     key: 'specialist',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-
-    render: (status: string) => {
-      const color = status === 'Online' ? 'green' : 'volcano';
-      return (
-        <Tag color={color}>
-          {status}
-        </Tag>
-      );
-    },
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.specialist : '_'}</span>
+      </div>
+    ),
   },
 ];
 
 const Dashboard: React.FC<Props> = () => {
+  // const [gridData, setGridData] = useState([]);
+
   const dispatch = useDispatch();
 
-  const { users } = useSelector((state) => state.userDashboard);
+  const { users } = useSelector((state : IRootState) => state.dashboard);
+
+  const datas = (users || []).map((user) => ({
+    ...user,
+    // id: uniqueId,
+  }));
+
+  useEffect(() => {
+    dispatch(loadUsers());
+  }, []);
+
+  console.log('Loader data doctor', users);
 
   return (
     <div className="wrap-dashboard">
@@ -116,37 +135,44 @@ const Dashboard: React.FC<Props> = () => {
         <div className="wrap-appointment__select">
           <div className="wrap-topHead">
             <div className="apm-title">Make an Appointment</div>
-            <Link to="/"><button className="btn-viewall">View All</button></Link>
+            <Link to="/doctor"><button className="btn-viewall">View All</button></Link>
           </div>
-          <Table columns={columns} dataSource={datas} />
+          <Table columns={columns} dataSource={datas} scroll={{ y: 320 }} />
         </div>
         <div className="wrap-appointment__topDoctors">
-          <div className="topDoctors-title">Top Doctors</div>
+          <div className="topDoctors-title">
+            <div className="topDoctors-title__top">Top Doctors</div>
+            <div className="topDoctors-title__description">List of top 5 best doctors in PsyCare</div>
+          </div>
+
           <div className="list-top">
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
+            {/* {users?.map((user) => (
+
+              <div className="list-top__item">
+                <div className="list-top__item--name">
+                  {user.name}
+                </div>
+                <div className="list-top__item--rate">
+                  ⭐️5
+                </div>
               </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
-              </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
-              </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
+
+            ))} */}
+            {
+              users?.filter((user, index) => index < 5).map((user, index) => {
+                return (
+                  <div className="list-top__item" key={index}>
+                    <div className="list-top__item--name">
+                      {user.name}
+                    </div>
+                    <div className="list-top__item--rate">
+                    ⭐️5
+                    </div>
+                  </div>
+                );
+              })
+
+            }
           </div>
         </div>
       </div>

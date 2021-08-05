@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import { IUser } from '../../types/user';
@@ -20,8 +21,11 @@ const loadUsers = () => (dispatch : Dispatch): void => {
   dispatch(doRequest(DashboardActions.GET_USERS, {}));
 
   dashboardService.getDoctor()
-    .then((result: any) => dispatch(doSuccess(DashboardActions.GET_USERS_SUCCESS, { users: result.data })))
+    .then((result: any) => {
+      console.log('Result', result);
+      dispatch(doSuccess(DashboardActions.GET_USERS_SUCCESS, { users: result }));
+    })
     .catch((error: any) => dispatch(doFailure(DashboardActions.GET_USERS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
-export default { loadUsers };
+export default loadUsers;

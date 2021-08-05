@@ -1,13 +1,15 @@
 .ant-layout-sider-children {
   position: fixed !important;
   width: 250px !important;
+  background-color: #299cb4 !important;
 }
 .custom-sider {
   background-color: #299cb4 !important;
-  height: 100vh;
+  height: 100;
+  width: 250px;
   // width: inherit;
   position: fixed;
-  z-index: 2;
+  z-index: 5;
   // background-color: #299cb4 !important;
 
   .sider-logo {
