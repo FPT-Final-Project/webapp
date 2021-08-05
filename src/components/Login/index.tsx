@@ -20,7 +20,7 @@ const validatePass = /^.{6,}$/;
 
 const Login: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch<ThunkDispatch<RootStateOrAny, {}, Action<string>>>();
+  const dispatch = useDispatch();
   const user = useSelector((state: IRootState) => state.authentication.user);
 
   if (user) {

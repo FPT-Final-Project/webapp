@@ -122,12 +122,12 @@ const columns = [
 ];
 
 const Dashboard = (_props: Props) => {
-  const { user } = useSelector((state: any) => state.authentication);
+  const { user } = useSelector((state: IRootState) => state.authentication);
   return (
     <div className="wrap-dashboard">
       <div className="header-top">
         <div className="header-top__h3">Welcome,</div>
-        <div className="header-top__h1">{user.name}</div>
+        <div className="header-top__h1">{user?.name}</div>
         <div className="header-top__description">To have a stable psychological health, our PsyCare will give you the best counselling service for you</div>
       </div>
       <div className="wrap-block">

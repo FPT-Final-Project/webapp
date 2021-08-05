@@ -59,7 +59,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           setLoadingApi(false);
         }
       } catch (error) {
-        setLoadingApi(true);
+        setLoadingApi(false);
       }
     };
     getQuestionsApi();
