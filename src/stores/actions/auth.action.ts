@@ -77,7 +77,7 @@ const login = (email: string, password: string) => async (dispatch: Dispatch): P
     localStorage.setItem('token', user.token || '');
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
-    return user;s
+    return user;
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     openNotification('error', error.data.message);

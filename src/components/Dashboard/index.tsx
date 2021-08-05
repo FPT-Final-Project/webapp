@@ -70,9 +70,10 @@ const Dashboard: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
   const { users } = useSelector((state : IRootState) => state.dashboard);
+  const { user } = useSelector((state : IRootState) => state.authentication);
 
-  const datas = (users || []).map((user) => ({
-    ...user,
+  const datas = (users || []).map((userData) => ({
+    ...userData,
   }));
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const Dashboard: React.FC<Props> = () => {
     <div className="wrap-dashboard">
       <div className="header-top">
         <div className="header-top__h3">Welcome,</div>
-        <div className="header-top__h1">Ngo Hoang The Duy</div>
+        <div className="header-top__h1">{user?.name}</div>
         <div className="header-top__description">To have a stable psychological health, our PsyCare will give you the best counselling service for you</div>
       </div>
       <div className="wrap-block">
@@ -142,11 +143,11 @@ const Dashboard: React.FC<Props> = () => {
 
           <div className="list-top">
             {
-              users?.slice(0, 5).map((user, index) => {
+              users?.slice(0, 5).map((userData, index) => {
                 return (
                   <div className="list-top__item" key={index}>
                     <div className="list-top__item--name">
-                      {user.name}
+                      {userData.name}
                     </div>
                     <div className="list-top__item--rate">
                     ⭐️5
