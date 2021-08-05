@@ -53,6 +53,7 @@ const login = (email: string, password: string) => async (dispatch: Dispatch) =>
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     openNotification('error', error.data.message);
+    return error;
   }
 };
 
