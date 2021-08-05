@@ -4,19 +4,22 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { momoRequest } from '../../config/momo.config';
 import { IRootState } from '../../stores/store';
-import { IUser } from '../../types/user';
-
-interface Props {
-  user: IUser;
-}
 
 const { Column } = Table;
 
-const Payment: React.FC<Props> = ({ user }: Props) => {
+const Payment: React.FC = () => {
   const [count, setCount] = useState(1);
+  const user = useSelector((state: IRootState) => state.authentication.user);
+
+  if (!user) {
+    return (
+      <></>
+    );
+  }
+
   const data = [
     {
       key: '1',
@@ -85,8 +88,4 @@ const Payment: React.FC<Props> = ({ user }: Props) => {
   );
 };
 
-const mapState = (state: IRootState) => ({
-  user: state.authentication.user,
-});
-
-export default connect(mapState, undefined)(Payment);
+export default Payment;

@@ -38,24 +38,20 @@ export const routes = [
     path: '/feedback',
     exact: true,
     component: Feedback,
-    // component: ProfileUser,
   },
   {
     path: '/payment',
     exact: true,
     component: Payment,
-    // component: ProfileDoctor,
   },
   {
     path: '/profileUser',
     exact: true,
     component: ProfileUser,
-    sideHidden: true,
   },
   {
     path: '/profileDoctor',
     exact: true,
-    component: ProfileUser,
-    sideHidden: true,
+    component: ProfileDoctor,
   },
 ];
