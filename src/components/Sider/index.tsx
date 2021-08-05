@@ -1,11 +1,17 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  AppstoreOutlined,
+  CalendarOutlined,
+  CommentOutlined,
+  DollarOutlined,
+  TeamOutlined,
+  FileProtectOutlined,
+  ProfileOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -25,43 +31,43 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
 
   switch (path) {
     case matchPath + routes[0].path: {
-      icon = <UserOutlined />;
+      icon = <AppstoreOutlined style={{ fontSize: '28px' }} />;
       name = 'Dashboard';
       break;
     }
 
     case matchPath + routes[1].path: {
-      icon = <VideoCameraOutlined />;
+      icon = <CalendarOutlined className="icon-dashboard" />;
       name = 'Appointment';
       break;
     }
 
     case matchPath + routes[2].path: {
-      icon = <UploadOutlined />;
+      icon = <TeamOutlined className="icon-dashboard" />;
       name = 'Doctor';
       break;
     }
 
     case matchPath + routes[3].path: {
-      icon = <UploadOutlined />;
+      icon = <FileProtectOutlined className="icon-dashboard" />;
       name = 'Psychology Test';
       break;
     }
 
     case matchPath + routes[4].path: {
-      icon = <UserOutlined />;
+      icon = <CommentOutlined className="icon-dashboard" />;
       name = 'Questions & Answers';
       break;
     }
 
     case matchPath + routes[5].path: {
-      icon = <UploadOutlined />;
+      icon = <ProfileOutlined className="icon-dashboard" />;
       name = 'Feedback';
       break;
     }
 
     case matchPath + routes[6].path: {
-      icon = <UserOutlined />;
+      icon = <DollarOutlined className="icon-dashboard" />;
       name = 'Payment';
       break;
     }
@@ -100,7 +106,8 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
         className="custom-sider"
       >
         <div className="sider-logo" onClick={redirectToApp}>
-          <p>PsyCare.</p>
+          {/* <p>PsyCare.</p> */}
+          <div className="logo-dashboard" />
         </div>
         <Menu className="custom-menu">
           {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}

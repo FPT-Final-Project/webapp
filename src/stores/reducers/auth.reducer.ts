@@ -1,11 +1,12 @@
 import { Action } from 'redux';
-import { IUser } from '../../types/user';
-import {
+import { UpdateUserAction,
   AuthActions,
   LoginSuccessAction,
   RegisterAction,
   RegisterSuccessAction,
 } from '../actions/auth.action';
+import { IUser } from '../../types/user';
+
 import { FailAction } from '../actions/utils';
 
 export interface IUserState {
@@ -57,6 +58,11 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
       return { ...state, ...{ registerProcessing: false, error } };
     }
 
+    case AuthActions.UPDATE_USER: {
+      const { id, name, job, gender, phone, address, avatar, specialist } = (action as UpdateUserAction).payload;
+      console.log((action as UpdateUserAction).payload);
+      return { ...state, ...{ user: { ...state.user, name, job, gender, phone, address, avatar, specialist } } } as any;
+    }
     default: {
       return state;
     }

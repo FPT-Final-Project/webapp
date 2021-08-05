@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import userService from '../../services/user.service';
@@ -13,6 +14,11 @@ export const AuthActions = {
   REGISTER: '[Auth] Register',
   REGISTER_SUCCESS: '[Auth] Register Success',
   REGISTER_FAIL: '[Auth] Register Fail',
+
+  UPDATE_USER: '[Auth] Update User',
+  UPDATE_USER_SUCCESS: '[Auth] Update User Success',
+  UPDATE_USER_FAIL: '[Auth] Update User Fail',
+
 };
 
 export interface LoginSuccessAction extends Action {
@@ -41,7 +47,29 @@ export interface RegisterFailAction extends Action {
   };
 }
 
-// eslint-disable-next-line consistent-return
+export interface UpdateUserAction extends Action {
+  payload: {
+    id: string,
+    name: string,
+    job: string,
+    gender: string,
+    phone: string,
+    address: string,
+    avatar: string,
+    specialist: string
+  };
+}
+
+export interface UpdateUserSuccessAction extends Action {
+  payload: IUser;
+}
+
+export interface UpdateUserFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+
 const login = (email: string, password: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
@@ -72,6 +100,30 @@ const register = (id: string, name: string, email: string, role: string, passwor
   };
 };
 
+const updateUser = (id: string,
+  name: string,
+  job: string,
+  gender: string,
+  phone: string,
+  address: string,
+  avatar: string,
+  specialist: string) => (dispatch : Dispatch): void => {
+  console.log(name);
+  dispatch(doRequest(AuthActions.UPDATE_USER, { id, name, job, gender, phone, address, avatar, specialist }));
+
+  userService.updateProfile(id,
+    name,
+    job,
+    gender,
+    phone,
+    address,
+    avatar,
+    specialist).then((result:any) => {
+    console.log('Result: ', result);
+    dispatch(doSuccess(AuthActions.UPDATE_USER_SUCCESS, { users: result }));
+  }).catch((error: any) => dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
+};
+
 const logout = () => {
   localStorage.clear();
   openNotification('success', 'Goodbye!');
@@ -81,4 +133,5 @@ export default {
   login,
   logout,
   register,
+  updateUser,
 };
