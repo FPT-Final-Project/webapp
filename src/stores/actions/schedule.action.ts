@@ -28,17 +28,18 @@ export interface GetSchedulesFailAction extends Action {
     };
 }
 
-const getSchedules = (doctorId: string) => async (dispatch: Dispatch) => {
-  dispatch(doRequest(ScheduleActions.GET_SCHEDULES));
-  scheduleService.getSchedulesToday(doctorId)
-    .then((result: any) => {
-      doSuccess(ScheduleActions.GET_SCHEDULES_SUCCESS, { schedules: result });
-      return result;
-    })
-    .catch((error) => {
-      doFailure(ScheduleActions.GET_SCHEDULES_FAIL, { error: _.get(error, ['response', 'data', 'message']) });
-      return error;
-    });
+const getSchedules = (doctorId: string) => async (dispatch: Dispatch) : Promise<any> => {
+  try {
+    dispatch(doRequest(ScheduleActions.GET_SCHEDULES));
+    const schedules = await scheduleService.getSchedulesToday(doctorId);
+
+    dispatch(doSuccess(ScheduleActions.GET_SCHEDULES_SUCCESS, { schedules }));
+    console.log(schedules);
+    return schedules;
+  } catch (error) {
+    dispatch(doFailure(ScheduleActions.GET_SCHEDULES_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
+  }
 };
 
 export default {

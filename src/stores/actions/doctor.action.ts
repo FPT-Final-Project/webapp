@@ -67,8 +67,10 @@ const getDoctors = () => async (dispatch: Dispatch) => {
     const doctors = await doctorService.getDoctors();
 
     dispatch(doSuccess(DoctorActions.GET_DOCTORS_SUCCESS, { doctors }));
+    return doctors;
   } catch (error) {
     dispatch(doFailure(DoctorActions.GET_DOCTORS_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 
