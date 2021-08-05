@@ -36,15 +36,15 @@ const DoctorRow = (props: any) => {
       <div className="doctor-card-right">
         <div className="doctor-card-schedule">
           <span>Consultation Schedule</span>
-          <div className="doctor-card-schedules" />
-          {listSchedule ? (
-            listSchedule.map((schedule, i) => (
-              <div className="doctor-schedule">
-                <FontAwesomeIcon icon={faVideo} size="sm" /> <span>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
-              </div>
-            ))
-          ) : ''}
-
+          <div className="doctor-card-schedules">
+            {listSchedule ? (
+              listSchedule.map((schedule, i) => (
+                <div className="doctor-schedule">
+                  <FontAwesomeIcon icon={faVideo} size="sm" /> <span>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
+                </div>
+              ))
+            ) : ''}
+          </div>
         </div>
         <div>
           <div style={{ fontWeight: 700 }}>Consultation Fee : 50$</div>
