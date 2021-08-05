@@ -5,7 +5,6 @@ interface Props {}
 
 const DoctorDetail: React.FC<Props> = () => {
   const doctorId = useParams<{ doctorId: string }>();
-  console.log('Doctor Id : ', doctorId);
 
   return (
     <div>

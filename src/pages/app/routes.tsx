@@ -46,4 +46,16 @@ export const routes = [
     component: Payment,
     // component: ProfileDoctor,
   },
+  {
+    path: '/profileUser',
+    exact: true,
+    component: ProfileUser,
+    sideHidden: true,
+  },
+  {
+    path: '/profileDoctor',
+    exact: true,
+    component: ProfileUser,
+    sideHidden: true,
+  },
 ];
