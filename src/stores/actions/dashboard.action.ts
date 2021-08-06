@@ -22,10 +22,11 @@ const loadUsers = () => (dispatch : Dispatch): void => {
 
   dashboardService.getDoctor()
     .then((result: any) => {
-      console.log('Result', result);
       dispatch(doSuccess(DashboardActions.GET_USERS_SUCCESS, { users: result }));
     })
     .catch((error: any) => dispatch(doFailure(DashboardActions.GET_USERS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
 };
 
-export default loadUsers;
+export default {
+  loadUsers,
+};

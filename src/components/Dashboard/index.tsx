@@ -1,23 +1,11 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-// import { useState } from 'react';
 import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
-import { Table, Tag } from 'antd';
+import { Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import loadUsers from '../../stores/actions/dashboard.action';
-import { IUser } from '../../types/user';
+import React, { useEffect } from 'react';
 import { IRootState } from '../../stores/store';
-
-interface Props {
-  getUser: () => void;
-  user: IUser[] | undefined;
-}
+import dashboardAction from '../../stores/actions/dashboard.action';
 
 const columns = [
   {
@@ -66,21 +54,16 @@ const columns = [
   },
 ];
 
-const Dashboard: React.FC<Props> = () => {
+const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { users } = useSelector((state : IRootState) => state.dashboard);
-  const { user } = useSelector((state : IRootState) => state.authentication);
-
-  const datas = (users || []).map((userData) => ({
-    ...userData,
-  }));
+  const { users, user } = useSelector(
+    (state : IRootState) => ({ users: state.dashboard.users, user: state.authentication.user }),
+  );
 
   useEffect(() => {
-    dispatch(loadUsers());
+    dispatch(dashboardAction.loadUsers());
   }, []);
-
-  console.log('Loader data doctor', users);
 
   return (
     <div className="wrap-dashboard">
@@ -133,7 +116,7 @@ const Dashboard: React.FC<Props> = () => {
             <div className="apm-title">Make an Appointment</div>
             <Link to="/doctor"><button className="btn-viewall">View All</button></Link>
           </div>
-          <Table columns={columns} dataSource={datas} scroll={{ y: 320 }} />
+          <Table columns={columns} dataSource={users} scroll={{ y: 280 }} rowKey="id" />
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">
