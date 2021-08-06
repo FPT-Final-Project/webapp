@@ -6,7 +6,8 @@ import {
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './style.scss';
-import reply from '../../assets/reply.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from '../../stores/store';
 
 const { TextArea } = Input;
 
@@ -37,7 +38,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
         htmlType="submit"
         loading={submitting}
         onClick={onSubmit}
-        type="primary"
       >
         Add Comment
       </Button>
@@ -45,36 +45,72 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
   </>
 );
 
-const QuestionAnswer = () => {
-  const [showReply, setShowReply] = React.useState(false);
+const QuestionAnswer: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const { postAnswer, replyComment } = useSelector((state: IRootState) => ({
+    postAnswer: state.questionAnswer,
+    replyComment: state.questionAnswer,
+  }));
+
   const [state, setState] = useState({
-    comments: [{}],
+    posts: [{
+      author: 'Ngo Hoang The Duy',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      content:
+        <p>
+          Hi Doctors,
+          I have a few problems that need to be resolved by the doctors.
+          &nbsp;Lately I've been having trouble sleeping.
+          I can't sleep well, wake up in the middle of the night
+          :&nbsp;and during work or lose focus. I would like to seek
+          advice from a doctor.
+        </p>,
+      datetime: moment().fromNow(),
+      show: false,
+      comments: [{
+        author: 'Dat Le',
+        avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+        content:
+          <p>
+            Hello, Duy. I know you're stressed out at work. We can meet in person if you make an appointment!
+          </p>,
+        datetime: moment().fromNow(),
+        show: false,
+      }],
+    }],
+
     submitting: false,
     value: '',
+    valuePost: '',
   });
-
-  const handleSubmit = () => {
+  // comment
+  const handleSubmit = (i: any) => {
     if (!state.value) {
       return;
     }
     setState({
       ...state,
       submitting: true,
-
     });
     setTimeout(() => {
+      const newPost = {
+        ...state.posts[i],
+        comments: [...state.posts[i].comments, {
+          author: 'Dat Le',
+          avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+          content: <p>{state.value}</p>,
+          datetime: moment().fromNow(),
+          show: false,
+        }],
+      };
+      const postes = [...state.posts];
+      postes[i] = newPost;
       setState({
         submitting: false,
         value: '',
-        comments: [
-          ...state.comments,
-          {
-            author: 'Dat Le',
-            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
-            content: <p>{state.value}</p>,
-            datetime: moment().fromNow(),
-          },
-        ],
+        valuePost: '',
+        posts: postes,
       });
     }, 1000);
   };
@@ -86,16 +122,56 @@ const QuestionAnswer = () => {
     });
   };
 
-  // const actions = [
-  //   <div>
-  //     <span className="reply" key="comment-basic-reply-to">
-  //       <img className="reply-image" src={reply} alt="reply" />
-  //       <span>Reply</span>
-  //     </span>
-  //   </div>,
-  // ];
-  const { comments, submitting, value } = state;
+  // post
+  const handleSubmitPost = () => {
+    if (!state.valuePost) {
+      return;
+    }
+    setState({
+      ...state,
+      submitting: true,
+    });
+    setTimeout(() => {
+      setState({
+        submitting: false,
+        value: '',
+        valuePost: '',
+        posts: [
+          ...state.posts,
+          {
+            author: 'Duy',
+            avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+            content: <p>{state.valuePost}</p>,
+            datetime: moment().fromNow(),
+            show: false,
+            comments: [],
+          },
+        ],
+      });
+    }, 1000);
+  };
 
+  const handleChangePost = (e: ChangeEvent<any>) => {
+    setState({
+      ...state,
+      valuePost: e.target.value,
+    });
+  };
+
+  const handleToggle = (i: number) => {
+    setState({
+      submitting: false,
+      value: '',
+      valuePost: '',
+      posts: state.posts.map((post, index) => {
+        if (index === i) {
+          post.show = true;
+        } else { post.show = false; }
+        return post;
+      }),
+    });
+  };
+  const { submitting, value } = state;
   return (
 
     <div className="wrap-qa">
@@ -117,65 +193,70 @@ const QuestionAnswer = () => {
             </Dropdown>
           </Col>
         </Row>
+        {/* post */}
         <Row className="question-input" justify="space-between">
           <Input
             style={{ width: '95%', borderRadius: '8px' }}
             placeholder="Add a new post"
+            onChange={handleChangePost}
           />
-          <Button>
+          <Button
+            style={{ width: '4%' }}
+            onClick={handleSubmitPost}
+          >
             <PlusOutlined />
           </Button>
-
         </Row>
-        <div className="comment">
-          <Comment
-            // actions={actions}
-            author={<a href="/#">Ngo Hoang The Duy</a>}
-            avatar={(
-              <Avatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="avt"
-              />
-            )}
-            content={(
-              <p>
-                Hi Doctors,
-                <p>
-                  I have a few problems that need to be resolved by the doctors.
-                  &nbsp;Lately I've been having trouble sleeping.
-                  I can't sleep well, wake up in the middle of the night
-                  :&nbsp;and during work or lose focus. I would like to seek
-                  advice from a doctor.
-                </p>
-              </p>
-            )}
-            datetime={(
-              <p>
-                <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                  {moment().fromNow()}
-                </Tooltip>
-              </p>
-            )}
-          >
-            {comments.length > 0 && <CommentList comments={comments} />}
-            <Comment
-              avatar={(
-                <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
-              )}
-              content={(
-                <Editor
-                  onChange={handleChange}
-                  onSubmit={handleSubmit}
-                  submitting={submitting}
-                  value={value}
-                />
-              )}
-            />
-          </Comment>
-        </div>
+        {state.posts.map((post: any, i) => {
+          return (
+            <div className="comment">
+              <Comment
+                author={<a href="/#">Ngo Hoang The Duy</a>}
+                avatar={(
+                  <Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    alt="avt"
+                  />
+                )}
+                content={post.content}
+                datetime={(
+                  <p>
+                    <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                      {moment().fromNow()}
+                    </Tooltip>
+                  </p>
+                )}
+              >
+                <div className="reply-comment">
+                  <Button onClick={() => handleToggle(i)}><i className="fas fa-reply" />Reply</Button>
+                  {post.show
+                    && (
+                      <div>
+                        <div>
+                          {post.comments.length > 0 && <CommentList comments={post.comments} />}
+                          <Comment
+                            avatar={(
+                              <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+                            )}
+                            content={(
+                              <Editor
+                                onChange={handleChange}
+                                onSubmit={() => handleSubmit(i)}
+                                submitting={submitting}
+                                value={value}
+                              />
+                            )}
+                          />
+                        </div>
+                      </div>
+                    )}
+                </div>
+              </Comment>
+            </div>
+          );
+        })}
       </div>
     </div>
-
   );
 };
 

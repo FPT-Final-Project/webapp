@@ -3,10 +3,11 @@
 import React from 'react';
 import { Modal } from 'antd';
 import './style.scss';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import userService from '../../../services/user.service';
 import authAction from '../../../stores/actions/auth.action';
+import { IRootState } from '../../../stores/store';
 
 interface Props {
   visible: boolean;
@@ -16,6 +17,8 @@ interface Props {
 const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector((state: IRootState) => state.authentication.user);
+
   const handleLogout = () => {
     dispatch(authAction.logout);
     history.push('/');
@@ -31,11 +34,11 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
         mask={false}
         footer={null}
       >
-        <div className="Option">
+        <Link to={user?.role === 'doctor' ? 'app/profileDoctor' : '/app/profileUser'} className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-user-alt" />
           <span>&nbsp;My Profile</span>
-        </div>
+        </Link>
         <div className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-lock" />

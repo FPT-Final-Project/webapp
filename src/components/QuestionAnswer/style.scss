@@ -72,20 +72,24 @@
       }
     }
 
-    .reply {
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      padding: 2px 4px 3px 3px;
-      border-radius: 8px;
-      border: 1px solid rgb(168, 154, 154);
+    .reply-comment{
+      Button{
+        &:hover, &:focus {
+          border: 1px solid #299CB4;
+          color: #299CB4;
+        }
 
-      span {
-        font-size: small;
+        padding: 0 7px;
+        .fas{
+          padding-right: 3px;
+        }
       }
     }
 
-    .reply-image {
-      width: 25px;
-      height: 20px;
+    TextArea{
+      &:hover, &:focus {
+        border: 1px solid #299CB4;
+      }
     }
   }
 }

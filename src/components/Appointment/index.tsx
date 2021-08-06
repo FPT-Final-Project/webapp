@@ -16,16 +16,19 @@ const Appointment: React.FC = () => {
 
   const cancelAppointment = (appointmentId : string) => {
     if (user) {
-      dispatch(appointmentAction.cancelAppointment(user, appointmentId));
+      dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
+        setData(res);
+      });
     }
   };
 
   useEffect(() => {
     if (user) {
-      dispatch(appointmentAction.getAppointments(user));
-      setData(appointments);
+      dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
+        setData(res);
+      });
     }
-  }, [appointments]);
+  }, []);
 
   const columns = [
     {

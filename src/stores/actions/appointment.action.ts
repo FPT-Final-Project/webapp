@@ -89,8 +89,10 @@ const getAppointment = (appointmentId: string) => async (dispatch: Dispatch) => 
     const appointment = await appointmentService.getAppointment(appointmentId);
 
     dispatch(doSuccess(AppointmentActions.GET_APPOINTMENT_SUCCESS, { appointment }));
+    return appointment;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.GET_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 
@@ -100,19 +102,23 @@ const getAppointments = (user: IUser) => async (dispatch: Dispatch) => {
     const appointments = await appointmentService.getAppointments(user);
 
     dispatch(doSuccess(AppointmentActions.GET_APPOINTMENTS_SUCCESS, { appointments }));
+    return appointments;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.GET_APPOINTMENTS_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 
 const cancelAppointment = (user: IUser, appointmentId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.CANCEL_APPOINTMENT));
-    const appointment = await appointmentService.cancelAnAppointment(user, appointmentId);
+    const appointments = await appointmentService.cancelAnAppointment(user, appointmentId);
 
-    dispatch(doSuccess(AppointmentActions.CANCEL_APPOINTMENT_SUCCESS, { appointment }));
+    dispatch(doSuccess(AppointmentActions.CANCEL_APPOINTMENT_SUCCESS, { appointments }));
+    return appointments;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.CANCEL_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 
@@ -122,8 +128,10 @@ const createAppointment = (user: IUser, name: any, startOfAppointment: any, endO
     const appointment = await appointmentService.makeAnAppointment(user, name, startOfAppointment, endOfAppointment, doctorId, doctorName);
 
     dispatch(doSuccess(AppointmentActions.CREATE_APPOINTMENT_SUCCESS, { appointment }));
+    return appointment;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.CREATE_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 
