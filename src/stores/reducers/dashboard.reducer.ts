@@ -15,7 +15,7 @@ const initialState: IDashboardState = {
 
 const dashboardReducer = (state = initialState, action: Action): IDashboardState => {
   switch (action.type) {
-    case DashboardActions.GET_USERS: {
+    case DashboardActions.GET_USERS_SUCCESS: {
       const { users } = (action as GetDashboardUsersAction).payload;
       return {
         ...state,

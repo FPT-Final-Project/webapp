@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
-import { BrowserRouter as Router, Switch, useRouteMatch } from 'react-router-dom';
+import { Button, Layout } from 'antd';
+import { Switch, useRouteMatch } from 'react-router-dom';
 import SiderMenu from '../../components/Sider';
 import { routes } from './routes';
 import HeaderLayout from '../../components/Header/index';
@@ -36,6 +36,7 @@ const LayoutApp: React.FC = () => {
               path={`${routeMatch.path}/doctor/:doctorId/detail`}
               component={DoctorDetail}
             />
+
           </Switch>
         </Content>
       </Layout>

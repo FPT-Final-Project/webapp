@@ -7,7 +7,9 @@ import {
   Link, useHistory, useLocation,
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';

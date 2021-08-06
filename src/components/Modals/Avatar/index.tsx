@@ -3,7 +3,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import './style.scss';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import userService from '../../../services/user.service';
 import authAction from '../../../stores/actions/auth.action';
@@ -31,11 +31,11 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
         mask={false}
         footer={null}
       >
-        <div className="Option">
+        <Link to="/profileUser" className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-user-alt" />
           <span>&nbsp;My Profile</span>
-        </div>
+        </Link>
         <div className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-lock" />
