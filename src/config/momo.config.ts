@@ -42,7 +42,7 @@ const momoRequest = async (
   const signature = crypto.createHmac('sha256', secreteKey)
     .update(rawSignature)
     .digest('hex');
-  console.log('asdasd : ', JSON.stringify({ ...body, signature }));
+  console.log('Payment Data : ', JSON.stringify({ ...body, signature }));
   axios.post(momoEndpoint, { ...body, signature })
     .then((response) => console.log('Data : ', response.data))
     .catch((error) => console.log('Error: ', error));
