@@ -48,24 +48,16 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   return (
     <>
       <div className="quiz-form">
-        {/* <Row className="content">
-          <Col span={12} className="col-1">
-            <p> 9 SENTENCES QUICK CHECK</p>
-          </Col>
-          <Col span={12} className="col-2">
-            <p>This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions. Join now, it's free</p>
-          </Col>
-        </Row> */}
         <div className="banner-quiz">
           <div className="banner-quiz__left ">
-            <div className="banner-quiz__left--number">10</div>
+            <div className="banner-quiz__left--number">9</div>
             <div className="banner-quiz__left--text">
               <div className="left--top">Sentences</div>
               <div className="left--bottom">Quick Check</div>
             </div>
           </div>
           <div className="banner-quiz__description">This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions.
-          Join now, it's free.
+            <br /><span>Join now, it's free.</span>
           </div>
         </div>
         <Row gutter={[16, 16]}>

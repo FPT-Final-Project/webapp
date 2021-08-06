@@ -34,7 +34,7 @@
         position: absolute;
         height: 100px;
         width: 2px;
-        background-color: #299cb4;
+        background-color: #299db475;
         right: 0;
       }
 
@@ -70,11 +70,19 @@
       width: 50%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       padding-left: 25px;
       font-size: 16px;
       font-weight: bold;
       line-height: 18px;
+      color: #706666;
+
+      & span {
+        margin-top: 5px;
+        font-size: 17px;
+        font-style: italic;
+      }
     }
   }
 

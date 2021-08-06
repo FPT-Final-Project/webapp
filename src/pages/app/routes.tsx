@@ -37,8 +37,8 @@ export const routes = [
   {
     path: '/feedback',
     exact: true,
-    component: Feedback,
-    // component: ProfileUser,
+    // component: Feedback,
+    component: ProfileUser,
   },
   {
     path: '/payment',

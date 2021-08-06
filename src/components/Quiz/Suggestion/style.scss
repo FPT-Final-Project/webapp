@@ -1,8 +1,11 @@
-.suggestion-form{
-    width: 90%;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 1% auto;
-    border-radius: 15px;
-    padding: 20px;
-  
+.suggestion-form {
+  width: 90%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 1% auto;
+  border-radius: 12px;
+  padding: 20px;
+
+  .icon-suggestion {
+    font-size: 35px;
+  }
 }

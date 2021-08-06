@@ -56,7 +56,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
 
     case matchPath + routes[4].path: {
       icon = <CommentOutlined className="icon-dashboard" />;
-      name = 'Questions & Answers';
+      name = 'Forum Question';
       break;
     }
 

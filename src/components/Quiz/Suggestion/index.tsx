@@ -11,7 +11,7 @@ import './style.scss';
 const Doctor = ({ name, major, avatar }: {name: any, major: any, avatar: string}, loadingApi: any, history: any) => {
   return (
     <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-      <Card loading={loadingApi} cover={<img alt="example" src={avatar || 'doctorPsy.png'} height="300" />} actions={[<VideoCameraTwoTone onClick={() => history.push('/app/dashboard')} width="10px" />, <InfoCircleTwoTone />]}>
+      <Card loading={loadingApi} cover={<img alt="example" src={avatar || 'doctorPsy.png'} height="300" />} actions={[<VideoCameraTwoTone className="icon-suggestion" onClick={() => history.push('/app/dashboard')} width="10px" />, <InfoCircleTwoTone className="icon-suggestion" />]}>
         <Meta
           title={name.toUpperCase() || 'Doctor'}
           description={major?.toUpperCase() || 'PSYCHOLOGY'}
