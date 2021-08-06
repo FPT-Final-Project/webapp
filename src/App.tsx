@@ -18,13 +18,9 @@ import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
 import { PsyTest } from './components/PsyTest';
-<<<<<<< HEAD
-import { PsyTest } from './components/PsyTest';
-=======
 import ProfileUser from './components/Profile/ProfileUser';
 import ProfileDoctor from './components/Profile/ProfileDoctor';
 import SuggestionPage from './components/Quiz/Suggestion';
->>>>>>> 706db4040fd710ee1856c1c39c82c5c84c40a5b4
 
 function App() {
   const user = localStorage.getItem('user');
