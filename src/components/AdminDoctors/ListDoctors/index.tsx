@@ -4,18 +4,44 @@ import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import { IRootState } from '../../../stores/store';
 import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
 import scheduleAction from '../../../stores/actions/schedule.action';
 import { ISchedule } from '../../../types/schedule';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const DoctorRow = (props: any) => {
   const dispatch = useDispatch();
   const { doctor } = props;
   const { _id, name, avatar } = doctor;
   const [listSchedule, setlistSchedule] = useState<ISchedule[] | undefined>();
+  const history = useHistory();
+  const makeAnAppointment = (idSchedule: string, startOfAppointment: number, endOfAppointment: number) => {
+    const from = new Date(startOfAppointment).toLocaleString();
+    const to = new Date(endOfAppointment).toLocaleString();
+    confirmAlert({
+      title: 'Confirm to reserve this',
+      message: `Information about this appointment:
+      Doctor: ${name}
+      , From: ${from} To: ${to}
+      , Fee: 50$`,
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            history.push('/app/payment');
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => history.push('/app/doctor'),
+        },
+      ],
+    });
+  };
   useEffect(() => {
     dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setlistSchedule(res));
   }, []);
@@ -40,7 +66,7 @@ const DoctorRow = (props: any) => {
             {listSchedule ? (
               listSchedule.map((schedule, i) => (
                 <div className="doctor-schedule">
-                  <FontAwesomeIcon icon={faVideo} size="sm" /> <span>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
+                  <FontAwesomeIcon icon={faVideo} size="sm" /> <span onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} role="button" tabIndex={0}>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
                 </div>
               ))
             ) : ''}
@@ -93,12 +119,12 @@ const ListDoctors: React.FC = () => {
             </select>
           </div>
         </div>
-        {listDoctors?.map((doctor) => <DoctorRow doctor={doctor} />)}
+        {listDoctors?.map((doctor: any) => <DoctorRow doctor={doctor} />)}
       </div>
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>
         {
-          listDoctors?.slice(0, 5).map(({ _id, name, avatar, email }) => (
+          listDoctors?.slice(0, 5).map(({ _id, name, avatar, email }: any) => (
             <div className="doctor-top-content" key={_id}>
               <div className="doctor-content-avatar">
                 <img src={avatar} alt={name} />
