@@ -2,8 +2,6 @@
   width: 100%;
   height: 100%;
   background-color: #f2fdff;
-  color: black;
-
   .header-wrapper {
     position: fixed;
     top: 0;
@@ -143,4 +141,9 @@
       }
     }
   }  
+  .loading-api{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
 }

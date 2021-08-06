@@ -7,7 +7,7 @@
   margin: 1% auto;
   border-radius: 15px;
   font-family: "Nunito", 'sans-serif';
-
+  position: relative;
   .result {
     width: 80%;
     margin: auto;
@@ -29,7 +29,7 @@
 
   .concludeResult {
     border: 2px solid #299CB4;
-    width: 70%;
+    width: 100%;
     margin: 5px auto;
     padding: 20px;
     border-radius: 15px;
@@ -48,4 +48,66 @@
     font-size: 33px;
     color: white;
   }
+  .suggestIcon{
+    position:absolute;
+    top:40%;
+    right:30px; 
+    -moz-animation: bounce 3s infinite;
+	-webkit-animation: bounce 3s infinite;
+	animation: bounce 3s infinite;
+  @-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      -ms-transform: translateX(-30px);
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      -ms-transform: translateX(-15px);
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  &:hover {
+    -moz-animation: bounce 3s es;
+    -webkit-animation: bounce 3s ;
+    animation: bounce ;  }
+
+   }
+
 }
