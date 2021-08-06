@@ -108,8 +108,7 @@ const updateUser = (id: string,
   address: string,
   avatar: string,
   specialist: string) => (dispatch : Dispatch): void => {
-  console.log(name);
-  dispatch(doRequest(AuthActions.UPDATE_USER, { id, name, job, gender, phone, address, avatar, specialist }));
+  dispatch(doRequest(AuthActions.UPDATE_USER, { name, job, gender, phone, address, avatar, specialist }));
 
   userService.updateProfile(id,
     name,
@@ -119,7 +118,6 @@ const updateUser = (id: string,
     address,
     avatar,
     specialist).then((result:any) => {
-    console.log('Result: ', result);
     dispatch(doSuccess(AuthActions.UPDATE_USER_SUCCESS, { users: result }));
   }).catch((error: any) => dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
 };

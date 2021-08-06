@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { EditOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
@@ -26,10 +24,27 @@ const ProfileUser: React.FC<Props> = () => {
     wrapperCol: { span: 16 },
   };
 
-  /* eslint-disable no-template-curly-in-string */
-
-  const onFinish = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
-    // console.log(name);
+  const onFinish = (
+    {
+      id,
+      name,
+      job,
+      gender,
+      phone,
+      address,
+      avatar,
+      specialist,
+    }: {
+      id: string,
+      name: string,
+      job: string,
+      gender: string,
+      phone: string,
+      address: string,
+      avatar: string,
+      specialist: string
+    },
+  ) => {
     dispatch(authAction.updateUser(id, name, job, gender, phone, address, avatar, specialist));
     setEditable(!editable);
   };
@@ -110,14 +125,14 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item
                         name="job"
                         label="Job: "
-                        initialValue={user?.job ? user?.job : 'unknow'}
+                        initialValue={user?.job ? user?.job : 'Unknown'}
                       >
                         <Input />
                       </Form.Item>
                       <Form.Item
                         name="gender"
                         label="Gender: "
-                        initialValue={user?.gender ? user?.gender : 'unknow'}
+                        initialValue={user?.gender ? user?.gender : 'Unknown'}
 
                       >
                         <Input />
@@ -125,7 +140,7 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item
                         name="address"
                         label="Address: "
-                        initialValue={user?.address ? user?.address : 'unknow'}
+                        initialValue={user?.address ? user?.address : 'Unknown'}
 
                       >
                         <Input />
@@ -140,7 +155,7 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item
                         name="phone"
                         label="Phone: "
-                        initialValue={user?.phone ? user?.phone : 'unknow'}
+                        initialValue={user?.phone ? user?.phone : 'Unknown'}
 
                       >
                         <Input />

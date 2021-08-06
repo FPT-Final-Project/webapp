@@ -13,7 +13,6 @@ import { IQuestion } from '../../types/question';
 import { IUser } from '../../types/user';
 import AvatarModal from '../Modals/Avatar';
 import './style.scss';
-// import { Tests } from './tests';
 
 interface Props {
   user: IUser | undefined;
@@ -50,8 +49,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
   }, [showScore]);
 
   useEffect(() => {
-    // eslint-disable-next-line consistent-return
-    const getQuestionsApi = async () => {
+    const getQuestionsApi = async (): Promise<void> => {
       try {
         const data: any = await quizService.getQuestions(quizId);
         if (data.length) {
@@ -64,6 +62,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
     };
     getQuestionsApi();
   }, []);
+
   const handleAnswerButtonClick = (mark: number) => {
     setScore((state) => state + mark);
     const nextQuestion = currentQuestion + 1;
@@ -128,7 +127,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
                       <div className="question-section">
                         <div className="question-count">
                           <span>
-                Question {currentQuestion + 1}
+                            Question {currentQuestion + 1}
                           </span>
                         </div>
                       </div>
@@ -150,7 +149,6 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
                 }
               </div>
             </div>
-
           )}
       </div>
     </>

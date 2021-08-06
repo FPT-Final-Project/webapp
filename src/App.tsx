@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
-import { Button } from 'antd';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import Reset from './components/NewPass';
@@ -18,8 +17,6 @@ import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
 import { PsyTest } from './components/PsyTest';
-import ProfileUser from './components/Profile/ProfileUser';
-import ProfileDoctor from './components/Profile/ProfileDoctor';
 import SuggestionPage from './components/Quiz/Suggestion';
 
 function App() {
@@ -41,8 +38,6 @@ function App() {
               <Route path="/resetPass" component={ResetPass} />
               <Route exact path="/quiz/:quizId" component={PsyTest} />
               {/* Profile User/Doctor */}
-              <Route path="/profileUser" component={ProfileUser} />
-              <Route path="/profileDoctor" component={ProfileDoctor} />
               <Route path="/suggestion" exact component={SuggestionPage} />;
               <ProtectedRoute path="/quiz/:quizId/result" component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />

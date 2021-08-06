@@ -116,7 +116,7 @@
 
     &__select {
       width: 69%;
-      height: 500px;
+      height: fit-content;
       background-color: #fff;
       padding: 16px;
       border-radius: 13px;
@@ -157,7 +157,7 @@
 
     &__topDoctors {
       width: 29%;
-      height: 500px;
+      height: auto;
       background-color: #fff;
       padding: 16px;
       border-radius: 13px;

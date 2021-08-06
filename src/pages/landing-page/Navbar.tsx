@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../../stores/store';
+import _ from 'lodash';
 
 const Navbar = () => {
-  const user = useSelector((state: IRootState) => state.authentication.user);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
   // Behavior Smooth
   const handleClickNav = (e: any) => {
     e.preventDefault();
@@ -51,7 +48,7 @@ const Navbar = () => {
           <li className="nav__item"><a href="#aboutus" onClick={handleClickNav}>About Us</a></li>
         </ul>
         {
-          !user
+          _.isEmpty(user)
             ? (
               <>
                 <ul className="nav__login">
