@@ -5,6 +5,7 @@ import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
+import Forum from '../../components/Forum';
 
 export const routes = [
   {
@@ -41,5 +42,10 @@ export const routes = [
     path: '/payment',
     exact: true,
     component: Payment,
+  },
+  {
+    path: '/forum',
+    exact: true,
+    component: Forum,
   },
 ];

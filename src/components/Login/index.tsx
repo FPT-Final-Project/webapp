@@ -4,12 +4,10 @@ import {
 } from 'antd';
 
 import {
-  Link, useHistory, useLocation,
+  Link, useHistory,
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { Action } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';
@@ -32,7 +30,7 @@ const Login: React.FC = () => {
   };
 
   const submit = ({ email, password }: { email: string, password: string }) => {
-    dispatch(authAction.login(email, password));
+    dispatch<any>(authAction.login(email, password)).then((res: any) => console.log(res));
   };
 
   return (

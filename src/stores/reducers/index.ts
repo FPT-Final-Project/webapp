@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import appointmentReducer from './appointment.reducer';
 import authenticationReducer from './auth.reducer';
 import dashboardReducer from './dashboard.reducer';
+import questionAnswerReducer from './questionAnswer.reducer';
 import quizReducer from './quiz.reducer';
 
 const rootReducers = combineReducers({
@@ -9,6 +10,7 @@ const rootReducers = combineReducers({
   quiz: quizReducer,
   dashboard: dashboardReducer,
   appointment: appointmentReducer,
+  questionAnswer: questionAnswerReducer,
 });
 
 export default rootReducers;

@@ -1,4 +1,4 @@
-import { Action, Dispatch } from 'redux';
+import { Action, AnyAction, Dispatch } from 'redux';
 import _ from 'lodash';
 import userService from '../../services/user.service';
 import { doFailure, doRequest, doSuccess } from './utils';
@@ -49,11 +49,9 @@ const login = (email: string, password: string) => async (dispatch: Dispatch) =>
     localStorage.setItem('token', user.token || '');
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
-    return user;
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     openNotification('error', error.data.message);
-    return error;
   }
 };
 

@@ -1,4 +1,4 @@
-import { postRequest } from '../config/axios.request';
+import { getRequest, postRequest } from '../config/axios.request';
 import { IUser } from '../types/user';
 
 const login = (email: string, password: string): Promise<IUser> => postRequest('auth/login', { email, password }) as any;
@@ -7,7 +7,9 @@ const register = (id: string, name: string, email: string, password: string, rol
   return postRequest('auth/register', { name, email, password, role, ...(id && { id }) }) as any;
 };
 
+const getUserProfile = (id: string) => getRequest(`/user/${id}`);
 export default {
   login,
   register,
+  getUserProfile,
 };

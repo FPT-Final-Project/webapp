@@ -65,7 +65,11 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
       name = 'Payment';
       break;
     }
-
+    case matchPath + routes[7].path: {
+      icon = <UploadOutlined />;
+      name = 'Forum';
+      break;
+    }
     default: {
       break;
     }
@@ -96,8 +100,8 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
         trigger={null}
         collapsible
         collapsed={collapsed}
-        width="250"
         className="custom-sider"
+        width="250"
       >
         <div className="sider-logo" onClick={redirectToApp}>
           <p>PsyCare.</p>
