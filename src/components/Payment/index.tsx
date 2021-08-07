@@ -39,8 +39,9 @@ const Payment: React.FC = () => {
     },
   ];
 
-  const handlePurchasing = () => {
-    momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
+  const handlePurchasing = async () => {
+    const { payUrl } = await momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
+    window.location.href = payUrl;
   };
 
   return (
