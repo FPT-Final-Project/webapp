@@ -1,0 +1,77 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "indent": ["warn", 2, {
+      "SwitchCase": 1
+    }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "error",
+    "react/react-in-jsx-scope": "off",
+    "linebreak-style": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": ["warn", {
+      "extensions": [".tsx"]
+    }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "max-len": ["warn", {
+      "code": 120,
+      "ignoreStrings": true,
+      "ignoreComments": true
+    }],
+    "react/no-unescaped-entities": "off",
+    "react/button-has-type": "off",
+    "react/no-array-index-key": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "react/jsx-indent": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": "off",
+    "semi": "error",
+    "arrow-body-style": "off",
+    "no-underscore-dangle": "off",
+    "import/no-unresolved": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+}

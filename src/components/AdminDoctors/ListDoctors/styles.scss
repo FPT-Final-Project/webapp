@@ -1,0 +1,154 @@
+.wrap-doctor-list {
+  margin-top: 64px;
+  padding: 1.375rem 1.625rem;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+
+  .doctor-list-content {
+    padding: 1.375rem 1.625rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    width: 70%;
+    height: fit-content;
+    // box-shadow: 2px 6px 12px 4px #92cdfd;
+
+    .doctor-filter {
+      width: 100%;
+      height: auto;
+      display: flex;
+      margin-bottom: 20px;
+
+      .doctor-filter-section {
+        margin-right: 20px;
+
+        .doctor-search {
+          display: inline-block;
+        }
+
+        span {
+          font-size: 16px;
+          font-weight: 700;
+          margin-right: 20px;
+        }
+      }
+    }
+
+    .doctor-card {
+      display: flex;
+      padding: 0.5rem;
+      margin-bottom: 20px;
+      background-color: #f2fdff;
+      border-radius: 0.625rem;
+
+      .doctor-card-left {
+        display: flex;
+        flex-direction: row;
+        width: 65%;
+        padding-right: 10px;
+
+        .doctor-card-avatar {
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          flex-direction: column;
+          padding: 0.5rem;
+
+          .btn-detail {
+            font-size: 12px;
+            color: #40a9ff;
+            border-color: #40a9ff;
+            height: 28px;
+          }
+
+          img {
+            display: block;
+            width: 120px;
+            height: 120px;
+            border-radius: 50px;
+          }
+
+          button {
+            margin-top: 10px;
+            padding: 0 5px;
+          }
+        }
+
+        .doctor-card-details {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          margin-left: 5px;
+
+          .doctor-card-name {
+            font-size: 16px;
+            font-weight: 900;
+          }
+
+          // .doctor-card-description {
+
+          // }
+        }
+      }
+
+      .doctor-card-right {
+        width: 35%;
+
+        .doctor-card-schedules {
+          .doctor-schedule {
+            width: fit-content;
+            display: inline-block;
+            padding: 2px 5px;
+            background-color: #1f8ba3;
+            border-radius: 0.5rem;
+            color: whitesmoke;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+
+            span {
+              margin-left: 5px;
+              font-size: 12px;
+            }
+          }
+        }
+
+        span {
+          font-size: 16px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .doctor-top-list {
+    padding: 1.375rem 1.625rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    margin-left: 20px;
+    height: fit-content;
+    flex: 1;
+
+    .doctor-top-title {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .doctor-top-content {
+      display: flex;
+      flex-direction: row;
+      margin-top: 15px;
+
+      .doctor-content-avatar img {
+        display: block;
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
+        margin-right: 15px;
+      }
+    }
+  }
+}

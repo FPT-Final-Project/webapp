@@ -1,0 +1,206 @@
+.wrap-dashboard {
+  width: 100%;
+  height: calc(100%-64px);
+  background-color: #fafafa;
+  padding: 16px;
+  margin-top: 64px;
+  position: relative;
+  // overflow-y: hidden;
+  // overflow: scroll;
+
+  .header-top {
+    width: 100%;
+    height: 170px;
+    padding: 16px;
+    // background-color: #fff;
+    border-radius: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // overflow: hidden;
+    background: url(../../assets/headerDashboard.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+
+    &__h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    &__h1 {
+      font-size: 24px;
+      line-height: 24px;
+      font-weight: 800;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 2px;
+        width: 150px;
+        border-radius: 10px;
+        background-color: #f1f1f1;
+        top: 42px;
+      }
+    }
+    &__description {
+      font-size: 18px;
+      line-height: 22px;
+      width: 450px;
+      padding-top: 35px;
+      //   color: #d6d6d6;
+    }
+  }
+
+  .wrap-block {
+    width: 100%;
+    height: 150px;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    &__section {
+      width: 23.5%;
+      border-radius: 10px;
+      padding: 16px 24px;
+      background-color: #fff;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border: 2px solid #1295b1;
+
+      &--h2 {
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          height: 2px;
+          width: 80px;
+          background-color: #f1f1f1;
+          border-radius: 15px;
+          top: 35px;
+        }
+      }
+
+      &--bottom {
+        padding-top: 15px;
+        display: flex;
+
+        .bottom-icon {
+          width: 70px;
+          svg {
+            fill: #1295b1;
+            // background-size: 50px;
+            // background-color: #9c7676;
+          }
+          // background: url(../../assets/appointment.svg);
+          // background-size: 60px;
+          // background-repeat: no-repeat;
+          // background-position: center;
+        }
+
+        .bottom-number {
+          font-size: 36px;
+          font-weight: 800;
+          color: #1295b1;
+        }
+      }
+    }
+  }
+
+  .wrap-appointment {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+
+    &__select {
+      width: 69%;
+      height: fit-content;
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 13px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      .userEmail {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .wrap-topHead {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .apm-title {
+          font-size: 22px;
+          font-weight: bold;
+        }
+        .btn-viewall {
+          padding: 5px 15px;
+          border-radius: 10px;
+          border: 2px solid;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+
+      .ant-table-wrapper {
+        // overflow-x: hidden;
+        // overflow: scroll;
+
+        .ant-table-thead > tr > th {
+          font-weight: bold !important;
+        }
+      }
+    }
+
+    &__topDoctors {
+      width: 29%;
+      height: auto;
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 13px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      .topDoctors-title {
+        margin-bottom: 20px;
+        &__top {
+          font-size: 22px;
+          font-weight: bold;
+          // margin-bottom: 10px;
+        }
+        &__description {
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .list-top {
+        .list-top__item {
+          width: 100%;
+          height: 60px;
+          border-radius: 10px;
+          margin-bottom: 10px;
+          background-color: #f1f1f1;
+          display: flex;
+          align-items: center;
+
+          &--name {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+          }
+
+          &--rate {
+            width: 30%;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+}

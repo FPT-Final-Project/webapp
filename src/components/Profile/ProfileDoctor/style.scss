@@ -1,0 +1,350 @@
+.wrap-content {
+  padding: 16px;
+  width: 100%;
+  height: 130vh;
+  background-color: #f1f1f1;
+  margin-top: 64px;
+  // background-color: #f1f1f1;
+
+  // background-color: rgb(24, 140, 161);
+
+  .headerProfile {
+    width: 100%;
+    height: 100%;
+    // background-color: rgb(33, 120, 160);
+    background-color: #f1f1f1;
+    position: relative;
+
+    &__banner {
+      width: 100%;
+      height: 250px;
+
+      background: url(../../../assets/bannerUser.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-y: -120px;
+      border-radius: 15px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+    .wrap-mid {
+      position: absolute;
+      top: 400px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .headerProfile__info {
+        width: 700px;
+        height: auto;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0px auto;
+        padding: 4px;
+        border-radius: 20px;
+        position: absolute;
+        top: -150px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+        .btnEdit-wrap {
+          .btn-edit-info {
+            border: 2px solid #37afc8;
+            background-color: #37afc8;
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 2px 20px;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+            .editbtn_info {
+              // background-color: #f1f1f1;
+              // padding: 10px;
+              // font-size: 22px;
+              color: #fff;
+              // // border: none;
+              // border: 2px solid rgb(24, 140, 161);
+              // // border-radius: 50%;
+              // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+              // // position: absolute;
+              // // top: 8px;
+              // // right: 8px;
+              // cursor: pointer;
+            }
+          }
+        }
+
+        .info__image {
+          width: 38%;
+          background-color: #f1f1f179;
+          border-radius: 16px;
+          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          &--transform {
+            background: url(../../../assets/Personnelimage4483.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position-y: -10px;
+            width: 120px;
+            height: 120px;
+            border-radius: 100%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            // transform: translateX(-25px);
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            cursor: pointer;
+          }
+
+          &--name {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+          }
+          &--email {
+            color: #b4aeae;
+            text-align: center;
+          }
+        }
+
+        .wrap-block-info {
+          width: 60%;
+          height: 180px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          // background-color: royalblue;
+
+          .profile-title {
+            text-align: left;
+            width: 100%;
+            // padding-left: 100px;
+            font-size: 32px;
+            font-weight: bolder;
+            margin-bottom: 10px;
+            // background-color: saddlebrown;
+          }
+          .block-info {
+            width: 100%;
+            display: flex;
+
+            .wrap-info {
+              width: 50%;
+              margin-bottom: 20px;
+              position: relative;
+
+              &::before {
+                content: "";
+                position: absolute;
+                height: 1px;
+                width: 80px;
+                background-color: rgba(192, 192, 192, 0.227);
+                top: 55px;
+              }
+
+              .info__title {
+                font-weight: 800;
+                color: rgb(105, 116, 128);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    width: 600px;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid #37afc8;
+    // margin: 16px auto;
+    margin-top: 180px;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // position: relative;
+    // z-index: 10;
+    // top: 200;
+
+    .title-top {
+      font-size: 28px;
+      font-weight: bolder;
+      text-align: center;
+    }
+
+    &__title {
+      width: 100%;
+      display: flex;
+      // flex-direction: row;
+      justify-content: space-around;
+
+      &--text {
+        width: 50%;
+        height: 35px;
+        font-weight: 800;
+        font-size: 20px;
+        position: relative;
+        // background-color: steelblue;
+
+        &:before {
+          content: "";
+          width: 200%;
+          height: 2px;
+          background-color: #e6e6e6;
+          position: absolute;
+          top: 35px;
+          border-radius: 10px;
+        }
+      }
+      &--btn {
+        width: 50%;
+        // background-color: tan;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        // background-color: rebeccapurple;
+
+        .ant-form-item {
+          margin-bottom: 10px !important;
+        }
+        .btn-edit {
+          width: 40px;
+          height: 40px;
+          // padding: 2px 15px;
+          border-radius: 50%;
+          border: none;
+          transform: translateY(-8px);
+          cursor: pointer;
+          background-color: transparent;
+          transition: 0.2s;
+
+          // &:hover {
+          //   background-color: #f2f2f2;
+          //   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+          // }
+
+          .editbtn {
+            font-size: 22px;
+          }
+
+          .btnSave {
+            display: block;
+            border: 2px solid #37afc8;
+            padding: 2px 10px;
+            color: #37afc8;
+            font-weight: bold;
+            font-size: 16px;
+            // margin-right: 56px;
+            // margin-right: 16px;
+            position: absolute;
+            right: 0px;
+            top: 8px;
+          }
+        }
+      }
+    }
+
+    .form-item {
+      width: 100%;
+      height: auto;
+      // background-color: peru;
+      display: flex;
+      margin-top: 12px;
+
+      .ant-form {
+        width: 55%;
+
+        .ant-form-item {
+          margin-bottom: 12px;
+
+          .ant-form-item-label {
+            display: flex !important;
+
+            & > label {
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .divide-left {
+        width: 35%;
+        // background-color: plum;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        position: relative;
+
+        &__edit {
+          width: 40px;
+          height: 40px;
+          // padding: 2px 10px;
+          border-radius: 30px;
+          border: 3px solid #fff;
+          background-color: #fff;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          position: absolute;
+          top: 110px;
+          right: 30px;
+          cursor: pointer;
+        }
+      }
+      .divide-right {
+        width: 60%;
+        // padding: 16px;
+
+        .ant-form-item {
+          margin-bottom: 12px;
+
+          .ant-form-item-label {
+            display: flex !important;
+
+            & > label {
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .form-item__sub {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+
+          label {
+            font-weight: bold;
+          }
+
+          input {
+            border: 1px solid #dadada;
+            border-radius: 5px;
+            outline: none;
+            padding-left: 5px;
+          }
+        }
+      }
+
+      .image-profile {
+        background: url(../../../assets/Personnelimage4483.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-y: -10px;
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        object-fit: cover;
+        border: 5px solid #fff;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        cursor: pointer;
+      }
+    }
+  }
+}

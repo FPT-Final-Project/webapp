@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
+
+.result-form {
+  text-align: center;
+  width: 90%;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 1% auto;
+  border-radius: 15px;
+  font-family: "Nunito", 'sans-serif';
+  position: relative;
+  .result {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+
+    h1,
+    h2,
+    h3 {
+      font-weight: bold;
+    }
+  }
+
+  .dotted {
+    margin: auto;
+    width: 30%;
+    border-bottom: 5px solid #299CB4;
+    padding: 5px;
+  }
+
+  .concludeResult {
+    border: 2px solid #299CB4;
+    width: 100%;
+    margin: 5px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: #e1f7fc;
+  }
+
+  .scoreSvg {
+    position: relative;
+  }
+
+  .scoreQuiz {
+    position: absolute;
+    top: 41%;
+    left: 50.5%;
+    transform: translate(-50%, -50%);
+    font-size: 33px;
+    color: white;
+  }
+  .suggestIcon{
+    position:absolute;
+    top:40%;
+    right:30px; 
+    -moz-animation: bounce 3s infinite;
+	-webkit-animation: bounce 3s infinite;
+	animation: bounce 3s infinite;
+  @-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    40% {
+      -moz-transform: translateX(-30px);
+      -ms-transform: translateX(-30px);
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+    60% {
+      -moz-transform: translateX(-15px);
+      -ms-transform: translateX(-15px);
+      -webkit-transform: translateX(-15px);
+      transform: translateX(-15px);
+    }
+  }
+  &:hover {
+    -moz-animation: bounce 3s es;
+    -webkit-animation: bounce 3s ;
+    animation: bounce ;  }
+
+   }
+
+}

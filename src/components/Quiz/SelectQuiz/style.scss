@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap");
+
+.quiz-form {
+  margin-top: 64px !important;
+  padding: 16px;
+  width: 100%;
+  // border-radius: 15px;
+  background-color: #fafafa;
+
+  // font-family: "Nunito", "sans-serif";
+
+  .banner-quiz {
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    border-radius: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: url(../../../assets/headerQuiz.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    &__left {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      padding-left: 50px;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 100px;
+        width: 2px;
+        background-color: #299cb4;
+        right: 0;
+      }
+
+      &--number {
+        font-size: 90px;
+        line-height: 90px;
+        color: #299cb4;
+        font-weight: 700;
+        margin-right: 5px;
+      }
+
+      &--text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .left--top {
+          font-size: 25px;
+          line-height: 30px;
+          color: #299cb4;
+          font-weight: normal;
+        }
+        .left--bottom {
+          font-size: 40px;
+          line-height: 40px;
+          letter-spacing: 2px;
+          color: #299cb4;
+          font-weight: bolder;
+          text-transform: uppercase;
+        }
+      }
+    }
+    &__description {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 18px;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 3%;
+  }
+
+  .card {
+    border-radius: 20px;
+    text-align: center;
+    min-height: 400px;
+  }
+
+  .image1 {
+    width: 100%;
+    height: 200px;
+    background: url(../../../assets/stress1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+  }
+
+  .image2 {
+    width: 100%;
+    height: 200px;
+    background: url(../.././../assets/stress2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+  }
+
+  .image3 {
+    width: 100%;
+    height: 200px;
+    background: url(../../../assets/stress3.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+  }
+
+  .site-card-wrapper h2 {
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .btn-submit {
+    background: rgb(22, 114, 134);
+    background: linear-gradient(
+      90deg,
+      rgba(22, 114, 134, 1) 0%,
+      rgba(5, 197, 239, 1) 75%
+    );
+    color: white;
+    border-radius: 8px;
+    width: 100px;
+    margin: 0 auto;
+
+    &:hover,
+    &:focus {
+      background: rgb(22, 114, 134);
+      background: linear-gradient(
+        90deg,
+        rgba(22, 114, 134, 1) 0%,
+        rgba(5, 197, 239, 1) 75%
+      );
+      color: white;
+      border: 1px solid #299cb4;
+    }
+  }
+}
