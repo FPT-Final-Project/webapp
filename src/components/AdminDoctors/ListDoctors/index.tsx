@@ -20,7 +20,7 @@ const DoctorRow = (props: any) => {
   const dispatch = useDispatch();
   const { doctor } = props;
   const { _id, name, avatar } = doctor;
-  const [listSchedule, setlistSchedule] = useState<ISchedule[] | undefined>();
+  const [listSchedule, setListSchedule] = useState<ISchedule[] | undefined>();
   const history = useHistory();
 
   const makeAnAppointment = (id: string, fromTime: number, toTime: number) => {
@@ -57,7 +57,7 @@ const DoctorRow = (props: any) => {
   };
 
   useEffect(() => {
-    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setlistSchedule(res));
+    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setListSchedule(res));
   }, []);
 
   return (
@@ -80,8 +80,15 @@ const DoctorRow = (props: any) => {
           <div className="doctor-card-schedules">
             {listSchedule ? (
               listSchedule.map((schedule, i) => (
-                <div className="doctor-schedule">
-                  <FontAwesomeIcon icon={faVideo} size="sm" /> <span onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} role="button" tabIndex={0}>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
+                <div className="doctor-schedule" key={i}>
+                  <FontAwesomeIcon icon={faVideo} size="sm" />
+                  <span
+                    onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
+                    onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
+                    role="button"
+                    tabIndex={0}
+                  >{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}
+                  </span>
                 </div>
               ))
             ) : ''}
@@ -160,7 +167,7 @@ const ListDoctors: React.FC = () => {
             </select>
           </div>
         </div>
-        {listDoctors?.map((doctor: any) => <DoctorRow doctor={doctor} />)}
+        {listDoctors?.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} />)}
       </div>
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>

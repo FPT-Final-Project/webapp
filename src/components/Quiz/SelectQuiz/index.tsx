@@ -16,7 +16,7 @@ interface Props {
 
 const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
   return (
-    <Col span={8} xs={24} sm={12} xl={8} lg={12}>
+    <Col span={8} xs={24} sm={12} xl={8} lg={12} key={_id}>
       <Card hoverable className="card">
         <Row>
           <Col span={24}>

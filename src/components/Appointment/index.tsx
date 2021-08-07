@@ -118,7 +118,7 @@ const Appointment: React.FC = () => {
   return (
     <div>
       <div className="wrap-aptm">
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} rowKey="_id" />
       </div>
     </div>
   );

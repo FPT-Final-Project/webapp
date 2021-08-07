@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './style.scss';
 import { Rate, Input, Button } from 'antd';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 const { TextArea } = Input;
 
-function Feedback() {
+const Feedback: React.FC = () => {
   const [state, setState] = useState({ value: 0 });
   const handleChange = (value: any) => setState({ value });
 
@@ -35,6 +35,6 @@ function Feedback() {
       </div>
     </div>
   );
-}
+};
 
 export default Feedback;

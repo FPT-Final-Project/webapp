@@ -110,7 +110,9 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
           <div className="logo-dashboard" />
         </div>
         <Menu className="custom-menu">
-          {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
+          {routes
+            .filter((r) => !r.sideBarHidden)
+            .map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
         </Menu>
       </Sider>
     </>
