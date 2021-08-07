@@ -18,7 +18,6 @@ import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
 import { PsyTest } from './components/PsyTest';
 import SuggestionPage from './components/Quiz/Suggestion';
-import MakeAnAppointment from './components/MakeAnAppointment';
 
 function App() {
   const user = localStorage.getItem('user');
@@ -42,7 +41,6 @@ function App() {
               <Route path="/suggestion" exact component={SuggestionPage} />;
               <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
               <ProtectedRoute path="/app" component={LayoutApp} />
-              <ProtectedRoute path="/make-an-appointment" exact component={MakeAnAppointment} />
               {/*
                 TODO: Refactor Route
                 <ProtectedRoute path="/make-an-appointment" exact component={MakeAnAppointment} />
