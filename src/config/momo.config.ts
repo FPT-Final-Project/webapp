@@ -1,6 +1,7 @@
 import { v1 as uuid } from 'uuid';
 import crypto from 'crypto';
 import axios from 'axios';
+import config from './config';
 
 const partnerCode = 'MOMO7OU020210728';
 const accessKey = 'D8h4XhEdfdGdMQ7p';
@@ -8,8 +9,8 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'https://a0fd3e739794.ngrok.io/v1/payment/momo';
-const returnUrl = 'http://localhost:3000/app/dashboard';
+const notifyUrl = 'https://psycare-be.herokuapp.com/v1/payment/momo';
+const returnUrl = `${config.appUrl}app/dashboard`;
 
 const momoRequest = async (
   appointmentId: string,
