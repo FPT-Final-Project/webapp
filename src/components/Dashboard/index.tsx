@@ -114,9 +114,9 @@ const Dashboard: React.FC = () => {
         <div className="wrap-appointment__select">
           <div className="wrap-topHead">
             <div className="apm-title">Make an Appointment</div>
-            <Link to="/doctor"><button className="btn-viewall">View All</button></Link>
+            <Link to="/app/doctor"><button className="btn-viewall">View All</button></Link>
           </div>
-          <Table columns={columns} dataSource={users} scroll={{ y: 280 }} rowKey="id" />
+          <Table columns={columns} dataSource={users} scroll={{ y: 280 }} rowKey="_id" />
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">

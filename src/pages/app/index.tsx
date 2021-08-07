@@ -36,7 +36,6 @@ const LayoutApp: React.FC = () => {
               path={`${routeMatch.path}/doctor/:doctorId/detail`}
               component={DoctorDetail}
             />
-
           </Switch>
         </Content>
       </Layout>

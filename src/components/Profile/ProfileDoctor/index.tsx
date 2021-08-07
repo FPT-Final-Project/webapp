@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../stores/store';
 import authAction from '../../../stores/actions/auth.action';
 
-const ProfileDoctor = () => {
+const ProfileDoctor: React.FC = () => {
   const [editable, setEditable] = useState(true);
 
   const dispatch = useDispatch();

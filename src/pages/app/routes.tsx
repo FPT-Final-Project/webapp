@@ -48,10 +48,12 @@ export const routes = [
     path: '/profileUser',
     exact: true,
     component: ProfileUser,
+    sideBarHidden: true,
   },
   {
     path: '/profileDoctor',
     exact: true,
     component: ProfileDoctor,
+    sideBarHidden: true,
   },
 ];
