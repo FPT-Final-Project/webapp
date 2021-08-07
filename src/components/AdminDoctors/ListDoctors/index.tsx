@@ -1,17 +1,20 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert';
 import { IRootState } from '../../../stores/store';
 import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
 import scheduleAction from '../../../stores/actions/schedule.action';
 import { ISchedule } from '../../../types/schedule';
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { IDoctor } from '../../../types/doctor';
+
+const { Search } = Input;
 
 const DoctorRow = (props: any) => {
   const dispatch = useDispatch();
@@ -19,9 +22,10 @@ const DoctorRow = (props: any) => {
   const { _id, name, avatar } = doctor;
   const [listSchedule, setlistSchedule] = useState<ISchedule[] | undefined>();
   const history = useHistory();
-  const makeAnAppointment = (idSchedule: string, startOfAppointment: number, endOfAppointment: number) => {
-    const from = new Date(startOfAppointment).toLocaleString();
-    const to = new Date(endOfAppointment).toLocaleString();
+
+  const makeAnAppointment = (id: string, fromTime: number, toTime: number) => {
+    const from = new Date(fromTime).toLocaleString();
+    const to = new Date(toTime).toLocaleString();
     confirmAlert({
       title: 'Confirm to reserve this',
       message: `Information about this appointment:
@@ -32,7 +36,16 @@ const DoctorRow = (props: any) => {
         {
           label: 'Yes',
           onClick: () => {
-            history.push('/app/payment');
+            history.push({
+              pathname: '/app/payment',
+              state: {
+                idSchedule: id,
+                doctorId: _id,
+                doctorName: name,
+                startOfAppointment: fromTime,
+                endOfAppointment: toTime,
+              },
+            });
           },
         },
         {
@@ -42,9 +55,11 @@ const DoctorRow = (props: any) => {
       ],
     });
   };
+
   useEffect(() => {
     dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setlistSchedule(res));
   }, []);
+
   return (
     <div className="doctor-card" key={_id}>
       <div className="doctor-card-left">
@@ -80,6 +95,7 @@ const DoctorRow = (props: any) => {
     </div>
   );
 };
+
 const ListDoctors: React.FC = () => {
   const dispatch = useDispatch();
   const { user, doctors } = useSelector((state: IRootState) => ({
@@ -87,6 +103,23 @@ const ListDoctors: React.FC = () => {
     doctors: state.doctor.doctors,
   }));
   const [listDoctors, setListDoctors] = useState(doctors);
+  const [nameSearch, setNameSearch] = useState('');
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    const result : IDoctor[] = [];
+    if (nameSearch && listDoctors) {
+      for (let i = 0; i < listDoctors.length; i += 1) {
+        if (((listDoctors[i].name).toUpperCase()).includes(nameSearch.toUpperCase())) {
+          result.push(listDoctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (listDoctors) {
+      setListDoctors(doctors);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
@@ -94,13 +127,21 @@ const ListDoctors: React.FC = () => {
       });
     }
   }, []);
+
   return (
     <div className="wrap-doctor-list">
       <div className="doctor-list-content">
         <div className="doctor-filter">
           <div className="doctor-filter-section">
-            <span>Search Name:&nbsp;</span>
-            <Search className="doctor-search" placeholder="Doctor name" />
+            <span>Search Name: </span>
+            <Search
+              prefix={<UserOutlined />}
+              className="doctor-search"
+              value={nameSearch || ''}
+              onChange={({ target: { value } }) => setNameSearch(value)}
+              onKeyUp={(e) => (handleSearch(e))}
+              placeholder="Type doctor's name"
+            />
           </div>
           <div className="doctor-filter-section">
             <span>Specialty</span>
@@ -124,7 +165,7 @@ const ListDoctors: React.FC = () => {
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>
         {
-          listDoctors?.slice(0, 5).map(({ _id, name, avatar, email }: any) => (
+          doctors?.slice(0, 5).map(({ _id, name, avatar, email }: any) => (
             <div className="doctor-top-content" key={_id}>
               <div className="doctor-content-avatar">
                 <img src={avatar} alt={name} />

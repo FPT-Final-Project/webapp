@@ -2,7 +2,7 @@
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import { IUser } from '../../types/user';
-import dashboardService from '../../services/userdashboard.service';
+// import dashboardService from '../../services/userdashboard.service';
 import { doFailure, doRequest, doSuccess } from './utils';
 
 export const DashboardActions = {
@@ -17,16 +17,5 @@ export interface GetDashboardUsersAction extends Action {
   };
 }
 
-const loadUsers = () => (dispatch : Dispatch): void => {
-  dispatch(doRequest(DashboardActions.GET_USERS, {}));
-
-  dashboardService.getDoctor()
-    .then((result: any) => {
-      dispatch(doSuccess(DashboardActions.GET_USERS_SUCCESS, { users: result }));
-    })
-    .catch((error: any) => dispatch(doFailure(DashboardActions.GET_USERS_FAIL, { error: _.get(error, ['response', 'data', 'message']) })));
-};
-
 export default {
-  loadUsers,
 };
