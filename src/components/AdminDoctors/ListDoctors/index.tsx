@@ -91,7 +91,7 @@ const DoctorRow = (props: any) => {
                   </span>
                 </div>
               ))
-            ) : ''}
+            ) : <div>Doctor seems to be busy for the next 24 hours</div>}
           </div>
         </div>
         <div>
