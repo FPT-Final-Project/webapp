@@ -46,7 +46,7 @@
     "build": "CI=false && react-scripts build",
     "start:dev": "env-cmd -f .env react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
-    "build:production": "CI=false && env-cmd -f .env.production && react-scripts build",
+    "build:production": "CI=false && env-cmd -f .env.production react-scripts build",
     "lint": "eslint -c .eslintrc.json src/*.tsx"
   },
   "eslintConfig": {
