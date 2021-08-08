@@ -1,68 +1,74 @@
+/* eslint-disable max-len */
 import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
 import { Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IRootState } from '../../stores/store';
-import dashboardAction from '../../stores/actions/dashboard.action';
-
-const columns = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    key: 'id',
-    width: 100,
-    render: (text: any, record : any) => (
-      <div className="userEmail">
-        <span>{record === true ? record.id : '_'}</span>
-      </div>
-    ),
-  },
-
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    width: 250,
-    render: (text: any, record : any) => (
-      <div className="userEmail">
-        <span>{record.name}</span>
-        <span> {record.email}</span>
-      </div>
-    ),
-  },
-  {
-    title: 'Phone Number',
-    dataIndex: 'phone',
-    key: 'phone',
-    render: (text: any, record : any) => (
-      <div className="userEmail">
-        <span>{record === true ? record.phone : '_'}</span>
-      </div>
-    ),
-  },
-  {
-    title: 'Specialist',
-    dataIndex: 'specialist',
-    key: 'specialist',
-    render: (text: any, record : any) => (
-      <div className="userEmail">
-        <span>{record === true ? record.specialist : '_'}</span>
-      </div>
-    ),
-  },
-];
+import doctorAction from '../../stores/actions/doctor.action';
+import appointmentAction from '../../stores/actions/appointment.action';
+import { IAppointment } from '../../types/appointment';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { users, user } = useSelector(
-    (state : IRootState) => ({ users: state.dashboard.users, user: state.authentication.user }),
+  const { users, user, appointments, doctors } = useSelector(
+    (state : IRootState) => ({
+      users: state.dashboard.users,
+      user: state.authentication.user,
+      appointments: state.appointment.appointments,
+      doctors: state.doctor.doctors,
+    }),
   );
-
+  const [listAppointmentToday, setListAppointmentToday] = useState<IAppointment[] | undefined>();
+  const columns = [
+    {
+      title: "Room's Name",
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: "Partner's Name",
+      dataIndex: user?.role === 'doctor' ? 'patientName' : 'doctorName',
+      key: 'partnetName',
+    },
+    {
+      title: 'Time open',
+      dataIndex: 'startOfAppointment',
+      sorter: (a: any, b: any) => (a.startOfAppointment - b.startOfAppointment),
+      render: (startOfAppointment: string) => {
+        const d = new Date(startOfAppointment);
+        return new Date(d).toLocaleString();
+      },
+    },
+    {
+      title: 'Time close',
+      dataIndex: 'endOfAppointment',
+      key: 'endOfAppointment',
+      sorter: (a: any, b: any) => (a.endOfAppointment - b.endOfAppointment),
+      render: (endOfAppointment: string) => {
+        const d = new Date(endOfAppointment);
+        return new Date(d).toLocaleString();
+      },
+    },
+  ];
   useEffect(() => {
-    dispatch(dashboardAction.loadUsers());
+    if (user) {
+      dispatch<any>(doctorAction.getDoctors());
+      dispatch<any>(appointmentAction.getAppointments(user))
+        .then((res: any) => {
+          const result : IAppointment[] = [];
+          if (res) {
+            for (let i = 0; i < res.length; i += 1) {
+              if ((res[i].startOfAppointment) <= new Date().getTime() + 86400000 && (res[i].startOfAppointment) >= new Date().getTime()) {
+                result.push(res[i]);
+              }
+            }
+            setListAppointmentToday(result);
+          }
+        });
+    }
   }, []);
 
   return (
@@ -113,10 +119,10 @@ const Dashboard: React.FC = () => {
       <div className="wrap-appointment">
         <div className="wrap-appointment__select">
           <div className="wrap-topHead">
-            <div className="apm-title">Make an Appointment</div>
-            <Link to="/app/doctor"><button className="btn-viewall">View All</button></Link>
+            <div className="apm-title">Appointments Today</div>
+            <Link to="/app/appointment"><button className="btn-viewall">View All Your Appointments</button></Link>
           </div>
-          <Table columns={columns} dataSource={users} scroll={{ y: 280 }} rowKey="_id" />
+          <Table columns={columns} dataSource={listAppointmentToday} rowKey="id" />
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">
@@ -126,11 +132,11 @@ const Dashboard: React.FC = () => {
 
           <div className="list-top">
             {
-              users?.slice(0, 5).map((userData, index) => {
+              doctors?.slice(0, 5).map((doctor: any, index: any) => {
                 return (
                   <div className="list-top__item" key={index}>
                     <div className="list-top__item--name">
-                      {userData.name}
+                      {doctor.name}
                     </div>
                     <div className="list-top__item--rate">
                     ⭐️5

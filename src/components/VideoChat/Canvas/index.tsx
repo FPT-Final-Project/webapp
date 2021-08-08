@@ -6,6 +6,7 @@ import { createRef, useEffect } from 'react';
 export default function Canvas({ videoRef, className } : any) {
   const canvasRef = createRef<any>();
   useEffect(() => {
+    videoRef.current.play();
     if (canvasRef.current && videoRef.current) {
       const interval = setInterval(() => {
         try {

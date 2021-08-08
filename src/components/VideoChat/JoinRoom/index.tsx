@@ -60,7 +60,7 @@ const JoinRoom = () => {
     navigator.mediaDevices
       .getUserMedia({
         video: true,
-        audio: true,
+        audio: { echoCancellation: true, noiseSuppression: true },
       })
       .then((stream) => {
         myVideo.current.srcObject = stream;
@@ -106,7 +106,7 @@ const JoinRoom = () => {
                 </div>
               )}
             </div>
-            <video ref={myVideo} autoPlay />
+            <video ref={myVideo} playsInline muted />
             <Canvas videoRef={myVideo} size={myVideoSize} className="userScreenJoinRoom" />
           </div>
           <div className="joinButton">

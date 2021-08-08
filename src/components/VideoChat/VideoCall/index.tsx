@@ -177,10 +177,10 @@ const VideoChat = () => {
         <div className="mainVideos">
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            <video ref={partnerVideo} autoPlay />
+            <video ref={partnerVideo} playsInline autoPlay />
             {!statusPartner ? '' : <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />}
             <div className="userScreenvideo">
-              <video ref={myVideo} autoPlay />
+              <video ref={myVideo} playsInline muted />
               <Canvas videoRef={myVideo} className="userScreenvideotag" />
               {textCameraUser ? <div className="textCameraUser">{user?.name}</div> : ''}
             </div>
