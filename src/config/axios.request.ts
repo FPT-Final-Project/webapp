@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import appConfig from './app.config';
 
 const axiosInstance = axios.create({
-  baseURL: appConfig.baseUrl,
+  baseURL: appConfig.backendUrl,
 });
 
 axiosInstance.interceptors.request.use(
