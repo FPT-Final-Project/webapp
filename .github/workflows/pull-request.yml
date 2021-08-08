@@ -18,6 +18,6 @@ jobs:
       - name: Install Packages
         run: yarn install
       - name: Build Single Page
-        run: yarn build
+        run: yarn build:production
       - name: Check ESlint
         run: yarn lint

@@ -2,7 +2,6 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@fortawesome/fontawesome-free": "^5.15.3",
@@ -46,7 +45,7 @@
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "start:dev": "env-cmd -f .env react-scripts start",
-    "build:production": "emv-cmd -f .env.production CI=false react-scripts build",
+    "build:production": "CI=false && env-cmd -f .env.production react-scripts build",
     "lint": "eslint -c .eslintrc.json src/*.tsx"
   },
   "eslintConfig": {
