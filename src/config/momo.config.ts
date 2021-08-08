@@ -1,7 +1,5 @@
 import { v1 as uuid } from 'uuid';
 import crypto from 'crypto';
-import axios from 'axios';
-import config from './config';
 
 const partnerCode = 'MOMO7OU020210728';
 const accessKey = 'D8h4XhEdfdGdMQ7p';
@@ -9,8 +7,8 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'https://psycare-be.herokuapp.com/v1/payment/momo';
-const returnUrl = `${config.appUrl}app/dashboard`;
+const notifyUrl = 'https://a0fd3e739794.ngrok.io/v1/payment/momo';
+const returnUrl = 'http://localhost:3000/app/dashboard';
 
 const momoRequest = async (
   appointmentId: string,
@@ -43,10 +41,14 @@ const momoRequest = async (
   const signature = crypto.createHmac('sha256', secreteKey)
     .update(rawSignature)
     .digest('hex');
-  console.log('Payment Data : ', JSON.stringify({ ...body, signature }));
-  axios.post(momoEndpoint, { ...body, signature })
-    .then((response) => console.log('Data : ', response.data))
-    .catch((error) => console.log('Error: ', error));
+
+  const requestOpts = {
+    method: 'POST',
+    body: JSON.stringify({ ...body, signature }),
+  };
+
+  const data = await (await fetch(momoEndpoint, requestOpts as any)).json();
+  return data;
 };
 
 export { momoRequest };
