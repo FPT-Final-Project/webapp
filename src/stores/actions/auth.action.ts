@@ -70,18 +70,16 @@ export interface UpdateUserFailAction extends Action {
   };
 }
 
-const login = (email: string, password: string) => async (dispatch: Dispatch) => {
+const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
     const user = await userService.login(email, password);
     localStorage.setItem('token', user.token || '');
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
-    return user;
   } catch (error : any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     openNotification('error', error.data.message);
-    return error;
   }
 };
 

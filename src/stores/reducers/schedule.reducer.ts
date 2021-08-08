@@ -1,11 +1,17 @@
 import { Action } from 'redux';
 import { ISchedule } from '../../types/schedule';
-import { ScheduleActions, GetSchedulesSuccessAction, GetSchedulesFailAction, UpdateScheduleFailAction, UpdateScheduleSuccessAction } from '../actions/schedule.action';
+import {
+  ScheduleActions,
+  GetSchedulesSuccessAction,
+  GetSchedulesFailAction,
+  UpdateScheduleFailAction,
+  UpdateScheduleSuccessAction,
+} from '../actions/schedule.action';
 
 export interface IScheduleState {
-  schedule: ISchedule | undefined;
-  schedules: ISchedule[] | undefined;
-  error: string | undefined;
+  schedule?: ISchedule;
+  schedules?: ISchedule[];
+  error?: string;
 }
 
 const initialState: IScheduleState = {
