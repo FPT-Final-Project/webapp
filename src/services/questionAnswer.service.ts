@@ -9,9 +9,11 @@ const getOwnerQuestion = (): Promise<IQuestionAnswerState> => getRequest('questi
 
 const getComments = (questionId: string) => getRequest(`questions/${questionId}/comments`);
 
+const postComment = (questionId: string, description: string) => postRequest(`/questions/${questionId}/comments`, { description }) as any;
 export default {
   getPostsQuestion,
   getComments,
   getOwnerQuestion,
   askNewQuestion,
+  postComment,
 };

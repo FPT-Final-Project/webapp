@@ -10,7 +10,7 @@ import questionAnswerService from '../../services/questionAnswer.service';
 import questionAnswerAction from '../../stores/actions/questionAnswer.action';
 import { IRootState } from '../../stores/store';
 import { IUser } from '../../types/user';
-import CommentList from './CommentList';
+import PostList from './PostList';
 import './style.scss';
 
 const menu = (
@@ -81,7 +81,6 @@ const Forum = () => {
     });
   };
   const handleToggle = (i: number) => {
-    console.log(i);
     setPosts({
       value: '',
       comments: posts.comments.map((comment: any, index: any) => {
@@ -130,7 +129,7 @@ const Forum = () => {
         ) : '' }
         {posts.comments.map((comment: any, i: any) => {
           return (
-            <CommentList comment={comment} key={i} index={i} handleToggle={handleToggle} />
+            <PostList comment={comment} key={i} index={i} handleToggle={handleToggle} userLogin={user} />
           );
         })}
       </div>

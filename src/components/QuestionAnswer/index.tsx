@@ -20,14 +20,17 @@ const menu = (
   </Menu>
 );
 
-const CommentList = ({ comments }: { comments: any }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-    itemLayout="horizontal"
-    renderItem={(props) => <Comment content {...props} />}
-  />
-);
+const CommentList = ({ comments }: { comments: any }) => {
+  console.log(comments);
+  return (
+    <List
+      dataSource={comments}
+      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+      itemLayout="horizontal"
+      renderItem={(props) => <Comment content={comments} {...props} />}
+    />
+  );
+};
 
 const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
