@@ -17,6 +17,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: yarn install
+      - name: Install env-cmd package
+        run: yarn add -g env-cmd
       - name: Build Single Page
         run: yarn build:production
       - name: Check ESlint
