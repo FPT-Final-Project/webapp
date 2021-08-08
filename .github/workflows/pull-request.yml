@@ -17,7 +17,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: yarn install
-      - name: Build page
+      - name: Build Single Page
         run: yarn build
-      - name: Check lint
+      - name: Check ESlint
         run: yarn lint
