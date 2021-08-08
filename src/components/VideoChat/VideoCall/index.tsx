@@ -17,8 +17,9 @@ import './style.scss';
 import '../Message/style.scss';
 import Canvas from '../Canvas';
 import { IRootState } from '../../../stores/store';
+import appConfig from '../../../config/app.config';
 
-const socket = io('https://psycare.web.app/');
+const socket = io(appConfig.appUrl || '');
 
 const VideoChat = () => {
   const { appointmentId } = useParams<{ appointmentId: string }>();
