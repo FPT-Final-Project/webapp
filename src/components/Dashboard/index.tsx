@@ -132,7 +132,7 @@ const Dashboard: React.FC = () => {
 
           <div className="list-top">
             {
-              doctors?.slice(0, 5).map((doctor: any, index: any) => {
+              (doctors || []).slice(0, 5).map((doctor: any, index: any) => {
                 return (
                   <div className="list-top__item" key={index}>
                     <div className="list-top__item--name">
