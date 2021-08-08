@@ -11,11 +11,7 @@ const rootReducers = combineReducers({
   quiz: quizReducer,
   dashboard: dashboardReducer,
   appointment: appointmentReducer,
-<<<<<<< HEAD
-  questionAnswer: questionAnswerReducer,
-=======
   doctor: doctorReducer,
->>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
 });
 
 export default rootReducers;

@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { Action, AnyAction, Dispatch } from 'redux';
-=======
 /* eslint-disable no-console */
 import { Action, Dispatch } from 'redux';
->>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
 import _ from 'lodash';
 import userService from '../../services/user.service';
 import { doFailure, doRequest, doSuccess } from './utils';

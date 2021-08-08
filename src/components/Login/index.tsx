@@ -4,11 +4,7 @@ import {
 } from 'antd';
 
 import {
-<<<<<<< HEAD
-  Link, useHistory,
-=======
   Link, Redirect, useHistory,
->>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';

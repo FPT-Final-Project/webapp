@@ -12,6 +12,7 @@ import {
   TeamOutlined,
   FileProtectOutlined,
   ProfileOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -69,11 +70,6 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
     case matchPath + routes[6].path: {
       icon = <DollarOutlined className="icon-dashboard" />;
       name = 'Payment';
-      break;
-    }
-    case matchPath + routes[7].path: {
-      icon = <UploadOutlined />;
-      name = 'Forum';
       break;
     }
     default: {
