@@ -51,26 +51,9 @@ const Payment: React.FC = () => {
     },
   ];
 
-  const handlePurchasing = () => {
-    momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
-    setVisible(true);
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      history.push('appointment');
-    }, 2000);
-    dispatch<any>(scheduleAction.updateSchedules(location.state.idSchedule))
-      .then(
-        dispatch<any>(appointmentAction.createAppointment(user, name, location.state.startOfAppointment, location.state.endOfAppointment, location.state.doctorId, location.state.doctorName)),
-      );
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
+  const handlePurchasing = async () => {
+    const { payUrl } = await momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
+    window.location.href = payUrl;
   };
 
   return (

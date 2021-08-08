@@ -1,6 +1,5 @@
 import { v1 as uuid } from 'uuid';
 import crypto from 'crypto';
-import axios from 'axios';
 
 const partnerCode = 'MOMO7OU020210728';
 const accessKey = 'D8h4XhEdfdGdMQ7p';
@@ -42,10 +41,14 @@ const momoRequest = async (
   const signature = crypto.createHmac('sha256', secreteKey)
     .update(rawSignature)
     .digest('hex');
-  console.log('Payment Data : ', JSON.stringify({ ...body, signature }));
-  axios.post(momoEndpoint, { ...body, signature })
-    .then((response) => console.log('Data : ', response.data))
-    .catch((error) => console.log('Error: ', error));
+
+  const requestOpts = {
+    method: 'POST',
+    body: JSON.stringify({ ...body, signature }),
+  };
+
+  const data = await (await fetch(momoEndpoint, requestOpts as any)).json();
+  return data;
 };
 
 export { momoRequest };
