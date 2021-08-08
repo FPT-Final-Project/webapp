@@ -10,6 +10,7 @@ import './styles.scss';
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [unMounted, setUnMounted] = useState(false);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
@@ -42,9 +43,13 @@ const Appointment: React.FC = () => {
   useEffect(() => {
     if (user) {
       dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
-        setData(res);
+        if (!unMounted) {
+          setData(res);
+        }
       });
     }
+
+    return () => setUnMounted(true);
   }, []);
 
   const columns = [

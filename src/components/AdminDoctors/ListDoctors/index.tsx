@@ -172,18 +172,20 @@ const ListDoctors: React.FC = () => {
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>
         {
-          (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
-            <div className="doctor-top-content" key={_id}>
-              <div className="doctor-content-avatar">
-                <img src={avatar} alt={name} />
+          !doctors
+            ? (<></>)
+            : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
+              <div className="doctor-top-content" key={_id}>
+                <div className="doctor-content-avatar">
+                  <img src={avatar} alt={name} />
+                </div>
+                <div className="doctor-content-details">
+                  <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
+                  <div className="doctor-content-name">Dr. {name}</div>
+                  <div>{email}</div>
+                </div>
               </div>
-              <div className="doctor-content-details">
-                <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
-                <div className="doctor-content-name">Dr. {name}</div>
-                <div>{email}</div>
-              </div>
-            </div>
-          ))
+            ))
         }
       </div>
     </div>
