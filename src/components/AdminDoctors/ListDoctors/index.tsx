@@ -1,116 +1,106 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import Search from 'antd/lib/input/Search';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { IUser } from '../../../types/user';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import { IRootState } from '../../../stores/store';
 import './styles.scss';
+import doctorAction from '../../../stores/actions/doctor.action';
+import scheduleAction from '../../../stores/actions/schedule.action';
+import { ISchedule } from '../../../types/schedule';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
-interface Props {}
-
-const DoctorRow = ({ _id, name, picture }: IUser) => (
-  <div className="doctor-card" key={_id}>
-    <div className="doctor-card-left">
-      <div className="doctor-card-avatar">
-        <img src={picture} alt={name} />
-        <Button className="btn-detail">
-          <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
-        </Button>
-      </div>
-      <div className="doctor-card-details">
-        <div className="doctor-card-name">Dr. {name}</div>
-        <div className="doctor-card-description">A doctor is responsible for all sides of care of a patient. They diagnose, educate, and treat patients to ensure that they have the best possible care.</div>
-      </div>
-    </div>
-    <div className="doctor-card-right">
-      <div className="doctor-card-schedule">
-        <span>Consultation Schedule</span>
-        <div className="doctor-card-schedules">
-          <div className="doctor-schedule">
-            <FontAwesomeIcon icon={faVideo} size="sm" />
-            <span>08:00 - 09:00</span>
-          </div>
-          <div className="doctor-schedule">
-            <FontAwesomeIcon icon={faVideo} size="sm" />
-            <span>09:30 - 10:30</span>
-          </div>
-          <div className="doctor-schedule">
-            <FontAwesomeIcon icon={faVideo} size="sm" />
-            <span>14:00 - 15:00</span>
-          </div>
-          <div className="doctor-schedule">
-            <FontAwesomeIcon icon={faVideo} size="sm" />
-            <span>15:30 - 16:30</span>
-          </div>
+const DoctorRow = (props: any) => {
+  const dispatch = useDispatch();
+  const { doctor } = props;
+  const { _id, name, avatar } = doctor;
+  const [listSchedule, setListSchedule] = useState<ISchedule[] | undefined>();
+  const history = useHistory();
+  const makeAnAppointment = (idSchedule: string, startOfAppointment: number, endOfAppointment: number) => {
+    const from = new Date(startOfAppointment).toLocaleString();
+    const to = new Date(endOfAppointment).toLocaleString();
+    confirmAlert({
+      title: 'Confirm to reserve this',
+      message: `Information about this appointment:
+      Doctor: ${name}
+      , From: ${from} To: ${to}
+      , Fee: 50$`,
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            history.push('/app/payment');
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => history.push('/app/doctor'),
+        },
+      ],
+    });
+  };
+  useEffect(() => {
+    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setListSchedule(res));
+  }, []);
+  return (
+    <div className="doctor-card" key={_id}>
+      <div className="doctor-card-left">
+        <div className="doctor-card-avatar">
+          <img src={avatar} alt={name} />
+          <Button className="btn-detail">
+            <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
+          </Button>
+        </div>
+        <div className="doctor-card-details">
+          <div className="doctor-card-name">Dr. {name}</div>
+          <div className="doctor-card-description">A doctor is responsible for all sides of care of a patient. They diagnose, educate, and treat patients to ensure that they have the best possible care.</div>
         </div>
       </div>
-      <div>
-        <div style={{ fontWeight: 700 }}>Consultation Fee : 50$</div>
-        <div>Costs Incurred: 5$</div>
+      <div className="doctor-card-right">
+        <div className="doctor-card-schedule">
+          <span>Consultation Schedule</span>
+          <div className="doctor-card-schedules">
+            {listSchedule ? (
+              listSchedule.map((schedule, i) => (
+                <div className="doctor-schedule" key={i}>
+                  <FontAwesomeIcon icon={faVideo} size="sm" />
+                  <span
+                    onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
+                    onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
+                    role="button"
+                    tabIndex={0}
+                  >{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}
+                  </span>
+                </div>
+              ))
+            ) : ''}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontWeight: 700 }}>Consultation Fee : 50$</div>
+          <div>Costs Incurred: 5$</div>
+        </div>
       </div>
     </div>
-  </div>
-);
-
-const ListDoctors: React.FC<Props> = () => {
-  const [doctors, setDoctors] = useState([
-    {
-      _id: '1',
-      name: 'Joe Black',
-      role: 'doctor',
-      email: 'maicels@psycare.com',
-      phone: '0905619225',
-      specialist: 'Anxious',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-    {
-      _id: '2',
-      name: 'Dat',
-      role: 'doctor',
-      email: 'datlv@psycare.com',
-      phone: '0905619225',
-      specialist: 'Anxious',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-    {
-      _id: '3',
-      name: 'Duy',
-      role: 'doctor',
-      email: 'duynht@psycare.com',
-      phone: '0905619225',
-      specialist: 'abc',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-    {
-      _id: '4',
-      name: 'Long',
-      role: 'doctor',
-      email: 'longph@psycare.com',
-      phone: '0905619225',
-      specialist: 'xyz',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-    {
-      _id: '5',
-      name: 'Long',
-      role: 'doctor',
-      email: 'longph@psycare.com',
-      phone: '0905619225',
-      specialist: 'xyz',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-    {
-      _id: '6',
-      name: 'Long',
-      role: 'doctor',
-      email: 'longph@psycare.com',
-      phone: '0905619225',
-      specialist: 'xyz',
-      picture: 'https://oh-doctor.com/wordpress/wp-content/themes/extention-child/asset/images/il-doctor-m.png',
-    },
-  ]);
-
+  );
+};
+const ListDoctors: React.FC = () => {
+  const dispatch = useDispatch();
+  const { user, doctors } = useSelector((state: IRootState) => ({
+    user: state.authentication.user,
+    doctors: state.doctor.doctors,
+  }));
+  const [listDoctors, setListDoctors] = useState(doctors);
+  useEffect(() => {
+    if (user) {
+      dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
+        setListDoctors(res);
+      });
+    }
+  }, []);
   return (
     <div className="wrap-doctor-list">
       <div className="doctor-list-content">
@@ -136,15 +126,15 @@ const ListDoctors: React.FC<Props> = () => {
             </select>
           </div>
         </div>
-        {doctors.map((doctor) => DoctorRow(doctor))}
+        {listDoctors?.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} />)}
       </div>
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>
         {
-          doctors.slice(0, 5).map(({ _id, name, picture, email }) => (
+          listDoctors?.slice(0, 5).map(({ _id, name, avatar, email }: any) => (
             <div className="doctor-top-content" key={_id}>
               <div className="doctor-content-avatar">
-                <img src={picture} alt={name} />
+                <img src={avatar} alt={name} />
               </div>
               <div className="doctor-content-details">
                 <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>

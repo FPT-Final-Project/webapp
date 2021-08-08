@@ -2,6 +2,7 @@
   position: fixed !important;
   left: 0;
   width: 250px !important;
+<<<<<<< HEAD
   height: 100%;
 
 }
@@ -11,16 +12,40 @@
   position: fixed;
   // left: 0;
   z-index: 2;
+=======
+  background-color: #299cb4 !important;
+}
+.custom-sider {
+  background-color: #299cb4 !important;
+  height: 100;
+  width: 250px;
+  // width: inherit;
+  position: fixed;
+  z-index: 5;
+  overflow: hidden;
+>>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
   // background-color: #299cb4 !important;
 
   .sider-logo {
     text-align: center;
-    height: 32px;
-    margin: 16px;
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 16px;
     color: white;
     font-size: xx-large;
     font-weight: 900;
     cursor: pointer;
+    // background-color: rebeccapurple;
+    .logo-dashboard {
+      width: 170px;
+      height: 64px;
+      background: url(../../assets/LogoPsyCare.svg);
+      background-size: 120px;
+      background-repeat: no-repeat;
+    }
   }
 
   .custom-menu {
@@ -32,6 +57,9 @@
     border: none;
     margin-top: 25px;
 
+    .icon-dashboard {
+      font-size: 24px;
+    }
     .custom-menu-item {
       color: white;
       font-size: 18px;
@@ -44,7 +72,12 @@
         background-color: white;
         color: #299cb4 !important;
       }
-
+      // .icon-dashboard {
+      //   font-size: 24px;
+      // }
+      span > svg {
+        font-size: 24px;
+      }
       span > a {
         color: white;
         &:hover,

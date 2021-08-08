@@ -5,7 +5,12 @@ import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
+<<<<<<< HEAD
 import Forum from '../../components/Forum';
+=======
+import ProfileUser from '../../components/Profile/ProfileUser';
+import ProfileDoctor from '../../components/Profile/ProfileDoctor';
+>>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
 
 export const routes = [
   {
@@ -44,8 +49,21 @@ export const routes = [
     component: Payment,
   },
   {
+<<<<<<< HEAD
     path: '/forum',
     exact: true,
     component: Forum,
+=======
+    path: '/profileUser',
+    exact: true,
+    component: ProfileUser,
+    sideBarHidden: true,
+  },
+  {
+    path: '/profileDoctor',
+    exact: true,
+    component: ProfileDoctor,
+    sideBarHidden: true,
+>>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
   },
 ];

@@ -1,3 +1,5 @@
 import { getRequest } from '../config/axios.request';
 
-const getUsers = () => getRequest('');
+const getDoctor = () => getRequest('/doctors');
+
+export default { getDoctor };

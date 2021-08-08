@@ -1,14 +1,8 @@
 import './style.scss';
 
-const Message = ({ message: { text, userid }, myname } : any) => {
+const Message = ({ message: { text, sendName }, userName } : any) => {
   let isSentByCurrentUser = false;
-  let sendname = '';
-  if (userid === '1') {
-    sendname = ('Bao');
-  } else if (userid === '2') {
-    sendname = ('Long');
-  }
-  if (myname === sendname) {
+  if (sendName === userName) {
     isSentByCurrentUser = true;
   }
   return (
@@ -26,7 +20,7 @@ const Message = ({ message: { text, userid }, myname } : any) => {
           <div className="messageBox backgroundLight">
             <p className="messageText colorDark">{text}</p>
           </div>
-          <p className="sentText pl-10 ">{sendname}</p>
+          <p className="sentText pl-10 ">{sendName}</p>
         </div>
       )
   );

@@ -1,93 +1,30 @@
-/* eslint-disable max-len */
-// import { useState } from 'react';
 import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
-import { Table, Tag } from 'antd';
+import { Table } from 'antd';
 import { Link } from 'react-router-dom';
-import { connect, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { IRootState } from '../../stores/store';
-
-interface Props {}
-
-const datas = [
-  {
-    key: '1',
-    id: 13,
-    name: 'Ngô Hoàng Thế Duy',
-    email: 'maicels@psycare.com',
-    phone: '0905619755',
-    specialist: 'Stress',
-    status: 'Online',
-  },
-  {
-    key: '2',
-    id: 33,
-    name: 'Jim Green',
-    email: 'maicels@psycare.com',
-    phone: '0905213551',
-    specialist: 'Depression',
-    status: 'Offline',
-  },
-  {
-    key: '3',
-    id: 15,
-    name: 'Joe Black',
-    email: 'maicels@psycare.com',
-    phone: '0905619225',
-    specialist: 'Auxious',
-    status: 'Online',
-
-  },
-  {
-    key: '4',
-    id: 53,
-    name: 'John Brown',
-    email: 'maicels@psycare.com',
-    phone: '0905619755',
-    specialist: 'Stress',
-    status: 'Online',
-  },
-];
-
-const datasTop = [
-  {
-    key: '11',
-    id: 13,
-    name: 'Ngô Hoàng Thế Duy',
-    specialist: 'Depression',
-  },
-  {
-    key: '21',
-    id: 33,
-    name: 'Jim Green',
-    specialist: 'Depression',
-  },
-  {
-    key: '31',
-    id: 15,
-    name: 'Joe Black',
-    specialist: 'Auxious',
-  },
-  {
-    key: '41',
-    id: 53,
-    name: 'John Brown',
-    specialist: 'Stress',
-  },
-];
+import dashboardAction from '../../stores/actions/dashboard.action';
 
 const columns = [
   {
     title: 'ID',
     dataIndex: 'id',
     key: 'id',
+    width: 100,
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.id : '_'}</span>
+      </div>
+    ),
   },
 
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
+    width: 250,
     render: (text: any, record : any) => (
       <div className="userEmail">
         <span>{record.name}</span>
@@ -99,30 +36,35 @@ const columns = [
     title: 'Phone Number',
     dataIndex: 'phone',
     key: 'phone',
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.phone : '_'}</span>
+      </div>
+    ),
   },
   {
     title: 'Specialist',
     dataIndex: 'specialist',
     key: 'specialist',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-
-    render: (status: string) => {
-      const color = status === 'Online' ? 'green' : 'volcano';
-      return (
-        <Tag color={color}>
-          {status}
-        </Tag>
-      );
-    },
+    render: (text: any, record : any) => (
+      <div className="userEmail">
+        <span>{record === true ? record.specialist : '_'}</span>
+      </div>
+    ),
   },
 ];
 
-const Dashboard = (_props: Props) => {
-  const { user } = useSelector((state: IRootState) => state.authentication);
+const Dashboard: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const { users, user } = useSelector(
+    (state : IRootState) => ({ users: state.dashboard.users, user: state.authentication.user }),
+  );
+
+  useEffect(() => {
+    dispatch(dashboardAction.loadUsers());
+  }, []);
+
   return (
     <div className="wrap-dashboard">
       <div className="header-top">
@@ -135,7 +77,6 @@ const Dashboard = (_props: Props) => {
           <div className="wrap-block__section--h2">Appointments</div>
           <div className="wrap-block__section--bottom">
             <div className="bottom-icon aptm">
-              {/* enableBackground="new 0 0 512 512" */}
               <svg id="Layer_1" height="60" width="60" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m461.814 57.09h-6.859v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.978v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.977v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-42v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.978v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-43.977v-14.14c0-8.284-6.716-15-15-15s-15 6.716-15 15v14.14h-6.859c-27.673 0-50.186 22.513-50.186 50.185v326.589c0 27.673 22.513 50.186 50.186 50.186h411.628c27.672 0 50.186-22.513 50.186-50.186v-326.589c0-27.672-22.513-50.185-50.186-50.185zm-411.628 30h6.859v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.977v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h42v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h43.978v14.14c0 8.284 6.716 15 15 15s15-6.716 15-15v-14.14h6.859c11.13 0 20.186 9.055 20.186 20.186v29.814h-452.001v-29.814c0-11.131 9.055-20.186 20.186-20.186zm411.628 366.96h-411.628c-11.131 0-20.186-9.055-20.186-20.186v-266.774h452v266.774c0 11.131-9.055 20.186-20.186 20.186z" /><path d="m349.203 265.741h-48.266v-48.27c0-8.284-6.716-15-15-15h-59.866c-8.284 0-15 6.716-15 15v48.27h-48.274c-8.284 0-15 6.716-15 15v59.867c0 8.284 6.716 15 15 15h48.274v48.27c0 8.284 6.716 15 15 15h59.866c8.284 0 15-6.716 15-15v-48.27h48.266c8.284 0 15-6.716 15-15v-59.867c0-8.284-6.716-15-15-15zm-15 59.866h-48.266c-8.284 0-15 6.716-15 15v48.27h-29.866v-48.27c0-8.284-6.716-15-15-15h-48.274v-29.867h48.274c8.284 0 15-6.716 15-15v-48.27h29.866v48.27c0 8.284 6.716 15 15 15h48.266z" /></g></svg>
             </div>
             <div className="bottom-number">105</div>
@@ -173,37 +114,31 @@ const Dashboard = (_props: Props) => {
         <div className="wrap-appointment__select">
           <div className="wrap-topHead">
             <div className="apm-title">Make an Appointment</div>
-            <Link to="/"><button className="btn-viewall">View All</button></Link>
+            <Link to="/app/doctor"><button className="btn-viewall">View All</button></Link>
           </div>
-          <Table columns={columns} dataSource={datas} />
+          <Table columns={columns} dataSource={users} scroll={{ y: 280 }} rowKey="_id" />
         </div>
         <div className="wrap-appointment__topDoctors">
-          <div className="topDoctors-title">Top Doctors</div>
+          <div className="topDoctors-title">
+            <div className="topDoctors-title__top">Top Doctors</div>
+            <div className="topDoctors-title__description">List of top 5 best doctors in PsyCare</div>
+          </div>
+
           <div className="list-top">
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
-              </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
-              </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
-            <div className="list-top__item">
-              <div className="list-top__item--name">
-             Ngo The Duy
-              </div>
-              <div className="list-top__item--rate">
-              5 Sao
-              </div>
-            </div>
+            {
+              users?.slice(0, 5).map((userData, index) => {
+                return (
+                  <div className="list-top__item" key={index}>
+                    <div className="list-top__item--name">
+                      {userData.name}
+                    </div>
+                    <div className="list-top__item--rate">
+                    ⭐️5
+                    </div>
+                  </div>
+                );
+              })
+            }
           </div>
         </div>
       </div>
@@ -211,7 +146,4 @@ const Dashboard = (_props: Props) => {
   );
 };
 
-const mapStateToProps = (state: IRootState) => ({});
-
-// export default connect()(Dashboard);
 export default Dashboard;

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
 
 import {
+<<<<<<< HEAD
   Link, useHistory,
+=======
+  Link, Redirect, useHistory,
+>>>>>>> 67fd2dd62d04b21ad7872ff901d3c945f149b8b3
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,9 +26,13 @@ const Login: React.FC = () => {
   const user = useSelector((state: IRootState) => state.authentication.user);
 
   if (user) {
-    history.push('/app/dashboard');
-    return (<></>);
+    return (
+      <>
+        <Redirect to="/app/dashboard" />
+      </>
+    );
   }
+
   const functionDirect = () => {
     history.push('/register/new');
   };

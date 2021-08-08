@@ -8,8 +8,21 @@ const register = (id: string, name: string, email: string, password: string, rol
 };
 
 const getUserProfile = (id: string) => getRequest(`/user/${id}`);
+const updateProfile = (
+  id: string,
+  name: string,
+  job: string,
+  gender: string,
+  phone: string,
+  address: string,
+  avatar: string,
+  specialist: string,
+): Promise<IUser> => {
+  return postRequest(`user/${id}`, { id, name, job, gender, phone, address, avatar, specialist }) as any;
+};
 export default {
   login,
   register,
   getUserProfile,
+  updateProfile,
 };
