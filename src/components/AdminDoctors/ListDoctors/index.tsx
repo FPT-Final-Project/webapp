@@ -10,7 +10,6 @@ import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
 import scheduleAction from '../../../stores/actions/schedule.action';
 import { ISchedule } from '../../../types/schedule';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import { IDoctor } from '../../../types/doctor';
 
 const { Search } = Input;
