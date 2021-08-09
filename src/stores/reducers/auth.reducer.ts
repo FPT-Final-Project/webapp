@@ -14,7 +14,7 @@ export interface IUserState {
   loginProcessing: boolean;
   registerProcessing: boolean;
   isTested: boolean;
-  error: string | undefined;
+  error?: string;
 }
 
 const initialState: IUserState = {

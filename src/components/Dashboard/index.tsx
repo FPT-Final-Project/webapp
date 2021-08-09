@@ -12,6 +12,7 @@ import { IAppointment } from '../../types/appointment';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
+  const [unMounted, setUnMounted] = useState(false);
 
   const { users, user, appointments, doctors } = useSelector(
     (state : IRootState) => ({
@@ -21,7 +22,8 @@ const Dashboard: React.FC = () => {
       doctors: state.doctor.doctors,
     }),
   );
-  const [listAppointmentToday, setListAppointmentToday] = useState<IAppointment[] | undefined>();
+
+  const [listAppointmentToday, setListAppointmentToday] = useState<IAppointment[]>([]);
   const columns = [
     {
       title: "Room's Name",
@@ -53,13 +55,14 @@ const Dashboard: React.FC = () => {
       },
     },
   ];
+
   useEffect(() => {
     if (user) {
       dispatch<any>(doctorAction.getDoctors());
       dispatch<any>(appointmentAction.getAppointments(user))
         .then((res: any) => {
-          const result : IAppointment[] = [];
-          if (res) {
+          if (!unMounted && res) {
+            const result : IAppointment[] = [];
             for (let i = 0; i < res.length; i += 1) {
               if ((res[i].startOfAppointment) <= new Date().getTime() + 86400000 && (res[i].startOfAppointment) >= new Date().getTime()) {
                 result.push(res[i]);
@@ -69,6 +72,8 @@ const Dashboard: React.FC = () => {
           }
         });
     }
+
+    return () => setUnMounted(true);
   }, []);
 
   return (
@@ -132,7 +137,7 @@ const Dashboard: React.FC = () => {
 
           <div className="list-top">
             {
-              doctors?.slice(0, 5).map((doctor: any, index: any) => {
+              (doctors || []).slice(0, 5).map((doctor: any, index: any) => {
                 return (
                   <div className="list-top__item" key={index}>
                     <div className="list-top__item--name">

@@ -2,11 +2,8 @@ import { Action } from 'redux';
 import { GetDashboardUsersAction, DashboardActions } from '../actions/dashboard.action';
 import { IUser } from '../../types/user';
 
-// import { IUserState } from './auth.reducer';
-
 export interface IDashboardState {
-    users: IUser[] | undefined;
-
+  users?: IUser[];
 }
 
 const initialState: IDashboardState = {

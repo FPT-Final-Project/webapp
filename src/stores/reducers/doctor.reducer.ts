@@ -3,9 +3,9 @@ import { IDoctor } from '../../types/doctor';
 import { DoctorActions, GetDoctorSuccessAction, GetDoctorFailAction, GetDoctorsSuccessAction, GetDoctorsFailAction } from '../actions/doctor.action';
 
 export interface IDoctorState {
-  doctor: IDoctor | undefined;
-  doctors: IDoctor[] | undefined;
-  error: string | undefined;
+  doctor?: IDoctor;
+  doctors?: IDoctor[];
+  error?: string;
 }
 
 const initialState: IDoctorState = {

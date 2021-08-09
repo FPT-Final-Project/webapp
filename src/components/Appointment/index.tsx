@@ -14,6 +14,7 @@ const Appointment: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = queryString.parse(window.location.href);
+  const [unMounted, setUnMounted] = useState(false);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
@@ -72,9 +73,13 @@ const Appointment: React.FC = () => {
         history.push('/app/appointment');
       }
       dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
-        setData(res);
+        if (!unMounted) {
+          setData(res);
+        }
       });
     }
+
+    return () => setUnMounted(true);
   }, []);
 
   const columns = [
