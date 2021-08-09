@@ -7,8 +7,8 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'http://localhost:8000/v1/payment/momo';
-const returnUrl = 'http://localhost:3000/app/appointment';
+const notifyUrl =`${appConfig.backendUrl}/payment/momo`;
+const returnUrl = `${appConfig.appUrl}/app/appointment`;
 
 const momoRequest = async (
   scheduleId: string,
