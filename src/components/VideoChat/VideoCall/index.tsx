@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
@@ -19,7 +19,7 @@ import Canvas from '../Canvas';
 import { IRootState } from '../../../stores/store';
 import appConfig from '../../../config/app.config';
 
-const socket = io(appConfig.appUrl || '');
+const socket: Socket = io(appConfig.backendUrl.split('/v1')[0]);
 
 const VideoChat = () => {
   const { appointmentId } = useParams<{ appointmentId: string }>();
@@ -98,6 +98,7 @@ const VideoChat = () => {
 
   useEffect(() => {
     peer.on('open', (peerId) => {
+      console.log('Peer ID : ', peerId);
       socket.emit('join-room', appointmentId, user?._id, user?.name, peerId);
     });
   }, []);

@@ -127,7 +127,7 @@ const Dashboard: React.FC = () => {
             <div className="apm-title">Appointments Today</div>
             <Link to="/app/appointment"><button className="btn-viewall">View All Your Appointments</button></Link>
           </div>
-          <Table columns={columns} dataSource={listAppointmentToday} rowKey="id" />
+          <Table columns={columns} dataSource={listAppointmentToday} rowKey="_id" />
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">
