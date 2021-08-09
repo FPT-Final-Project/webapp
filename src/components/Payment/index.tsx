@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { momoRequest } from '../../config/momo.config';
 import { IRootState } from '../../stores/store';
 
@@ -16,7 +16,6 @@ const Payment: React.FC = () => {
   const user = useSelector((state: IRootState) => state.authentication.user);
   const location = useLocation<any>();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   if (!user) {
     return (

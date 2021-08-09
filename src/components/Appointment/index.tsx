@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
-import { confirmAlert } from 'react-confirm-alert';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
 import scheduleAction from '../../stores/actions/schedule.action';
@@ -20,26 +20,22 @@ const Appointment: React.FC = () => {
     appointments: state.appointment.appointments,
   }));
   const [data, setData] = useState(appointments);
+  const { confirm } = Modal;
 
   const cancelAppointment = (appointmentId : string) => {
     if (user) {
-      confirmAlert({
-        title: 'Confirm to cancel this appointment !',
-        message: 'If you agree to cancel this appointment you will lose your paid',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => {
-              dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
-                setData(res);
-              });
-            },
-          },
-          {
-            label: 'No',
-            onClick: () => history.push('/app/appointment'),
-          },
-        ],
+      confirm({
+        title: 'Do you want to cancel this appointment ?',
+        icon: <ExclamationCircleOutlined />,
+        content: 'If you agree to cancel this appointment you will lose your paid',
+        onOk() {
+          dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
+            setData(res);
+          });
+        },
+        onCancel() {
+          history.push('/app/appointment');
+        },
       });
     }
   };
@@ -71,6 +67,11 @@ const Appointment: React.FC = () => {
           );
         countDown();
         history.push('/app/appointment');
+        dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
+          if (!unMounted) {
+            setData(res);
+          }
+        });
       }
       dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
         if (!unMounted) {

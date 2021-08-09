@@ -61,7 +61,7 @@ const DoctorRow = (props: any) => {
     <div className="doctor-card" key={_id}>
       <div className="doctor-card-left">
         <div className="doctor-card-avatar">
-          <img src={avatar} alt={name} />
+          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
           <Button className="btn-detail">
             <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
           </Button>
@@ -187,7 +187,7 @@ const ListDoctors: React.FC = () => {
             : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
               <div className="doctor-top-content" key={_id}>
                 <div className="doctor-content-avatar">
-                  <img src={avatar} alt={name} />
+                  {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
                 </div>
                 <div className="doctor-content-details">
                   <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
