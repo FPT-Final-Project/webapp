@@ -157,7 +157,6 @@ const VideoChat = () => {
   }, []);
 
   return (
-    // <div className="wrap-videoCall">
     <div className="main-video">
       {/* ====================VideoCall====================== */}
       <div className="mainLeft">
@@ -202,7 +201,7 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <a href="/app/appointment">
+                <a href="/app/feedback">
                   <img className="mute-phone" src={phone} alt="Hand Up" />
                 </a>
               </span>
@@ -248,7 +247,6 @@ const VideoChat = () => {
       </div>
       {/* ====================End----VideoChat====================== */}
     </div>
-    // </div>
   );
 };
 

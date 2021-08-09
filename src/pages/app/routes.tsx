@@ -43,6 +43,7 @@ export const routes = [
     path: '/payment',
     exact: true,
     component: Payment,
+    sideBarHidden: true,
   },
   {
     path: '/profileUser',
