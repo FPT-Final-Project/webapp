@@ -1,11 +1,10 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Input } from 'antd';
+import { Button, Input, Modal } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert';
 import { IRootState } from '../../../stores/store';
 import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
@@ -21,39 +20,37 @@ const DoctorRow = (props: any) => {
   const { doctor } = props;
   const { _id, name, avatar } = doctor;
   const [listSchedule, setListSchedule] = useState<ISchedule[] | undefined>();
+  const [visible, setVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [nameAppointment, setNameAppointment] = useState('');
   const history = useHistory();
 
-  const makeAnAppointment = (id: string, fromTime: number, toTime: number) => {
-    const from = new Date(fromTime).toLocaleString();
-    const to = new Date(toTime).toLocaleString();
-    confirmAlert({
-      title: 'Confirm to reserve this',
-      message: `Information about this appointment:
-      Doctor: ${name}
-      , From: ${from} To: ${to}
-      , Fee: 50$`,
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            history.push({
-              pathname: '/app/payment',
-              state: {
-                idSchedule: id,
-                doctorId: _id,
-                doctorName: name,
-                startOfAppointment: fromTime,
-                endOfAppointment: toTime,
-              },
-            });
-          },
+  const makeAnAppointment = () => {
+    setVisible(true);
+  };
+
+  const handleOk = (id: string, fromTime: number, toTime: number) => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+      history.push({
+        pathname: '/app/payment',
+        state: {
+          idSchedule: id,
+          nameRoom: nameAppointment,
+          doctorId: _id,
+          doctorName: name,
+          startOfAppointment: fromTime,
+          endOfAppointment: toTime,
         },
-        {
-          label: 'No',
-          onClick: () => history.push('/app/doctor'),
-        },
-      ],
-    });
+      });
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    history.push('/app/doctor');
   };
 
   useEffect(() => {
@@ -78,20 +75,33 @@ const DoctorRow = (props: any) => {
         <div className="doctor-card-schedule">
           <span>Consultation Schedule</span>
           <div className="doctor-card-schedules">
-            {listSchedule ? (
+            {listSchedule && listSchedule.length > 0 ? (
               listSchedule.map((schedule, i) => (
                 <div className="doctor-schedule" key={i}>
                   <FontAwesomeIcon icon={faVideo} size="sm" />
                   <span
-                    onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
-                    onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)}
+                    onClick={() => makeAnAppointment()}
+                    onKeyPress={() => makeAnAppointment()}
                     role="button"
                     tabIndex={0}
                   >{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}
                   </span>
+                  <Modal
+                    title="Confirm to reserve this !"
+                    visible={visible}
+                    onOk={() => handleOk(schedule._id, schedule.fromTime, schedule.toTime)}
+                    confirmLoading={confirmLoading}
+                    onCancel={handleCancel}
+                  >
+                    <p><b>Information about your appointment:</b></p>
+                    <p><b>Doctor:</b> {name}</p>
+                    <p><b>Time start:</b> {new Date(schedule.fromTime).toLocaleString()}</p>
+                    <p><b>Time end:</b> {new Date(schedule.toTime).toLocaleString()}</p>
+                    <Input value={nameAppointment || ''} placeholder="Type your appointment's name" type="text" className="nameAppointment" onChange={({ target: { value } }) => setNameAppointment(value)} />
+                  </Modal>
                 </div>
               ))
-            ) : <div>Doctor seems to be busy for the next 24 hours</div>}
+            ) : <div className="doctor-schedule-busy">Doctor seems to be busy for the next 24 hours</div>}
           </div>
         </div>
         <div>
@@ -115,14 +125,14 @@ const ListDoctors: React.FC = () => {
   const handleSearch = (e: any) => {
     e.preventDefault();
     const result : IDoctor[] = [];
-    if (nameSearch && listDoctors) {
-      for (let i = 0; i < listDoctors.length; i += 1) {
-        if (((listDoctors[i].name).toUpperCase()).includes(nameSearch.toUpperCase())) {
-          result.push(listDoctors[i]);
+    if (nameSearch && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (((doctors[i].name).toUpperCase()).includes((nameSearch.toUpperCase()).trim())) {
+          result.push(doctors[i]);
         }
       }
       setListDoctors(result);
-    } else if (listDoctors) {
+    } else if (doctors) {
       setListDoctors(doctors);
     }
   };

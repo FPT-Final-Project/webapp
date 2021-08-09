@@ -7,20 +7,22 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'https://a0fd3e739794.ngrok.io/v1/payment/momo';
-const returnUrl = 'http://localhost:3000/app/dashboard';
+const notifyUrl = 'http://localhost:8000/v1/payment/momo';
+const returnUrl = 'http://localhost:3000/app/appointment';
 
 const momoRequest = async (
-  appointmentId: string,
+  scheduleId: string,
   appointmentName: string,
   patientId: string,
   patientName: string,
+  startOfAppointment: string,
+  endOfAppointment: string,
   doctorId: string,
   doctorName: string,
   amount: string,
 ) => {
   const orderId = uuid();
-  const extraData = [appointmentId, appointmentName, patientId, patientName, doctorId, doctorName].join(',');
+  const extraData = [scheduleId, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName].join(',');
 
   const body = {
     accessKey,

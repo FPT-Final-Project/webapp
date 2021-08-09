@@ -1,15 +1,13 @@
 /* eslint-disable max-len */
 import './style.scss';
 import {
-  Table, Row, Divider, Col, Button, Space, Modal, Input,
+  Table, Row, Divider, Col, Button, Space,
 } from 'antd';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { momoRequest } from '../../config/momo.config';
 import { IRootState } from '../../stores/store';
-import appointmentAction from '../../stores/actions/appointment.action';
-import scheduleAction from '../../stores/actions/schedule.action';
 
 const { Column } = Table;
 
@@ -17,9 +15,6 @@ const Payment: React.FC = () => {
   const [count, setCount] = useState(1);
   const user = useSelector((state: IRootState) => state.authentication.user);
   const location = useLocation<any>();
-  const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [name, setName] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -28,7 +23,7 @@ const Payment: React.FC = () => {
       <></>
     );
   }
-  if (location.state === undefined) {
+  if (location.state.nameRoom === undefined) {
     history.push('doctor');
   }
 
@@ -51,26 +46,9 @@ const Payment: React.FC = () => {
     },
   ];
 
-  const handlePurchasing = () => {
-    momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
-    setVisible(true);
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      history.push('appointment');
-    }, 2000);
-    dispatch<any>(scheduleAction.updateSchedules(location.state.idSchedule))
-      .then(
-        dispatch<any>(appointmentAction.createAppointment(user, name, location.state.startOfAppointment, location.state.endOfAppointment, location.state.doctorId, location.state.doctorName)),
-      );
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
+  const handlePurchasing = async () => {
+    const { payUrl } = await momoRequest(location.state.idSchedule, location.state.nameRoom, user._id, user.name, location.state.startOfAppointment.toString(), location.state.endOfAppointment.toString(), location.state.doctorId, location.state.doctorName, '50000');
+    window.location.href = payUrl;
   };
 
   return (
@@ -104,25 +82,6 @@ const Payment: React.FC = () => {
           </Row>
           <Divider style={{ marginTop: '15px' }} />
           <Button className="btn-payment" onClick={() => handlePurchasing()}>Purchase Now</Button>
-          <Modal
-            title="Purchase successful !"
-            visible={visible}
-            onOk={handleOk}
-            confirmLoading={confirmLoading}
-            onCancel={handleCancel}
-          >
-            <p><b>Information about your appointment:</b></p>
-            {location.state !== undefined
-              ? (
-                <>
-                  <p><b>Doctor:</b> {location.state.doctor}</p>
-                  <p><b>Time start:</b> {new Date(location.state.startOfAppointment).toLocaleString()}</p>
-                  <p><b>Time end:</b> {new Date(location.state.endOfAppointment).toLocaleString()}</p>
-                </>
-              )
-              : '' }
-            <Input value={name || ''} placeholder="Type your appointment's name" type="text" className="nameAppointment" onChange={({ target: { value } }) => setName(value)} />
-          </Modal>
           <Divider plain>or select other payment method</Divider>
           <Link to="/#">
             <img
