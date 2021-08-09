@@ -70,7 +70,7 @@ export interface UpdateUserFailAction extends Action {
   };
 }
 
-const login = (email: string, password: string) => async (dispatch: Dispatch) => {
+const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
     const user = await userService.login(email, password);

@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import appointmentService from '../../services/appointment.service';
 import { IAppointment } from '../../types/appointment';
 import { doFailure, doRequest, doSuccess } from './utils';
 import { IUser } from '../../types/user';
+import scheduleService from '../../services/schedule.service';
 
 export const AppointmentActions = {
   GET_APPOINTMENT: '[Appointment] Get Appointment',

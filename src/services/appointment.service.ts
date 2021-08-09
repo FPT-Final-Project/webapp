@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { AxiosResponse } from 'axios';
 import { getRequest, postRequest } from '../config/axios.request';
 import { IUser } from '../types/user';
@@ -8,7 +9,7 @@ const getAppointments = (user: IUser): Promise<AxiosResponse<any>> => getRequest
 
 const cancelAnAppointment = (user: IUser, appointmentId: string): Promise<AxiosResponse<any>> => postRequest(`appointment/${appointmentId}/cancel`);
 
-const makeAnAppointment = (user: IUser, name: any, startOfAppointment: any, endOfAppointment: any, doctorId: any, doctorName: any): Promise<AxiosResponse<any>> => postRequest('appointment/create');
+const makeAnAppointment = (user: IUser, name: any, startOfAppointment: any, endOfAppointment: any, doctorId: any, doctorName: any) => postRequest('appointment/create', { user, name, startOfAppointment, endOfAppointment, doctorId, doctorName }) as any;
 
 export default {
   getAppointment,

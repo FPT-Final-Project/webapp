@@ -1,13 +1,16 @@
 import { Table, Space, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
 import './styles.scss';
 
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [unMounted, setUnMounted] = useState(false);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
@@ -16,8 +19,23 @@ const Appointment: React.FC = () => {
 
   const cancelAppointment = (appointmentId : string) => {
     if (user) {
-      dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
-        setData(res);
+      confirmAlert({
+        title: 'Confirm to cancel this appointment !',
+        message: 'If you agree to cancel this appointment you will lose your paid',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => {
+              dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
+                setData(res);
+              });
+            },
+          },
+          {
+            label: 'No',
+            onClick: () => history.push('/app/appointment'),
+          },
+        ],
       });
     }
   };
@@ -25,9 +43,13 @@ const Appointment: React.FC = () => {
   useEffect(() => {
     if (user) {
       dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
-        setData(res);
+        if (!unMounted) {
+          setData(res);
+        }
       });
     }
+
+    return () => setUnMounted(true);
   }, []);
 
   const columns = [
@@ -49,6 +71,7 @@ const Appointment: React.FC = () => {
     {
       title: 'Time open',
       dataIndex: 'startOfAppointment',
+      key: 'startOfAppointment',
       sorter: (a: any, b: any) => (a.startOfAppointment - b.startOfAppointment),
       render: (startOfAppointment: string) => {
         const d = new Date(startOfAppointment);
