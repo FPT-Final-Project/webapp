@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import './style.scss';
-import { Rate, Input, Button, Modal } from 'antd';
+import { Rate, Input, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+import openNotification from '../../utils/notification';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 const { TextArea } = Input;
@@ -11,25 +12,12 @@ const Feedback: React.FC = () => {
   const [state, setState] = useState({ value: 0 });
   const history = useHistory();
 
-  const countDown = () => {
-    let secondsToGo = 5;
-    const modal = Modal.success({
-      title: 'Thanks for your feedback !',
-      content: 'Your feedback has been noted, we will try to bring you a better experience',
-    });
-    const timer = setInterval(() => {
-      secondsToGo -= 1;
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(timer);
-      modal.destroy();
-    }, secondsToGo * 1000);
-    history.push('/app/dashboard');
-  };
-
   const handleChange = (value: any) => setState({ value });
 
-  const sendFeedback = () => countDown();
+  const sendFeedback = () => {
+    history.push('/app/dashboard');
+    openNotification('success', 'Thanks for your feedback ! Your feedback has been noted, we will try to bring you a better experience');
+  };
 
   const { value } = state;
 
