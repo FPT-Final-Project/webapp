@@ -5,7 +5,7 @@ import appointmentService from '../../services/appointment.service';
 import { IAppointment } from '../../types/appointment';
 import { doFailure, doRequest, doSuccess } from './utils';
 import { IUser } from '../../types/user';
-import scheduleService from '../../services/schedule.service';
+import openNotification from '../../utils/notification';
 
 export const AppointmentActions = {
   GET_APPOINTMENT: '[Appointment] Get Appointment',
@@ -117,6 +117,7 @@ const cancelAppointment = (user: IUser, appointmentId: string) => async (dispatc
     const appointments = await appointmentService.cancelAnAppointment(user, appointmentId);
 
     dispatch(doSuccess(AppointmentActions.CANCEL_APPOINTMENT_SUCCESS, { appointments }));
+    openNotification('success', 'You canceled your appointment !');
     return appointments;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.CANCEL_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
@@ -130,6 +131,7 @@ const createAppointment = (user: IUser, name: any, startOfAppointment: any, endO
     const appointment = await appointmentService.makeAnAppointment(user, name, startOfAppointment, endOfAppointment, doctorId, doctorName);
 
     dispatch(doSuccess(AppointmentActions.CREATE_APPOINTMENT_SUCCESS, { appointment }));
+    openNotification('success', 'Payment confirmation successful, your appointment has been added to the list !');
     return appointment;
   } catch (error) {
     dispatch(doFailure(AppointmentActions.CREATE_APPOINTMENT_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));

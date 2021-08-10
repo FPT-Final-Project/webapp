@@ -40,22 +40,6 @@ const Appointment: React.FC = () => {
     }
   };
 
-  const countDown = () => {
-    let secondsToGo = 5;
-    const modal = Modal.success({
-      title: 'This is a notification message !',
-      content: `Payment confirmation successful,
-      your appointment has been added to the list`,
-    });
-    const timer = setInterval(() => {
-      secondsToGo -= 1;
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(timer);
-      modal.destroy();
-    }, secondsToGo * 1000);
-  };
-
   useEffect(() => {
     if (user) {
       if (params.message === 'Success' && params.errorCode === '0' && typeof params.extraData === 'string') {
@@ -65,7 +49,6 @@ const Appointment: React.FC = () => {
           .then(
             dispatch<any>(appointmentAction.createAppointment(user, appointmentName, parseFloat(startOfAppointment), parseFloat(endOfAppointment), doctorId, doctorName)),
           );
-        countDown();
         history.push('/app/appointment');
         dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
           if (!unMounted) {
