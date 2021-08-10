@@ -6,11 +6,11 @@ export interface IUser {
   token?: string;
   picture?: string;
   avatar?: string;
-  gender?: number;
+  gender?: string;
   phone?: string;
   address?: string;
   job?: string;
-  specialist?: string;
+  major?: string;
   createdAt?: number;
   updatedAt?: number;
 }

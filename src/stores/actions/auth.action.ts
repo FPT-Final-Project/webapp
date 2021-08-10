@@ -19,6 +19,9 @@ export const AuthActions = {
   UPDATE_USER_SUCCESS: '[Auth] Update User Success',
   UPDATE_USER_FAIL: '[Auth] Update User Fail',
 
+  GET_ME: '[Auth] Get Me',
+  GET_ME_SUCCESS: '[Auth] Get Me Success',
+  GET_ME_FAIL: '[Auth] Get Me Fail',
 };
 
 export interface LoginSuccessAction extends Action {
@@ -48,16 +51,7 @@ export interface RegisterFailAction extends Action {
 }
 
 export interface UpdateUserAction extends Action {
-  payload: {
-    id: string,
-    name: string,
-    job: string,
-    gender: string,
-    phone: string,
-    address: string,
-    avatar: string,
-    specialist: string
-  };
+  payload: string
 }
 
 export interface UpdateUserSuccessAction extends Action {
@@ -98,36 +92,35 @@ const register = (id: string, name: string, email: string, role: string, passwor
   };
 };
 
-const updateUser = (id: string,
-  name: string,
-  job: string,
-  gender: string,
-  phone: string,
-  address: string,
-  avatar: string,
-  specialist: string) => (dispatch : Dispatch): void => {
-  dispatch(doRequest(AuthActions.UPDATE_USER, { name, job, gender, phone, address, avatar, specialist }));
-
-  userService.updateProfile(id,
-    name,
-    job,
-    gender,
-    phone,
-    address,
-    avatar,
-    specialist).then((result:any) => {
-    dispatch(doSuccess(AuthActions.UPDATE_USER_SUCCESS, { users: result }));
-  }).catch((error: any) => dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
+const updateUser = (values: any) => async (dispatch : Dispatch): Promise<void> => {
+  try {
+    dispatch(doRequest(AuthActions.UPDATE_USER, { values }));
+    await userService.updateProfile(values);
+    dispatch(doSuccess(AuthActions.UPDATE_USER_SUCCESS, 'Success'));
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+  }
 };
 
 const logout = () => {
   localStorage.clear();
   openNotification('success', 'Goodbye!');
 };
-
+const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
+  try {
+    dispatch(doRequest(AuthActions.GET_ME));
+    const result = await userService.getMe();
+    dispatch(doSuccess(AuthActions.GET_ME_SUCCESS, result));
+    return result;
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.GET_ME_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    return error;
+  }
+};
 export default {
   login,
   logout,
   register,
   updateUser,
+  getMe,
 };

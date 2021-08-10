@@ -18,34 +18,14 @@ const ProfileUser: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state : IRootState) => state.authentication);
-
+  console.log(user);
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
 
-  const onFinish = (
-    {
-      id,
-      name,
-      job,
-      gender,
-      phone,
-      address,
-      avatar,
-      specialist,
-    }: {
-      id: string,
-      name: string,
-      job: string,
-      gender: string,
-      phone: string,
-      address: string,
-      avatar: string,
-      specialist: string
-    },
-  ) => {
-    dispatch(authAction.updateUser(id, name, job, gender, phone, address, avatar, specialist));
+  const onFinish = (values: any) => {
+    dispatch<any>(authAction.updateUser(values)).then(() => { dispatch(authAction.getMe()); });
     setEditable(!editable);
   };
 
@@ -77,7 +57,7 @@ const ProfileUser: React.FC<Props> = () => {
                   <div className="block-info infoEmail">
                     <div className="wrap-info line">
                       <div className="info__title">Career</div>
-                      <div className="infoEmail__text">{user?.job}Home</div>
+                      <div className="infoEmail__text">{user?.job || 'Unemployee'}</div>
                     </div>
                     <div className="wrap-info line">
                       <div className="info__title">Email</div>
@@ -87,11 +67,11 @@ const ProfileUser: React.FC<Props> = () => {
                   <div className="block-info infoPhone">
                     <div className="wrap-info line">
                       <div className="info__title">Gender</div>
-                      <div className="infoEmail__text">{user?.gender}</div>
+                      <div className="infoEmail__text">{user?.gender === '0' ? 'Male' : 'Female'}</div>
                     </div>
                     <div className="wrap-info line">
                       <div className="info__title">Phone</div>
-                      <div className="infoEmail__text">{user?.phone}55555</div>
+                      <div className="infoEmail__text">{user?.phone || 'Unknown'}</div>
                     </div>
                   </div>
                 </div>

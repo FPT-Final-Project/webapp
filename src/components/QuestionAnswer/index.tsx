@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
   Row, Button, Col, Menu, Dropdown, Input, Comment, Avatar, Tooltip, List, Form,
 } from 'antd';
@@ -8,6 +8,7 @@ import moment from 'moment';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../stores/store';
+import questionAnswerAction from '../../stores/actions/questionAnswer.action';
 
 const { TextArea } = Input;
 
@@ -19,14 +20,17 @@ const menu = (
   </Menu>
 );
 
-const CommentList = ({ comments }: { comments: any }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-    itemLayout="horizontal"
-    renderItem={(props) => <Comment content {...props} />}
-  />
-);
+const CommentList = ({ comments }: { comments: any }) => {
+  console.log(comments);
+  return (
+    <List
+      dataSource={comments}
+      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+      itemLayout="horizontal"
+      renderItem={(props) => <Comment content={comments} {...props} />}
+    />
+  );
+};
 
 const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSubmit: any, submitting: any, value: any }) => (
   <>
@@ -48,15 +52,15 @@ const Editor = ({ onChange, onSubmit, submitting, value }: { onChange: any, onSu
 const QuestionAnswer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { postAnswer, replyComment } = useSelector((state: IRootState) => ({
+  const { postAnswer, replyComment, user } = useSelector((state: IRootState) => ({
     postAnswer: state.questionAnswer,
     replyComment: state.questionAnswer,
+    user: state.authentication.user,
   }));
-
   const [state, setState] = useState({
     posts: [{
-      author: 'Ngo Hoang The Duy',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      author: user?.name,
+      avatar: user?.avatar,
       content:
         <p>
           Hi Doctors,
@@ -84,7 +88,17 @@ const QuestionAnswer: React.FC = () => {
     value: '',
     valuePost: '',
   });
+  console.log(state);
+  useEffect(() => {
+    dispatch(questionAnswerAction.getPosts());
+  }, []);
   // comment
+  const handleChange = (e: ChangeEvent<any>) => {
+    setState({
+      ...state,
+      value: e.target.value,
+    });
+  };
   const handleSubmit = (i: any) => {
     if (!state.value) {
       return;
@@ -93,36 +107,26 @@ const QuestionAnswer: React.FC = () => {
       ...state,
       submitting: true,
     });
-    setTimeout(() => {
-      const newPost = {
-        ...state.posts[i],
-        comments: [...state.posts[i].comments, {
-          author: 'Dat Le',
-          avatar: 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
-          content: <p>{state.value}</p>,
-          datetime: moment().fromNow(),
-          show: false,
-        }],
-      };
-      const postes = [...state.posts];
-      postes[i] = newPost;
-      setState({
-        submitting: false,
-        value: '',
-        valuePost: '',
-        posts: postes,
-      });
-    }, 1000);
-  };
-
-  const handleChange = (e: ChangeEvent<any>) => {
+    const newPost = {
+      ...state.posts[i],
+      comments: [...state.posts[i].comments, {
+        author: user?.name || '',
+        avatar: user?.avatar || 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg',
+        content: <p>{state.value}</p>,
+        datetime: moment().fromNow(),
+        show: false,
+      }],
+    };
+    const postes = [...state.posts];
+    postes[i] = newPost;
     setState({
-      ...state,
-      value: e.target.value,
+      submitting: false,
+      value: '',
+      valuePost: '',
+      posts: postes,
     });
   };
 
-  // post
   const handleSubmitPost = () => {
     if (!state.valuePost) {
       return;
@@ -194,27 +198,31 @@ const QuestionAnswer: React.FC = () => {
           </Col>
         </Row>
         {/* post */}
-        <Row className="question-input" justify="space-between">
-          <Input
-            style={{ width: '95%', borderRadius: '8px' }}
-            placeholder="Add a new post"
-            onChange={handleChangePost}
-          />
-          <Button
-            style={{ width: '4%' }}
-            onClick={handleSubmitPost}
-          >
-            <PlusOutlined />
-          </Button>
-        </Row>
+        {user?.role === 'patient' ? (
+          <Row className="question-input" justify="space-between">
+            <Input
+              style={{ width: '95%', borderRadius: '8px' }}
+              placeholder="Add a new post"
+              onChange={handleChangePost}
+              allowClear
+            />
+            <Button
+              style={{ width: '4%' }}
+              onClick={handleSubmitPost}
+            >
+              <PlusOutlined />
+            </Button>
+          </Row>
+        ) : '' }
+
         {state.posts.map((post: any, i) => {
           return (
             <div className="comment">
               <Comment
-                author={<a href="/#">Ngo Hoang The Duy</a>}
+                author={user?.name}
                 avatar={(
                   <Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    src={user?.avatar ? user?.avatar : 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'}
                     alt="avt"
                   />
                 )}
@@ -236,7 +244,7 @@ const QuestionAnswer: React.FC = () => {
                           {post.comments.length > 0 && <CommentList comments={post.comments} />}
                           <Comment
                             avatar={(
-                              <Avatar src="https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg" />
+                              <Avatar src={user?.avatar || 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg'} />
                             )}
                             content={(
                               <Editor
