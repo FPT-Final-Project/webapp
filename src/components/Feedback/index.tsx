@@ -2,13 +2,22 @@
 import React, { useState } from 'react';
 import './style.scss';
 import { Rate, Input, Button } from 'antd';
+import { useHistory } from 'react-router-dom';
+import openNotification from '../../utils/notification';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 const { TextArea } = Input;
 
 const Feedback: React.FC = () => {
   const [state, setState] = useState({ value: 0 });
+  const history = useHistory();
+
   const handleChange = (value: any) => setState({ value });
+
+  const sendFeedback = () => {
+    history.push('/app/dashboard');
+    openNotification('success', 'Thanks for your feedback ! Your feedback has been noted, we will try to bring you a better experience');
+  };
 
   const { value } = state;
 
@@ -29,7 +38,7 @@ const Feedback: React.FC = () => {
           />
         </div>
 
-        <Button className="btn-feedback">
+        <Button onClick={sendFeedback} className="btn-feedback">
           Send Feedback
         </Button>
       </div>

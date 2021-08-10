@@ -1,47 +1,61 @@
-import { Table, Space, Button } from 'antd';
+/* eslint-disable max-len */
+import { Table, Space, Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert';
+import queryString from 'query-string';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
+import scheduleAction from '../../stores/actions/schedule.action';
 import './styles.scss';
 
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = queryString.parse(window.location.href);
   const [unMounted, setUnMounted] = useState(false);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
   }));
   const [data, setData] = useState(appointments);
+  const { confirm } = Modal;
 
   const cancelAppointment = (appointmentId : string) => {
     if (user) {
-      confirmAlert({
-        title: 'Confirm to cancel this appointment !',
-        message: 'If you agree to cancel this appointment you will lose your paid',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => {
-              dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
-                setData(res);
-              });
-            },
-          },
-          {
-            label: 'No',
-            onClick: () => history.push('/app/appointment'),
-          },
-        ],
+      confirm({
+        title: 'Do you want to cancel this appointment ?',
+        icon: <ExclamationCircleOutlined />,
+        content: 'If you agree to cancel this appointment you will lose your paid',
+        onOk() {
+          dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
+            setData(res);
+          });
+        },
+        onCancel() {
+          history.push('/app/appointment');
+        },
       });
     }
   };
 
   useEffect(() => {
     if (user) {
+      if (params.message === 'Success' && params.errorCode === '0' && typeof params.extraData === 'string') {
+        // eslint-disable-next-line no-unused-vars
+        const [idSchedule, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName] = params.extraData?.split(',');
+        dispatch<any>(scheduleAction.updateSchedules(idSchedule))
+          .then(
+            dispatch<any>(appointmentAction.createAppointment(user, appointmentName, parseFloat(startOfAppointment), parseFloat(endOfAppointment), doctorId, doctorName)),
+          );
+        history.push('/app/appointment');
+        dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
+          if (!unMounted) {
+            setData(res);
+          }
+        });
+      }
       dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
         if (!unMounted) {
           setData(res);

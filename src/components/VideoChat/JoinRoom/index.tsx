@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
 import mute from '../../../assets/mute.svg';
@@ -20,7 +20,6 @@ const JoinRoom = () => {
   const [propertyvideo, setPropertyvideo] = useState(true);
   const myVideoSize = { width: '740', height: '456' };
   const { appointmentId } = useParams<{ appointmentId: string }>();
-  const history = useHistory();
   const dispatch = useDispatch();
   const { user, appointment } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
@@ -28,7 +27,6 @@ const JoinRoom = () => {
   }));
 
   useEffect(() => {
-    console.log('Zo day : ', appointmentId);
     dispatch(appointmentAction.getAppointment(appointmentId));
   },
   []);
@@ -67,11 +65,9 @@ const JoinRoom = () => {
       }).catch((err) => {
         console.log(`got an error: ${err}`);
       });
+      console.log('object');
   }, []);
 
-  const functionDirect = () => {
-    history.push('/app/appointment');
-  };
   // ===============================
 
   return (
@@ -115,7 +111,6 @@ const JoinRoom = () => {
             </div>
             <div className="twoButton">
               <Link
-                // onClick={(e) => ((!userid) ? e.preventDefault() : null)}
                 to={{
                   pathname: `/appointment/${appointment?._id}/join`,
                   state: {
@@ -126,7 +121,7 @@ const JoinRoom = () => {
               >
                 <button className="btnJoinroom" type="submit">Join now</button>
               </Link>
-              <button onClick={functionDirect} className="btnBack">Back</button>
+              <button className="btnBack"><a href="/app/appointment">Back</a></button>
             </div>
           </div>
         </div>

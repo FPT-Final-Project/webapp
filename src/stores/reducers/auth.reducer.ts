@@ -13,6 +13,7 @@ export interface IUserState {
   user?: IUser;
   loginProcessing: boolean;
   registerProcessing: boolean;
+  updateProcessing: boolean;
   isTested: boolean;
   error?: string;
 }
@@ -21,6 +22,7 @@ const initialState: IUserState = {
   user: undefined,
   loginProcessing: false,
   registerProcessing: false,
+  updateProcessing: false,
   isTested: false,
   error: undefined,
 };
@@ -58,10 +60,12 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
       return { ...state, ...{ registerProcessing: false, error } };
     }
 
-    case AuthActions.UPDATE_USER: {
-      const { id, name, job, gender, phone, address, avatar, specialist } = (action as UpdateUserAction).payload;
-      console.log((action as UpdateUserAction).payload);
-      return { ...state, ...{ user: { ...state.user, name, job, gender, phone, address, avatar, specialist } } } as any;
+    case AuthActions.UPDATE_USER_SUCCESS: {
+      return { ...state, ...{ updateProcessing: true } } as any;
+    }
+    case AuthActions.GET_ME_SUCCESS: {
+      const user = (action as any).payload;
+      return { ...state, user: { ...state.user, ...user } } as any;
     }
     default: {
       return state;

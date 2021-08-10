@@ -5,6 +5,7 @@ import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
+import Forum from '../../components/Forum';
 import ProfileUser from '../../components/Profile/ProfileUser';
 import ProfileDoctor from '../../components/Profile/ProfileDoctor';
 
@@ -32,7 +33,7 @@ export const routes = [
   {
     path: '/questionanswer',
     exact: true,
-    component: QuestionAnswer,
+    component: Forum,
   },
   {
     path: '/feedback',
@@ -43,6 +44,7 @@ export const routes = [
     path: '/payment',
     exact: true,
     component: Payment,
+    sideBarHidden: true,
   },
   {
     path: '/profileUser',
