@@ -1,6 +1,6 @@
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Comment, Dropdown, Input, Menu, Row, Tooltip, List } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
+import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { ChangeEvent, useEffect, useState } from 'react';
@@ -9,7 +9,6 @@ import questionAnswerService from '../../services/questionAnswer.service';
 
 import questionAnswerAction from '../../stores/actions/questionAnswer.action';
 import { IRootState } from '../../stores/store';
-import { IUser } from '../../types/user';
 import PostList from './PostList';
 import './style.scss';
 
@@ -20,14 +19,6 @@ const menu = (
     <Menu.Item key="3">Option3</Menu.Item>
   </Menu>
 );
-// const CommentList = ({ comments }: {comments: any}) => (
-//   <List
-//     dataSource={comments}
-//     header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-//     itemLayout="horizontal"
-//     renderItem={(props) => <Comment {...props as any} />}
-//   />
-// );
 const Forum = () => {
   const { user } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
@@ -38,6 +29,8 @@ const Forum = () => {
     value: '',
   });
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     if (user?.role === 'patient') {
       dispatch<any>(questionAnswerAction.getOwnerPost()).then((res: any) => {
         res.forEach((itm: any) => {
@@ -62,6 +55,9 @@ const Forum = () => {
           ] });
       });
     }
+    return () => {
+      source.cancel();
+    };
   }, []);
   const handleChange = (e: ChangeEvent<any>) => {
     setPosts({
@@ -85,7 +81,7 @@ const Forum = () => {
       value: '',
       comments: posts.comments.map((comment: any, index: any) => {
         if (index === i) {
-          comment.show = true;
+          comment.show = !comment.show;
         } else { comment.show = false; }
         return comment;
       }),

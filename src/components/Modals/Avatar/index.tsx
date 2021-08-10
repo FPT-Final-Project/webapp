@@ -34,7 +34,7 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
         mask={false}
         footer={null}
       >
-        <Link to={user?.role === 'doctor' ? 'app/profileDoctor' : '/app/profileUser'} className="Option">
+        <Link to={user?.role === 'doctor' ? '/app/profileDoctor' : '/app/profileUser'} className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-user-alt" />
           <span>&nbsp;My Profile</span>

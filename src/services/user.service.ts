@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../config/axios.request';
+import { getRequest, postRequest, putRequest } from '../config/axios.request';
 import { IUser } from '../types/user';
 
 const login = (email: string, password: string): Promise<IUser> => postRequest('auth/login', { email, password }) as any;
@@ -8,21 +8,14 @@ const register = (id: string, name: string, email: string, password: string, rol
 };
 
 const getUserProfile = (id: string) => getRequest(`/user/${id}`);
-const updateProfile = (
-  id: string,
-  name: string,
-  job: string,
-  gender: string,
-  phone: string,
-  address: string,
-  avatar: string,
-  specialist: string,
-): Promise<IUser> => {
-  return postRequest(`user/${id}`, { id, name, job, gender, phone, address, avatar, specialist }) as any;
+const updateProfile = (values: any): Promise<IUser> => {
+  return putRequest('/user/update-profile', { values }) as any;
 };
+const getMe = (): Promise<IUser> => getRequest('/user/getMe') as any;
 export default {
   login,
   register,
   getUserProfile,
   updateProfile,
+  getMe,
 };

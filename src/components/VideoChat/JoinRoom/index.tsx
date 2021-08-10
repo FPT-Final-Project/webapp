@@ -67,6 +67,7 @@ const JoinRoom = () => {
       }).catch((err) => {
         console.log(`got an error: ${err}`);
       });
+      console.log('object');
   }, []);
 
   const functionDirect = () => {

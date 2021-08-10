@@ -1,5 +1,6 @@
 import { Avatar, Button, Comment, Form, Tooltip } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import axios from 'axios';
 import moment from 'moment';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import questionAnswerService from '../../services/questionAnswer.service';
@@ -16,7 +17,7 @@ const Editor = ({ onChange, value, onSubmit } : {onChange: any, value: any, onSu
         <Button
           htmlType="submit"
           onClick={onSubmit}
-          type="primary"
+          style={{ color: '#299CB4' }}
         >
         Add Comment
         </Button>
@@ -35,15 +36,24 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
     value: '',
   });
   useEffect(() => {
+    const source = axios.CancelToken.source();
     questionAnswerService.getComments(_id).then((res: any) => setAnswers({
       value: '',
       answers: [...answers.answers,
         ...res,
       ],
     }));
+    return () => {
+      source.cancel();
+    };
   }, []);
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     userService.getUserProfile(patientId).then((res: any) => setUser(res));
+    return () => {
+      source.cancel();
+    };
   }, []);
   const handleChange = (e: ChangeEvent<any>) => {
     setAnswers({
@@ -74,9 +84,7 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
         content={comment?.description}
         datetime={(
           <p>
-            <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-              {moment().subtract(1, 'days').fromNow()}
-            </Tooltip>
+            {moment(comment.createdAt).format('DD/MM/YYYY')}
           </p>
         )}
       >
@@ -91,7 +99,7 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
                       userLogin.role === 'doctor' ? (
                         <Comment
                           avatar={(
-                            <Avatar src={user?.avatar || 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg'} />
+                            <Avatar src={userLogin?.avatar || 'https://img.hoidap247.com/picture/question/20200508/large_1588936738888.jpg'} />
                           )}
                           content={(
                             <Editor
