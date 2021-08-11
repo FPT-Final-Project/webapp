@@ -2,8 +2,14 @@
 
 # dependencies
 /node_modules
+.firebase
+firebase-debug.log
+
+# build
+/build
 
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
 .gitconfig
+

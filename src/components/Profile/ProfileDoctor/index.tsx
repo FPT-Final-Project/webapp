@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/order */
 import React, { useState } from 'react';
-import { Form, Input, Button, TimePicker } from 'antd';
+import { Form, Input, Button, Select, TimePicker } from 'antd';
 import './style.scss';
 import { EditOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,9 @@ import { IRootState } from '../../../stores/store';
 import authAction from '../../../stores/actions/auth.action';
 import moment from 'moment';
 
-const ProfileDoctor = () => {
+const { Option } = Select;
+
+const ProfileDoctor: React.FC = () => {
   const [editable, setEditable] = useState(true);
   const [creatable, setCreatable] = useState(false);
   const dispatch = useDispatch();
@@ -21,8 +23,8 @@ const ProfileDoctor = () => {
     wrapperCol: { span: 16 },
   };
 
-  const onFinishEdit = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
-    dispatch(authAction.updateUser(id, name, job, gender, phone, address, avatar, specialist));
+  const onFinish = (values: any) => {
+    dispatch<any>(authAction.updateUser(values)).then(() => { dispatch(authAction.getMe()); });
     setEditable(!editable);
   };
 
@@ -61,8 +63,8 @@ const ProfileDoctor = () => {
                   <div className="profile-title">My Profile</div>
                   <div className="block-info infoEmail">
                     <div className="wrap-info line">
-                      <div className="info__title">Specialist</div>
-                      <div className="infoEmail__text">{user?.specialist}Dpression</div>
+                      <div className="info__title">Major</div>
+                      <div className="infoEmail__text">{user?.major}</div>
                     </div>
                     <div className="wrap-info line">
                       <div className="info__title">Email</div>
@@ -72,11 +74,11 @@ const ProfileDoctor = () => {
                   <div className="block-info infoPhone">
                     <div className="wrap-info line">
                       <div className="info__title">Gender</div>
-                      <div className="infoEmail__text">{user?.gender}</div>
+                      <div className="infoEmail__text">{user?.gender === '0' ? 'Male' : 'Female'}</div>
                     </div>
                     <div className="wrap-info line">
                       <div className="info__title">Phone</div>
-                      <div className="infoEmail__text">{user?.phone}55555</div>
+                      <div className="infoEmail__text">{user?.phone || 'Unknown'}</div>
                     </div>
                   </div>
                 </div>
@@ -85,7 +87,7 @@ const ProfileDoctor = () => {
             : (
               <div className="container">
 
-                <Form {...layout} name="nest-messages" onFinish={onFinishEdit}>
+                <Form {...layout} name="nest-messages" onFinish={onFinish}>
 
                   <div className="title-top">Edit My Profile</div>
                   <div className="container__title">
@@ -105,14 +107,16 @@ const ProfileDoctor = () => {
                         name="name"
                         label="Name: "
                         initialValue={user?.name}
+                        rules={[{ required: true }]}
                       >
                         <Input />
 
                       </Form.Item>
                       <Form.Item
-                        name="specialist"
-                        label="Specialist: "
-                        initialValue={user?.specialist ? user?.specialist : 'unknow'}
+                        name="major"
+                        label="Major: "
+                        initialValue={user?.major ? user?.major : 'unknow'}
+                        rules={[{ required: true }]}
                       >
                         <Input />
                       </Form.Item>
@@ -120,30 +124,38 @@ const ProfileDoctor = () => {
                         name="gender"
                         label="Gender: "
                         initialValue={user?.gender ? user?.gender : 'unknow'}
-
+                        rules={[{ required: true }]}
                       >
-                        <Input />
+                        <Select
+                          allowClear
+                        >
+                          <Option value="0">male</Option>
+                          <Option value="1">female</Option>
+                        </Select>
                       </Form.Item>
                       <Form.Item
                         name="address"
                         label="Address: "
                         initialValue={user?.address ? user?.address : 'unknow'}
-
+                        rules={[{ required: true }]}
                       >
                         <Input />
                       </Form.Item>
                       <Form.Item
                         name="email"
-                        label="Email: "
+                        label=" Email:"
                         initialValue={user?.email}
+                        rules={[{ required: true }]}
                       >
-                        <Input readOnly />
+                        <Input
+                          disabled
+                        />
                       </Form.Item>
                       <Form.Item
                         name="phone"
                         label="Phone: "
                         initialValue={user?.phone ? user?.phone : 'unknow'}
-
+                        rules={[{ required: true }]}
                       >
                         <Input />
                       </Form.Item>

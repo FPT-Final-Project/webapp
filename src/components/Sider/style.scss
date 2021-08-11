@@ -1,5 +1,6 @@
 .ant-layout-sider-children {
   position: fixed !important;
+  left: 0;
   width: 250px !important;
   background-color: #299cb4 !important;
 }
@@ -8,6 +9,7 @@
   height: 100;
   width: 250px;
   z-index: 5;
+  // width: inherit;
   overflow: hidden;
 
   .sider-logo {

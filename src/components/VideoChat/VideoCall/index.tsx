@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
@@ -17,8 +17,9 @@ import './style.scss';
 import '../Message/style.scss';
 import Canvas from '../Canvas';
 import { IRootState } from '../../../stores/store';
+import appConfig from '../../../config/app.config';
 
-const socket = io('http://localhost:3000');
+const socket: Socket = io(appConfig.backendUrl.split('/v1')[0]);
 
 const VideoChat = () => {
   const { appointmentId } = useParams<{ appointmentId: string }>();
@@ -97,6 +98,7 @@ const VideoChat = () => {
 
   useEffect(() => {
     peer.on('open', (peerId) => {
+      console.log('Peer ID : ', peerId);
       socket.emit('join-room', appointmentId, user?._id, user?.name, peerId);
     });
   }, []);
@@ -156,7 +158,6 @@ const VideoChat = () => {
   }, []);
 
   return (
-    // <div className="wrap-videoCall">
     <div className="main-video">
       {/* ====================VideoCall====================== */}
       <div className="mainLeft">
@@ -176,10 +177,10 @@ const VideoChat = () => {
         <div className="mainVideos">
           <div className="partnerScreenvideo">
             {!statusPartner ? <div className="statusPartner">Waiting for a partner to connect ...</div> : ''}
-            <video ref={partnerVideo} autoPlay />
+            <video ref={partnerVideo} playsInline autoPlay />
             {!statusPartner ? '' : <Canvas videoRef={partnerVideo} className="partnerScreenvideotag" />}
             <div className="userScreenvideo">
-              <video ref={myVideo} autoPlay />
+              <video ref={myVideo} playsInline muted />
               <Canvas videoRef={myVideo} className="userScreenvideotag" />
               {textCameraUser ? <div className="textCameraUser">{user?.name}</div> : ''}
             </div>
@@ -201,7 +202,7 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <a href="/app/appointment">
+                <a href="/app/feedback">
                   <img className="mute-phone" src={phone} alt="Hand Up" />
                 </a>
               </span>
@@ -247,7 +248,6 @@ const VideoChat = () => {
       </div>
       {/* ====================End----VideoChat====================== */}
     </div>
-    // </div>
   );
 };
 

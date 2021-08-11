@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import './style.scss';
 import {
   Table, Row, Divider, Col, Button, Space,
 } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { momoRequest } from '../../config/momo.config';
@@ -13,11 +14,16 @@ const { Column } = Table;
 const Payment: React.FC = () => {
   const [count, setCount] = useState(1);
   const user = useSelector((state: IRootState) => state.authentication.user);
+  const location = useLocation<any>();
+  const history = useHistory();
 
   if (!user) {
     return (
       <></>
     );
+  }
+  if (location.state.nameRoom === undefined) {
+    history.push('doctor');
   }
 
   const data = [
@@ -39,8 +45,9 @@ const Payment: React.FC = () => {
     },
   ];
 
-  const handlePurchasing = () => {
-    momoRequest('1', `${user.name} Duy`, user._id, user.name, '2', 'Duy', '50000');
+  const handlePurchasing = async () => {
+    const { payUrl } = await momoRequest(location.state.idSchedule, location.state.nameRoom, user._id, user.name, location.state.startOfAppointment.toString(), location.state.endOfAppointment.toString(), location.state.doctorId, location.state.doctorName, '50000');
+    window.location.href = payUrl;
   };
 
   return (

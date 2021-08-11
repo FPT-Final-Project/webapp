@@ -1,55 +1,66 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'antd';
+import { Button, Input, Modal } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import { IRootState } from '../../../stores/store';
 import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
 import scheduleAction from '../../../stores/actions/schedule.action';
 import { ISchedule } from '../../../types/schedule';
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { IDoctor } from '../../../types/doctor';
+
+const { Search } = Input;
 
 const DoctorRow = (props: any) => {
   const dispatch = useDispatch();
   const { doctor } = props;
   const { _id, name, avatar } = doctor;
-  const [listSchedule, setlistSchedule] = useState<ISchedule[] | undefined>();
+  const [listSchedule, setListSchedule] = useState<ISchedule[] | undefined>();
+  const [visible, setVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [nameAppointment, setNameAppointment] = useState('');
   const history = useHistory();
-  const makeAnAppointment = (idSchedule: string, startOfAppointment: number, endOfAppointment: number) => {
-    const from = new Date(startOfAppointment).toLocaleString();
-    const to = new Date(endOfAppointment).toLocaleString();
-    confirmAlert({
-      title: 'Confirm to reserve this',
-      message: `Information about this appointment:
-      Doctor: ${name}
-      , From: ${from} To: ${to}
-      , Fee: 50$`,
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            history.push('/app/payment');
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => history.push('/app/doctor'),
-        },
-      ],
-    });
+
+  const makeAnAppointment = () => {
+    setVisible(true);
   };
+
+  const handleOk = (id: string, fromTime: number, toTime: number) => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+      history.push({
+        pathname: '/app/payment',
+        state: {
+          idSchedule: id,
+          nameRoom: nameAppointment,
+          doctorId: _id,
+          doctorName: name,
+          startOfAppointment: fromTime,
+          endOfAppointment: toTime,
+        },
+      });
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    history.push('/app/doctor');
+  };
+
   useEffect(() => {
-    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setlistSchedule(res));
+    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setListSchedule(res));
   }, []);
+
   return (
     <div className="doctor-card" key={_id}>
       <div className="doctor-card-left">
         <div className="doctor-card-avatar">
-          <img src={avatar} alt={name} />
+          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
           <Button className="btn-detail">
             <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
           </Button>
@@ -63,13 +74,33 @@ const DoctorRow = (props: any) => {
         <div className="doctor-card-schedule">
           <span>Consultation Schedule</span>
           <div className="doctor-card-schedules">
-            {listSchedule ? (
+            {listSchedule && listSchedule.length > 0 ? (
               listSchedule.map((schedule, i) => (
-                <div className="doctor-schedule">
-                  <FontAwesomeIcon icon={faVideo} size="sm" /> <span onClick={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} onKeyPress={() => makeAnAppointment(schedule._id, schedule.fromTime, schedule.toTime)} role="button" tabIndex={0}>{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}</span>
+                <div className="doctor-schedule" key={i}>
+                  <FontAwesomeIcon icon={faVideo} size="sm" />
+                  <span
+                    onClick={() => makeAnAppointment()}
+                    onKeyPress={() => makeAnAppointment()}
+                    role="button"
+                    tabIndex={0}
+                  >{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}
+                  </span>
+                  <Modal
+                    title="Confirm to reserve this !"
+                    visible={visible}
+                    onOk={() => handleOk(schedule._id, schedule.fromTime, schedule.toTime)}
+                    confirmLoading={confirmLoading}
+                    onCancel={handleCancel}
+                  >
+                    <p><b>Information about your appointment:</b></p>
+                    <p><b>Doctor:</b> {name}</p>
+                    <p><b>Time start:</b> {new Date(schedule.fromTime).toLocaleString()}</p>
+                    <p><b>Time end:</b> {new Date(schedule.toTime).toLocaleString()}</p>
+                    <Input value={nameAppointment || ''} placeholder="Type your appointment's name" type="text" className="nameAppointment" onChange={({ target: { value } }) => setNameAppointment(value)} />
+                  </Modal>
                 </div>
               ))
-            ) : ''}
+            ) : <div className="doctor-schedule-busy">Doctor seems to be busy for the next 24 hours</div>}
           </div>
         </div>
         <div>
@@ -80,6 +111,7 @@ const DoctorRow = (props: any) => {
     </div>
   );
 };
+
 const ListDoctors: React.FC = () => {
   const dispatch = useDispatch();
   const { user, doctors } = useSelector((state: IRootState) => ({
@@ -87,6 +119,23 @@ const ListDoctors: React.FC = () => {
     doctors: state.doctor.doctors,
   }));
   const [listDoctors, setListDoctors] = useState(doctors);
+  const [nameSearch, setNameSearch] = useState('');
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    const result : IDoctor[] = [];
+    if (nameSearch && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (((doctors[i].name).toUpperCase()).includes((nameSearch.toUpperCase()).trim())) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (doctors) {
+      setListDoctors(doctors);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
@@ -94,13 +143,21 @@ const ListDoctors: React.FC = () => {
       });
     }
   }, []);
+
   return (
     <div className="wrap-doctor-list">
       <div className="doctor-list-content">
         <div className="doctor-filter">
           <div className="doctor-filter-section">
-            <span>Search Name:&nbsp;</span>
-            <Search className="doctor-search" placeholder="Doctor name" />
+            <span>Search Name: </span>
+            <Search
+              prefix={<UserOutlined />}
+              className="doctor-search"
+              value={nameSearch || ''}
+              onChange={({ target: { value } }) => setNameSearch(value)}
+              onKeyUp={(e) => (handleSearch(e))}
+              placeholder="Type doctor's name"
+            />
           </div>
           <div className="doctor-filter-section">
             <span>Specialty</span>
@@ -119,23 +176,25 @@ const ListDoctors: React.FC = () => {
             </select>
           </div>
         </div>
-        {listDoctors?.map((doctor: any) => <DoctorRow doctor={doctor} />)}
+        {(listDoctors || []).map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} />)}
       </div>
       <div className="doctor-top-list">
         <div className="doctor-top-title">Top 5:</div>
         {
-          listDoctors?.slice(0, 5).map(({ _id, name, avatar, email }: any) => (
-            <div className="doctor-top-content" key={_id}>
-              <div className="doctor-content-avatar">
-                <img src={avatar} alt={name} />
+          !doctors
+            ? (<></>)
+            : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
+              <div className="doctor-top-content" key={_id}>
+                <div className="doctor-content-avatar">
+                  {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+                </div>
+                <div className="doctor-content-details">
+                  <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
+                  <div className="doctor-content-name">Dr. {name}</div>
+                  <div>{email}</div>
+                </div>
               </div>
-              <div className="doctor-content-details">
-                <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
-                <div className="doctor-content-name">Dr. {name}</div>
-                <div>{email}</div>
-              </div>
-            </div>
-          ))
+            ))
         }
       </div>
     </div>

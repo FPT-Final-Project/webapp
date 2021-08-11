@@ -12,6 +12,7 @@ import {
   TeamOutlined,
   FileProtectOutlined,
   ProfileOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -71,7 +72,6 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
       name = 'Payment';
       break;
     }
-
     default: {
       break;
     }
@@ -93,7 +93,7 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
   const location = useLocation();
 
   const redirectToApp = () => {
-    history.push('/app/dashboard');
+    history.push('/');
   };
 
   return (
@@ -102,15 +102,17 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
         trigger={null}
         collapsible
         collapsed={collapsed}
-        width="250"
         className="custom-sider"
+        width="250"
       >
         <div className="sider-logo" onClick={redirectToApp}>
           {/* <p>PsyCare.</p> */}
           <div className="logo-dashboard" />
         </div>
         <Menu className="custom-menu">
-          {routes.map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
+          {routes
+            .filter((r) => !r.sideBarHidden)
+            .map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
         </Menu>
       </Sider>
     </>

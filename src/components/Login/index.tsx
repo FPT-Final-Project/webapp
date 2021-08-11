@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
 } from 'antd';
 
 import {
-  Link, useHistory, useLocation,
+  Link, Redirect, useHistory,
 } from 'react-router-dom';
 import '../../shared/css/form.scss';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { Action } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';
@@ -24,15 +22,19 @@ const Login: React.FC = () => {
   const user = useSelector((state: IRootState) => state.authentication.user);
 
   if (user) {
-    history.push('/app/dashboard');
-    return (<></>);
+    return (
+      <>
+        <Redirect to="/app/dashboard" />
+      </>
+    );
   }
+
   const functionDirect = () => {
     history.push('/register/new');
   };
 
   const submit = ({ email, password }: { email: string, password: string }) => {
-    dispatch(authAction.login(email, password));
+    dispatch<any>(authAction.login(email, password)).then((res: any) => console.log(res));
   };
 
   return (

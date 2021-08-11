@@ -1,6 +1,6 @@
 import { v1 as uuid } from 'uuid';
 import crypto from 'crypto';
-import axios from 'axios';
+import appConfig from './app.config';
 
 const partnerCode = 'MOMO7OU020210728';
 const accessKey = 'D8h4XhEdfdGdMQ7p';
@@ -8,20 +8,22 @@ const secreteKey = 'oimuCa81icwpHAgnw44iHKiiK8sSX5dM';
 const momoEndpoint = 'https://test-payment.momo.vn/gw_payment/transactionProcessor';
 const orderInfo = 'pay with Momo';
 const requestType = 'captureMoMoWallet';
-const notifyUrl = 'https://a0fd3e739794.ngrok.io/v1/payment/momo';
-const returnUrl = 'http://localhost:3000/app/dashboard';
+const notifyUrl = `${appConfig.backendUrl}/payment/momo`;
+const returnUrl = `${appConfig.appUrl}/app/appointment`;
 
 const momoRequest = async (
-  appointmentId: string,
+  scheduleId: string,
   appointmentName: string,
   patientId: string,
   patientName: string,
+  startOfAppointment: string,
+  endOfAppointment: string,
   doctorId: string,
   doctorName: string,
   amount: string,
 ) => {
   const orderId = uuid();
-  const extraData = [appointmentId, appointmentName, patientId, patientName, doctorId, doctorName].join(',');
+  const extraData = [scheduleId, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName].join(',');
 
   const body = {
     accessKey,
@@ -42,10 +44,14 @@ const momoRequest = async (
   const signature = crypto.createHmac('sha256', secreteKey)
     .update(rawSignature)
     .digest('hex');
-  console.log('Payment Data : ', JSON.stringify({ ...body, signature }));
-  axios.post(momoEndpoint, { ...body, signature })
-    .then((response) => console.log('Data : ', response.data))
-    .catch((error) => console.log('Error: ', error));
+
+  const requestOpts = {
+    method: 'POST',
+    body: JSON.stringify({ ...body, signature }),
+  };
+
+  const data = await (await fetch(momoEndpoint, requestOpts as any)).json();
+  return data;
 };
 
 export { momoRequest };

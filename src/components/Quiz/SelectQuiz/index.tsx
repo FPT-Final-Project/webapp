@@ -22,7 +22,7 @@ const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
   //   '../../../assets/imageStress.jpg',
   // ];
   return (
-    <Col span={8} xs={24} sm={12} xl={8} lg={12}>
+    <Col span={8} xs={24} sm={12} xl={8} lg={12} key={_id}>
       <Card hoverable className="card">
         <Row>
           <Col span={24}>
