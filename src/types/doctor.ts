@@ -3,8 +3,8 @@ export interface IDoctor {
     name: string;
     email: string;
     avatar?: string;
-    gender?: number;
+    gender?: string;
     phone?: string;
     address?: string;
-    specialist?: string;
+    major?: string;
   }

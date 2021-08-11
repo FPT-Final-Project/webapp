@@ -120,6 +120,7 @@ const ListDoctors: React.FC = () => {
   }));
   const [listDoctors, setListDoctors] = useState(doctors);
   const [nameSearch, setNameSearch] = useState('');
+  const [genderSearch, setGenderSearch] = useState('all');
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -135,6 +136,27 @@ const ListDoctors: React.FC = () => {
       setListDoctors(doctors);
     }
   };
+  const handleSearchGender = () => {
+    const result : IDoctor[] = [];
+    console.log(genderSearch);
+    if (genderSearch === 'male' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === '0') {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (genderSearch === 'female' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === '1') {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (genderSearch === 'all' && doctors) {
+      setListDoctors(doctors);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -143,6 +165,9 @@ const ListDoctors: React.FC = () => {
       });
     }
   }, []);
+  useEffect(() => {
+    handleSearchGender();
+  }, [genderSearch]);
 
   return (
     <div className="wrap-doctor-list">
@@ -160,7 +185,7 @@ const ListDoctors: React.FC = () => {
             />
           </div>
           <div className="doctor-filter-section">
-            <span>Specialty</span>
+            <span>Major</span>
             <select name="specialty" id="doctor-specialty">
               <option value="all">All</option>
               <option value="a">A</option>
@@ -169,7 +194,12 @@ const ListDoctors: React.FC = () => {
           </div>
           <div className="doctor-filter-section">
             <span>Gender</span>
-            <select name="gender" id="doctor-gender">
+            <select
+              name="gender"
+              id="doctor-gender"
+              onChange={({ target: { value } }) => setGenderSearch(value)}
+              value={genderSearch}
+            >
               <option value="all">All</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
