@@ -21,7 +21,7 @@ const LayoutApp: React.FC = () => {
   return (
     <Layout className="layout-main">
       <SiderMenu collapsed={collapsed} matchPath={routeMatch.path} />
-      <Layout>
+      <Layout style={{ marginLeft: 0 }}>
         <HeaderLayout />
         <Content className="layout-content">
           <Switch>
