@@ -20,8 +20,13 @@ const updateProfile = (
   return postRequest(`user/${id}`, { id, name, job, gender, phone, address, avatar, specialist }) as any;
 };
 
+const changePassword = (newPass: string): Promise<IUser> => {
+  return postRequest('/change-password', { newPass }) as any;
+};
+
 export default {
   login,
   register,
   updateProfile,
+  changePassword,
 };

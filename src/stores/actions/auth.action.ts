@@ -19,6 +19,10 @@ export const AuthActions = {
   UPDATE_USER_SUCCESS: '[Auth] Update User Success',
   UPDATE_USER_FAIL: '[Auth] Update User Fail',
 
+  CHANGE_PASSWORD: '[Auth] Change Password',
+  CHANGE_PASSWORD_SUCCESS: '[Auth] Change Password Success',
+  CHANGE_PASSWORD_FAIL: '[Auth] Change Password Fail',
+
 };
 
 export interface LoginSuccessAction extends Action {
@@ -65,6 +69,24 @@ export interface UpdateUserSuccessAction extends Action {
 }
 
 export interface UpdateUserFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+
+export interface ChangePasswordAction extends Action {
+  payload: {
+    currentPass: string,
+    newPass: string,
+    confirmPass: string,
+  };
+}
+
+export interface ChangePasswordSuccessAction extends Action {
+  payload: IUser;
+}
+
+export interface ChangePasswordFailAction extends Action {
   payload: {
     error: string;
   };
@@ -121,10 +143,17 @@ const updateUser = (id: string,
     dispatch(doSuccess(AuthActions.UPDATE_USER_SUCCESS, { users: result }));
   }).catch((error: any) => dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
 };
-
 const logout = () => {
   localStorage.clear();
   openNotification('success', 'Goodbye!');
+};
+const changePassword = (newPass: string) => (dispatch : Dispatch): void => {
+  dispatch(doRequest(AuthActions.CHANGE_PASSWORD, { newPass }));
+
+  userService.changePassword(newPass)
+    .then(() => {
+      logout();
+    }).catch((error: any) => dispatch(doFailure(AuthActions.CHANGE_PASSWORD_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
 };
 
 export default {
@@ -132,4 +161,5 @@ export default {
   logout,
   register,
   updateUser,
+  changePassword,
 };

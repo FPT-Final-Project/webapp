@@ -13,4 +13,5 @@ export interface IUser {
   specialist?: string;
   createdAt?: number;
   updatedAt?: number;
+  password?:string;
 }

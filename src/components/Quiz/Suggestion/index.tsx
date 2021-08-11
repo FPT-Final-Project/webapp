@@ -43,6 +43,10 @@ const SuggestionPage = () => {
   return (
     <>
       <div className="suggestion-form">
+        <div className="banner-suggestion">
+          <div className="banner-suggestion__h2">Suggestion From Doctor's PsyCare</div>
+          <div className="banner-suggestion__description">Please choose one of the doctors below to make an appointment and give the most useful advice.</div>
+        </div>
         <Row gutter={[16, 16]}>
           {doctors.map((doctor) => Doctor(doctor, loadingApi, history))}
         </Row>

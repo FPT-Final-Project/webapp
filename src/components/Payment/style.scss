@@ -1,7 +1,8 @@
 .wrapper-payment {
   width: 100%;
-  height: auto;
-  background-color: #fafafa;
+  height: calc(100%-64px);
+  overflow: hidden;
+  // background-color: #fafafa;
   padding: 16px;
   margin-top: 64px;
 
@@ -42,7 +43,7 @@
     .table-payment {
       height: auto;
       width: 69%;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       padding: 8px;
       border-radius: 20px;
       background-color: #fff;
@@ -61,8 +62,8 @@
     .order-sumary {
       height: auto;
       width: 29%;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      padding: 20px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 16px;
       border-radius: 20px;
       background-color: #fff;
 

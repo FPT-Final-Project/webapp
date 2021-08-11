@@ -5,9 +5,25 @@
   padding: 16px;
   width: 100%;
   // border-radius: 15px;
-  background-color: #fafafa;
+  height: calc(100%-64px);
+  // background-color: #fafafa;
 
-  // font-family: "Nunito", "sans-serif";
+  .card {
+    min-height: 345px !important;
+
+    .ant-card-body {
+      padding: 20px !important;
+
+      .ant-col {
+        margin-top: 5px;
+        line-height: 5px;
+        h2 {
+          line-height: 24px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
 
   .banner-quiz {
     width: 100%;
@@ -20,7 +36,7 @@
     background-size: cover;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 
     &__left {
       width: 50%;
@@ -88,7 +104,8 @@
 
   h2 {
     text-align: center;
-    margin-top: 3%;
+    width: 80%;
+    margin: 10px auto;
   }
 
   .card {
@@ -100,7 +117,7 @@
   .image1 {
     width: 100%;
     height: 200px;
-    background: url(../../../assets/stress1.jpg);
+    background: url(../../../assets/imageDepression.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -109,7 +126,7 @@
   .image2 {
     width: 100%;
     height: 200px;
-    background: url(../.././../assets/stress2.jpg);
+    background: url(../.././../assets/imageAuxious.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -118,7 +135,7 @@
   .image3 {
     width: 100%;
     height: 200px;
-    background: url(../../../assets/stress3.jpg);
+    background: url(../../../assets/imageStress.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -129,7 +146,7 @@
     padding-top: 10px;
   }
 
-  .btn-submit {
+  .btn-submit-test {
     background: rgb(22, 114, 134);
     background: linear-gradient(
       90deg,
@@ -138,7 +155,9 @@
     );
     color: white;
     border-radius: 8px;
-    width: 100px;
+    padding: 3px 25px;
+    font-size: 16px;
+    font-weight: bold;
     margin: 0 auto;
 
     &:hover,

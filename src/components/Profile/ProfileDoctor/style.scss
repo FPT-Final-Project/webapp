@@ -11,7 +11,6 @@
   .headerProfile {
     width: 100%;
     height: 100%;
-    // background-color: rgb(33, 120, 160);
     background-color: #f1f1f1;
     position: relative;
 
@@ -33,7 +32,7 @@
       transform: translate(-50%, -50%);
 
       .headerProfile__info {
-        width: 700px;
+        width: 850px;
         height: auto;
         background-color: #fff;
         display: flex;
@@ -41,10 +40,10 @@
         flex-direction: row;
         justify-content: space-between;
         margin: 0px auto;
-        padding: 4px;
+        padding: 8px;
         border-radius: 20px;
         position: absolute;
-        top: -150px;
+        top: 0px;
         left: 50%;
         transform: translate(-50%, -50%);
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -52,28 +51,28 @@
         .btnEdit-wrap {
           .btn-edit-info {
             border: 2px solid #37afc8;
-            background-color: #37afc8;
+            background-color: #fff;
             cursor: pointer;
             margin-top: 10px;
-            padding: 2px 20px;
-            color: #fff;
+            padding: 4px 15px;
+            color: #37afc8;
             font-weight: bold;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
             .editbtn_info {
-              // background-color: #f1f1f1;
-              // padding: 10px;
-              // font-size: 22px;
-              color: #fff;
-              // // border: none;
-              // border: 2px solid rgb(24, 140, 161);
-              // // border-radius: 50%;
-              // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-              // // position: absolute;
-              // // top: 8px;
-              // // right: 8px;
-              // cursor: pointer;
+              color: #37afc8;
             }
+          }
+          .btn-schedule-info {
+            margin-left: 10px;
+            border: 2px solid #37afc8;
+            background-color: #37afc8;
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 4px 15px;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
           }
         }
 
@@ -158,6 +157,9 @@
         }
       }
     }
+  }
+  .schedule {
+    margin-top: 150px !important;
   }
   .container {
     width: 600px;

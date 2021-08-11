@@ -1,16 +1,17 @@
 /* eslint-disable max-len */
 /* eslint-disable import/order */
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, TimePicker } from 'antd';
 import './style.scss';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../../stores/store';
 import authAction from '../../../stores/actions/auth.action';
+import moment from 'moment';
 
 const ProfileDoctor = () => {
   const [editable, setEditable] = useState(true);
-
+  const [creatable, setCreatable] = useState(false);
   const dispatch = useDispatch();
 
   const { user } = useSelector((state : IRootState) => state.authentication);
@@ -20,9 +21,13 @@ const ProfileDoctor = () => {
     wrapperCol: { span: 16 },
   };
 
-  const onFinish = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
+  const onFinishEdit = ({ id, name, job, gender, phone, address, avatar, specialist } : {id: string, name: string, job: string, gender: string, phone: string, address: string, avatar: string, specialist: string}) => {
     dispatch(authAction.updateUser(id, name, job, gender, phone, address, avatar, specialist));
     setEditable(!editable);
+  };
+
+  const onFinishSchedule = () => {
+    setCreatable(!creatable);
   };
 
   return (
@@ -44,8 +49,11 @@ const ProfileDoctor = () => {
                     {user?.email}
                   </div>
                   <div className="btnEdit-wrap">
-                    <button className="btn-edit-info" onClick={() => setEditable(!editable)}>
+                    <button className="btn-edit-info" onClick={() => { setEditable(!editable); console.log(editable); setCreatable(false); console.log(creatable); }}>
                       <EditOutlined className="editbtn_info" /> Edit Profile
+                    </button>
+                    <button className="btn-schedule-info" onClick={() => { setCreatable(!creatable); console.log(creatable); setEditable(true); console.log(editable); }}>
+                      <VideoCameraOutlined /> Create Schedule
                     </button>
                   </div>
                 </div>
@@ -77,7 +85,7 @@ const ProfileDoctor = () => {
             : (
               <div className="container">
 
-                <Form {...layout} name="nest-messages" onFinish={onFinish}>
+                <Form {...layout} name="nest-messages" onFinish={onFinishEdit}>
 
                   <div className="title-top">Edit My Profile</div>
                   <div className="container__title">
@@ -147,9 +155,41 @@ const ProfileDoctor = () => {
                     </div>
                   </div>
                 </Form>
-
               </div>
+
             )}
+          {creatable
+            ? (
+              <div className="container schedule">
+
+                <Form {...layout} name="nest-messages" onFinish={onFinishSchedule}>
+
+                  <div className="title-top">Create Schedule</div>
+                  <div className="form-item">
+                    <div className="divide divide-right">
+
+                      <Form.Item
+                        name="gender"
+                        label="Time Open: "
+                      />
+                      <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="large" />
+
+                      <Form.Item
+                        name="address"
+                        label="Time Close: "
+                      />
+                      <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="large" />
+
+                      <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                          {creatable ? 'Create' : ''}
+                        </Button>
+                      </Form.Item>
+                    </div>
+                  </div>
+                </Form>
+              </div>
+            ) : '' }
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import ListDoctors from '../../components/AdminDoctors/ListDoctors';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
 import ProfileUser from '../../components/Profile/ProfileUser';
 import ProfileDoctor from '../../components/Profile/ProfileDoctor';
+import ChangePass from '../../components/ChangPass';
+import DoctorDetail from '../../components/AdminDoctors/DoctorDetail';
 
 export const routes = [
   {
@@ -23,6 +25,7 @@ export const routes = [
     path: '/doctor',
     exact: true,
     component: ListDoctors,
+    // component: DoctorDetail,
   },
   {
     path: '/psychology-test',
@@ -50,8 +53,10 @@ export const routes = [
     component: ProfileUser,
   },
   {
+    // path: '/changePassword',
     path: '/profileDoctor',
     exact: true,
     component: ProfileDoctor,
+    // component: ChangePass,
   },
 ];

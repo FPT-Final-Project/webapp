@@ -60,7 +60,7 @@ const Payment: React.FC = () => {
         </div>
         <div className="order-sumary">
           <h2>Order Summary</h2>
-          <Divider style={{ marginTop: '15px' }} />
+          <Divider style={{ marginTop: '18px' }} />
           <Row justify="space-between">
             <Col span={8}><h3>Item Total</h3></Col>
             <Col span={8} className="col-total">$50</Col>

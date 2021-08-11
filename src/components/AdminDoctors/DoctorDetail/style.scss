@@ -1,0 +1,177 @@
+.wrap-details {
+  width: 100%;
+  height: calc(100%-64px);
+  background-color: #f1f1f1;
+  padding: 16px;
+  margin-top: 64px;
+
+  .headerDetail {
+    width: 100%;
+    height: 320px;
+    position: relative;
+
+    &__banner {
+      width: 100%;
+      height: 250px;
+      background: url(../../../assets/clinicdoctor.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position-y: -300px;
+      border-radius: 15px;
+    }
+
+    &__info {
+      // max-width: 700px;
+      width: 700px;
+      height: 100px;
+      background-color: #fff;
+
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      top: 250px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      .info-spreate {
+        width: 24%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        &__title {
+          font-size: 18px;
+          font-weight: bold;
+          color: rgb(75, 75, 75);
+        }
+
+        &__text {
+          font-size: 16px;
+        }
+        .info--image {
+          height: 150px;
+          width: 150px;
+          border-radius: 50%;
+          border: 3px solid #fff;
+          background: url(../../../assets/doctorClinic.jpg);
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position-x: -25px;
+          transform: translate(-25px, -5px);
+          position: absolute;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+      }
+
+      .area-image {
+        width: 18% !important;
+      }
+    }
+  }
+  .contentDetail {
+    max-width: 700px;
+    height: auto;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px auto;
+    background-color: #fff;
+    border: 2px solid #1295b1;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    &__schedule {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+
+      .detail--title {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      &--wrap {
+        width: 100%;
+        height: auto;
+        padding: 0 16px;
+        display: flex;
+
+        .schedule--left {
+          width: auto;
+          display: flex;
+          flex-direction: column;
+
+          .sche-time {
+            width: auto;
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #1295b1;
+            border: 2px solid #4d757e81;
+            border-radius: 8px;
+            color: #fff;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
+        .schedule--right {
+          display: flex;
+          flex-direction: column;
+          padding: 0 16px;
+          margin-top: 4px;
+
+          .sche-price {
+            font-weight: bold;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    &__information {
+      margin-top: 16px;
+
+      .detail--title {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      p {
+        padding-left: 24px;
+        font-size: 16px;
+        line-height: 13px;
+        color: #858383;
+      }
+    }
+
+    &__introduce {
+      .detail--title {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      p {
+        padding-left: 24px;
+        font-size: 16px;
+        color: #858383;
+      }
+    }
+    &__specialise {
+      .detail--title {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      h4,
+      p {
+        padding-left: 24px;
+        color: #858383;
+      }
+    }
+  }
+}

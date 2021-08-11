@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import {
   Card, Row, Col, Button,
@@ -15,12 +16,17 @@ interface Props {
 }
 
 const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
+  // const picturesURL = [
+  //   '../../../assets/imageDepression.jpg',
+  //   '../../../assets/imageAuxious.jpg',
+  //   '../../../assets/imageStress.jpg',
+  // ];
   return (
     <Col span={8} xs={24} sm={12} xl={8} lg={12}>
       <Card hoverable className="card">
         <Row>
           <Col span={24}>
-            <div className="image1" />
+            {name.includes('depression') ? (<div className="image1" />) : name.includes('Anxious') ? (<div className="image2" />) : (<div className="image3" />)}
           </Col>
           <Col span={24}>
             <h2>{name}</h2>
@@ -28,8 +34,8 @@ const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
           <Col span={24}>
             <p>{description}</p>
           </Col>
-          <Button className="btn-submit" onClick={() => history.replace(`/quiz/${_id}`)}>
-          Test now
+          <Button className="btn-submit-test" onClick={() => history.replace(`/quiz/${_id}`)}>
+          Let's test now
           </Button>
         </Row>
       </Card>
