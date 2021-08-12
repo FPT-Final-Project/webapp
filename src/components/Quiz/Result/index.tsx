@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { Route, useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import score from '../../../assets/Score.svg';
 import { analyzeResultOfPsytest } from '../../../helper/analyzeResultOfPsytest';
-import { IRootState } from '../../../stores/store';
 import './style.scss';
 import SuggestionPage from '../Suggestion';
 
@@ -24,16 +23,15 @@ const ResultQuiz: React.FC<Props> = () => {
     <>
       <div className="result-form">
         <div className="result">
-          <h2>Psychological self-test for depression</h2>
+          <h1>Psychological self-test for Depression</h1>
           {/* <h3>Do you to get depressed? Take the depression test.</h3> */}
-          <p>
+          <p className="text-desciption">
             For many disorders affertiong your wellbeing, talking a critical look at your
             own mental state can put tou on course towards felling better.
             Using our online selt-test you can find out for yourself whether
             you're exhibiting signs of depression and wherther you need psychological help.
           </p>
-          <div className="dotted" />
-          <h1>Your Results</h1>
+          <h1 className="results-title">Your Results</h1>
           <div className="scoreSvg">
             <img src={score} alt="score" />
             <div className="scoreQuiz">{result}/27</div>

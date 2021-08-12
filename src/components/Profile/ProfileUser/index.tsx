@@ -18,7 +18,7 @@ const ProfileUser: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state : IRootState) => state.authentication);
-  console.log(user);
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -31,7 +31,6 @@ const ProfileUser: React.FC<Props> = () => {
 
   return (
     <div className="wrap-content">
-      <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
         <div className="wrap-mid">

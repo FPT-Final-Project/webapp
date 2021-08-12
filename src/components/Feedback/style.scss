@@ -1,18 +1,14 @@
 .wrap-feedback {
   width: 100%;
-  height: 100%;
-  background-color: #fafafa;
+  height: calc(100%-64px);
   padding: 16px;
-  margin-top: 64px;
 
   .banner-feedback {
     width: 100%;
     height: 120px;
     padding: 16px;
-    // background-color: #fff;
     border-radius: 15px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    // overflow: hidden;
     background: url(../../assets/headerFeedback.svg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,6 +16,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 16px;
 
     &__h2 {
       font-size: 28px;
@@ -35,8 +32,8 @@
     text-align: center;
     max-width: 800px;
     height: fit-content;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 20px auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 0px auto;
     border-radius: 15px;
     padding: 16px;
     background-color: #fff;

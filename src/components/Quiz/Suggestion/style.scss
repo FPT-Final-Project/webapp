@@ -1,8 +1,34 @@
-.suggestion-form{
-    width: 90%;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 1% auto;
+.suggestion-form {
+  width: 90%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 1% auto;
+  border-radius: 12px;
+  padding: 20px;
+
+  .banner-suggestion {
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    // background-color: #fff;
     border-radius: 15px;
-    padding: 20px;
-  
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    background: url(../../../assets/headerSuggestion.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background-position: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    &__h2 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    &__description {
+      font-size: 18px;
+      color: #838383;
+    }
+  }
 }

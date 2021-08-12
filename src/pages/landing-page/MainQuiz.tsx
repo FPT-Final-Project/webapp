@@ -44,7 +44,7 @@ const MainQuiz = () => {
         >
           <div className="quiz__list--item">
             <div className="wrap-quiz">
-              <div className="wrap-quiz__big">Psychological self-test for depression</div>
+              <div className="wrap-quiz__big">Psychological self-test for Depression</div>
               <div className="wrap-quiz__small">
                 Discover the world of psychological counselling. Find out how
                 online counselling can help you with your topic.

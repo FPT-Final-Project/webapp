@@ -1,17 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap");
 .result-form {
   text-align: center;
-  width: 90%;
-  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 1% auto;
-  border-radius: 15px;
-  font-family: "Nunito", 'sans-serif';
+  width: 70%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 16px auto;
+  border-top: 5px solid #299cb4;
+  border-radius: 12px;
+  font-family: "Nunito", "sans-serif";
   position: relative;
   .result {
-    width: 80%;
+    width: 95%;
     margin: auto;
     padding: 20px;
+
+    .results-title {
+      position: relative;
+      margin-top: 25px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 2px;
+        border-radius: 15px;
+        background-color: #299db474;
+        top: -8px;
+        left: 50%;
+        transform: translate(-50%);
+      }
+    }
+
+    .text-desciption {
+      color: #979797;
+      margin: 0 auto;
+      width: 85%;
+    }
 
     h1,
     h2,
@@ -23,17 +46,17 @@
   .dotted {
     margin: auto;
     width: 30%;
-    border-bottom: 5px solid #299CB4;
+    border-bottom: 5px solid #299cb4;
     padding: 5px;
   }
 
   .concludeResult {
-    border: 2px solid #299CB4;
+    border: 2px solid #299cb4;
     width: 100%;
     margin: 5px auto;
-    padding: 20px;
+    padding: 16px;
     border-radius: 15px;
-    background: #e1f7fc;
+    background: #e1f7fc9a;
   }
 
   .scoreSvg {
@@ -45,69 +68,82 @@
     top: 41%;
     left: 50.5%;
     transform: translate(-50%, -50%);
-    font-size: 33px;
+    font-size: 40px;
+    font-weight: 800;
     color: white;
   }
-  .suggestIcon{
-    position:absolute;
-    top:40%;
-    right:30px; 
+  .suggestIcon {
+    position: absolute;
+    top: 40%;
+    right: 30px;
     -moz-animation: bounce 3s infinite;
-	-webkit-animation: bounce 3s infinite;
-	animation: bounce 3s infinite;
-  @-moz-keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      -moz-transform: translateX(0);
-      transform: translateX(0);
+    -webkit-animation: bounce 3s infinite;
+    animation: bounce 3s infinite;
+    cursor: pointer;
+    @-moz-keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        -moz-transform: translateX(0);
+        transform: translateX(0);
+      }
+      40% {
+        -moz-transform: translateX(-30px);
+        transform: translateX(-30px);
+      }
+      60% {
+        -moz-transform: translateX(-15px);
+        transform: translateX(-15px);
+      }
     }
-    40% {
-      -moz-transform: translateX(-30px);
-      transform: translateX(-30px);
+    @-webkit-keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+      }
+      40% {
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+      }
+      60% {
+        -webkit-transform: translateX(-15px);
+        transform: translateX(-15px);
+      }
     }
-    60% {
-      -moz-transform: translateX(-15px);
-      transform: translateX(-15px);
+    @keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+      }
+      40% {
+        -moz-transform: translateX(-30px);
+        -ms-transform: translateX(-30px);
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+      }
+      60% {
+        -moz-transform: translateX(-15px);
+        -ms-transform: translateX(-15px);
+        -webkit-transform: translateX(-15px);
+        transform: translateX(-15px);
+      }
+    }
+    &:hover {
+      -moz-animation: bounce 3s es;
+      -webkit-animation: bounce 3s;
+      animation: bounce;
     }
   }
-  @-webkit-keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
-    }
-    40% {
-      -webkit-transform: translateX(-30px);
-      transform: translateX(-30px);
-    }
-    60% {
-      -webkit-transform: translateX(-15px);
-      transform: translateX(-15px);
-    }
-  }
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      -moz-transform: translateX(0);
-      -ms-transform: translateX(0);
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
-    }
-    40% {
-      -moz-transform: translateX(-30px);
-      -ms-transform: translateX(-30px);
-      -webkit-transform: translateX(-30px);
-      transform: translateX(-30px);
-    }
-    60% {
-      -moz-transform: translateX(-15px);
-      -ms-transform: translateX(-15px);
-      -webkit-transform: translateX(-15px);
-      transform: translateX(-15px);
-    }
-  }
-  &:hover {
-    -moz-animation: bounce 3s es;
-    -webkit-animation: bounce 3s ;
-    animation: bounce ;  }
-
-   }
-
 }

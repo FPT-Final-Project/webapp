@@ -1,22 +1,18 @@
 .wrapper-payment {
   width: 100%;
-  height: auto;
-  background-color: #fafafa;
+  height: calc(100%-64px);
   padding: 16px;
-  margin-top: 64px;
 
   .banner-payment {
     width: 100%;
     height: 120px;
     padding: 16px;
-    // background-color: #fff;
     border-radius: 15px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    // overflow: hidden;
     background: url(../../assets/headerPayment.svg);
     background-repeat: no-repeat;
+
     background-size: cover;
-    // background-position: right;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,7 +38,7 @@
     .table-payment {
       height: auto;
       width: 69%;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       padding: 8px;
       border-radius: 20px;
       background-color: #fff;
@@ -61,8 +57,8 @@
     .order-sumary {
       height: auto;
       width: 29%;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      padding: 20px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 16px;
       border-radius: 20px;
       background-color: #fff;
 
