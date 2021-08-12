@@ -120,9 +120,8 @@ const ListDoctors: React.FC = () => {
   }));
   const [listDoctors, setListDoctors] = useState(doctors);
   const [nameSearch, setNameSearch] = useState('');
-  const [genderSearch, setGenderSearch] = useState('all');
 
-  const handleSearch = (e: any) => {
+  const handleNameSearch = (e: any) => {
     e.preventDefault();
     const result : IDoctor[] = [];
     if (nameSearch && doctors) {
@@ -136,24 +135,54 @@ const ListDoctors: React.FC = () => {
       setListDoctors(doctors);
     }
   };
-  const handleSearchGender = () => {
+  const handleGenderSearch = (e: any) => {
+    e.preventDefault();
+    const gender = e.target.value;
     const result : IDoctor[] = [];
-    console.log(genderSearch);
-    if (genderSearch === 'male' && doctors) {
+    if (gender === 'male' && doctors) {
       for (let i = 0; i < doctors.length; i += 1) {
         if (doctors[i].gender === '0') {
           result.push(doctors[i]);
         }
       }
       setListDoctors(result);
-    } else if (genderSearch === 'female' && doctors) {
+    } else if (gender === 'female' && doctors) {
       for (let i = 0; i < doctors.length; i += 1) {
         if (doctors[i].gender === '1') {
           result.push(doctors[i]);
         }
       }
       setListDoctors(result);
-    } else if (genderSearch === 'all' && doctors) {
+    } else if (gender === 'all' && doctors) {
+      setListDoctors(doctors);
+    }
+  };
+  const handleMajorSearch = (e: any) => {
+    e.preventDefault();
+    const major = e.target.value;
+    const result : IDoctor[] = [];
+    if (major === 'depress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Depress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'anxious' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Anxious'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'stress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Stress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'all' && doctors) {
       setListDoctors(doctors);
     }
   };
@@ -165,9 +194,6 @@ const ListDoctors: React.FC = () => {
       });
     }
   }, []);
-  useEffect(() => {
-    handleSearchGender();
-  }, [genderSearch]);
 
   return (
     <div className="wrap-doctor-list">
@@ -180,16 +206,17 @@ const ListDoctors: React.FC = () => {
               className="doctor-search"
               value={nameSearch || ''}
               onChange={({ target: { value } }) => setNameSearch(value)}
-              onKeyUp={(e) => (handleSearch(e))}
+              onKeyUp={(e) => (handleNameSearch(e))}
               placeholder="Type doctor's name"
             />
           </div>
           <div className="doctor-filter-section">
             <span>Major</span>
-            <select name="specialty" id="doctor-specialty">
+            <select name="major" id="doctor-specialty" onChange={(e) => (handleMajorSearch(e))}>
               <option value="all">All</option>
-              <option value="a">A</option>
-              <option value="b">B</option>
+              <option value="depress">Depress</option>
+              <option value="anxious">Anxious</option>
+              <option value="stress">Stress</option>
             </select>
           </div>
           <div className="doctor-filter-section">
@@ -197,8 +224,7 @@ const ListDoctors: React.FC = () => {
             <select
               name="gender"
               id="doctor-gender"
-              onChange={({ target: { value } }) => setGenderSearch(value)}
-              value={genderSearch}
+              onChange={(e) => (handleGenderSearch(e))}
             >
               <option value="all">All</option>
               <option value="male">Male</option>
