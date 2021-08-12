@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { Route, useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import score from '../../../assets/Score.svg';
 import { analyzeResultOfPsytest } from '../../../helper/analyzeResultOfPsytest';
-import { IRootState } from '../../../stores/store';
 import './style.scss';
 import SuggestionPage from '../Suggestion';
 

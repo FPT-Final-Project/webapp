@@ -43,9 +43,10 @@
       "warn",
       {
         "vars": "all",
-        "args": "after-used",
+        "args": "all",
         "ignoreRestSiblings": false,
-        "argsIgnorePattern": "^_"
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
       }
     ],
     "max-len": ["warn", {

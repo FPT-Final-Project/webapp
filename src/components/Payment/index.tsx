@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import './style.scss';
 import {
   Table, Row, Divider, Col, Button, Space,
@@ -22,6 +21,7 @@ const Payment: React.FC = () => {
       <></>
     );
   }
+
   if (location.state.nameRoom === undefined) {
     history.push('doctor');
   }
@@ -46,7 +46,16 @@ const Payment: React.FC = () => {
   ];
 
   const handlePurchasing = async () => {
-    const { payUrl } = await momoRequest(location.state.idSchedule, location.state.nameRoom, user._id, user.name, location.state.startOfAppointment.toString(), location.state.endOfAppointment.toString(), location.state.doctorId, location.state.doctorName, '50000');
+    const { payUrl } = await momoRequest(
+      location.state.idSchedule,
+      location.state.nameRoom,
+      user._id, user.name,
+      location.state.startOfAppointment.toString(),
+      location.state.endOfAppointment.toString(),
+      location.state.doctorId,
+      location.state.doctorName,
+      '50000',
+    );
     window.location.href = payUrl;
   };
 

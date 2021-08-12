@@ -1,6 +1,5 @@
 import Dashboard from '../../components/Dashboard';
 import Appointment from '../../components/Appointment';
-import QuestionAnswer from '../../components/QuestionAnswer';
 import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
@@ -8,7 +7,6 @@ import { Quizzes } from '../../components/Quiz/SelectQuiz';
 import Forum from '../../components/Forum';
 import ProfileUser from '../../components/Profile/ProfileUser';
 import ProfileDoctor from '../../components/Profile/ProfileDoctor';
-import ChangePass from '../../components/ChangPass';
 import DoctorDetail from '../../components/AdminDoctors/DoctorDetail';
 
 export const routes = [
@@ -26,7 +24,6 @@ export const routes = [
     path: '/doctor',
     exact: true,
     component: ListDoctors,
-    // component: DoctorDetail,
   },
   {
     path: '/psychology-test',
@@ -34,7 +31,7 @@ export const routes = [
     component: Quizzes,
   },
   {
-    path: '/questionanswer',
+    path: '/forum',
     exact: true,
     component: Forum,
   },
@@ -56,11 +53,15 @@ export const routes = [
     sideBarHidden: true,
   },
   {
-    // path: '/changePassword',
     path: '/profileDoctor',
     exact: true,
     component: ProfileDoctor,
-    // component: ChangePass,
+    sideBarHidden: true,
+  },
+  {
+    path: '/doctor/:doctorId/details',
+    exact: true,
+    component: DoctorDetail,
     sideBarHidden: true,
   },
 ];

@@ -1,13 +1,11 @@
-/* eslint-disable max-len */
-/* eslint-disable import/order */
 import React, { useState } from 'react';
 import { Form, Input, Button, Select, TimePicker } from 'antd';
 import './style.scss';
 import { EditOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import { IRootState } from '../../../stores/store';
 import authAction from '../../../stores/actions/auth.action';
-import moment from 'moment';
 
 const { Option } = Select;
 
@@ -35,7 +33,6 @@ const ProfileDoctor: React.FC = () => {
   return (
     <div className="wrap-content">
       {/* root */}
-      <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
         <div className="wrap-mid">
@@ -51,10 +48,10 @@ const ProfileDoctor: React.FC = () => {
                     {user?.email}
                   </div>
                   <div className="btnEdit-wrap">
-                    <button className="btn-edit-info" onClick={() => { setEditable(!editable); console.log(editable); setCreatable(false); console.log(creatable); }}>
+                    <button className="btn-edit-info" onClick={() => { setEditable(!editable); setCreatable(false); }}>
                       <EditOutlined className="editbtn_info" /> Edit Profile
                     </button>
-                    <button className="btn-schedule-info" onClick={() => { setCreatable(!creatable); console.log(creatable); setEditable(true); console.log(editable); }}>
+                    <button className="btn-schedule-info" onClick={() => { setCreatable(!creatable); setEditable(true); }}>
                       <VideoCameraOutlined /> Create Schedule
                     </button>
                   </div>
@@ -86,23 +83,18 @@ const ProfileDoctor: React.FC = () => {
             )
             : (
               <div className="container">
-
                 <Form {...layout} name="nest-messages" onFinish={onFinish}>
-
                   <div className="title-top">Edit My Profile</div>
                   <div className="container__title">
                     <div className="container__title--text">Personal Information</div>
                     <div className="container__title--btn" />
                   </div>
                   <div className="form-item">
-
                     <div className="divide divide-left">
                       <div className="image-profile" />
                       <button className="divide-left__edit"><EditOutlined className="editbtn_below" /></button>
-
                     </div>
                     <div className="divide divide-right">
-
                       <Form.Item
                         name="name"
                         label="Name: "
@@ -110,7 +102,6 @@ const ProfileDoctor: React.FC = () => {
                         rules={[{ required: true }]}
                       >
                         <Input />
-
                       </Form.Item>
                       <Form.Item
                         name="major"
@@ -168,18 +159,14 @@ const ProfileDoctor: React.FC = () => {
                   </div>
                 </Form>
               </div>
-
             )}
           {creatable
             ? (
               <div className="container schedule">
-
                 <Form {...layout} name="nest-messages" onFinish={onFinishSchedule}>
-
                   <div className="title-top">Create Schedule</div>
                   <div className="form-item">
                     <div className="divide divide-right">
-
                       <Form.Item
                         name="gender"
                         label="Time Open: "
@@ -201,7 +188,7 @@ const ProfileDoctor: React.FC = () => {
                   </div>
                 </Form>
               </div>
-            ) : '' }
+            ) : (<></>) }
         </div>
       </div>
     </div>

@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import { Layout, Input } from 'antd';
+import { Layout } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 import './style.scss';
-import { useLocation, useRouteMatch } from 'react-router-dom';
-// import { useDate } from '../../hooks/useDate';
+import { useLocation } from 'react-router-dom';
 import AvatarModal from '../Modals/Avatar';
 
 interface Props {}
 
 const { Header } = Layout;
-// const { Search } = Input;
 
 const HeaderLayout: React.FC<Props> = () => {
-  // const { date, time } = useDate();
   const location = useLocation();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -31,8 +28,6 @@ const HeaderLayout: React.FC<Props> = () => {
       <Header className="app-header">
         <div className="left-nar-bar">
           <p className="app-header-title">{location.pathname.split('/')[2]}</p>
-          {/* <Search className="nar-search" placeholder="Search..." /> */}
-          {/* <div className="date-time-nar-bar">{`${date}, ${time}`}</div> */}
         </div>
         <div className="right-nar-bar">
           <FontAwesomeIcon className="IconSection" icon={faBell} size="2x" />

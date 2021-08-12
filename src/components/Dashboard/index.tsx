@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
 import { Table } from 'antd';
@@ -64,7 +63,10 @@ const Dashboard: React.FC = () => {
           if (!unMounted && res) {
             const result : IAppointment[] = [];
             for (let i = 0; i < res.length; i += 1) {
-              if ((res[i].startOfAppointment) <= new Date().getTime() + 86400000 && (res[i].startOfAppointment) >= new Date().getTime()) {
+              if (
+                res[i].startOfAppointment <= (new Date().getTime() + 86400000)
+                && res[i].startOfAppointment >= new Date().getTime()
+              ) {
                 result.push(res[i]);
               }
             }
