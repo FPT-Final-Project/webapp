@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Layout } from 'antd';
+import React from 'react';
+import { Layout } from 'antd';
 import { Switch, useRouteMatch } from 'react-router-dom';
 import SiderMenu from '../../components/Sider';
 import { routes } from './routes';
@@ -12,31 +12,28 @@ const { Content } = Layout;
 
 const LayoutApp: React.FC = () => {
   const routeMatch = useRouteMatch();
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
 
   return (
     <Layout className="layout-main">
-      <SiderMenu collapsed={collapsed} matchPath={routeMatch.path} />
+      <SiderMenu matchPath={routeMatch.path} />
       <Layout style={{ marginLeft: 0 }}>
         <HeaderLayout />
         <Content className="layout-content">
-          <Switch>
-            {routes.map((route, index) => (
+          <div className="all-content-wrapper">
+            <Switch>
+              {routes.map((route, index) => (
+                <ProtectedRoute
+                  key={index}
+                  path={`${routeMatch.path}${route.path}`}
+                  component={route.component}
+                />
+              ))}
               <ProtectedRoute
-                key={index}
-                path={`${routeMatch.path}${route.path}`}
-                component={route.component}
+                path={`${routeMatch.path}/doctor/:doctorId/detail`}
+                component={DoctorDetail}
               />
-            ))}
-            <ProtectedRoute
-              path={`${routeMatch.path}/doctor/:doctorId/detail`}
-              component={DoctorDetail}
-            />
-          </Switch>
+            </Switch>
+          </div>
         </Content>
       </Layout>
     </Layout>

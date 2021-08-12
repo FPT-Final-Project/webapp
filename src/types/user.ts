@@ -13,4 +13,5 @@ export interface IUser {
   major?: string;
   createdAt?: number;
   updatedAt?: number;
+  password?:string;
 }

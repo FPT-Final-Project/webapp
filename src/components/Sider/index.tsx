@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/jsx-no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
@@ -12,7 +10,6 @@ import {
   TeamOutlined,
   FileProtectOutlined,
   ProfileOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -22,7 +19,6 @@ const { Sider } = Layout;
 const { Item } = Menu;
 
 interface Props {
-  collapsed?: boolean;
   matchPath: string;
 }
 
@@ -57,7 +53,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
 
     case matchPath + routes[4].path: {
       icon = <CommentOutlined className="icon-dashboard" />;
-      name = 'Questions & Answers';
+      name = 'Forum Question';
       break;
     }
 
@@ -88,7 +84,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
   );
 };
 
-const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => {
+const SiderMenu: React.FC<Props> = ({ matchPath }: Props) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -101,7 +97,6 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
       <Sider
         trigger={null}
         collapsible
-        collapsed={collapsed}
         className="custom-sider"
         width="250"
       >
@@ -117,10 +112,6 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
       </Sider>
     </>
   );
-};
-
-SiderMenu.defaultProps = {
-  collapsed: false,
 };
 
 export default SiderMenu;

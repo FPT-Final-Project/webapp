@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Table, Space, Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,11 +42,29 @@ const Appointment: React.FC = () => {
   useEffect(() => {
     if (user) {
       if (params.message === 'Success' && params.errorCode === '0' && typeof params.extraData === 'string') {
-        // eslint-disable-next-line no-unused-vars
-        const [idSchedule, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName] = params.extraData?.split(',');
+        const [
+          idSchedule,
+          appointmentName,
+          _patientId,
+          _patientName,
+          startOfAppointment,
+          endOfAppointment,
+          doctorId,
+          doctorName,
+        ] = params.extraData?.split(',');
+
         dispatch<any>(scheduleAction.updateSchedules(idSchedule))
           .then(
-            dispatch<any>(appointmentAction.createAppointment(user, appointmentName, parseFloat(startOfAppointment), parseFloat(endOfAppointment), doctorId, doctorName)),
+            dispatch<any>(
+              appointmentAction.createAppointment(
+                user,
+                appointmentName,
+                parseFloat(startOfAppointment),
+                parseFloat(endOfAppointment),
+                doctorId,
+                doctorName,
+              ),
+            ),
           );
         history.push('/app/appointment');
         dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
