@@ -1,5 +1,4 @@
-/* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
@@ -15,33 +14,26 @@ interface Props {
   quizzes: IQuiz[] | undefined;
 }
 
-const Quiz = ({ _id, name, description }: IQuiz, history: any) => {
-  // const picturesURL = [
-  //   '../../../assets/imageDepression.jpg',
-  //   '../../../assets/imageAuxious.jpg',
-  //   '../../../assets/imageStress.jpg',
-  // ];
-  return (
-    <Col span={8} xs={24} sm={12} xl={8} lg={12} key={_id}>
-      <Card hoverable className="card">
-        <Row>
-          <Col span={24}>
-            {name.includes('depression') ? (<div className="image1" />) : name.includes('Anxious') ? (<div className="image2" />) : (<div className="image3" />)}
-          </Col>
-          <Col span={24}>
-            <h2>{name}</h2>
-          </Col>
-          <Col span={24}>
-            <p>{description}</p>
-          </Col>
-          <Button className="btn-submit-test" onClick={() => history.replace(`/quiz/${_id}`)}>
+const Quiz = ({ _id, name, description }: IQuiz, history: any, index: number) => (
+  <Col span={8} xs={24} sm={12} xl={8} lg={12} key={_id}>
+    <Card hoverable className="card">
+      <Row>
+        <Col span={24}>
+          <div className={`image${index + 1}`} />
+        </Col>
+        <Col span={24}>
+          <h2>{name}</h2>
+        </Col>
+        <Col span={24}>
+          <p>{description}</p>
+        </Col>
+        <Button className="btn-submit-test" onClick={() => history.replace(`/quiz/${_id}`)}>
           Let's test now
-          </Button>
-        </Row>
-      </Card>
-    </Col>
-  );
-};
+        </Button>
+      </Row>
+    </Card>
+  </Col>
+);
 
 const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   const history = useHistory();
@@ -67,7 +59,7 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
           </div>
         </div>
         <Row gutter={[16, 16]}>
-          {(quizzes || []).map((quiz) => Quiz(quiz, history))}
+          {(quizzes || []).map((quiz, index) => Quiz(quiz, history, index))}
         </Row>
       </div>
     </>
