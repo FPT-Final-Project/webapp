@@ -19,19 +19,21 @@ const LayoutApp: React.FC = () => {
       <Layout style={{ marginLeft: 0 }}>
         <HeaderLayout />
         <Content className="layout-content">
-          <Switch>
-            {routes.map((route, index) => (
+          <div className="all-content-wrapper">
+            <Switch>
+              {routes.map((route, index) => (
+                <ProtectedRoute
+                  key={index}
+                  path={`${routeMatch.path}${route.path}`}
+                  component={route.component}
+                />
+              ))}
               <ProtectedRoute
-                key={index}
-                path={`${routeMatch.path}${route.path}`}
-                component={route.component}
+                path={`${routeMatch.path}/doctor/:doctorId/detail`}
+                component={DoctorDetail}
               />
-            ))}
-            <ProtectedRoute
-              path={`${routeMatch.path}/doctor/:doctorId/detail`}
-              component={DoctorDetail}
-            />
-          </Switch>
+            </Switch>
+          </div>
         </Content>
       </Layout>
     </Layout>

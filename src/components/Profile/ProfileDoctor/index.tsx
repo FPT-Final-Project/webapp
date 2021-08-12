@@ -163,30 +163,13 @@ const ProfileDoctor: React.FC = () => {
           {creatable
             ? (
               <div className="container schedule">
-                <Form {...layout} name="nest-messages" onFinish={onFinishSchedule}>
-                  <div className="title-top">Create Schedule</div>
-                  <div className="form-item">
-                    <div className="divide divide-right">
-                      <Form.Item
-                        name="gender"
-                        label="Time Open: "
-                      />
-                      <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="large" />
-
-                      <Form.Item
-                        name="address"
-                        label="Time Close: "
-                      />
-                      <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="large" />
-
-                      <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                          {creatable ? 'Create' : ''}
-                        </Button>
-                      </Form.Item>
-                    </div>
+                <div className="title-top">Create Schedule</div>
+                <div className="form-item">
+                  <div className="divide divide-right">
+                    <TimePicker format="HH:mm" minuteStep={20} size="large" />
+                    <TimePicker format="HH:mm" minuteStep={20} size="large" />
                   </div>
-                </Form>
+                </div>
               </div>
             ) : (<></>) }
         </div>

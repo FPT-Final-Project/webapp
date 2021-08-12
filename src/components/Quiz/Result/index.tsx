@@ -23,7 +23,7 @@ const ResultQuiz: React.FC<Props> = () => {
     <>
       <div className="result-form">
         <div className="result">
-          <h1>Psychological self-test for depression</h1>
+          <h1>Psychological self-test for Depression</h1>
           {/* <h3>Do you to get depressed? Take the depression test.</h3> */}
           <p className="text-desciption">
             For many disorders affertiong your wellbeing, talking a critical look at your
