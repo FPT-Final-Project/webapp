@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Layout, Input } from 'antd';
+import { Layout, Input, Image } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 import './style.scss';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 // import { useDate } from '../../hooks/useDate';
+import { useSelector } from 'react-redux';
 import AvatarModal from '../Modals/Avatar';
+import { IRootState } from '../../stores/store';
 
 interface Props {}
 
@@ -17,7 +19,7 @@ const HeaderLayout: React.FC<Props> = () => {
   // const { date, time } = useDate();
   const location = useLocation();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const { user } = useSelector((state : IRootState) => state.authentication);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -41,7 +43,7 @@ const HeaderLayout: React.FC<Props> = () => {
             icon={faEnvelope}
             size="2x"
           />
-          <button onClick={showModal} className="avatar-profile" />
+          <Image src={user?.avatar || '/avatarDefault.png'} onClick={showModal} alt="avatar" className="avatar-profile" preview={false} />
           <AvatarModal
             visible={isModalVisible}
             handleCancelDropAvatar={handleCancelDropAvatar}

@@ -12,10 +12,16 @@ const updateProfile = (values: any): Promise<IUser> => {
   return putRequest('/user/update-profile', { values }) as any;
 };
 const getMe = (): Promise<IUser> => getRequest('/user/getMe') as any;
+
+const uploadAvatar = (body: any): Promise<IUser> => postRequest('/user/uploadSingle', body) as any;
+
+const updateAvatar = (body: any): Promise<IUser> => postRequest('/user/updateAvatar', body) as any;
 export default {
   login,
   register,
   getUserProfile,
   updateProfile,
   getMe,
+  uploadAvatar,
+  updateAvatar,
 };

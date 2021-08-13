@@ -12,7 +12,7 @@ import { IRootState } from '../../stores/store';
 const { Title } = Typography;
 const { Option } = Select;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-const validatePass = /^.{6,}$/;
+const validatePass = /^.{8,}$/;
 
 const Register: React.FC = () => {
   const history = useHistory();
@@ -89,7 +89,7 @@ const Register: React.FC = () => {
                 },
                 {
                   pattern: validatePass,
-                  message: 'The input must be least 6 characters in length!',
+                  message: 'The input must be least 8 characters in length!',
                 },
               ]}
               hasFeedback
