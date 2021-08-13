@@ -76,7 +76,6 @@ const ProfileUser: React.FC<Props> = () => {
 
   return (
     <div className="wrap-content">
-      <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
         <div className="wrap-mid">

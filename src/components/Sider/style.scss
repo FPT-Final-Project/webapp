@@ -8,9 +8,7 @@
   background-color: #299cb4 !important;
   height: 100;
   width: 250px;
-  // width: inherit;
-  overflow: hidden;
-  // background-color: #299cb4 !important;
+  z-index: 5;
 
   .sider-logo {
     text-align: center;
@@ -19,12 +17,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // margin: 16px;
     color: white;
     font-size: xx-large;
     font-weight: 900;
     cursor: pointer;
-    // background-color: rebeccapurple;
     .logo-dashboard {
       width: 170px;
       height: 64px;

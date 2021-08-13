@@ -63,9 +63,8 @@ const JoinRoom = () => {
       .then((stream) => {
         myVideo.current.srcObject = stream;
       }).catch((err) => {
-        console.log(`got an error: ${err}`);
+        console.error(`Got an error: ${err}`);
       });
-      console.log('object');
   }, []);
 
   // ===============================

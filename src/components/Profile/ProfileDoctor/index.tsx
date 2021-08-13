@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
-import { Form, Input, Button, Select, Upload, Dropdown, Image, Menu } from 'antd';
+import { Form, Input, Button, Select, Upload, Dropdown, Image, Menu, TimePicker } from 'antd';
 import './style.scss';
-import { EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, LoadingOutlined, PlusOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import ImgCrop from 'antd-img-crop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
 import { IRootState } from '../../../stores/store';
 import authAction from '../../../stores/actions/auth.action';
 import { getBase64 } from '../../../helper/getBase64';
@@ -15,7 +16,7 @@ const { Option } = Select;
 
 const ProfileDoctor: React.FC = () => {
   const [editable, setEditable] = useState(true);
-
+  const [creatable, setCreatable] = useState(false);
   const dispatch = useDispatch();
 
   const { user } = useSelector((state : IRootState) => state.authentication);
@@ -70,10 +71,14 @@ const ProfileDoctor: React.FC = () => {
       </Menu.Item>
     </Menu>
   );
+
+  const onFinishSchedule = () => {
+    setCreatable(!creatable);
+  };
+
   return (
     <div className="wrap-content">
       {/* root */}
-      <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
         <div className="wrap-mid">
@@ -97,8 +102,11 @@ const ProfileDoctor: React.FC = () => {
                     {user?.email}
                   </div>
                   <div className="btnEdit-wrap">
-                    <button className="btn-edit-info" onClick={() => setEditable(!editable)}>
+                    <button className="btn-edit-info" onClick={() => { setEditable(!editable); setCreatable(false); }}>
                       <EditOutlined className="editbtn_info" /> Edit Profile
+                    </button>
+                    <button className="btn-schedule-info" onClick={() => { setCreatable(!creatable); setEditable(true); }}>
+                      <VideoCameraOutlined /> Create Schedule
                     </button>
                   </div>
                 </div>
@@ -129,9 +137,7 @@ const ProfileDoctor: React.FC = () => {
             )
             : (
               <div className="container">
-
                 <Form {...layout} name="nest-messages" onFinish={onFinish}>
-
                   <div className="title-top">Edit My Profile</div>
                   <div className="container__title">
                     <div className="container__title--text">Personal Information</div>
@@ -139,7 +145,6 @@ const ProfileDoctor: React.FC = () => {
                   </div>
                   <div className="form-item">
                     <div className="divide divide-right">
-
                       <Form.Item
                         name="name"
                         label="Name: "
@@ -147,7 +152,6 @@ const ProfileDoctor: React.FC = () => {
                         rules={[{ required: true }]}
                       >
                         <Input />
-
                       </Form.Item>
                       <Form.Item
                         name="major"
@@ -207,9 +211,20 @@ const ProfileDoctor: React.FC = () => {
                     </div>
                   </div>
                 </Form>
-
               </div>
             )}
+          {creatable
+            ? (
+              <div className="container schedule">
+                <div className="title-top">Create Schedule</div>
+                <div className="form-item">
+                  <div className="divide divide-right">
+                    <TimePicker format="HH:mm" minuteStep={20} size="large" />
+                    <TimePicker format="HH:mm" minuteStep={20} size="large" />
+                  </div>
+                </div>
+              </div>
+            ) : (<></>) }
         </div>
       </div>
     </div>

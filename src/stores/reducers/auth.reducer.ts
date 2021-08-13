@@ -1,10 +1,11 @@
 import { Action } from 'redux';
-import { UpdateUserAction,
+import { ChangePasswordAction, UpdateUserAction,
   AuthActions,
   LoginSuccessAction,
   RegisterAction,
   RegisterSuccessAction,
 } from '../actions/auth.action';
+
 import { IUser } from '../../types/user';
 
 import { FailAction } from '../actions/utils';
@@ -15,6 +16,7 @@ export interface IUserState {
   registerProcessing: boolean;
   updateProcessing: boolean;
   isTested: boolean;
+  password?: string;
   error?: string;
 }
 
@@ -25,6 +27,7 @@ const initialState: IUserState = {
   updateProcessing: false,
   isTested: false,
   error: undefined,
+  password: undefined,
 };
 
 const authenticationReducer = (state = initialState, action: Action): IUserState => {

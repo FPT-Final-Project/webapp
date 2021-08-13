@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /* eslint-disable no-console */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
@@ -18,6 +19,10 @@ export const AuthActions = {
   UPDATE_USER: '[Auth] Update User',
   UPDATE_USER_SUCCESS: '[Auth] Update User Success',
   UPDATE_USER_FAIL: '[Auth] Update User Fail',
+
+  CHANGE_PASSWORD: '[Auth] Change Password',
+  CHANGE_PASSWORD_SUCCESS: '[Auth] Change Password Success',
+  CHANGE_PASSWORD_FAIL: '[Auth] Change Password Fail',
 
   GET_ME: '[Auth] Get Me',
   GET_ME_SUCCESS: '[Auth] Get Me Success',
@@ -72,6 +77,25 @@ export interface UpdateUserFailAction extends Action {
   };
 }
 
+export interface ChangePasswordAction extends Action {
+  payload: {
+    currentPass: string,
+    newPass: string,
+    confirmPass: string,
+  };
+}
+
+export interface ChangePasswordSuccessAction extends Action {
+  payload: IUser;
+}
+
+export interface ChangePasswordFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+
+// const login = (email: string, password: string) => async (dispatch: Dispatch) => {
 const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
@@ -109,11 +133,19 @@ const updateUser = (values: any) => async (dispatch : Dispatch): Promise<void> =
     dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
   }
 };
-
 const logout = () => {
   localStorage.clear();
   openNotification('success', 'Goodbye!');
 };
+const changePassword = (newPass: string) => (dispatch : Dispatch): void => {
+  dispatch(doRequest(AuthActions.CHANGE_PASSWORD, { newPass }));
+
+  userService.changePassword(newPass)
+    .then(() => {
+      logout();
+    }).catch((error: any) => dispatch(doFailure(AuthActions.CHANGE_PASSWORD_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
+};
+
 const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
   try {
     dispatch(doRequest(AuthActions.GET_ME));
@@ -156,5 +188,6 @@ export default {
   logout,
   register,
   updateUser,
+  changePassword,
   getMe,
 };

@@ -4,12 +4,12 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import userService from '../../services/user.service';
 
-const Comments = ({ infomation } : {infomation: any}) => {
+const Comments = ({ information } : { information: any }) => {
   const [author, setAuthor] = useState({
     name: '',
     avatar: '',
   });
-  const { description, doctorId } = infomation;
+  const { description, doctorId } = information;
   useEffect(() => {
     let mounted = false;
     userService.getUserProfile(doctorId).then((res: any) => {
@@ -32,7 +32,7 @@ const Comments = ({ infomation } : {infomation: any}) => {
       )}
       datetime={(
         <p>
-          {moment(infomation.createdAt).format('DD/MM/YYYY')}
+          {moment(information.createdAt).format('DD/MM/YYYY')}
         </p>
       )}
       content={description || 'No Reply'}
@@ -40,7 +40,7 @@ const Comments = ({ infomation } : {infomation: any}) => {
   );
 };
 
-const CommentList = ({ answers, author } : {answers :any, author:any}) => {
+const CommentList = ({ answers, author } : { answers :any, author:any }) => {
   return (
     <>
       <List
@@ -49,7 +49,7 @@ const CommentList = ({ answers, author } : {answers :any, author:any}) => {
         itemLayout="horizontal"
         renderItem={(props: any) => {
           return (
-            <Comments infomation={props} />
+            <Comments information={props} />
           );
         }}
       />

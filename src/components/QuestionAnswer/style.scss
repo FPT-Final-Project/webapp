@@ -1,9 +1,7 @@
 .wrap-qa {
   width: 100% !important;
-  height: 700px !important;
-  background-color: #fafafa;
+  height: calc(100%-64px);
   padding: 16px !important;
-  margin-top: 64px;
 
   .banner-qa {
     width: 100%;
@@ -44,7 +42,7 @@
 
     .drop-menu {
       border-radius: 10px;
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       float: right;
       width: 30%;
       margin-bottom: 15px;
@@ -61,7 +59,8 @@
     }
 
     .comment {
-      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      background-color: #fff;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       margin-top: 3%;
       padding: 1% 2%;
       border-radius: 8px;
@@ -72,23 +71,25 @@
       }
     }
 
-    .reply-comment{
-      Button{
-        &:hover, &:focus {
-          border: 1px solid #299CB4;
-          color: #299CB4;
+    .reply-comment {
+      Button {
+        &:hover,
+        &:focus {
+          border: 1px solid #299cb4;
+          color: #299cb4;
         }
 
         padding: 0 7px;
-        .fas{
+        .fas {
           padding-right: 3px;
         }
       }
     }
 
-    TextArea{
-      &:hover, &:focus {
-        border: 1px solid #299CB4;
+    TextArea {
+      &:hover,
+      &:focus {
+        border: 1px solid #299cb4;
       }
     }
   }

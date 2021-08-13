@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700;800&display=swap");
+
+.form-changepass {
+  font-family: "Nunito", "sans-serif";
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 16px auto;
+  padding: 1.5%;
+  border-radius: 3%;
+  background-color: #fff;
+  width: 550px;
+
+  .ant-row-center {
+    .ant-form {
+      .ant-form-item {
+        display: flex;
+        flex-direction: row !important;
+
+        .ant-form-item-label {
+          width: 33%;
+          font-weight: bold;
+          font-size: 18px;
+        }
+        .ant-form-item-control {
+          width: 67%;
+        }
+      }
+    }
+  }
+  .title {
+    text-align: center;
+  }
+  Form {
+    width: 85%;
+  }
+
+  .row {
+    padding-bottom: 5%;
+  }
+
+  Button {
+    border-radius: 0.3125rem;
+  }
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn-change {
+      &:disabled {
+        margin: 0 auto;
+        display: block;
+        background-color: rgb(245, 245, 245);
+        opacity: 0.3;
+        cursor: not-allowed;
+        width: auto;
+        transform: 0.8s;
+        color: rgb(140, 140, 140);
+        border: 1px solid rgb(140, 140, 140);
+      }
+    }
+  }
+  .gg {
+    height: 80px;
+    width: 40px;
+    border: solid 2px rgb(233, 230, 230);
+    padding: 3px;
+    border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

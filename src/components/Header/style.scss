@@ -37,9 +37,9 @@
   .right-nar-bar {
     width: 30%;
     height: 64px;
-    // background-color: paleturquoise;
     display: flex;
     align-items: center;
+
     justify-content: flex-end;
     position: absolute;
     right: 265px;
@@ -48,6 +48,12 @@
     .IconSection {
       margin-right: 24px;
       font-size: 20px;
+    }
+
+    p {
+      font-weight: 700;
+      margin-right: 10px;
+      margin-bottom: 0;
     }
 
     .avatar-profile {
