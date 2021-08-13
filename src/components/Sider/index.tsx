@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
   AppstoreOutlined,
@@ -13,7 +11,9 @@ import {
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
+import { useSelector } from 'react-redux';
 import { routes } from '../../pages/app/routes';
+import { IRootState } from '../../stores/store';
 
 const { Sider } = Layout;
 const { Item } = Menu;
@@ -68,6 +68,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
       name = 'Payment';
       break;
     }
+
     default: {
       break;
     }
@@ -87,6 +88,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
 const SiderMenu: React.FC<Props> = ({ matchPath }: Props) => {
   const history = useHistory();
   const location = useLocation();
+  const user = useSelector((state: IRootState) => state.authentication.user);
 
   const redirectToApp = () => {
     history.push('/');
@@ -106,7 +108,7 @@ const SiderMenu: React.FC<Props> = ({ matchPath }: Props) => {
         </div>
         <Menu className="custom-menu">
           {routes
-            .filter((r) => !r.sideBarHidden)
+            .filter((r) => !(r.doctorHidden && user?.role === 'doctor') && !r.sideBarHidden)
             .map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
         </Menu>
       </Sider>

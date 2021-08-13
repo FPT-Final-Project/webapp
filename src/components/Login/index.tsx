@@ -14,7 +14,7 @@ import { IRootState } from '../../stores/store';
 
 const { Title } = Typography;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-const validatePass = /^.{6,}$/;
+const validatePass = /^.{8,}$/;
 
 const Login: React.FC = () => {
   const history = useHistory();

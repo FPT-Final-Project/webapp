@@ -1,45 +1,27 @@
 /* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import {
-  Row, Form, Input, Button, Typography, PageHeader,
+  Row, Form, Input, Button, Typography,
 } from 'antd';
 import './style.scss';
-
-import {
-  Link, useHistory, useLocation,
-} from 'react-router-dom';
-// import '../../shared/css/form.scss';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { Action } from 'redux';
-import gg from '../../assets/gg.png';
+import { useDispatch, useSelector } from 'react-redux';
 import authAction, { AuthActions } from '../../stores/actions/auth.action';
 import { IRootState } from '../../stores/store';
 
 const { Title } = Typography;
-const validatePass = /^.{6,}$/;
+const validatePass = /^.{8,}$/;
 
 const ChangePass: React.FC = () => {
-//   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state: IRootState) => state.authentication.user);
 
   const [disable, setDisable] = useState(false);
-  // const validatePass = user?.password;
-
-  //   if (user) {
-  //     history.push('/app/dashboard');
-  //     return (<></>);
-  //   }
-  //   const functionDirect = () => {
-  //     history.push('/register/new');
-  //   };
 
   const submit = ({ newpassword } :{newpassword: string}) => {
     dispatch(authAction.changePassword(newpassword));
   };
 
-  const onFormChange = (changedFields: any[], allFields: any[]) => {
+  const onFormChange = (_changedFields: any[], allFields: any[]) => {
     if (
       allFields.every((field) => field.value)
       && allFields[0].value === '12345678'
@@ -54,7 +36,6 @@ const ChangePass: React.FC = () => {
 
   return (
     <>
-      <PageHeader title="PSY CARE." />
       <div className="form-changepass">
         <Title className="title" level={2}>Change Password</Title>
         <Row justify="center">
@@ -67,7 +48,7 @@ const ChangePass: React.FC = () => {
                   message: 'Please input your current password!' },
                 {
                   pattern: validatePass,
-                  message: 'The input must be least 6 characters in length!',
+                  message: 'The input must be least 8 characters in length!',
                 }]}
             >
               <Input.Password />

@@ -5,7 +5,6 @@ import { Modal } from 'antd';
 import './style.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import userService from '../../../services/user.service';
 import authAction from '../../../stores/actions/auth.action';
 import { IRootState } from '../../../stores/store';
 

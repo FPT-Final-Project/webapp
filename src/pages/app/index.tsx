@@ -6,7 +6,6 @@ import { routes } from './routes';
 import HeaderLayout from '../../components/Header/index';
 import './style.scss';
 import ProtectedRoute from '../../config/private-route.config';
-import DoctorDetail from '../../components/AdminDoctors/DoctorDetail';
 
 const { Content } = Layout;
 
@@ -24,14 +23,11 @@ const LayoutApp: React.FC = () => {
               {routes.map((route, index) => (
                 <ProtectedRoute
                   key={index}
+                  exact
                   path={`${routeMatch.path}${route.path}`}
                   component={route.component}
                 />
               ))}
-              <ProtectedRoute
-                path={`${routeMatch.path}/doctor/:doctorId/detail`}
-                component={DoctorDetail}
-              />
             </Switch>
           </div>
         </Content>

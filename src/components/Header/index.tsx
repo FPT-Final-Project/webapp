@@ -39,6 +39,7 @@ const HeaderLayout: React.FC<Props> = () => {
             icon={faEnvelope}
             size="2x"
           />
+          <p>{user?.name}</p>
           <Image src={user?.avatar || '/avatarDefault.png'} onClick={showModal} alt="avatar" className="avatar-profile" preview={false} />
           <AvatarModal
             visible={isModalVisible}

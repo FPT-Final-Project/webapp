@@ -1,9 +1,10 @@
 import { Action } from 'redux';
-import { ChangePasswordAction, UpdateUserAction,
+import {
   AuthActions,
   LoginSuccessAction,
   RegisterAction,
   RegisterSuccessAction,
+  UpdateBookingTimeSuccessAction,
 } from '../actions/auth.action';
 
 import { IUser } from '../../types/user';
@@ -64,11 +65,17 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
     }
 
     case AuthActions.UPDATE_USER_SUCCESS: {
-      return { ...state, ...{ updateProcessing: true } } as any;
+      return { ...state, ...{ updateProcessing: true } };
     }
+
     case AuthActions.GET_ME_SUCCESS: {
       const user = (action as any).payload;
-      return { ...state, user: { ...state.user, ...user } } as any;
+      return { ...state, user: { ...state.user, ...user } };
+    }
+
+    case AuthActions.UPDATE_BOOKING_TIME_SUCCESS: {
+      const { bookingTime } = (action as UpdateBookingTimeSuccessAction).payload;
+      return { ...state, user: { ...state.user, bookingTime } as IUser };
     }
     case AuthActions.UPLOAD_AVATAR_SUCCESS: {
       const user = (action as any).payload;

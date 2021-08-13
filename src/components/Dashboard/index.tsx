@@ -1,9 +1,10 @@
 import '../../../node_modules/antd/dist/antd.css';
 import './style.scss';
 import { Table } from 'antd';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { IRootState } from '../../stores/store';
 import doctorAction from '../../stores/actions/doctor.action';
 import appointmentAction from '../../stores/actions/appointment.action';
@@ -11,6 +12,7 @@ import { IAppointment } from '../../types/appointment';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [unMounted, setUnMounted] = useState(false);
 
   const { users, user, appointments, doctors } = useSelector(
@@ -56,26 +58,20 @@ const Dashboard: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (user) {
-      dispatch<any>(doctorAction.getDoctors());
-      dispatch<any>(appointmentAction.getAppointments(user))
-        .then((res: any) => {
-          if (!unMounted && res) {
-            const result : IAppointment[] = [];
-            for (let i = 0; i < res.length; i += 1) {
-              if (
-                res[i].startOfAppointment <= (new Date().getTime() + 86400000)
-                && res[i].startOfAppointment >= new Date().getTime()
-              ) {
-                result.push(res[i]);
-              }
-            }
-            setListAppointmentToday(result);
-          }
-        });
-    }
+    dispatch<any>(doctorAction.getDoctors());
+    dispatch<any>(appointmentAction.getAppointments())
+      .then((res: any) => {
+        if (!unMounted && res) {
+          setListAppointmentToday((res || [])
+            .filter((l: IAppointment) => {
+              return l.startOfAppointment <= +moment().endOf('day').format('X') && l.startOfAppointment >= +moment().startOf('day').format('X');
+            }));
+        }
+      });
 
-    return () => setUnMounted(true);
+    return () => {
+      setUnMounted(true);
+    };
   }, []);
 
   return (
@@ -127,7 +123,7 @@ const Dashboard: React.FC = () => {
         <div className="wrap-appointment__select">
           <div className="wrap-topHead">
             <div className="apm-title">Appointments Today</div>
-            <Link to="/app/appointment"><button className="btn-viewall">View All Your Appointments</button></Link>
+            <button className="btn-viewall" onClick={() => history.push('/app/appointment')}>View All Your Appointments</button>
           </div>
           <Table columns={columns} dataSource={listAppointmentToday} rowKey="_id" />
         </div>

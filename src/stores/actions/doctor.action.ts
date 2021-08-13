@@ -27,9 +27,9 @@ export interface GetDoctorSuccessAction extends Action {
 }
 
 export interface GetDoctorFailAction extends Action {
-    payload: {
-      error: string;
-    };
+  payload: {
+    error: string;
+  };
 }
 
 export interface GetDoctorsAction extends Action {
@@ -45,9 +45,9 @@ export interface GetDoctorsSuccessAction extends Action {
 }
 
 export interface GetDoctorsFailAction extends Action {
-    payload: {
-      error: string;
-    };
+  payload: {
+    error: string;
+  };
 }
 
 const getDoctor = (doctorId: string) => async (dispatch: Dispatch) => {
