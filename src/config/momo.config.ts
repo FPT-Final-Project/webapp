@@ -12,7 +12,6 @@ const notifyUrl = `${appConfig.backendUrl}/payment/momo`;
 const returnUrl = `${appConfig.appUrl}/app/appointment`;
 
 const momoRequest = async (
-  scheduleId: string,
   appointmentName: string,
   patientId: string,
   patientName: string,
@@ -23,7 +22,7 @@ const momoRequest = async (
   amount: string,
 ) => {
   const orderId = uuid();
-  const extraData = [scheduleId, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName].join(',');
+  const extraData = [appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName].join(',');
 
   const body = {
     accessKey,

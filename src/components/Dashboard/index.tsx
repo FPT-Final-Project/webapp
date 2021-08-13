@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (user) {
       dispatch<any>(doctorAction.getDoctors());
-      dispatch<any>(appointmentAction.getAppointments(user))
+      dispatch<any>(appointmentAction.getAppointments())
         .then((res: any) => {
           if (!unMounted && res) {
             const result : IAppointment[] = [];

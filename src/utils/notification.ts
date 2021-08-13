@@ -1,12 +1,11 @@
 import { notification } from 'antd';
 
 const notificationTs: any = notification;
-const openNotification = (type: any, description: any) => {
+const openNotification = (type: 'success' | 'info' | 'warning' | 'error', description: string) => {
   notificationTs[type]({
     message: 'Notification',
     description,
-    duration: 3,
-    // time to close notification
+    duration: 2,
     className: 'custom-class',
     style: {
       borderRadius: '10px',

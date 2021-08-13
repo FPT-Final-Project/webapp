@@ -24,11 +24,13 @@ export const routes = [
     path: '/doctor',
     exact: true,
     component: ListDoctors,
+    // doctorHidden: true,
   },
   {
     path: '/psychology-test',
     exact: true,
     component: Quizzes,
+    doctorHidden: true,
   },
   {
     path: '/forum',

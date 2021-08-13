@@ -21,6 +21,10 @@ const changePassword = (newPass: string): Promise<IUser> => {
   return postRequest('/change-password', { newPass });
 };
 
+const loginWithToken = (token: string): Promise<IUser> => postRequest(`/auth/login/${token}`);
+
+const updateBookingTime = (bookingTime: string[]): Promise<any> => postRequest('/user/updateBookingTime', { bookingTime });
+
 export default {
   login,
   register,
@@ -30,4 +34,6 @@ export default {
   getMe,
   uploadAvatar,
   updateAvatar,
+  updateBookingTime,
+  loginWithToken,
 };
