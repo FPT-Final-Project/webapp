@@ -11,12 +11,15 @@ const getUserProfile = (id: string) => getRequest(`/user/${id}`);
 const updateProfile = (values: any): Promise<IUser> => {
   return putRequest('/user/update-profile', { values });
 };
+const getMe = (): Promise<IUser> => getRequest('/user/getMe') as any;
+
+const uploadAvatar = (body: any): Promise<IUser> => postRequest('/user/uploadSingle', body) as any;
+
+const updateAvatar = (body: any): Promise<IUser> => postRequest('/user/updateAvatar', body) as any;
 
 const changePassword = (newPass: string): Promise<IUser> => {
   return postRequest('/change-password', { newPass });
 };
-
-const getMe = (): Promise<IUser> => getRequest('/user/getMe');
 
 export default {
   login,
@@ -25,4 +28,6 @@ export default {
   updateProfile,
   changePassword,
   getMe,
+  uploadAvatar,
+  updateAvatar,
 };

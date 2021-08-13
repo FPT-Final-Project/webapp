@@ -6,7 +6,6 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import score from '../../../assets/Score.svg';
 import { analyzeResultOfPsytest } from '../../../helper/analyzeResultOfPsytest';
 import './style.scss';
-import SuggestionPage from '../Suggestion';
 
 interface Props {
 }

@@ -70,7 +70,10 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
       const user = (action as any).payload;
       return { ...state, user: { ...state.user, ...user } } as any;
     }
-
+    case AuthActions.UPLOAD_AVATAR_SUCCESS: {
+      const user = (action as any).payload;
+      return { ...state, user: { ...state.user, ...user } } as any;
+    }
     default: {
       return state;
     }

@@ -27,6 +27,14 @@ export const AuthActions = {
   GET_ME: '[Auth] Get Me',
   GET_ME_SUCCESS: '[Auth] Get Me Success',
   GET_ME_FAIL: '[Auth] Get Me Fail',
+
+  UPLOAD_AVATAR: '[Auth] Upload Avatar',
+  UPLOAD_AVATAR_SUCCESS: '[Auth] Upload Avatar Success',
+  UPLOAD_AVATAR_FAIL: '[Auth] Upload Avatar Fail',
+
+  UPDATE_AVATAR: '[Auth] Update Avatar',
+  UPDATE_AVATAR_SUCCESS: '[Auth] Update Avatar Success',
+  UPDATE_AVATAR_FAIL: '[Auth] Update Avatar Fail',
 };
 
 export interface LoginSuccessAction extends Action {
@@ -149,8 +157,33 @@ const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
     return error;
   }
 };
+const uploadImage = (body: any) => async (dispatch: Dispatch): Promise<IUser> => {
+  try {
+    dispatch(doRequest(AuthActions.UPLOAD_AVATAR));
+    const result = await userService.uploadAvatar(body);
+    dispatch(doSuccess(AuthActions.UPLOAD_AVATAR_SUCCESS, result));
+    return result;
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.UPLOAD_AVATAR_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    return error;
+  }
+};
+
+const updateAvatar = (body: any) => async (dispatch: Dispatch): Promise<IUser> => {
+  try {
+    dispatch(doRequest(AuthActions.UPDATE_AVATAR));
+    const result = await userService.updateAvatar(body);
+    dispatch(doSuccess(AuthActions.UPDATE_AVATAR_SUCCESS, result));
+    return result;
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.UPDATE_AVATAR_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    return error;
+  }
+};
 
 export default {
+  updateAvatar,
+  uploadImage,
   login,
   logout,
   register,

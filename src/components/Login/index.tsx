@@ -34,7 +34,7 @@ const Login: React.FC = () => {
   };
 
   const submit = ({ email, password }: { email: string, password: string }) => {
-    dispatch<any>(authAction.login(email, password)).then((res: any) => console.log(res));
+    dispatch(authAction.login(email, password));
   };
 
   return (

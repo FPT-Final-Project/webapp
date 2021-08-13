@@ -1,6 +1,5 @@
-import { InfoCircleTwoTone, SettingOutlined, VideoCameraTwoTone } from '@ant-design/icons';
-import { Button, Card, Col, Row, Switch } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
+import { InfoCircleTwoTone, VideoCameraTwoTone } from '@ant-design/icons';
+import { Card, Col, Row } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
