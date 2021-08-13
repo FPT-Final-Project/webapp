@@ -37,21 +37,13 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
             <Route path="/register/:userId" exact component={Register} />
-            <Route path="/reset" component={Reset} />
-            <Route path="/resetPass" component={ResetPass} />
+            {/* <Route path="/reset" component={Reset} />
+            <Route path="/resetPass" component={ResetPass} /> */}
             <Route exact path="/quiz/:quizId" component={PsyTest} />
             {/* Profile User/Doctor */}
             <Route path="/suggestion" exact component={SuggestionPage} />;
             <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
             <ProtectedRoute path="/app" component={LayoutApp} />
-            {/*
-                TODO: Refactor Route
-                <ProtectedRoute path="/make-an-appointment" exact component={MakeAnAppointment} />
-                <ProtectedRoute path="/app/doctor/detail/:id" exact component={DoctorDetail} />
-                <ProtectedRoute path="/listDoctors" exact component={ListDoctors} />
-                <ProtectedRoute path="/app/patient" exact component={ListPatients} />
-               */}
-            {/* VideoCall */}
             <ProtectedRoute exact path="/appointment/:appointmentId/start" component={JoinRoom} />
             <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
           </Switch>

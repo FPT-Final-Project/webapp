@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
   AppstoreOutlined,
@@ -70,6 +68,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
       name = 'Payment';
       break;
     }
+
     default: {
       break;
     }

@@ -80,7 +80,7 @@ const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
         <div className="doctor-card-avatar">
           {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
           <Button className="btn-detail">
-            <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
+            <Link to={`/app/doctor/${_id}/details`}>View details</Link>
           </Button>
         </div>
         <div className="doctor-card-details">
@@ -153,13 +153,12 @@ const ListDoctors: React.FC = () => {
     user: state.authentication.user,
     doctors: state.doctor.doctors,
   }));
+  const [listDoctors, setListDoctors] = useState(doctors || []);
+  const [nameSearch, setNameSearch] = useState('');
 
   if (!user) {
     return (<></>);
   }
-
-  const [listDoctors, setListDoctors] = useState(doctors || []);
-  const [nameSearch, setNameSearch] = useState('');
 
   const handleSearch = (e: any) => {
     e.preventDefault();

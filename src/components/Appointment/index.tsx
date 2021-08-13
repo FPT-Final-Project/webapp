@@ -74,7 +74,9 @@ const Appointment: React.FC = () => {
       }
     });
 
-    return () => setUnMounted(true);
+    return () => {
+      setUnMounted(true);
+    };
   }, []);
 
   const columns = [
