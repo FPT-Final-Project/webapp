@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Spin } from 'antd';
+import { Image, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -95,7 +95,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           </div>
           <div className="right-header" role="button">
             <p>{user?.name}</p>
-            <button className="avatar-profile" onClick={showModal} />
+            <Image src={user?.avatar || '/avatarDefault.png'} onClick={showModal} alt="avatar" className="avatar-profile" preview={false} />
             <AvatarModal
               visible={isModalVisible}
               handleCancelDropAvatar={handleCancelDropAvatar}

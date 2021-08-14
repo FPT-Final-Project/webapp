@@ -98,7 +98,6 @@ const VideoChat = () => {
 
   useEffect(() => {
     peer.on('open', (peerId) => {
-      console.log('Peer ID : ', peerId);
       socket.emit('join-room', appointmentId, user?._id, user?.name, peerId);
     });
   }, []);

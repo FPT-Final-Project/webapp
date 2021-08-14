@@ -1,10 +1,12 @@
 import { Action } from 'redux';
-import { UpdateUserAction,
+import {
   AuthActions,
   LoginSuccessAction,
   RegisterAction,
   RegisterSuccessAction,
+  UpdateBookingTimeSuccessAction,
 } from '../actions/auth.action';
+
 import { IUser } from '../../types/user';
 
 import { FailAction } from '../actions/utils';
@@ -15,6 +17,7 @@ export interface IUserState {
   registerProcessing: boolean;
   updateProcessing: boolean;
   isTested: boolean;
+  password?: string;
   error?: string;
 }
 
@@ -25,6 +28,7 @@ const initialState: IUserState = {
   updateProcessing: false,
   isTested: false,
   error: undefined,
+  password: undefined,
 };
 
 const authenticationReducer = (state = initialState, action: Action): IUserState => {
@@ -61,9 +65,19 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
     }
 
     case AuthActions.UPDATE_USER_SUCCESS: {
-      return { ...state, ...{ updateProcessing: true } } as any;
+      return { ...state, ...{ updateProcessing: true } };
     }
+
     case AuthActions.GET_ME_SUCCESS: {
+      const user = (action as any).payload;
+      return { ...state, user: { ...state.user, ...user } };
+    }
+
+    case AuthActions.UPDATE_BOOKING_TIME_SUCCESS: {
+      const { bookingTime } = (action as UpdateBookingTimeSuccessAction).payload;
+      return { ...state, user: { ...state.user, bookingTime } as IUser };
+    }
+    case AuthActions.UPLOAD_AVATAR_SUCCESS: {
       const user = (action as any).payload;
       return { ...state, user: { ...state.user, ...user } } as any;
     }

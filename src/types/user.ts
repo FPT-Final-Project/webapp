@@ -11,6 +11,9 @@ export interface IUser {
   address?: string;
   job?: string;
   major?: string;
+  consultingFee?: number;
+  bookingTime?: any[];
   createdAt?: number;
   updatedAt?: number;
+  password?:string;
 }

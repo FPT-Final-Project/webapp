@@ -29,17 +29,17 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
   return Promise.reject(error.response);
 });
 
-const getRequest = (url: string, params?: any) => axiosInstance.get(url, { params });
+const getRequest = (url: string, params?: any): Promise<AxiosResponse['data']> => axiosInstance.get(url, { params });
 
-const postRequest = (url: string, data?: any, params?: any) => {
+const postRequest = (url: string, data?: any, params?: any): Promise<AxiosResponse['data']> => {
   return axiosInstance.post(url, data, { params });
 };
 
-const putRequest = (url: string, data?: any, params?: any) => {
+const putRequest = (url: string, data?: any, params?: any): Promise<AxiosResponse['data']> => {
   return axiosInstance.put(url, data, { params });
 };
 
-const deleteRequest = (url: string, params?: any) => axiosInstance.delete(url, { params });
+const deleteRequest = (url: string, params?: any): Promise<AxiosResponse['data']> => axiosInstance.delete(url, { params });
 
 export {
   getRequest,

@@ -1,6 +1,15 @@
 import { Action } from 'redux';
 import { IAppointment } from '../../types/appointment';
-import { AppointmentActions, GetAppointmentSuccessAction, GetAppointmentFailAction, GetAppointmentsSuccessAction, GetAppointmentsFailAction, CreateAppointmentSuccessAction, CreateAppointmentFailAction, CancelAppointmentFailAction, CancelAppointmentSuccessAction } from '../actions/appointment.action';
+import { AppointmentActions,
+  GetAppointmentSuccessAction,
+  GetAppointmentFailAction,
+  GetAppointmentsSuccessAction,
+  GetAppointmentsFailAction,
+  CreateAppointmentSuccessAction,
+  CreateAppointmentFailAction,
+  CancelAppointmentFailAction,
+  CancelAppointmentSuccessAction,
+} from '../actions/appointment.action';
 
 export interface IAppointmentState {
   appointment: IAppointment | undefined;

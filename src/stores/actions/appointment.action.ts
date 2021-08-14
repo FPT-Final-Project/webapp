@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import appointmentService from '../../services/appointment.service';
@@ -98,10 +97,10 @@ const getAppointment = (appointmentId: string) => async (dispatch: Dispatch) => 
   }
 };
 
-const getAppointments = (user: IUser) => async (dispatch: Dispatch) => {
+const getAppointments = () => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.GET_APPOINTMENTS));
-    const appointments = await appointmentService.getAppointments(user);
+    const appointments = await appointmentService.getAppointments();
 
     dispatch(doSuccess(AppointmentActions.GET_APPOINTMENTS_SUCCESS, { appointments }));
     return appointments;
@@ -111,10 +110,10 @@ const getAppointments = (user: IUser) => async (dispatch: Dispatch) => {
   }
 };
 
-const cancelAppointment = (user: IUser, appointmentId: string) => async (dispatch: Dispatch) => {
+const cancelAppointment = (appointmentId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.CANCEL_APPOINTMENT));
-    const appointments = await appointmentService.cancelAnAppointment(user, appointmentId);
+    const appointments = await appointmentService.cancelAnAppointment(appointmentId);
 
     dispatch(doSuccess(AppointmentActions.CANCEL_APPOINTMENT_SUCCESS, { appointments }));
     openNotification('success', 'You canceled your appointment !');
@@ -125,10 +124,20 @@ const cancelAppointment = (user: IUser, appointmentId: string) => async (dispatc
   }
 };
 
-const createAppointment = (user: IUser, name: any, startOfAppointment: any, endOfAppointment: any, doctorId: any, doctorName: any) => async (dispatch: Dispatch) => {
+const createAppointment = (
+  patientId: string,
+  patientName: string,
+  name: string,
+  startOfAppointment: number,
+  endOfAppointment: number,
+  doctorId: string,
+  doctorName: string,
+) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.CREATE_APPOINTMENT));
-    const appointment = await appointmentService.makeAnAppointment(user, name, startOfAppointment, endOfAppointment, doctorId, doctorName);
+    const appointment = await appointmentService.makeAnAppointment(
+      patientId, patientName, name, startOfAppointment, endOfAppointment, doctorId, doctorName,
+    );
 
     dispatch(doSuccess(AppointmentActions.CREATE_APPOINTMENT_SUCCESS, { appointment }));
     openNotification('success', 'Payment confirmation successful, your appointment has been added to the list !');

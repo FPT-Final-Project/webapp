@@ -29,18 +29,19 @@ const Forum = () => {
     value: '',
   });
   useEffect(() => {
-    const source = axios.CancelToken.source();
-
+    let mounted = true;
     if (user?.role === 'patient') {
       dispatch<any>(questionAnswerAction.getOwnerPost()).then((res: any) => {
         res.forEach((itm: any) => {
           itm.show = false;
         });
-        setPosts({
-          value: '',
-          comments: [...posts.comments,
-            ...res,
-          ] });
+        if (mounted) {
+          setPosts({
+            value: '',
+            comments: [...posts.comments,
+              ...res,
+            ] });
+        }
       });
     }
     if (user?.role === 'doctor') {
@@ -48,15 +49,17 @@ const Forum = () => {
         res.forEach((itm: any) => {
           itm.show = false;
         });
-        setPosts({
-          value: '',
-          comments: [...posts.comments,
-            ...res,
-          ] });
+        if (mounted) {
+          setPosts({
+            value: '',
+            comments: [...posts.comments,
+              ...res,
+            ] });
+        }
       });
     }
     return () => {
-      source.cancel();
+      mounted = false;
     };
   }, []);
   const handleChange = (e: ChangeEvent<any>) => {

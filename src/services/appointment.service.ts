@@ -1,19 +1,40 @@
-/* eslint-disable max-len */
-import { AxiosResponse } from 'axios';
 import { getRequest, postRequest } from '../config/axios.request';
-import { IUser } from '../types/user';
+import { IAppointment } from '../types/appointment';
 
-const getAppointment = (appointmentId: string): Promise<AxiosResponse<any>> => getRequest(`appointment/${appointmentId}`);
+const getAppointment = (appointmentId: string): Promise<IAppointment> => {
+  return getRequest(`appointment/${appointmentId}`);
+};
 
-const getAppointments = (user: IUser): Promise<AxiosResponse<any>> => getRequest('appointment');
+const getAppointments = (): Promise<IAppointment[]> => getRequest('appointment');
 
-const cancelAnAppointment = (user: IUser, appointmentId: string): Promise<AxiosResponse<any>> => postRequest(`appointment/${appointmentId}/cancel`);
+const cancelAnAppointment = (appointmentId: string): Promise<any> => {
+  return postRequest(`appointment/${appointmentId}/cancel`);
+};
 
-const makeAnAppointment = (user: IUser, name: any, startOfAppointment: any, endOfAppointment: any, doctorId: any, doctorName: any) => postRequest('appointment/create', { user, name, startOfAppointment, endOfAppointment, doctorId, doctorName }) as any;
+const makeAnAppointment = (
+  patientId: string,
+  patientName: string,
+  name: string,
+  startOfAppointment: number,
+  endOfAppointment: number,
+  doctorId: string,
+  doctorName: string,
+): Promise<any> => {
+  return postRequest('appointment/create', { patientId, patientName, name, startOfAppointment, endOfAppointment, doctorId, doctorName });
+};
+
+const checkAppointment = (
+  patientId: string,
+  doctorId: string,
+  startOfAppointment: number,
+): Promise<{ isExisted: boolean }> => {
+  return postRequest('appointment/check', { patientId, doctorId, startOfAppointment });
+};
 
 export default {
   getAppointment,
   getAppointments,
   cancelAnAppointment,
   makeAnAppointment,
+  checkAppointment,
 };
