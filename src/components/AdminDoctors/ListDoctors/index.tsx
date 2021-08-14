@@ -174,6 +174,57 @@ const ListDoctors: React.FC = () => {
       setListDoctors(doctors);
     }
   };
+  const handleGenderSearch = (e: any) => {
+    e.preventDefault();
+    const gender = e.target.value;
+    const result : IDoctor[] = [];
+    if (gender === 'male' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === 0) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (gender === 'female' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === 1) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (gender === 'all' && doctors) {
+      setListDoctors(doctors);
+    }
+  };
+  const handleMajorSearch = (e: any) => {
+    e.preventDefault();
+    const major = e.target.value;
+    const result : IDoctor[] = [];
+    if (major === 'depress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Depress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'anxious' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Anxious'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'stress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Stress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'all' && doctors) {
+      setListDoctors(doctors);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -199,16 +250,21 @@ const ListDoctors: React.FC = () => {
             />
           </div>
           <div className="doctor-filter-section">
-            <span>Specialty</span>
-            <select name="specialty" id="doctor-specialty">
+            <span>Major</span>
+            <select name="major" id="doctor-specialty" onChange={(e) => (handleMajorSearch(e))}>
               <option value="all">All</option>
-              <option value="a">A</option>
-              <option value="b">B</option>
+              <option value="depress">Depress</option>
+              <option value="anxious">Anxious</option>
+              <option value="stress">Stress</option>
             </select>
           </div>
           <div className="doctor-filter-section">
             <span>Gender</span>
-            <select name="gender" id="doctor-gender">
+            <select
+              name="gender"
+              id="doctor-gender"
+              onChange={(e) => (handleGenderSearch(e))}
+            >
               <option value="all">All</option>
               <option value="male">Male</option>
               <option value="female">Female</option>

@@ -1,25 +1,48 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { Rate, Input, Button } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import feedbackAction from '../../stores/actions/feedback.action';
+import { IRootState } from '../../stores/store';
 import openNotification from '../../utils/notification';
+import doctorAction from '../../stores/actions/doctor.action';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 const { TextArea } = Input;
 
 const Feedback: React.FC = () => {
-  const [state, setState] = useState({ value: 0 });
+  const [rate, setRate] = useState({ value: 1 });
+  const [des, setDes] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation<any>();
+  const { user } = useSelector((state: IRootState) => ({ user: state.authentication.user }));
+  const { doctor } = useSelector((state: IRootState) => ({ doctor: state.doctor.doctor }));
+  const [avaDoctor, setAvaDoctor] = useState<any>();
 
-  const handleChange = (value: any) => setState({ value });
+  const handleChange = (value: any) => setRate({ value });
+
+  useEffect(() => {
+    if (location.state !== undefined && user?.role === 'patient') {
+      if (location.state.partnerId) {
+        dispatch<any>(doctorAction.getDoctor(location.state.partnerId)).then((res: any) => setAvaDoctor(res.avatar));
+      }
+    }
+  }, []);
 
   const sendFeedback = () => {
+    if (location.state !== undefined && user?.role === 'patient') {
+      dispatch<any>(feedbackAction.createFeedback(location.state.appointmentId, rate.value, des, user._id, location.state.partnerId));
+      dispatch<any>(doctorAction.getDoctor(''));
+    } else {
+      openNotification('success', 'Thanks for your feedback ! Your feedback has been noted, we will try to bring you a better experience');
+    }
     history.push('/app/dashboard');
-    openNotification('success', 'Thanks for your feedback ! Your feedback has been noted, we will try to bring you a better experience');
   };
 
-  const { value } = state;
+  const { value } = rate;
 
   return (
     <div className="wrap-feedback">
@@ -28,16 +51,19 @@ const Feedback: React.FC = () => {
         <div className="banner-feedback__description">Give your honest opinion of what you think</div>
       </div>
       <div className="feedback-form">
-        <div className="feedback-title">How satisfied are you overall with the support of your team Doctor's Psycare ?</div>
+        {!doctor ? (<div className="feedback-title">How satisfied are you overall with the support of your team Doctor's Psycare ?</div>)
+          : (<div><div className="feedback-title">How satisfied are you overall with the support of this Doctor ?</div><div className="feedback-avatar">{avaDoctor ? <img src={avaDoctor} alt={doctor.name} /> : <img src="/doctorPsy.png" alt={doctor.name} />}</div></div>) }
         <Rate tooltips={desc} onChange={handleChange} value={value} style={{ fontSize: '30px' }} />
         <div className="feedback-text">
           <TextArea
             className="feedback-text-area"
             placeholder="Please tell us your reasons for giving this score status here..."
             rows={5}
+            value={des}
+            // eslint-disable-next-line no-shadow
+            onChange={({ target: { value } }) => setDes(value)}
           />
         </div>
-
         <Button onClick={sendFeedback} className="btn-feedback">
           Send Feedback
         </Button>
