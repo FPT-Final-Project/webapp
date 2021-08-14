@@ -23,7 +23,7 @@ const doctorReducer = (state = initialState, action: Action): IDoctorState => {
 
     case DoctorActions.GET_DOCTOR_FAIL: {
       const { error } = (action as GetDoctorFailAction).payload;
-      return { ...state, ...{ error } };
+      return initialState;
     }
 
     case DoctorActions.GET_DOCTORS_SUCCESS: {
