@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
 import { io, Socket } from 'socket.io-client';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
 import phone from '../../../assets/phone.svg';
@@ -202,9 +202,17 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <a href="/app/feedback">
+                <Link
+                  to={{
+                    pathname: '/app/feedback',
+                    state: {
+                      appointmentId,
+                      partnerId: '60f7c7848ad7014269483a90',
+                    },
+                  }}
+                >
                   <img className="mute-phone" src={phone} alt="Hand Up" />
-                </a>
+                </Link>
               </span>
             </div>
             {videoButton ? (

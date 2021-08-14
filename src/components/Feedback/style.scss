@@ -47,6 +47,13 @@
       font-weight: bold;
       font-size: 24px;
     }
+    .feedback-avatar {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: 120px;
+      height: 120px;
+    }
 
     .feedback-text {
       width: 50%;
