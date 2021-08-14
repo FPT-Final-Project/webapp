@@ -203,6 +203,7 @@ const loginWithToken = (token: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AuthActions.LOGIN_TOKEN));
     const result = await userService.loginWithToken(token);
+    localStorage.setItem('user', JSON.stringify(result));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result));
   } catch (error: any) {
     dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));

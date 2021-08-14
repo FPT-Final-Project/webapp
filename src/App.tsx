@@ -11,16 +11,19 @@ import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
-import authAction from './stores/actions/auth.action';
+import authAction, { AuthActions } from './stores/actions/auth.action';
 import SuggestionPage from './components/Quiz/Suggestion';
 import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
+import { doSuccess } from './stores/actions/utils';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      const user = JSON.parse(localStorage.getItem('user') as string);
+      dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
       dispatch(authAction.loginWithToken(token));
     }
   }, []);
