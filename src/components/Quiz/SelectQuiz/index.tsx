@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import quizAction from '../../../stores/actions/quiz.action';
 import { IRootState } from '../../../stores/store';
 import { IQuiz } from '../../../types/quiz';
+import Loading from '../../../shared/Loading';
 
 interface Props {
   getQuizzes: () => void;
@@ -37,30 +38,43 @@ const Quiz = ({ _id, name, description }: IQuiz, history: any, index: number) =>
 
 const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   const history = useHistory();
+  const [loadingApi, setLoadingApi] = useState(true);
 
   if (!quizzes) {
     getQuizzes();
-    return (<></>);
+  } else {
+    setTimeout(() => {
+      setLoadingApi(false);
+    }, 500);
   }
 
   return (
     <>
       <div className="quiz-form">
-        <div className="banner-quiz">
-          <div className="banner-quiz__left ">
-            <div className="banner-quiz__left--number">9</div>
-            <div className="banner-quiz__left--text">
-              <div className="left--top">Sentences</div>
-              <div className="left--bottom">Quick Check</div>
-            </div>
-          </div>
-          <div className="banner-quiz__description">This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions.
-            <br /><span>Join now, it's free.</span>
-          </div>
-        </div>
-        <Row gutter={[16, 16]}>
-          {(quizzes || []).map((quiz, index) => Quiz(quiz, history, index))}
-        </Row>
+        {
+          loadingApi
+            ? (
+              <Loading />
+            ) : (
+              <>
+                <div className="banner-quiz">
+                  <div className="banner-quiz__left ">
+                    <div className="banner-quiz__left--number">9</div>
+                    <div className="banner-quiz__left--text">
+                      <div className="left--top">Sentences</div>
+                      <div className="left--bottom">Quick Check</div>
+                    </div>
+                  </div>
+                  <div className="banner-quiz__description">This psychology test helps you diagnose what disease you are suffering from through 10 interesting questions.
+                    <br /><span>Join now, it's free.</span>
+                  </div>
+                </div>
+                <Row gutter={[16, 16]}>
+                  {(quizzes || []).map((quiz, index) => Quiz(quiz, history, index))}
+                </Row>
+              </>
+            )
+        }
       </div>
     </>
   );

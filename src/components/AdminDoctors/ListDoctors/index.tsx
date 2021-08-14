@@ -1,6 +1,6 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, DatePicker, Input, Modal } from 'antd';
+import { Button, DatePicker, Input, Modal, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -13,8 +13,10 @@ import { IDoctor } from '../../../types/doctor';
 import openNotification from '../../../utils/notification';
 import appointmentService from '../../../services/appointment.service';
 import { IUser } from '../../../types/user';
+import Loading from '../../../shared/Loading';
 
 const { Search } = Input;
+const { Option } = Select;
 
 const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
   const history = useHistory();
@@ -79,7 +81,7 @@ const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
         <div className="doctor-card-avatar">
           <img src={avatar || '/doctorPsy.png'} alt={name} />
           <Button className="btn-detail">
-            <Link to={{ pathname: `/app/doctor/${_id}/details`, state: { doctor } }}>View details</Link>
+            <Link to={`/app/doctor/${_id}/profile`}>View Profile</Link>
           </Button>
         </div>
         <div className="doctor-card-details">
@@ -154,6 +156,7 @@ const ListDoctors: React.FC = () => {
   }));
   const [listDoctors, setListDoctors] = useState(doctors || []);
   const [nameSearch, setNameSearch] = useState('');
+  const [loadingApi, setLoadingApi] = useState(true);
 
   if (!user) {
     return (<></>);
@@ -172,7 +175,10 @@ const ListDoctors: React.FC = () => {
     } else if (doctors) {
       setListDoctors(doctors);
     }
+
+    // setTimeout(() => setLoadingApi(false), 700);
   };
+
   const handleGenderSearch = (e: any) => {
     e.preventDefault();
     const gender = e.target.value;
@@ -195,6 +201,7 @@ const ListDoctors: React.FC = () => {
       setListDoctors(doctors);
     }
   };
+
   const handleMajorSearch = (e: any) => {
     e.preventDefault();
     const major = e.target.value;
@@ -226,71 +233,75 @@ const ListDoctors: React.FC = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
-        setListDoctors(res);
-      });
-    }
+    dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
+      setListDoctors(res);
+      setTimeout(() => setLoadingApi(false), 700);
+    });
   }, []);
 
   return (
     <div className="wrap-doctor-list">
-      <div className="doctor-list-content">
-        <div className="doctor-filter">
-          <div className="doctor-filter-section">
-            <span>Search Name: </span>
-            <Search
-              prefix={<UserOutlined />}
-              className="doctor-search"
-              value={nameSearch || ''}
-              onChange={({ target: { value } }) => setNameSearch(value)}
-              onKeyUp={(e) => (handleSearch(e))}
-              placeholder="Type doctor's name"
-            />
-          </div>
-          <div className="doctor-filter-section">
-            <span>Major</span>
-            <select name="major" id="doctor-specialty" onChange={(e) => (handleMajorSearch(e))}>
-              <option value="all">All</option>
-              <option value="depress">Depress</option>
-              <option value="anxious">Anxious</option>
-              <option value="stress">Stress</option>
-            </select>
-          </div>
-          <div className="doctor-filter-section">
-            <span>Gender</span>
-            <select
-              name="gender"
-              id="doctor-gender"
-              onChange={(e) => (handleGenderSearch(e))}
-            >
-              <option value="all">All</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-        </div>
-        { listDoctors && listDoctors.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} user={user} />)}
-      </div>
-      <div className="doctor-top-list">
-        <div className="doctor-top-title">Top 5:</div>
-        {
-          !listDoctors
-            ? (<></>)
-            : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
-              <div className="doctor-top-content" key={_id}>
-                <div className="doctor-content-avatar">
-                  {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+      {
+        loadingApi
+          ? (
+            <Loading />
+          ) : (
+            <>
+              <div className="doctor-list-content">
+                <div className="doctor-filter">
+                  <div className="doctor-filter-section">
+                    <span>Search Name: </span>
+                    <Search
+                      prefix={<UserOutlined />}
+                      className="doctor-search"
+                      value={nameSearch || ''}
+                      onChange={({ target: { value } }) => setNameSearch(value)}
+                      onKeyUp={(e) => (handleSearch(e))}
+                      placeholder="Type doctor's name"
+                    />
+                  </div>
+                  <div className="doctor-filter-section">
+                    <span style={{ display: 'block' }}>Major</span>
+                    <Select id="doctor-specialty">
+                      <Option value="all">All</Option>
+                      <Option value="depress">Depress</Option>
+                      <Option value="anxious">Anxious</Option>
+                      <Option value="stress">Stress</Option>
+                    </Select>
+                  </div>
+                  <div className="doctor-filter-section">
+                    <span style={{ display: 'block' }}>Gender</span>
+                    <Select id="doctor-gender">
+                      <Option value="all">All</Option>
+                      <Option value="male">Male</Option>
+                      <Option value="female">Female</Option>
+                    </Select>
+                  </div>
                 </div>
-                <div className="doctor-content-details">
-                  <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
-                  <div className="doctor-content-name">Dr. {name}</div>
-                  <div>{email}</div>
-                </div>
+                { listDoctors && listDoctors.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} user={user} />)}
               </div>
-            ))
-        }
-      </div>
+              <div className="doctor-top-list">
+                <div className="doctor-top-title">Top 5:</div>
+                {
+                  !listDoctors
+                    ? (<></>)
+                    : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
+                      <div className="doctor-top-content" key={_id}>
+                        <div className="doctor-content-avatar">
+                          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+                        </div>
+                        <div className="doctor-content-details">
+                          <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
+                          <div className="doctor-content-name">Dr. {name}</div>
+                          <div>{email}</div>
+                        </div>
+                      </div>
+                    ))
+                }
+              </div>
+            </>
+          )
+      }
     </div>
   );
 };

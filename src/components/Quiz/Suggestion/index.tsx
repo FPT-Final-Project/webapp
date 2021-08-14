@@ -8,41 +8,45 @@ import { useHistory } from 'react-router-dom';
 import quizService from '../../../services/quiz.service';
 import './style.scss';
 
-const Doctor = (doctor: any, loadingApi: any, history: any) => {
-  return (
-    <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-      <Card
-        loading={loadingApi}
-        cover={<img alt="example" src={doctor.avatar || 'doctorPsy.png'} height="300" />}
-        actions={[<VideoCameraTwoTone
+const Doctor = (
+  doctor: any,
+  loadingApi: any,
+  history: any,
+) => (
+  <Col key={doctor._id} span={8} xs={24} sm={12} xl={8} lg={12}>
+    <Card
+      loading={loadingApi}
+      cover={<img alt="example" src={doctor.avatar || 'doctorPsy.png'} height="300" />}
+      actions={[
+        <VideoCameraTwoTone
           className="icon-suggestion"
+          onClick={() => history.push('/app/dashboard')}
           width="10px"
-          onClick={() => history.push({
-            pathname: '/app/doctor',
-          })}
-        />, <InfoCircleTwoTone
+        />,
+        <InfoCircleTwoTone
           className="icon-suggestion"
           onClick={() => history.push({
             pathname: `/app/doctor/${doctor._id}/details`,
             state: { doctor },
           })}
-        />]}
-      >
-        <Meta
-          title={doctor.name.toUpperCase() || 'Doctor'}
-          description={doctor.major || 'PSYCHOLOGY'}
-        />
-      </Card>
-    </Col>
-  );
-};
+        />,
+      ]}
+    >
+      <Meta
+        title={doctor.name.toUpperCase() || 'Doctor'}
+        description={doctor.major?.toUpperCase() || 'PSYCHOLOGY'}
+      />
+    </Card>
+  </Col>
+);
+
 const SuggestionPage = () => {
   const quizResult = useSelector((state: any) => state.quiz.quizzesScore);
   const [doctors, setDoctors] = useState([]);
   const [loadingApi, setLoadingApi] = useState(true);
   const history = useHistory();
+
   useEffect(() => {
-    // eslint-disable-next-line consistent-return
     const recommendDoctorApi = async () => {
       try {
         const data: any = await quizService.recommendDoctor(quizResult);
@@ -56,6 +60,7 @@ const SuggestionPage = () => {
     };
     recommendDoctorApi();
   }, []);
+
   return (
     <>
       <div className="suggestion-form">

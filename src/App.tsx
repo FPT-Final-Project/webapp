@@ -1,4 +1,4 @@
-import { Provider, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
@@ -6,9 +6,6 @@ import 'antd/dist/antd.css';
 import { useEffect } from 'react';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
-import Reset from './components/NewPass';
-import ResetPass from './components/ResetPassword';
-import { store } from './stores/store';
 import Login from './components/Login';
 import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
