@@ -24,7 +24,7 @@ function App() {
     if (token) {
       const user = JSON.parse(localStorage.getItem('user') as string);
       dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
-      dispatch(authAction.loginWithToken(token));
+      // dispatch(authAction.loginWithToken(token));
     }
   }, []);
 

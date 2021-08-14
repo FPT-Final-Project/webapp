@@ -4,7 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 
-const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 30, color: '#1f8ba3' }} spin />;
+const antIcon = <FontAwesomeIcon icon={faSpinner} style={{ fontSize: 55, color: '#1f8ba3' }} spin />;
 
 const Loading: React.FC<{}> = () => (
   <div className="loading-api">

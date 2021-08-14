@@ -158,9 +158,12 @@ const ListDoctors: React.FC = () => {
   const [nameSearch, setNameSearch] = useState('');
   const [loadingApi, setLoadingApi] = useState(true);
 
-  if (!user) {
-    return (<></>);
-  }
+  useEffect(() => {
+    dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
+      setListDoctors(res);
+      setTimeout(() => setLoadingApi(false), 700);
+    });
+  }, []);
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -176,7 +179,7 @@ const ListDoctors: React.FC = () => {
       setListDoctors(doctors);
     }
 
-    // setTimeout(() => setLoadingApi(false), 700);
+    setTimeout(() => setLoadingApi(false), 700);
   };
 
   const handleGenderSearch = (e: any) => {
@@ -232,12 +235,9 @@ const ListDoctors: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
-      setListDoctors(res);
-      setTimeout(() => setLoadingApi(false), 700);
-    });
-  }, []);
+  if (!user) {
+    return (<></>);
+  }
 
   return (
     <div className="wrap-doctor-list">

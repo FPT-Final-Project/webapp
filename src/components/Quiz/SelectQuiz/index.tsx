@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card, Row, Col, Button,
 } from 'antd';
@@ -39,13 +39,22 @@ const Quiz = ({ _id, name, description }: IQuiz, history: any, index: number) =>
 const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
   const history = useHistory();
   const [loadingApi, setLoadingApi] = useState(true);
+  const [unMounted, setUnMounted] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!unMounted) {
+        setLoadingApi(false);
+      }
+    }, 500);
+
+    return () => {
+      setUnMounted(true);
+    };
+  }, [quizzes]);
 
   if (!quizzes) {
     getQuizzes();
-  } else {
-    setTimeout(() => {
-      setLoadingApi(false);
-    }, 500);
   }
 
   return (
