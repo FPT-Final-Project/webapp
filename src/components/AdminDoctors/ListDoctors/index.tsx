@@ -18,7 +18,6 @@ const { Search } = Input;
 
 const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
   const history = useHistory();
-
   const { _id, name, avatar } = doctor;
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -78,9 +77,9 @@ const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
     <div className="doctor-card" key={_id}>
       <div className="doctor-card-left">
         <div className="doctor-card-avatar">
-          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+          <img src={avatar || '/doctorPsy.png'} alt={name} />
           <Button className="btn-detail">
-            <Link to={`/app/doctor/${_id}/details`}>View details</Link>
+            <Link to={{ pathname: `/app/doctor/${_id}/details`, state: { doctor } }}>View details</Link>
           </Button>
         </div>
         <div className="doctor-card-details">

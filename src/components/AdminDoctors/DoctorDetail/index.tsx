@@ -6,9 +6,9 @@ import './style.scss';
 
 interface Props {}
 
-const DoctorDetail: React.FC<Props> = () => {
+const DoctorDetail: React.FC<Props> = (props: any) => {
   const doctorId = useParams<{ doctorId: string }>();
-
+  const { location: { state: { doctor } } } = props;
   return (
     <div>
       <div className="wrap-details">
@@ -16,19 +16,20 @@ const DoctorDetail: React.FC<Props> = () => {
           <div className="headerDetail__banner" />
           <div className="headerDetail__info">
             <div className="info-spreate area-image">
-              <div className="info--image" />
+              {/* <div className="info--image" /> */}
+              <img src={doctor.avatar || '/doctorPsy.png'} alt="avatar" className="info--image" />
             </div>
             <div className="info-spreate">
-              <div className="info-spreate__title">Dr. Maria Anna</div>
-              <div className="info-spreate__text">Master's Depression</div>
+              <div className="info-spreate__title">{doctor.name || 'Sir'}</div>
+              <div className="info-spreate__text">{doctor.major || "Master's Depression"}</div>
             </div>
             <div className="info-spreate">
               <div className="info-spreate__title">Email</div>
-              <div className="info-spreate__text">mariana@psycare.com</div>
+              <div className="info-spreate__text">{doctor.email}</div>
             </div>
             <div className="info-spreate">
               <div className="info-spreate__title">Contact</div>
-              <div className="info-spreate__text">0963 521 652</div>
+              <div className="info-spreate__text">{doctor.phone || 'Unknown'}</div>
             </div>
           </div>
 
@@ -56,11 +57,11 @@ const DoctorDetail: React.FC<Props> = () => {
           </div>
           <div className="contentDetail__introduce">
             <h2 className="detail--title">May I Introduce Myself?</h2>
-            <p>Hi, my name is Maria Anna. I specialised in working with adolescents, adults and seniors. I'm passionate about helping people to become their best version of themselves, by focusing on a new perspective of self awareness and understanding of yourself and others. "If you can't change the problem, change the way you view it".</p>
+            <p>{`Hi, my fullname is ${doctor.name}. I specialised in working with adolescents, adults and seniors. I'm passionate about helping people to become their best version of themselves, by focusing on a new perspective of self awareness and understanding of yourself and others. "If you can't change the problem, change the way you view it.`}</p>
           </div>
           <div className="contentDetail__specialise">
             <h2 className="detail--title">Specialised In</h2>
-            <h4>DEPRESSION</h4>
+            <h4>{doctor.major || 'DEPRESSION'}</h4>
             <p>Depression can happen to everybody, adults, children and teenagers. Let me help you to find back to a life full of joy! "Above all, be the heroine of your life, not the victim"</p>
           </div>
         </div>

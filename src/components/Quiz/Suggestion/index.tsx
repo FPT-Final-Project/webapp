@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import { InfoCircleTwoTone, VideoCameraTwoTone } from '@ant-design/icons';
 import { Card, Col, Row } from 'antd';
 import Meta from 'antd/lib/card/Meta';
@@ -7,13 +8,29 @@ import { useHistory } from 'react-router-dom';
 import quizService from '../../../services/quiz.service';
 import './style.scss';
 
-const Doctor = ({ name, major, avatar }: {name: any, major: any, avatar: string}, loadingApi: any, history: any) => {
+const Doctor = (doctor: any, loadingApi: any, history: any) => {
   return (
     <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-      <Card loading={loadingApi} cover={<img alt="example" src={avatar || 'doctorPsy.png'} height="300" />} actions={[<VideoCameraTwoTone className="icon-suggestion" onClick={() => history.push('/app/dashboard')} width="10px" />, <InfoCircleTwoTone className="icon-suggestion" />]}>
+      <Card
+        loading={loadingApi}
+        cover={<img alt="example" src={doctor.avatar || 'doctorPsy.png'} height="300" />}
+        actions={[<VideoCameraTwoTone
+          className="icon-suggestion"
+          width="10px"
+          onClick={() => history.push({
+            pathname: '/app/doctor',
+          })}
+        />, <InfoCircleTwoTone
+          className="icon-suggestion"
+          onClick={() => history.push({
+            pathname: `/app/doctor/${doctor._id}/details`,
+            state: { doctor },
+          })}
+        />]}
+      >
         <Meta
-          title={name.toUpperCase() || 'Doctor'}
-          description={major?.toUpperCase() || 'PSYCHOLOGY'}
+          title={doctor.name.toUpperCase() || 'Doctor'}
+          description={doctor.major || 'PSYCHOLOGY'}
         />
       </Card>
     </Col>
