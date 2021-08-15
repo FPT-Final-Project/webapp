@@ -10,6 +10,10 @@
   z-index: 2;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
+  p {
+    cursor: default;
+  }
+
   .left-nar-bar {
     // background-color: palegoldenrod;
     width: 50%;
@@ -60,10 +64,10 @@
       padding: 2px;
       border: 1px solid black;
       cursor: pointer;
-      height: 44px;
-      width: 44px;
+      height: 40px;
+      width: 40px;
       border-radius: 50%;
-      background-image: url(../../assets/programmer.png);
+      // background-image: url(../../assets/programmer.png);
       background-size: 44px 44px;
     }
   }

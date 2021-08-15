@@ -5,6 +5,7 @@ import dashboardReducer from './dashboard.reducer';
 import questionAnswerReducer from './questionAnswer.reducer';
 import quizReducer from './quiz.reducer';
 import doctorReducer from './doctor.reducer';
+import feedbackReducer from './feedback.reducer';
 
 const rootReducers = combineReducers({
   authentication: authenticationReducer,
@@ -12,6 +13,7 @@ const rootReducers = combineReducers({
   dashboard: dashboardReducer,
   appointment: appointmentReducer,
   doctor: doctorReducer,
+  feedback: feedbackReducer,
 });
 
 export default rootReducers;

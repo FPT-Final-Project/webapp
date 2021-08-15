@@ -27,6 +27,20 @@ export const AuthActions = {
   GET_ME: '[Auth] Get Me',
   GET_ME_SUCCESS: '[Auth] Get Me Success',
   GET_ME_FAIL: '[Auth] Get Me Fail',
+
+  UPLOAD_AVATAR: '[Auth] Upload Avatar',
+  UPLOAD_AVATAR_SUCCESS: '[Auth] Upload Avatar Success',
+  UPLOAD_AVATAR_FAIL: '[Auth] Upload Avatar Fail',
+
+  UPDATE_AVATAR: '[Auth] Update Avatar',
+  UPDATE_AVATAR_SUCCESS: '[Auth] Update Avatar Success',
+  UPDATE_AVATAR_FAIL: '[Auth] Update Avatar Fail',
+
+  LOGIN_TOKEN: '[Auth] Login with Token',
+
+  UPDATE_BOOKING_TIME: '[Doctor] Update Booking Time',
+  UPDATE_BOOKING_TIME_SUCCESS: '[Doctor] Update Booking Time Success',
+  UPDATE_BOOKING_TIME_FAIL: '[Doctor] Update Booking Time Fail',
 };
 
 export interface LoginSuccessAction extends Action {
@@ -87,7 +101,12 @@ export interface ChangePasswordFailAction extends Action {
   };
 }
 
-// const login = (email: string, password: string) => async (dispatch: Dispatch) => {
+export interface UpdateBookingTimeSuccessAction extends Action {
+  payload: {
+    bookingTime: string[];
+  };
+}
+
 const login = (email: string, password: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(doRequest(AuthActions.LOGIN));
@@ -125,17 +144,24 @@ const updateUser = (values: any) => async (dispatch : Dispatch): Promise<void> =
     dispatch(doFailure(AuthActions.UPDATE_USER_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
   }
 };
+
 const logout = () => {
   localStorage.clear();
   openNotification('success', 'Goodbye!');
 };
+
 const changePassword = (newPass: string) => (dispatch : Dispatch): void => {
   dispatch(doRequest(AuthActions.CHANGE_PASSWORD, { newPass }));
 
   userService.changePassword(newPass)
     .then(() => {
       logout();
-    }).catch((error: any) => dispatch(doFailure(AuthActions.CHANGE_PASSWORD_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
+    }).catch((error: any) => dispatch(
+      doFailure(
+        AuthActions.CHANGE_PASSWORD_FAIL,
+        { error: _.get(error, ['response', 'data', 'message']) },
+      ),
+    ));
 };
 
 const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
@@ -145,16 +171,64 @@ const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
     dispatch(doSuccess(AuthActions.GET_ME_SUCCESS, result));
     return result;
   } catch (error: any) {
-    dispatch(doFailure(AuthActions.GET_ME_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    dispatch(doFailure(AuthActions.GET_ME_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
+  }
+};
+const uploadImage = (body: any) => async (dispatch: Dispatch): Promise<IUser> => {
+  try {
+    dispatch(doRequest(AuthActions.UPLOAD_AVATAR));
+    const result = await userService.uploadAvatar(body);
+    dispatch(doSuccess(AuthActions.UPLOAD_AVATAR_SUCCESS, result));
+    return result;
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.UPLOAD_AVATAR_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     return error;
   }
 };
 
+const updateAvatar = (body: any) => async (dispatch: Dispatch): Promise<IUser> => {
+  try {
+    dispatch(doRequest(AuthActions.UPDATE_AVATAR));
+    const result = await userService.updateAvatar(body);
+    dispatch(doSuccess(AuthActions.UPDATE_AVATAR_SUCCESS, result));
+    return result;
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.UPDATE_AVATAR_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
+  }
+};
+
+const loginWithToken = (token: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(AuthActions.LOGIN_TOKEN));
+    const result = await userService.loginWithToken(token);
+    localStorage.setItem('user', JSON.stringify(result));
+    dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result));
+  } catch (error: any) {
+    dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
+};
+
+const updateBookingTime = (bookingTime: string[]) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(AuthActions.UPDATE_BOOKING_TIME));
+    await userService.updateBookingTime(bookingTime);
+    dispatch(doSuccess(AuthActions.UPDATE_BOOKING_TIME_SUCCESS, { bookingTime }));
+  } catch (error) {
+    dispatch(doFailure(AuthActions.UPDATE_BOOKING_TIME_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+  }
+};
+
 export default {
+  updateAvatar,
+  uploadImage,
   login,
   logout,
   register,
   updateUser,
   changePassword,
   getMe,
+  loginWithToken,
+  updateBookingTime,
 };

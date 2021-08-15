@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, Input, Image } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 import './style.scss';
+// import { useDate } from '../../hooks/useDate';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AvatarModal from '../Modals/Avatar';
@@ -15,9 +16,8 @@ const { Header } = Layout;
 
 const HeaderLayout: React.FC<Props> = () => {
   const location = useLocation();
-  const user = useSelector((state: IRootState) => state.authentication.user);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const { user } = useSelector((state : IRootState) => state.authentication);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -40,7 +40,7 @@ const HeaderLayout: React.FC<Props> = () => {
             size="2x"
           />
           <p>{user?.name}</p>
-          <button onClick={showModal} className="avatar-profile" />
+          <Image src={user?.avatar || '/avatarDefault.png'} onClick={showModal} alt="avatar" className="avatar-profile" preview={false} />
           <AvatarModal
             visible={isModalVisible}
             handleCancelDropAvatar={handleCancelDropAvatar}

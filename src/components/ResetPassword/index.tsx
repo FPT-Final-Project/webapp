@@ -13,7 +13,7 @@ const ResetPass = () => {
     history.push('/register');
   };
 
-  const validatePass = /^.{6,}$/;
+  const validatePass = /^.{8,}$/;
 
   return (
     <>

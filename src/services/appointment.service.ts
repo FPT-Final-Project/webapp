@@ -1,26 +1,34 @@
 import { getRequest, postRequest } from '../config/axios.request';
 import { IAppointment } from '../types/appointment';
-import { IUser } from '../types/user';
 
 const getAppointment = (appointmentId: string): Promise<IAppointment> => {
   return getRequest(`appointment/${appointmentId}`);
 };
 
-const getAppointments = (user: IUser): Promise<IAppointment[]> => getRequest('appointment');
+const getAppointments = (): Promise<IAppointment[]> => getRequest('appointment');
 
-const cancelAnAppointment = (user: IUser, appointmentId: string): Promise<any> => {
+const cancelAnAppointment = (appointmentId: string): Promise<any> => {
   return postRequest(`appointment/${appointmentId}/cancel`);
 };
 
 const makeAnAppointment = (
-  user: IUser,
-  name: any,
-  startOfAppointment: any,
-  endOfAppointment: any,
-  doctorId: any,
-  doctorName: any,
+  patientId: string,
+  patientName: string,
+  name: string,
+  startOfAppointment: number,
+  endOfAppointment: number,
+  doctorId: string,
+  doctorName: string,
 ): Promise<any> => {
-  return postRequest('appointment/create', { user, name, startOfAppointment, endOfAppointment, doctorId, doctorName });
+  return postRequest('appointment/create', { patientId, patientName, name, startOfAppointment, endOfAppointment, doctorId, doctorName });
+};
+
+const checkAppointment = (
+  patientId: string,
+  doctorId: string,
+  startOfAppointment: number,
+): Promise<{ isExisted: boolean }> => {
+  return postRequest('appointment/check', { patientId, doctorId, startOfAppointment });
 };
 
 export default {
@@ -28,4 +36,5 @@ export default {
   getAppointments,
   cancelAnAppointment,
   makeAnAppointment,
+  checkAppointment,
 };
