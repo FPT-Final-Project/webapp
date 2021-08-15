@@ -32,7 +32,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const { quizId } = useParams<{ quizId: string }>();
   const quizzes = useSelector((state: any) => state.quiz.quizzes);
-  const userDemo = useSelector((state: any) => state.authentication.user.user);
+  const userDemo = useSelector((state: any) => state.authentication.user);
 
   const quiz = quizzes.find((q: any) => q._id === quizId);
 
