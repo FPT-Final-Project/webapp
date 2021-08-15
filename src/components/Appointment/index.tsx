@@ -8,33 +8,34 @@ import moment from 'moment';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
 import './styles.scss';
+import Loading from '../../shared/Loading';
+
+const { confirm } = Modal;
 
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = queryString.parse(window.location.href);
   const [unMounted, setUnMounted] = useState(false);
+  const [loadingApi, setLoadingApi] = useState(true);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
   }));
   const [data, setData] = useState(appointments);
-  const { confirm } = Modal;
 
   const cancelAppointment = (appointmentId : string) => {
-    if (user) {
-      confirm({
-        title: 'Do you want to cancel this appointment ?',
-        icon: <ExclamationCircleOutlined />,
-        content: 'If you agree to cancel this appointment you will lose your paid',
-        onOk() {
-          dispatch<any>(appointmentAction.cancelAppointment(appointmentId));
-        },
-        onCancel() {
-          history.push('/app/appointment');
-        },
-      });
-    }
+    confirm({
+      title: 'Do you want to cancel this appointment ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'If you agree to cancel this appointment you will lose your paid',
+      onOk() {
+        dispatch<any>(appointmentAction.cancelAppointment(appointmentId));
+      },
+      onCancel() {
+        history.push('/app/appointment');
+      },
+    });
   };
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const Appointment: React.FC = () => {
         dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
           if (!unMounted) {
             setData(res);
+            setTimeout(() => setLoadingApi(false), 700);
           }
         }),
       );
@@ -71,6 +73,7 @@ const Appointment: React.FC = () => {
     dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
       if (!unMounted) {
         setData(res);
+        setTimeout(() => setLoadingApi(false), 700);
       }
     });
 
@@ -114,9 +117,9 @@ const Appointment: React.FC = () => {
       key: 'action',
       data: '',
       render: (_data: any, row: any) => {
-        const d = new Date();
-        const n = d.getTime();
-        if (n >= Number(row.startOfAppointment) && n <= Number(row.endOfAppointment)) {
+        const now = moment().format('X');
+
+        if (now >= row.startOfAppointment && now <= row.endOfAppointment) {
           return (
             <Space size="middle">
               <Link
@@ -130,6 +133,7 @@ const Appointment: React.FC = () => {
             </Space>
           );
         }
+
         return (
           <Space size="middle">
             <Button className="buttonDisable" disabled>Join
@@ -141,11 +145,19 @@ const Appointment: React.FC = () => {
       },
     },
   ];
+
   return (
-    <div>
-      <div className="wrap-aptm">
-        <Table columns={columns} dataSource={data} rowKey="_id" />
-      </div>
+    <div style={{ height: '100%' }}>
+      {
+        loadingApi
+          ? (
+            <Loading />
+          ) : (
+            <div className="wrap-aptm">
+              <Table columns={columns} dataSource={data} rowKey="_id" />
+            </div>
+          )
+      }
     </div>
   );
 };

@@ -156,7 +156,12 @@ const changePassword = (newPass: string) => (dispatch : Dispatch): void => {
   userService.changePassword(newPass)
     .then(() => {
       logout();
-    }).catch((error: any) => dispatch(doFailure(AuthActions.CHANGE_PASSWORD_FAIL, { error: _.get(error, ['respon', 'data', 'message']) })));
+    }).catch((error: any) => dispatch(
+      doFailure(
+        AuthActions.CHANGE_PASSWORD_FAIL,
+        { error: _.get(error, ['response', 'data', 'message']) },
+      ),
+    ));
 };
 
 const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
@@ -166,7 +171,7 @@ const getMe = () => async (dispatch: Dispatch): Promise<IUser> => {
     dispatch(doSuccess(AuthActions.GET_ME_SUCCESS, result));
     return result;
   } catch (error: any) {
-    dispatch(doFailure(AuthActions.GET_ME_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    dispatch(doFailure(AuthActions.GET_ME_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     return error;
   }
 };
@@ -177,7 +182,7 @@ const uploadImage = (body: any) => async (dispatch: Dispatch): Promise<IUser> =>
     dispatch(doSuccess(AuthActions.UPLOAD_AVATAR_SUCCESS, result));
     return result;
   } catch (error: any) {
-    dispatch(doFailure(AuthActions.UPLOAD_AVATAR_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    dispatch(doFailure(AuthActions.UPLOAD_AVATAR_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     return error;
   }
 };
@@ -189,7 +194,7 @@ const updateAvatar = (body: any) => async (dispatch: Dispatch): Promise<IUser> =
     dispatch(doSuccess(AuthActions.UPDATE_AVATAR_SUCCESS, result));
     return result;
   } catch (error: any) {
-    dispatch(doFailure(AuthActions.UPDATE_AVATAR_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    dispatch(doFailure(AuthActions.UPDATE_AVATAR_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
     return error;
   }
 };
@@ -198,9 +203,10 @@ const loginWithToken = (token: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AuthActions.LOGIN_TOKEN));
     const result = await userService.loginWithToken(token);
+    localStorage.setItem('user', JSON.stringify(result));
     dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, result));
   } catch (error: any) {
-    dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['respon', 'data', 'message']) }));
+    dispatch(doFailure(AuthActions.LOGIN_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
   }
 };
 

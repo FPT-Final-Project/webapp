@@ -7,6 +7,7 @@ import { connect, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import quizService from '../../services/quiz.service';
+import Loading from '../../shared/Loading';
 import quizAction from '../../stores/actions/quiz.action';
 import { IRootState } from '../../stores/store';
 import { IQuestion } from '../../types/question';
@@ -103,9 +104,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           </div>
         </div>
         {loadingApi ? (
-          <div className="loading-api">
-            <Spin indicator={antIcon} />
-          </div>
+          <Loading />
         )
           : (
             <div className="psy-test-section">

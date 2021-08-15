@@ -1,4 +1,4 @@
-import { Provider, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
@@ -6,25 +6,25 @@ import 'antd/dist/antd.css';
 import { useEffect } from 'react';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
-import Reset from './components/NewPass';
-import ResetPass from './components/ResetPassword';
-import { store } from './stores/store';
 import Login from './components/Login';
 import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
-import authAction from './stores/actions/auth.action';
+import authAction, { AuthActions } from './stores/actions/auth.action';
 import SuggestionPage from './components/Quiz/Suggestion';
 import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
+import { doSuccess } from './stores/actions/utils';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      dispatch(authAction.loginWithToken(token));
+      const user = JSON.parse(localStorage.getItem('user') as string);
+      dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
+      // dispatch(authAction.loginWithToken(token));
     }
   }, []);
 

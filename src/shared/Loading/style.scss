@@ -1,0 +1,11 @@
+.loading-api{
+  .ant-spin {
+    &.ant-spin-spinning {
+      position: absolute;
+      left: 55%;
+      top: 50%;
+      width: auto;
+      height: 100%;
+    }
+  }
+}

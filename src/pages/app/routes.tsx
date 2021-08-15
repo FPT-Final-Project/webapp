@@ -53,7 +53,7 @@ export const routes = [
     sideBarHidden: true,
   },
   {
-    path: '/doctor/:doctorId/details',
+    path: '/doctor/:doctorId/profile',
     component: DoctorDetail,
     sideBarHidden: true,
   },
