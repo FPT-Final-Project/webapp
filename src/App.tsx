@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Content } from 'antd/lib/layout/layout';
 import './App.scss';
 import 'antd/dist/antd.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LayoutApp from './pages/app';
 import Home from './pages/landing-page/Home';
 import Login from './components/Login';
@@ -11,22 +11,27 @@ import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
-import { AuthActions } from './stores/actions/auth.action';
+import authAction, { AuthActions } from './stores/actions/auth.action';
 import SuggestionPage from './components/Quiz/Suggestion';
-import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
+import { PsyTest } from './components/Psytest';
 import { doSuccess } from './stores/actions/utils';
 import ChatBot from './components/Modals/ChatBot';
 
 function App() {
   const dispatch = useDispatch();
+  const [unMounted, setUnMounted] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && !unMounted) {
       const user = JSON.parse(localStorage.getItem('user') as string);
       dispatch(doSuccess(AuthActions.LOGIN_SUCCESS, user));
-      // dispatch(authAction.loginWithToken(token));
+      dispatch(authAction.loginWithToken(token));
     }
+
+    return () => {
+      setUnMounted(true);
+    };
   }, []);
 
   return (

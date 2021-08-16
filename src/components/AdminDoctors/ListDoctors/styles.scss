@@ -38,8 +38,9 @@
       display: flex;
       padding: 0.5rem;
       margin-bottom: 20px;
-      background-color: #f2fdff;
+      background-color: #f2fdff6d;
       border-radius: 0.625rem;
+      border: 2px solid #1f8ba3;
 
       .doctor-card-left {
         display: flex;
@@ -110,9 +111,8 @@
               margin-left: 5px;
               font-size: 12px;
             }
-            
           }
-          .doctor-schedule-busy{
+          .doctor-schedule-busy {
             width: fit-content;
             display: inline-block;
             padding: 2px 5px;
