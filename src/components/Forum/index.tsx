@@ -28,15 +28,15 @@ const Forum = () => {
     value: '',
   });
   const [loadingApi, setLoadingApi] = useState(true);
+  const [unMounted, setUnMounted] = useState(false);
 
   useEffect(() => {
-    let mounted = true;
     if (user?.role === 'patient') {
       dispatch<any>(questionAnswerAction.getOwnerPost()).then((res: any) => {
         res.forEach((itm: any) => {
           itm.show = false;
         });
-        if (mounted) {
+        if (!unMounted) {
           setPosts({
             value: '',
             comments: [
@@ -55,7 +55,7 @@ const Forum = () => {
         res.forEach((itm: any) => {
           itm.show = false;
         });
-        if (mounted) {
+        if (!unMounted) {
           setPosts({
             value: '',
             comments: [
@@ -69,7 +69,7 @@ const Forum = () => {
       });
     }
     return () => {
-      mounted = false;
+      setUnMounted(true);
     };
   }, []);
 

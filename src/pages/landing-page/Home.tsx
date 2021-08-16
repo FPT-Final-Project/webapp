@@ -10,11 +10,11 @@ import Banner from './Banner';
 import './Sass/index.scss';
 
 const Home = () => {
-  const fadeLeft = {
+  const _fadeLeft = {
     hidden: { opacity: 0, x: -100 },
     visible: { opacity: 1, x: 0 },
   };
-  const fadeRight = {
+  const _fadeRight = {
     hidden: { opacity: 0, x: 300 },
     visible: { opacity: 1, x: 0 },
   };

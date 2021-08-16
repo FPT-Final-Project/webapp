@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+  Row, Form, Input, Button, Divider, Typography, Space,
 } from 'antd';
 
 import {
@@ -10,8 +10,8 @@ import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
-import { IRootState } from '../../stores/store';
 import './style.scss';
+import { IRootState } from '../../stores/store';
 
 const { Title } = Typography;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
