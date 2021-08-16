@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import { Action, Dispatch } from 'redux';
 import _ from 'lodash';
 import { IUser } from '../../types/user';
 // import dashboardService from '../../services/userdashboard.service';
-import { doFailure, doRequest, doSuccess } from './utils';
+// import { doFailure, doRequest, doSuccess } from './utils';
 
 export const DashboardActions = {
   GET_USERS: '[DASHBOARD] GET Dashboard Users',

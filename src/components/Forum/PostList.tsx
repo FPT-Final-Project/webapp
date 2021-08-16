@@ -36,23 +36,31 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
     value: '',
   });
   useEffect(() => {
-    const source = axios.CancelToken.source();
-    questionAnswerService.getComments(_id).then((res: any) => setAnswers({
-      value: '',
-      answers: [...answers.answers,
-        ...res,
-      ],
-    }));
+    let mounted = true;
+    questionAnswerService.getComments(_id).then((res: any) => {
+      if (mounted) {
+        setAnswers({
+          value: '',
+          answers: [...answers.answers,
+            ...res,
+          ],
+        });
+      }
+    });
     return () => {
-      source.cancel();
+      mounted = false;
     };
   }, []);
   useEffect(() => {
-    const source = axios.CancelToken.source();
+    let mounted = true;
 
-    userService.getUserProfile(patientId).then((res: any) => setUser(res));
+    userService.getUserProfile(patientId).then((res: any) => {
+      if (mounted) {
+        setUser(res);
+      }
+    });
     return () => {
-      source.cancel();
+      mounted = false;
     };
   }, []);
   const handleChange = (e: ChangeEvent<any>) => {

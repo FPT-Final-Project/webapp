@@ -1,68 +1,87 @@
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Input, Modal } from 'antd';
+import { Button, DatePicker, Input, Modal, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
 import { IRootState } from '../../../stores/store';
 import './styles.scss';
 import doctorAction from '../../../stores/actions/doctor.action';
-import scheduleAction from '../../../stores/actions/schedule.action';
-import { ISchedule } from '../../../types/schedule';
 import { IDoctor } from '../../../types/doctor';
+import openNotification from '../../../utils/notification';
+import appointmentService from '../../../services/appointment.service';
+import { IUser } from '../../../types/user';
+import Loading from '../../../shared/Loading';
 
 const { Search } = Input;
+const { Option } = Select;
 
-const DoctorRow = (props: any) => {
-  const dispatch = useDispatch();
-  const { doctor } = props;
+const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
+  const history = useHistory();
   const { _id, name, avatar } = doctor;
-  const [listSchedule, setListSchedule] = useState<ISchedule[] | undefined>();
-  const [visible, setVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [nameAppointment, setNameAppointment] = useState('');
-  const history = useHistory();
+  const [date, _setDate] = useState(moment(new Date(), 'YYYY/MM/DD'));
+  const [selectedTime, setSelectedTime] = useState('');
 
-  const makeAnAppointment = () => {
-    setVisible(true);
-  };
+  const handleModal = async () => {
+    if (!nameAppointment) {
+      openNotification('error', 'Please enter Appointment Name.');
+      return;
+    }
 
-  const handleOk = (id: string, fromTime: number, toTime: number) => {
     setConfirmLoading(true);
+    const [start, end] = selectedTime.split('-');
+    const selectedDate = moment(date).format('YYYY/MM/DD');
+    const startOfAppointment = moment(`${selectedDate} ${start}`).utc().format('X');
+    const endOfAppointment = moment(`${selectedDate} ${end}`).utc().format('X');
+
+    const { isExisted } = await appointmentService.checkAppointment(user._id, doctor._id, +startOfAppointment);
+
+    if (isExisted) {
+      openNotification('error', 'The time has booked by another.');
+      setConfirmLoading(false);
+      return;
+    }
+
     setTimeout(() => {
-      setVisible(false);
+      setModalVisible(false);
       setConfirmLoading(false);
       history.push({
         pathname: '/app/payment',
         state: {
-          idSchedule: id,
-          nameRoom: nameAppointment,
+          roomName: nameAppointment,
           doctorId: _id,
           doctorName: name,
-          startOfAppointment: fromTime,
-          endOfAppointment: toTime,
+          startOfAppointment,
+          endOfAppointment,
+          amount: doctor.consultingFee,
+          time: selectedTime,
+          date: selectedDate,
         },
       });
     }, 2000);
   };
 
   const handleCancel = () => {
-    setVisible(false);
+    setModalVisible(false);
     history.push('/app/doctor');
   };
 
-  useEffect(() => {
-    dispatch<any>(scheduleAction.getSchedules(_id)).then((res: any) => setListSchedule(res));
-  }, []);
+  const disableDate = (current: any) => {
+    return current < moment().startOf('day');
+  };
 
   return (
     <div className="doctor-card" key={_id}>
       <div className="doctor-card-left">
         <div className="doctor-card-avatar">
-          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+          <img src={avatar || '/doctorPsy.png'} alt={name} />
           <Button className="btn-detail">
-            <Link to={`/app/doctor/${_id}/detail`}>View details</Link>
+            <Link to={{ pathname: `/app/doctor/${_id}/profile`, state: { doctor } }}>View Profile</Link>
           </Button>
         </div>
         <div className="doctor-card-details">
@@ -74,40 +93,57 @@ const DoctorRow = (props: any) => {
         <div className="doctor-card-schedule">
           <span>Consultation Schedule</span>
           <div className="doctor-card-schedules">
-            {listSchedule && listSchedule.length > 0 ? (
-              listSchedule.map((schedule, i) => (
+            {doctor.bookingTime && doctor.bookingTime.length > 0 ? (
+              doctor.bookingTime.map((time, i) => (
                 <div className="doctor-schedule" key={i}>
                   <FontAwesomeIcon icon={faVideo} size="sm" />
                   <span
-                    onClick={() => makeAnAppointment()}
-                    onKeyPress={() => makeAnAppointment()}
+                    onClick={() => { setModalVisible(true); setSelectedTime(time); }}
+                    onKeyPress={() => { setModalVisible(true); setSelectedTime(time); }}
                     role="button"
                     tabIndex={0}
-                  >{new Date(schedule.fromTime).toLocaleString()} - {new Date(schedule.toTime).toLocaleString()}
-                  </span>
-                  <Modal
-                    title="Confirm to reserve this !"
-                    visible={visible}
-                    onOk={() => handleOk(schedule._id, schedule.fromTime, schedule.toTime)}
-                    confirmLoading={confirmLoading}
-                    onCancel={handleCancel}
                   >
-                    <p><b>Information about your appointment:</b></p>
-                    <p><b>Doctor:</b> {name}</p>
-                    <p><b>Time start:</b> {new Date(schedule.fromTime).toLocaleString()}</p>
-                    <p><b>Time end:</b> {new Date(schedule.toTime).toLocaleString()}</p>
-                    <Input value={nameAppointment || ''} placeholder="Type your appointment's name" type="text" className="nameAppointment" onChange={({ target: { value } }) => setNameAppointment(value)} />
-                  </Modal>
+                    {time}
+                  </span>
                 </div>
               ))
-            ) : <div className="doctor-schedule-busy">Doctor seems to be busy for the next 24 hours</div>}
+            ) : <div className="doctor-schedule-busy">Doctor seems to be busy</div>}
           </div>
         </div>
         <div>
-          <div style={{ fontWeight: 700 }}>Consultation Fee : 50$</div>
+          <div style={{ fontWeight: 700 }}>Consultation Fee : {doctor?.consultingFee || 'Unknown'} VND</div>
           <div>Costs Incurred: 5$</div>
         </div>
       </div>
+      <Modal
+        title="Confirm to reserve this !"
+        visible={modalVisible}
+        centered
+        onOk={() => handleModal()}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <p><b>Information about your appointment:</b></p>
+        <p><b>Name:</b>
+          <Input
+            value={nameAppointment || ''}
+            placeholder="Type your appointment's name"
+            type="text"
+            className="nameAppointment"
+            onChange={({ target: { value } }) => setNameAppointment(value)}
+          />
+        </p>
+        <p><b>Doctor:</b>&nbsp;{name}</p>
+        <p><b>Time:</b>&nbsp;{selectedTime}</p>
+        <p style={{ display: 'inline-block' }}><b>Date:</b></p>&nbsp;
+        <DatePicker
+          style={{ display: 'inline-block' }}
+          defaultValue={moment(new Date(), 'YYYY/MM/DD')}
+          disabledDate={disableDate}
+          format="DD/MM/YYYY"
+          value={date}
+        />
+      </Modal>
     </div>
   );
 };
@@ -118,8 +154,16 @@ const ListDoctors: React.FC = () => {
     user: state.authentication.user,
     doctors: state.doctor.doctors,
   }));
-  const [listDoctors, setListDoctors] = useState(doctors);
+  const [listDoctors, setListDoctors] = useState(doctors || []);
   const [nameSearch, setNameSearch] = useState('');
+  const [loadingApi, setLoadingApi] = useState(true);
+
+  useEffect(() => {
+    dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
+      setListDoctors(res);
+      setTimeout(() => setLoadingApi(false), 700);
+    });
+  }, []);
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -134,69 +178,130 @@ const ListDoctors: React.FC = () => {
     } else if (doctors) {
       setListDoctors(doctors);
     }
+
+    setTimeout(() => setLoadingApi(false), 700);
   };
 
-  useEffect(() => {
-    if (user) {
-      dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
-        setListDoctors(res);
-      });
+  const handleGenderSearch = (e: any) => {
+    e.preventDefault();
+    const gender = e.target.value;
+    const result : IDoctor[] = [];
+    if (gender === 'male' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === 0) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (gender === 'female' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if (doctors[i].gender === 1) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (gender === 'all' && doctors) {
+      setListDoctors(doctors);
     }
-  }, []);
+  };
+
+  const handleMajorSearch = (e: any) => {
+    e.preventDefault();
+    const major = e.target.value;
+    const result : IDoctor[] = [];
+    if (major === 'depress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Depress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'anxious' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Anxious'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'stress' && doctors) {
+      for (let i = 0; i < doctors.length; i += 1) {
+        if ((doctors[i].major)?.toLocaleUpperCase() === 'Stress'.toLocaleUpperCase()) {
+          result.push(doctors[i]);
+        }
+      }
+      setListDoctors(result);
+    } else if (major === 'all' && doctors) {
+      setListDoctors(doctors);
+    }
+  };
+
+  if (!user) {
+    return (<></>);
+  }
 
   return (
     <div className="wrap-doctor-list">
-      <div className="doctor-list-content">
-        <div className="doctor-filter">
-          <div className="doctor-filter-section">
-            <span>Search Name: </span>
-            <Search
-              prefix={<UserOutlined />}
-              className="doctor-search"
-              value={nameSearch || ''}
-              onChange={({ target: { value } }) => setNameSearch(value)}
-              onKeyUp={(e) => (handleSearch(e))}
-              placeholder="Type doctor's name"
-            />
-          </div>
-          <div className="doctor-filter-section">
-            <span>Specialty</span>
-            <select name="specialty" id="doctor-specialty">
-              <option value="all">All</option>
-              <option value="a">A</option>
-              <option value="b">B</option>
-            </select>
-          </div>
-          <div className="doctor-filter-section">
-            <span>Gender</span>
-            <select name="gender" id="doctor-gender">
-              <option value="all">All</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-        </div>
-        {(listDoctors || []).map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} />)}
-      </div>
-      <div className="doctor-top-list">
-        <div className="doctor-top-title">Top 5:</div>
-        {
-          !doctors
-            ? (<></>)
-            : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
-              <div className="doctor-top-content" key={_id}>
-                <div className="doctor-content-avatar">
-                  {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+      {
+        loadingApi
+          ? (
+            <Loading />
+          ) : (
+            <>
+              <div className="doctor-list-content">
+                <div className="doctor-filter">
+                  <div className="doctor-filter-section">
+                    <span>Search Name: </span>
+                    <Search
+                      prefix={<UserOutlined />}
+                      className="doctor-search"
+                      value={nameSearch || ''}
+                      onChange={({ target: { value } }) => setNameSearch(value)}
+                      onKeyUp={(e) => (handleSearch(e))}
+                      placeholder="Type doctor's name"
+                    />
+                  </div>
+                  <div className="doctor-filter-section">
+                    <span style={{ display: 'block' }}>Major</span>
+                    <Select id="doctor-specialty">
+                      <Option value="all">All</Option>
+                      <Option value="depress">Depress</Option>
+                      <Option value="anxious">Anxious</Option>
+                      <Option value="stress">Stress</Option>
+                    </Select>
+                  </div>
+                  <div className="doctor-filter-section">
+                    <span style={{ display: 'block' }}>Gender</span>
+                    <Select id="doctor-gender">
+                      <Option value="all">All</Option>
+                      <Option value="male">Male</Option>
+                      <Option value="female">Female</Option>
+                    </Select>
+                  </div>
                 </div>
-                <div className="doctor-content-details">
-                  <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
-                  <div className="doctor-content-name">Dr. {name}</div>
-                  <div>{email}</div>
-                </div>
+                { listDoctors && listDoctors.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} user={user} />)}
               </div>
-            ))
-        }
-      </div>
+              <div className="doctor-top-list">
+                <div className="doctor-top-title">Top 5:</div>
+                {
+                  !listDoctors
+                    ? (<></>)
+                    : (doctors || []).slice(0, 5).map(({ _id, name, avatar, email }: any) => (
+                      <div className="doctor-top-content" key={_id}>
+                        <div className="doctor-content-avatar">
+                          {avatar ? <img src={avatar} alt={name} /> : <img src="/doctorPsy.png" alt={name} />}
+                        </div>
+                        <div className="doctor-content-details">
+                          <div>⭐️ ⭐️ ⭐️ ⭐️ ⭐️</div>
+                          <div className="doctor-content-name">Dr. {name}</div>
+                          <div>{email}</div>
+                        </div>
+                      </div>
+                    ))
+                }
+              </div>
+            </>
+          )
+      }
     </div>
   );
 };

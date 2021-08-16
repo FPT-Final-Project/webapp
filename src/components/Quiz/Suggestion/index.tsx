@@ -1,6 +1,6 @@
-import { InfoCircleTwoTone, SettingOutlined, VideoCameraTwoTone } from '@ant-design/icons';
-import { Button, Card, Col, Row, Switch } from 'antd';
-import Avatar from 'antd/lib/avatar/avatar';
+/* eslint-disable react/destructuring-assignment */
+import { InfoCircleTwoTone, VideoCameraTwoTone } from '@ant-design/icons';
+import { Card, Col, Row } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -8,25 +8,45 @@ import { useHistory } from 'react-router-dom';
 import quizService from '../../../services/quiz.service';
 import './style.scss';
 
-const Doctor = ({ name, major, avatar }: {name: any, major: any, avatar: string}, loadingApi: any, history: any) => {
-  return (
-    <Col span={8} xs={24} sm={12} xl={8} lg={12}>
-      <Card loading={loadingApi} cover={<img alt="example" src={avatar || 'doctorPsy.png'} height="300" />} actions={[<VideoCameraTwoTone className="icon-suggestion" onClick={() => history.push('/app/dashboard')} width="10px" />, <InfoCircleTwoTone className="icon-suggestion" />]}>
-        <Meta
-          title={name.toUpperCase() || 'Doctor'}
-          description={major?.toUpperCase() || 'PSYCHOLOGY'}
-        />
-      </Card>
-    </Col>
-  );
-};
+const Doctor = (
+  doctor: any,
+  loadingApi: any,
+  history: any,
+) => (
+  <Col key={doctor._id} span={8} xs={24} sm={12} xl={8} lg={12}>
+    <Card
+      loading={loadingApi}
+      cover={<img alt="example" src={doctor.avatar || 'doctorPsy.png'} height="300" />}
+      actions={[
+        <VideoCameraTwoTone
+          className="icon-suggestion"
+          onClick={() => history.push('/app/dashboard')}
+          width="10px"
+        />,
+        <InfoCircleTwoTone
+          className="icon-suggestion"
+          onClick={() => history.push({
+            pathname: `/app/doctor/${doctor._id}/details`,
+            state: { doctor },
+          })}
+        />,
+      ]}
+    >
+      <Meta
+        title={doctor.name.toUpperCase() || 'Doctor'}
+        description={doctor.major?.toUpperCase() || 'PSYCHOLOGY'}
+      />
+    </Card>
+  </Col>
+);
+
 const SuggestionPage = () => {
   const quizResult = useSelector((state: any) => state.quiz.quizzesScore);
   const [doctors, setDoctors] = useState([]);
   const [loadingApi, setLoadingApi] = useState(true);
   const history = useHistory();
+
   useEffect(() => {
-    // eslint-disable-next-line consistent-return
     const recommendDoctorApi = async () => {
       try {
         const data: any = await quizService.recommendDoctor(quizResult);
@@ -40,6 +60,7 @@ const SuggestionPage = () => {
     };
     recommendDoctorApi();
   }, []);
+
   return (
     <>
       <div className="suggestion-form">

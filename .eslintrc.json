@@ -43,9 +43,10 @@
       "warn",
       {
         "vars": "all",
-        "args": "after-used",
+        "args": "all",
         "ignoreRestSiblings": false,
-        "argsIgnorePattern": "^_"
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
       }
     ],
     "max-len": ["warn", {
@@ -67,7 +68,10 @@
     "semi": "error",
     "arrow-body-style": "off",
     "no-underscore-dangle": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
   },
   "settings": {
     "import/resolver": {

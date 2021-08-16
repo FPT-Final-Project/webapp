@@ -27,9 +27,9 @@ export interface GetDoctorSuccessAction extends Action {
 }
 
 export interface GetDoctorFailAction extends Action {
-    payload: {
-      error: string;
-    };
+  payload: {
+    error: string;
+  };
 }
 
 export interface GetDoctorsAction extends Action {
@@ -45,9 +45,9 @@ export interface GetDoctorsSuccessAction extends Action {
 }
 
 export interface GetDoctorsFailAction extends Action {
-    payload: {
-      error: string;
-    };
+  payload: {
+    error: string;
+  };
 }
 
 const getDoctor = (doctorId: string) => async (dispatch: Dispatch) => {
@@ -56,8 +56,10 @@ const getDoctor = (doctorId: string) => async (dispatch: Dispatch) => {
     const doctor = await doctorService.getDoctor(doctorId);
 
     dispatch(doSuccess(DoctorActions.GET_DOCTOR_SUCCESS, { doctor }));
+    return doctor;
   } catch (error) {
     dispatch(doFailure(DoctorActions.GET_DOCTOR_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
   }
 };
 

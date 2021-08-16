@@ -1,8 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
   AppstoreOutlined,
@@ -12,17 +8,17 @@ import {
   TeamOutlined,
   FileProtectOutlined,
   ProfileOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import './style.scss';
+import { useSelector } from 'react-redux';
 import { routes } from '../../pages/app/routes';
+import { IRootState } from '../../stores/store';
 
 const { Sider } = Layout;
 const { Item } = Menu;
 
 interface Props {
-  collapsed?: boolean;
   matchPath: string;
 }
 
@@ -72,6 +68,7 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
       name = 'Payment';
       break;
     }
+
     default: {
       break;
     }
@@ -88,9 +85,10 @@ const MenuItem = (path: string, index: number, matchPath: string, currentPath: s
   );
 };
 
-const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => {
+const SiderMenu: React.FC<Props> = ({ matchPath }: Props) => {
   const history = useHistory();
   const location = useLocation();
+  const user = useSelector((state: IRootState) => state.authentication.user);
 
   const redirectToApp = () => {
     history.push('/');
@@ -101,7 +99,6 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
       <Sider
         trigger={null}
         collapsible
-        collapsed={collapsed}
         className="custom-sider"
         width="250"
       >
@@ -111,16 +108,12 @@ const SiderMenu: React.FC<Props> = ({ collapsed = false, matchPath }: Props) => 
         </div>
         <Menu className="custom-menu">
           {routes
-            .filter((r) => !r.sideBarHidden)
+            .filter((r) => !(r.doctorHidden && user?.role === 'doctor') && !r.sideBarHidden)
             .map((route, index) => MenuItem(`${matchPath}${route.path}`, index, matchPath, location.pathname))}
         </Menu>
       </Sider>
     </>
   );
-};
-
-SiderMenu.defaultProps = {
-  collapsed: false,
 };
 
 export default SiderMenu;

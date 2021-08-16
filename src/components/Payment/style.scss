@@ -1,23 +1,18 @@
 .wrapper-payment {
   width: 100%;
   height: calc(100%-64px);
-  overflow: hidden;
-  // background-color: #fafafa;
   padding: 16px;
-  margin-top: 64px;
 
   .banner-payment {
     width: 100%;
-    height: 120px;
+    height: inherit;
     padding: 16px;
-    // background-color: #fff;
     border-radius: 15px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    // overflow: hidden;
     background: url(../../assets/headerPayment.svg);
     background-repeat: no-repeat;
+
     background-size: cover;
-    // background-position: right;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,30 +33,11 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 
-    .table-payment {
+    .order-summary {
       height: auto;
-      width: 69%;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      padding: 8px;
-      border-radius: 20px;
-      background-color: #fff;
-
-      p {
-        margin: 0;
-      }
-
-      .ant-table-wrapper {
-        .ant-table-thead > tr > th {
-          font-weight: bold !important;
-          font-size: 18px;
-        }
-      }
-    }
-    .order-sumary {
-      height: auto;
-      width: 29%;
+      min-width: 35%;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       padding: 16px;
       border-radius: 20px;
@@ -75,6 +51,7 @@
       }
       .col-total {
         text-align: center;
+        width: fit-content;
       }
       .btn-payment {
         width: 100%;

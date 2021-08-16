@@ -1,69 +1,85 @@
-/* eslint-disable max-len */
 import { Table, Space, Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import { IRootState } from '../../stores/store';
 import appointmentAction from '../../stores/actions/appointment.action';
-import scheduleAction from '../../stores/actions/schedule.action';
 import './styles.scss';
+import Loading from '../../shared/Loading';
+
+const { confirm } = Modal;
 
 const Appointment: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = queryString.parse(window.location.href);
   const [unMounted, setUnMounted] = useState(false);
+  const [loadingApi, setLoadingApi] = useState(true);
   const { user, appointments } = useSelector((state: IRootState) => ({
     user: state.authentication.user,
     appointments: state.appointment.appointments,
   }));
   const [data, setData] = useState(appointments);
-  const { confirm } = Modal;
 
   const cancelAppointment = (appointmentId : string) => {
-    if (user) {
-      confirm({
-        title: 'Do you want to cancel this appointment ?',
-        icon: <ExclamationCircleOutlined />,
-        content: 'If you agree to cancel this appointment you will lose your paid',
-        onOk() {
-          dispatch<any>(appointmentAction.cancelAppointment(user, appointmentId)).then((res:any) => {
-            setData(res);
-          });
-        },
-        onCancel() {
-          history.push('/app/appointment');
-        },
-      });
-    }
+    confirm({
+      title: 'Do you want to cancel this appointment ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'If you agree to cancel this appointment you will lose your paid',
+      onOk() {
+        dispatch<any>(appointmentAction.cancelAppointment(appointmentId));
+      },
+      onCancel() {
+        history.push('/app/appointment');
+      },
+    });
   };
 
   useEffect(() => {
-    if (user) {
-      if (params.message === 'Success' && params.errorCode === '0' && typeof params.extraData === 'string') {
-        // eslint-disable-next-line no-unused-vars
-        const [idSchedule, appointmentName, patientId, patientName, startOfAppointment, endOfAppointment, doctorId, doctorName] = params.extraData?.split(',');
-        dispatch<any>(scheduleAction.updateSchedules(idSchedule))
-          .then(
-            dispatch<any>(appointmentAction.createAppointment(user, appointmentName, parseFloat(startOfAppointment), parseFloat(endOfAppointment), doctorId, doctorName)),
-          );
-        history.push('/app/appointment');
-        dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
+    if (params.message === 'Success' && params.errorCode === '0' && typeof params.extraData === 'string') {
+      const [
+        appointmentName,
+        patientId,
+        patientName,
+        startOfAppointment,
+        endOfAppointment,
+        doctorId,
+        doctorName,
+      ] = params.extraData?.split(',');
+
+      dispatch<any>(
+        appointmentAction.createAppointment(
+          patientId,
+          patientName,
+          appointmentName,
+          +startOfAppointment,
+          +endOfAppointment,
+          doctorId,
+          doctorName,
+        ),
+      ).then(
+        dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
           if (!unMounted) {
             setData(res);
+            setTimeout(() => setLoadingApi(false), 700);
           }
-        });
-      }
-      dispatch<any>(appointmentAction.getAppointments(user)).then((res:any) => {
-        if (!unMounted) {
-          setData(res);
-        }
-      });
+        }),
+      );
     }
 
-    return () => setUnMounted(true);
+    dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
+      if (!unMounted) {
+        setData(res);
+        setTimeout(() => setLoadingApi(false), 700);
+      }
+    });
+
+    return () => {
+      setUnMounted(true);
+    };
   }, []);
 
   const columns = [
@@ -87,29 +103,23 @@ const Appointment: React.FC = () => {
       dataIndex: 'startOfAppointment',
       key: 'startOfAppointment',
       sorter: (a: any, b: any) => (a.startOfAppointment - b.startOfAppointment),
-      render: (startOfAppointment: string) => {
-        const d = new Date(startOfAppointment);
-        return new Date(d).toLocaleString();
-      },
+      render: (startOfAppointment: string) => moment(startOfAppointment, 'X').format('DD/MM/YYYY HH:mm'),
     },
     {
       title: 'Time close',
       dataIndex: 'endOfAppointment',
       key: 'endOfAppointment',
       sorter: (a: any, b: any) => (a.endOfAppointment - b.endOfAppointment),
-      render: (endOfAppointment: string) => {
-        const d = new Date(endOfAppointment);
-        return new Date(d).toLocaleString();
-      },
+      render: (endOfAppointment: string) => moment(endOfAppointment, 'X').format('DD/MM/YYYY HH:mm'),
     },
     {
       title: 'Action',
       key: 'action',
       data: '',
       render: (_data: any, row: any) => {
-        const d = new Date();
-        const n = d.getTime();
-        if (n >= Number(row.startOfAppointment) && n <= Number(row.endOfAppointment)) {
+        const now = moment().format('X');
+
+        if (now >= row.startOfAppointment && now <= row.endOfAppointment) {
           return (
             <Space size="middle">
               <Link
@@ -123,6 +133,7 @@ const Appointment: React.FC = () => {
             </Space>
           );
         }
+
         return (
           <Space size="middle">
             <Button className="buttonDisable" disabled>Join
@@ -134,11 +145,19 @@ const Appointment: React.FC = () => {
       },
     },
   ];
+
   return (
-    <div>
-      <div className="wrap-aptm">
-        <Table columns={columns} dataSource={data} rowKey="_id" />
-      </div>
+    <div style={{ height: '100%' }}>
+      {
+        loadingApi
+          ? (
+            <Loading />
+          ) : (
+            <div className="wrap-aptm">
+              <Table columns={columns} dataSource={data} rowKey="_id" />
+            </div>
+          )
+      }
     </div>
   );
 };

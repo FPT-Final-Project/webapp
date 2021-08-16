@@ -1,9 +1,9 @@
-import { AxiosResponse } from 'axios';
 import { getRequest } from '../config/axios.request';
+import { IDoctor } from '../types/doctor';
 
-const getDoctor = (doctorId: string): Promise<AxiosResponse<any>> => getRequest(`doctors/${doctorId}`);
+const getDoctor = (doctorId: string): Promise<IDoctor> => getRequest(`doctors/${doctorId}`);
 
-const getDoctors = (): Promise<AxiosResponse<any>> => getRequest('doctors');
+const getDoctors = (): Promise<IDoctor[]> => getRequest('doctors');
 
 export default {
   getDoctor,

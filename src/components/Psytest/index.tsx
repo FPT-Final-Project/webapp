@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Spin } from 'antd';
+import { Image, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import quizService from '../../services/quiz.service';
+import Loading from '../../shared/Loading';
 import quizAction from '../../stores/actions/quiz.action';
 import { IRootState } from '../../stores/store';
 import { IQuestion } from '../../types/question';
@@ -32,7 +33,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const { quizId } = useParams<{ quizId: string }>();
   const quizzes = useSelector((state: any) => state.quiz.quizzes);
-  const userDemo = useSelector((state: any) => state.authentication.user.user);
+  const userDemo = useSelector((state: any) => state.authentication.user);
 
   const quiz = quizzes.find((q: any) => q._id === quizId);
 
@@ -95,7 +96,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           </div>
           <div className="right-header" role="button">
             <p>{user?.name}</p>
-            <button className="avatar-profile" onClick={showModal} />
+            <Image src={user?.avatar || '/avatarDefault.png'} onClick={showModal} alt="avatar" className="avatar-profile" preview={false} />
             <AvatarModal
               visible={isModalVisible}
               handleCancelDropAvatar={handleCancelDropAvatar}
@@ -103,9 +104,7 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           </div>
         </div>
         {loadingApi ? (
-          <div className="loading-api">
-            <Spin indicator={antIcon} />
-          </div>
+          <Loading />
         )
           : (
             <div className="psy-test-section">

@@ -1,13 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, LoadingOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Menu, Upload, Dropdown, Image, Select } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ImgCrop from 'antd-img-crop';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import authAction from '../../../stores/actions/auth.action';
 import { IRootState } from '../../../stores/store';
 import { IUser } from '../../../types/user';
 import './style.scss';
 
+const { Option } = Select;
 interface Props {
   user: IUser | undefined;
 }
@@ -18,7 +22,8 @@ const ProfileUser: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state : IRootState) => state.authentication);
-  console.log(user);
+  const [loading, setLoading] = useState(false);
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -28,10 +33,49 @@ const ProfileUser: React.FC<Props> = () => {
     dispatch<any>(authAction.updateUser(values)).then(() => { dispatch(authAction.getMe()); });
     setEditable(!editable);
   };
+  // const handleChange = (info: any) => {
+  //   getBase64(info.file.originFileObj, (imageUrl: any) => setUserAvatar(imageUrl));
+  // };
+  const uploadImage = (options: any) => {
+    setLoading(true);
+    const { file } = options;
+    const fmData = new FormData();
+    fmData.append('image', file);
+    dispatch<any>(authAction.uploadImage(fmData)).then((res: any) => {
+      if (res) {
+        setLoading(false);
+        dispatch(authAction.updateAvatar(res));
+      }
+    });
+  };
+  const uploadButton = (
+    <>
+      <LoadingOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </>
+  );
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">
+        <ImgCrop grid>
+          <Upload
+            name="avatar"
+            customRequest={uploadImage}
+            className="avatar-uploader"
+            showUploadList={false}
+          >
+            <>
+              <FontAwesomeIcon icon={faUpload} />
+              <span>&nbsp;Upload Avatar</span>
+            </>
+          </Upload>
+        </ImgCrop>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className="wrap-content">
-      <div className="root" />
       <div className="headerProfile">
         <div className="headerProfile__banner" />
         <div className="wrap-mid">
@@ -39,7 +83,15 @@ const ProfileUser: React.FC<Props> = () => {
             ? (
               <div className="headerProfile__info">
                 <div className="info info__image">
-                  <div className="info__image--transform" />
+                  <Dropdown
+                    overlay={menu}
+                    trigger={['click']}
+                    placement="bottomCenter"
+                    className="image-upload"
+                  >
+                    {!loading ? <Image src={user?.avatar || '/avatarDefault.png'} preview={false} /> : uploadButton}
+
+                  </Dropdown>
                   <div className="info__image--name">
                     {user?.name}
                   </div>
@@ -86,12 +138,6 @@ const ProfileUser: React.FC<Props> = () => {
                     <div className="container__title--btn" />
                   </div>
                   <div className="form-item">
-
-                    <div className="divide divide-left">
-                      <div className="image-profile" />
-                      <button className="divide-left__edit"><EditOutlined className="editbtn_below" /></button>
-
-                    </div>
                     <div className="divide divide-right">
 
                       <Form.Item
@@ -105,22 +151,27 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item
                         name="job"
                         label="Job: "
-                        initialValue={user?.job ? user?.job : 'Unknown'}
+                        initialValue={user?.job}
                       >
                         <Input />
                       </Form.Item>
                       <Form.Item
                         name="gender"
                         label="Gender: "
-                        initialValue={user?.gender ? user?.gender : 'Unknown'}
+                        initialValue={user?.gender || 'Unknown'}
 
                       >
-                        <Input />
+                        <Select
+                          allowClear
+                        >
+                          <Option value="0">male</Option>
+                          <Option value="1">female</Option>
+                        </Select>
                       </Form.Item>
                       <Form.Item
                         name="address"
                         label="Address: "
-                        initialValue={user?.address ? user?.address : 'Unknown'}
+                        initialValue={user?.address || 'Unknown'}
 
                       >
                         <Input />
@@ -135,7 +186,7 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item
                         name="phone"
                         label="Phone: "
-                        initialValue={user?.phone ? user?.phone : 'Unknown'}
+                        initialValue={user?.phone || 'Unknown'}
 
                       >
                         <Input />
@@ -143,6 +194,9 @@ const ProfileUser: React.FC<Props> = () => {
                       <Form.Item>
                         <Button type="primary" htmlType="submit">
                           {editable ? '' : 'Update'}
+                        </Button>
+                        <Button htmlType="button" style={{ margin: '0 8px' }} onClick={() => setEditable(!editable)}>
+                          Cancel
                         </Button>
                       </Form.Item>
                     </div>

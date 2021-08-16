@@ -1,13 +1,11 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { Route, useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import score from '../../../assets/Score.svg';
 import { analyzeResultOfPsytest } from '../../../helper/analyzeResultOfPsytest';
-import { IRootState } from '../../../stores/store';
 import './style.scss';
-import SuggestionPage from '../Suggestion';
 
 interface Props {
 }
@@ -24,7 +22,7 @@ const ResultQuiz: React.FC<Props> = () => {
     <>
       <div className="result-form">
         <div className="result">
-          <h1>Psychological self-test for depression</h1>
+          <h1>Psychological self-test for Depression</h1>
           {/* <h3>Do you to get depressed? Take the depression test.</h3> */}
           <p className="text-desciption">
             For many disorders affertiong your wellbeing, talking a critical look at your

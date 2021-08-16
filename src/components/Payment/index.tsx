@@ -1,52 +1,43 @@
-/* eslint-disable max-len */
+import React from 'react';
 import './style.scss';
-import {
-  Table, Row, Divider, Col, Button, Space,
-} from 'antd';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Row, Divider, Col, Button } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { momoRequest } from '../../config/momo.config';
 import { IRootState } from '../../stores/store';
 
-const { Column } = Table;
-
 const Payment: React.FC = () => {
-  const [count, setCount] = useState(1);
   const user = useSelector((state: IRootState) => state.authentication.user);
   const location = useLocation<any>();
-  const history = useHistory();
+
+  const {
+    roomName,
+    doctorId,
+    doctorName,
+    startOfAppointment,
+    endOfAppointment,
+    amount,
+    date,
+    time,
+  } = location.state;
 
   if (!user) {
     return (
       <></>
     );
   }
-  if (location.state.nameRoom === undefined) {
-    history.push('doctor');
-  }
-
-  const data = [
-    {
-      key: '1',
-      counselling: 'Treatment of depression',
-      price: '$50',
-      quantity:
-        <Space align="center">
-          <Button onClick={() => setCount(count - 1)}>-</Button>
-          <p>{count}</p>
-          <Button onClick={() => setCount(count + 1)}>+</Button>
-        </Space>,
-      total:
-        <p>
-          $
-          {count * 50}
-        </p>,
-    },
-  ];
 
   const handlePurchasing = async () => {
-    const { payUrl } = await momoRequest(location.state.idSchedule, location.state.nameRoom, user._id, user.name, location.state.startOfAppointment.toString(), location.state.endOfAppointment.toString(), location.state.doctorId, location.state.doctorName, '50000');
+    const { payUrl } = await momoRequest(
+      roomName,
+      user._id,
+      user.name,
+      startOfAppointment,
+      endOfAppointment,
+      doctorId,
+      doctorName,
+      `${amount + 50000}`,
+    );
     window.location.href = payUrl;
   };
 
@@ -57,26 +48,37 @@ const Payment: React.FC = () => {
         <div className="banner-payment__description">Where to pay for the doctor's appointment</div>
       </div>
       <div className="payment-form">
-        <div className="table-payment">
-          <Table dataSource={data}>
-            <Column title="Counselling" dataIndex="counselling" key="counselling" />
-            <Column title="Price" dataIndex="price" key="price" />
-            <Column title="Quantity" dataIndex="quantity" key="quantity" />
-            <Column title="Total" dataIndex="total" key="total" />
-          </Table>
-        </div>
-        <div className="order-sumary">
+        <div className="order-summary">
           <h2>Order Summary</h2>
           <Divider style={{ marginTop: '18px' }} />
           <Row justify="space-between">
-            <Col span={8}><h3>Item Total</h3></Col>
-            <Col span={8} className="col-total">$50</Col>
+            <Col span={7}><h3>Name</h3></Col>
+            <Col span={11} className="col-total">{roomName}</Col>
           </Row>
           <Row justify="space-between">
-            <Col span={8}><h3> Total</h3></Col>
-            <Col span={8} className="col-total">
-            $
-              {count * 50}
+            <Col span={7}><h3>Doctor Name</h3></Col>
+            <Col span={11} className="col-total">{doctorName}</Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={7}><h3>Date</h3></Col>
+            <Col span={11} className="col-total">{date}</Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={7}><h3>Time</h3></Col>
+            <Col span={11} className="col-total">{time}</Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={7}><h3>Consulting Fee</h3></Col>
+            <Col span={11} className="col-total">{amount.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={7}><h3>Fee</h3></Col>
+            <Col span={11} className="col-total">{(50000).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</Col>
+          </Row>
+          <Row justify="space-between">
+            <Col span={7}><h3> Total</h3></Col>
+            <Col span={11} className="col-total">
+              {(amount + 50000).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
             </Col>
           </Row>
           <Divider style={{ marginTop: '15px' }} />
