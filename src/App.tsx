@@ -16,8 +16,8 @@ import ResultQuiz from './components/Quiz/Result';
 import { AuthActions } from './stores/actions/auth.action';
 import { doSuccess } from './stores/actions/utils';
 import SuggestionPage from './components/Quiz/Suggestion';
-import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
+import { PsyTest } from './components/PsyTest';
 
 function App() {
   const user = localStorage.getItem('user');

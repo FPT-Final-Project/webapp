@@ -1,8 +1,17 @@
 import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import {
+  Redirect,
+  useHistory,
+} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../stores/store';
 
 const MainQuiz = () => {
+  const history = useHistory();
+  const user = useSelector((state: IRootState) => state.authentication.user);
+
   const animation = useAnimation();
   const [contenRef, inView] = useInView({
     triggerOnce: true,
@@ -15,6 +24,19 @@ const MainQuiz = () => {
 
     return () => animation.stop();
   }, [animation, inView]);
+
+  const directTest = () => {
+    history.push('/login');
+  };
+
+  if (user) {
+    return (
+      <>
+        <Redirect to="/app/psychology-test" />
+      </>
+    );
+  }
+
   return (
     <div id="test" className="quiz">
       <div className="grid">
@@ -49,7 +71,7 @@ const MainQuiz = () => {
                 Discover the world of psychological counselling. Find out how
                 online counselling can help you with your topic.
               </div>
-              <a href="/#">Let's test now</a>
+              <button className="test-btn" onClick={directTest}>Let's test now</button>
             </div>
           </div>
           <div className="quiz__list--item">
@@ -59,7 +81,7 @@ const MainQuiz = () => {
                 Discover the world of psychological counselling. Find out how
                 online counselling can help you with your topic.
               </div>
-              <a href="/#">Let's test now</a>
+              <button className="test-btn" onClick={directTest}>Let's test now</button>
             </div>
           </div>
           <div className="quiz__list--item">
@@ -69,7 +91,7 @@ const MainQuiz = () => {
                 Discover the world of psychological counselling. Find out how
                 online counselling can help you with your topic.
               </div>
-              <a href="/#">Let's test now</a>
+              <button className="test-btn" onClick={directTest}>Let's test now</button>
 
             </div>
           </div>

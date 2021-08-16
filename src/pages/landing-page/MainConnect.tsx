@@ -121,9 +121,9 @@ const MainConnect = () => {
                 },
               }}
             >
-              <div className="connect__title">From the comfort of your own home</div>
+              <div className="connect__title">Counselling via chat bot</div>
               <div className="connect__description">
-                Psychological counselling online via video, audio &amp; text chat
+              Completely anonymous without an appointment
               </div>
             </motion.div>
           </div>

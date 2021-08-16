@@ -11,23 +11,16 @@ const getUserProfile = (id: string) => getRequest(`/user/${id}`);
 const updateProfile = (values: any): Promise<IUser> => {
   return putRequest('/user/update-profile', { values }) as any;
 };
-<<<<<<< HEAD
-
 const changePassword = (newPass: string): Promise<IUser> => {
   return postRequest('/change-password', { newPass }) as any;
 };
 
-=======
 const getMe = (): Promise<IUser> => getRequest('/user/getMe') as any;
->>>>>>> origin
 export default {
   login,
   register,
   getUserProfile,
   updateProfile,
-<<<<<<< HEAD
   changePassword,
-=======
   getMe,
->>>>>>> origin
 };
