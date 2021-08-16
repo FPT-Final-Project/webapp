@@ -98,6 +98,7 @@ const VideoChat = () => {
 
   useEffect(() => {
     peer.on('open', (peerId) => {
+      console.log(peerId);
       socket.emit('join-room', appointmentId, user?._id, user?.name, peerId);
     });
   }, []);
@@ -201,17 +202,22 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <Link
-                  to={{
-                    pathname: '/app/feedback',
-                    state: {
-                      appointmentId,
-                      partnerId: '60f7c7848ad7014269483a90',
-                    },
-                  }}
-                >
-                  <img className="mute-phone" src={phone} alt="Hand Up" />
-                </Link>
+                {user?.role === 'patient' ? (
+                  <Link
+                    to={{
+                      pathname: `/appointment/${appointmentId}/finish`,
+                      state: {
+                        partnerId: '60f7c7848ad7014269483a90',
+                      },
+                    }}
+                  >
+                    <img className="mute-phone" src={phone} alt="Hand Up" />
+                  </Link>
+                ) : (
+                  <a href="/app/appointment">
+                    <img className="mute-phone" src={phone} alt="Hand Up" />
+                  </a>
+                )}
               </span>
             </div>
             {videoButton ? (

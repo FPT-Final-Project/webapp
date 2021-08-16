@@ -68,6 +68,19 @@ const Feedback: React.FC = () => {
           Send Feedback
         </Button>
       </div>
+      <div className="wrap-privacy-feedback">
+        <div className="form-privacy-feedback">
+          <img className="img-privacy-feedback" src="https://www.gstatic.com/meet/security_shield_356739b7c38934eec8fb0c8e93de8543.svg" alt="Your meeting is safe" />
+          <div className="text-privacy-feedback">
+            <div className="text1-privacy-feedback">
+              Your meeting is safe
+            </div>
+            <div className="text2-privacy-feedback">
+              No one can join the meeting unless the organizer invites or allows it
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

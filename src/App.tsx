@@ -16,6 +16,7 @@ import SuggestionPage from './components/Quiz/Suggestion';
 import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
 import { doSuccess } from './stores/actions/utils';
+import Feedback from './components/Feedback';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
             <ProtectedRoute path="/app" component={LayoutApp} />
             <ProtectedRoute exact path="/appointment/:appointmentId/start" component={JoinRoom} />
             <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
+            <ProtectedRoute exact path="/appointment/:appointmentId/finish" component={Feedback} />
           </Switch>
         </Router>
       </Content>
