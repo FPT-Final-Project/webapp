@@ -166,7 +166,7 @@ const CovidInformationMessage = (
     text={(
       <>
         <p>
-          <b>World Coronavirus Statistic</b>&nbsp;
+          <b>World Coronavirus Statistic :</b>
         </p>
         <p><b>Date:</b>&nbsp;{updatedDate}</p>
         <p><b>Active:</b>&nbsp;{active}</p>
@@ -298,6 +298,7 @@ const ChatBot = () => {
         trigger="click"
         placement="topRight"
         visible={visible}
+        getPopupContainer={(triggerNode) => triggerNode.parentNode as any}
         title={(
           <div className="chatbot-title">
             <div>
@@ -317,7 +318,7 @@ const ChatBot = () => {
           <ChatBotContent />
         )}
       >
-        <div className="chatbot" onClick={() => setVisible(!visible)}>
+        <div id="chatbot" className="chatbot" onClick={() => setVisible(!visible)}>
           <img
             className="chatbot-img"
             src="https://media.istockphoto.com/vectors/-vector-id1010001882?k=6&m=1010001882&s=612x612&w=0&h=hjArrtcMrHNjzF0CIR75SCp1_02fra9JvZqZJt5oggI="
