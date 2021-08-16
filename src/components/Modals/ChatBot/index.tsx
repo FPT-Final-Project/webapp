@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Checkbox, Popover } from 'antd';
 import './style.scss';
 
+const covid = require('corona-info');
+
 const MessageAvatar = () => (
   <div className="message-avatar">
     <img
@@ -25,25 +27,21 @@ const ButtonMessage = ({ text, onClick }: { text: string, onClick: any }) => (
   </div>
 );
 
-const Message = ({ isBot }: { isBot: boolean }) => (
+// eslint-disable-next-line react/require-default-props
+const Message = ({ isBot = false, text }: { isBot?: boolean, text: string | any }) => (
   <>
     {
       isBot ? (
         <div className="bot-message">
           <MessageAvatar />
-          <TextMessage text="Duy thật sự ngốc nghếch" />
+          <TextMessage text={text} />
         </div>
       ) : (
         <div className="user-message">
-          <TextMessage text="Duy thật sự ngốc nghếch" />
+          <TextMessage text={text} />
         </div>
       )
     }
-  </>
-);
-
-const DiagnoseResult = ({ result }: { result: number }) => (
-  <>
   </>
 );
 
@@ -51,6 +49,7 @@ const DiagnoseMessage = ({ submitDiagnose }: { submitDiagnose: any }) => {
   const [commonResult, setCommonResult] = useState<string[]>([]);
   const [lessResult, setLessResult] = useState<string[]>([]);
   const [dangerousResult, setDangerousResult] = useState<string[]>([]);
+  const [submit, setSubmit] = useState(false);
 
   const commonOpts = [
     { label: 'Fever', value: 'fever' },
@@ -72,14 +71,18 @@ const DiagnoseMessage = ({ submitDiagnose }: { submitDiagnose: any }) => {
   ];
 
   const onClick = () => {
-    if (dangerousResult.length && (commonResult.length || lessResult.length)) {
-      const message = <TextMessage text="You should verify COVID-19" />;
-      submitDiagnose(message);
-      // return;
+    setSubmit(true);
+    if (dangerousResult.length) {
+      submitDiagnose('You have Dangerous symptoms. You should go and verify COVID-19.');
+      return;
     }
 
-    // if (commonResult.length + )
-    // setMessages(messages.concat([]));
+    if (commonResult.length || lessResult.length) {
+      submitDiagnose('You have few symptoms so should take care of your self.');
+      return;
+    }
+
+    submitDiagnose('Great. You don\'t have any symptoms but you should remember to take care of your self.');
   };
 
   const onCommonChange = (values: any[]) => {
@@ -102,24 +105,78 @@ const DiagnoseMessage = ({ submitDiagnose }: { submitDiagnose: any }) => {
           <>
             <div className="diagnose-checkbox">
               <div className="diagnose-title">The most common symptoms:</div>
-              <Checkbox.Group options={commonOpts} value={commonResult} onChange={onCommonChange} />
+              <Checkbox.Group
+                disabled={submit}
+                options={commonOpts}
+                value={commonResult}
+                onChange={onCommonChange}
+              />
             </div>
             <div className="diagnose-checkbox">
-              <div className="diagnose-title">Less Common</div>
-              <Checkbox.Group options={lessCommonOpts} value={lessResult} onChange={onLessChange} />
+              <div className="diagnose-title">The less common symptoms:</div>
+              <Checkbox.Group
+                disabled={submit}
+                options={lessCommonOpts}
+                value={lessResult}
+                onChange={onLessChange}
+              />
             </div>
             <div className="diagnose-checkbox">
-              <div className="diagnose-title">Dangerous</div>
-              <Checkbox.Group options={dangerousOpts} value={dangerousResult} onChange={onDangerousChange} />
+              <div className="diagnose-title">The dangerous symptoms:</div>
+              <Checkbox.Group
+                disabled={submit}
+                options={dangerousOpts}
+                value={dangerousResult}
+                onChange={onDangerousChange}
+              />
             </div>
           </>
         )}
         />
       </div>
-      <ButtonMessage text="Diagnose" onClick={onClick} />
+      {
+        submit
+          ? (
+            <></>
+          ) : (
+            <ButtonMessage text="Diagnose" onClick={onClick} />
+          )
+      }
     </>
   );
 };
+
+const CovidInformationMessage = (
+  {
+    active,
+    cases,
+    deaths,
+    recovered,
+    updatedDate,
+  } : {
+    active: string,
+    cases: string,
+    deaths: string,
+    recovered: string,
+    updatedDate: string,
+  },
+) => (
+  <Message
+    isBot
+    text={(
+      <>
+        <p>
+          <b>World Coronavirus Statistic</b>&nbsp;
+        </p>
+        <p><b>Date:</b>&nbsp;{updatedDate}</p>
+        <p><b>Active:</b>&nbsp;{active}</p>
+        <p><b>Cases:</b>&nbsp;{cases}</p>
+        <p><b>Deaths:</b>&nbsp;{deaths}</p>
+        <p style={{ marginBottom: 0 }}><b>Recovered:</b>&nbsp;{recovered}</p>
+      </>
+    )}
+  />
+);
 
 const ChatBotContent = () => {
   const [start, setStart] = useState(false);
@@ -130,8 +187,83 @@ const ChatBotContent = () => {
     container?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const submitDiagnose = (value: any) => {
-    setMessages(messages.concat(value));
+  const onClickCovidInformation = (mgs: any[]) => {
+    covid.findData({ country: 'all' }).then(({
+      active,
+      cases,
+      deaths,
+      recovered,
+      updatedDate,
+    }: {
+      active: string,
+      cases: string,
+      deaths: string,
+      recovered: string,
+      updatedDate: string,
+    }) => {
+      const newMessages = [
+        <Message text="Yes" />,
+        <CovidInformationMessage
+          active={active}
+          cases={cases}
+          deaths={deaths}
+          recovered={recovered}
+          updatedDate={updatedDate}
+        />,
+        <Message
+          isBot
+          text={(
+            <>
+            For more statistics:
+              <a
+                style={{ display: 'block' }}
+                href="https://www.worldometers.info/coronavirus/"
+                target="_blank"
+                rel="noreferrer"
+              >https://www.worldometers.info/coronavirus/
+              </a>
+            </>
+          )}
+        />,
+      ];
+
+      setTimeout(() => setMessages(mgs.slice(0, mgs.length - 1).concat(newMessages[0])), 500);
+      setTimeout(() => setMessages(mgs.slice(0, mgs.length - 1).concat(...newMessages.slice(0, 2))), 1500);
+      setTimeout(() => setMessages(mgs.slice(0, mgs.length - 1).concat(...newMessages)), 2500);
+    });
+  };
+
+  const submitDiagnose = (value: string) => {
+    const nextMessages = [
+      <Message text="Diagnose" />,
+      <Message isBot text={value} />,
+      <Message
+        isBot
+        text={(
+          <div>
+            For more information, regularly check the WHO coronavirus pages.&nbsp;
+            <a
+              href="https://www.who.int/covid-19"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            https://www.who.int/covid-19
+            </a>
+          </div>
+        )}
+      />,
+      <Message
+        isBot
+        text="Do you want to see the COVID-19 Information ?"
+      />,
+      <ButtonMessage text="Yes" onClick={() => onClickCovidInformation(nextMessages)} />,
+    ];
+
+    setTimeout(() => setMessages([...messages, nextMessages[0]]), 500);
+    setTimeout(() => setMessages([...messages, ...nextMessages.slice(0, 2)]), 1500);
+    setTimeout(() => setMessages([...messages, ...nextMessages.slice(0, 3)]), 2500);
+    setTimeout(() => setMessages([...messages, ...nextMessages.slice(0, 4)]), 3500);
+    setTimeout(() => setMessages([...messages, ...nextMessages]), 4500);
   };
 
   return (
