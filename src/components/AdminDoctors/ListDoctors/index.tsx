@@ -81,7 +81,7 @@ const DoctorRow = ({ doctor, user }: { doctor: IDoctor, user: IUser }) => {
         <div className="doctor-card-avatar">
           <img src={avatar || '/doctorPsy.png'} alt={name} />
           <Button className="btn-detail">
-            <Link to={`/app/doctor/${_id}/profile`}>View Profile</Link>
+            <Link to={{ pathname: `/app/doctor/${_id}/profile`, state: { doctor } }}>View Profile</Link>
           </Button>
         </div>
         <div className="doctor-card-details">
