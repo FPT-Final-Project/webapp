@@ -1192,13 +1192,15 @@ body {
         }
 
         &__small {
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           font-size: 16px;
         }
 
-        a {
+        .test-btn {
           color: #000;
           text-decoration: none;
+          border: none;
+          background-color: transparent;
           font-size: 16px;
           font-weight: bold;
           transition: 0.5s;
@@ -1212,13 +1214,14 @@ body {
           color: #fff;
           background-color: var(--text-color-blue);
 
-          a {
+          .test-btn {
             color: var(--text-color-blue);
             border-radius: 10px;
             background-color: #fff;
             padding: 8px 15px;
             font-weight: bold;
             text-decoration: none;
+            cursor: pointer;
           }
         }
       }

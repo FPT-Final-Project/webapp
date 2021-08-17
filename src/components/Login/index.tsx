@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+  Row, Form, Input, Button, Divider, Typography, Space,
 } from 'antd';
 
 import {
@@ -10,6 +10,7 @@ import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
+import './style.scss';
 import { IRootState } from '../../stores/store';
 
 const { Title } = Typography;
@@ -39,7 +40,10 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <PageHeader title="PSY CARE." />
+      {/* <PageHeader title="PSY CARE." /> */}
+      <div className="header-logo">
+        <div className="logo-psy" />
+      </div>
       <div className="form">
         <Title className="title" level={2}>Log Into Your Account</Title>
         <Row justify="center">

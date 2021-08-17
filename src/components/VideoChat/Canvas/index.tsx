@@ -1,6 +1,4 @@
-/* eslint-disable no-empty */
 /* eslint-disable consistent-return */
-/* eslint-disable react/prop-types */
 import { createRef, useEffect } from 'react';
 
 export default function Canvas({ videoRef, className } : any) {
@@ -16,9 +14,13 @@ export default function Canvas({ videoRef, className } : any) {
           ctx.shadowBlur = 6;
           ctx.shadowOffsetX = 6;
           ctx.shadowOffsetY = 6;
-        } catch {}
+        } catch (error) {
+          console.debug(error);
+        }
       }, 10);
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   });
   return (

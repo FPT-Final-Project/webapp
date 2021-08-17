@@ -19,7 +19,7 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
   const user = useSelector((state: IRootState) => state.authentication.user);
 
   const handleLogout = () => {
-    dispatch(authAction.logout);
+    dispatch(authAction.logout());
     history.push('/');
   };
 
@@ -48,7 +48,7 @@ const AvatarModal: React.FC<Props> = ({ visible, handleCancelDropAvatar }: Props
         <div className="Option">
           {/* <FontAwesomeIcon icon={faUser}/> */}
           <i className="fas fa-sign-out-alt" />
-          <span onClick={() => handleLogout()}>&nbsp;Sign Out</span>
+          <span onClick={handleLogout}>&nbsp;Sign Out</span>
         </div>
       </Modal>
     </>
