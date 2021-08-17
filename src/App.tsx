@@ -11,12 +11,13 @@ import Register from './components/Register';
 import JoinRoom from './components/VideoChat/JoinRoom';
 import ProtectedRoute from './config/private-route.config';
 import ResultQuiz from './components/Quiz/Result';
-import authAction, { AuthActions } from './stores/actions/auth.action';
+import { AuthActions } from './stores/actions/auth.action';
 import SuggestionPage from './components/Quiz/Suggestion';
 import { PsyTest } from './components/Psytest';
 import VideoChat from './components/VideoChat/VideoCall';
 import { doSuccess } from './stores/actions/utils';
 import Feedback from './components/Feedback';
+import ChatBot from './components/Modals/ChatBot';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,28 +31,28 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Content>
-        <Router>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/register/:userId" exact component={Register} />
-            {/* <Route path="/reset" component={Reset} />
-            <Route path="/resetPass" component={ResetPass} /> */}
-            <Route exact path="/quiz/:quizId" component={PsyTest} />
-            {/* Profile User/Doctor */}
-            <Route path="/suggestion" exact component={SuggestionPage} />;
-            <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
-            <ProtectedRoute path="/app" component={LayoutApp} />
-            <ProtectedRoute exact path="/appointment/:appointmentId/start" component={JoinRoom} />
-            <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
-            <ProtectedRoute exact path="/appointment/:appointmentId/finish" component={Feedback} />
-          </Switch>
-        </Router>
-      </Content>
-    </div>
+    <>
+      <div className="App">
+        <Content>
+          <Router>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/register/:userId" exact component={Register} />
+              <Route exact path="/quiz/:quizId" component={PsyTest} />
+              <Route path="/suggestion" exact component={SuggestionPage} />;
+              <ProtectedRoute path="/quiz/:quizId/result" exact component={ResultQuiz} />
+              <ProtectedRoute path="/app" component={LayoutApp} />
+              <ProtectedRoute exact path="/appointment/:appointmentId/start" component={JoinRoom} />
+              <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
+              <ProtectedRoute exact path="/appointment/:appointmentId/finish" component={Feedback} />
+            </Switch>
+          </Router>
+        </Content>
+      </div>
+      <ChatBot />
+    </>
   );
 }
 

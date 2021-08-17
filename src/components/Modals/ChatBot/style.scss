@@ -1,0 +1,164 @@
+.wrapper-chatbot {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 2147483647;
+
+  .chatbot {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .chatbot-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+    }
+  }
+}
+
+.wrap-inner-chatbot {
+  .ant-popover-inner {
+    border-radius: 10px;
+
+    .ant-popover-title {
+      background-color: #1295b1;
+      border-radius: 10px 10px 0 0;
+      border-bottom: none;
+
+      .chatbot-title {
+        width: 350px;
+        padding: 5px;
+        border-radius: 0 10px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .chatbot-title-img {
+          width: 35px;
+          height: 35px;
+          border-radius: 100%;
+          display: inline-block;
+        }
+
+        p {
+          margin-bottom: 0;
+          font-weight: 700;
+          color: white;
+          display: inline-block;
+          margin-left: 10px;
+          font-size: 16px;
+          cursor: default;
+        }
+
+        .btn-close {
+          padding: 5px 10px;
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #40aac0;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-popover-inner-content {
+    background-color: #f7f7f7;
+    padding: 0;
+    padding-bottom: 20px;
+    overflow-y: hidden;
+
+    .chatbot-content {
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      height: 470px;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 20px 5px 15px;
+
+      .chatbot-get-diagnosed {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: inherit;
+      }
+
+      .chatbot-messages {
+        .bot-message {
+          display: flex;
+          align-items: center;
+
+          .message-avatar {
+            margin-top: auto;
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 100%;
+              margin: 10px 10px 10px 0;
+            }
+          }
+
+          .diagnose-checkbox {
+            margin-bottom: 10px;
+            max-width: 250px;
+
+            .diagnose-title {
+              margin-bottom: 5px;
+              font-weight: 800;
+            }
+          }
+        }
+
+        .message-button {
+          width: 100%;
+          height: fit-content;
+          margin-top: 10px;
+          margin-bottom: 10px;
+
+          display: flex;
+          justify-content: center;
+        }
+
+        .message-text {
+          background-color: white;
+          width: fit-content;
+          max-width: 300px;
+          padding: 10px;
+          border-radius: 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+
+
+        .user-message {
+          .message-text {
+            margin-left: auto;
+            color: white;
+            background-color: #40aac0;
+          }
+        }
+      }
+
+      button {
+        border-radius: 5px;
+        color: #1295b1;
+        background-color: white;
+        border: 1px solid #1295b1;
+
+        &:hover {
+          background-color: #1295b1;
+          color: white;
+        }
+      }
+    }
+  }
+}

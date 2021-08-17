@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -111,7 +109,7 @@ const JoinRoom = () => {
             <div className="twoButton">
               <Link
                 to={{
-                  pathname: `/appointment/${appointment?._id}/join`,
+                  pathname: `/appointment/${appointmentId}/join`,
                   state: {
                     propertyaudio,
                     propertyvideo,
