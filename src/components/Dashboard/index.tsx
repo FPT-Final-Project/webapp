@@ -38,20 +38,14 @@ const Dashboard: React.FC = () => {
       title: 'Time open',
       dataIndex: 'startOfAppointment',
       sorter: (a: any, b: any) => (a.startOfAppointment - b.startOfAppointment),
-      render: (startOfAppointment: string) => {
-        const d = new Date(startOfAppointment);
-        return new Date(d).toLocaleString();
-      },
+      render: (startOfAppointment: string) => moment(startOfAppointment, 'X').format('DD/MM/YYYY HH:mm'),
     },
     {
       title: 'Time close',
       dataIndex: 'endOfAppointment',
       key: 'endOfAppointment',
       sorter: (a: any, b: any) => (a.endOfAppointment - b.endOfAppointment),
-      render: (endOfAppointment: string) => {
-        const d = new Date(endOfAppointment);
-        return new Date(d).toLocaleString();
-      },
+      render: (endOfAppointment: string) => moment(endOfAppointment, 'X').format('DD/MM/YYYY HH:mm'),
     },
   ];
 
@@ -153,8 +147,8 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">
-            <div className="topDoctors-title__top">Top 3 Doctors</div>
-            <div className="topDoctors-title__description">List of top 3 best doctors in PsyCare</div>
+            <div className="topDoctors-title__top">Top 5 Doctors</div>
+            <div className="topDoctors-title__description">List of top 5 best doctors in PsyCare</div>
           </div>
 
           <div className="list-top">

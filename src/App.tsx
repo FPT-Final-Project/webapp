@@ -16,6 +16,7 @@ import SuggestionPage from './components/Quiz/Suggestion';
 import VideoChat from './components/VideoChat/VideoCall';
 import { PsyTest } from './components/Psytest';
 import { doSuccess } from './stores/actions/utils';
+import Feedback from './components/Feedback';
 import ChatBot from './components/Modals/ChatBot';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
               <ProtectedRoute path="/app" component={LayoutApp} />
               <ProtectedRoute exact path="/appointment/:appointmentId/start" component={JoinRoom} />
               <ProtectedRoute exact path="/appointment/:appointmentId/join" component={VideoChat} />
+              <ProtectedRoute exact path="/appointment/:appointmentId/finish" component={Feedback} />
             </Switch>
           </Router>
         </Content>
