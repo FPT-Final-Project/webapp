@@ -82,7 +82,7 @@ const Login: React.FC = () => {
                 },
                 {
                   pattern: validatePass,
-                  message: 'The input must be least 6 characters in length!',
+                  message: 'The input must be least 8 characters in length!',
                 },
               ]}
               hasFeedback
