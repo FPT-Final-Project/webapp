@@ -10,10 +10,12 @@ import './style.scss';
 interface Props {
 }
 
-const ResultQuiz: React.FC<Props> = () => {
+const ResultQuiz: React.FC<Props> = (props: any) => {
   const { quizId: _a } = useParams<{ quizId: string }>();
   const quizResult = useSelector((state: any) => state.quiz.quizzesScore);
   const { result } = quizResult;
+  // eslint-disable-next-line react/destructuring-assignment
+  const { totalQuestions, typeOfQuiz } = props?.location?.state;
   const history = useHistory();
   const handleOnclick = () => {
     history.push({ pathname: '/suggestion', state: { result } });
@@ -33,11 +35,11 @@ const ResultQuiz: React.FC<Props> = () => {
           <h1 className="results-title">Your Results</h1>
           <div className="scoreSvg">
             <img src={score} alt="score" />
-            <div className="scoreQuiz">{result}/27</div>
+            <div className="scoreQuiz">{result}/{3 * totalQuestions}</div>
           </div>
 
           <div className="concludeResult">
-            <h3>{analyzeResultOfPsytest(result)}</h3>
+            <h3>{analyzeResultOfPsytest(typeOfQuiz, result)}</h3>
           </div>
         </div>
         <FontAwesomeIcon icon={faArrowRight} style={{ color: '#299CB4' }} size="4x" className="suggestIcon" onClick={handleOnclick} />
