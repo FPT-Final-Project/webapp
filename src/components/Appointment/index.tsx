@@ -63,7 +63,7 @@ const Appointment: React.FC = () => {
       ).then(
         dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
           if (!unMounted) {
-            setData(res);
+            setData((res || []).sort((a: any, b: any) => b.startOfAppointment - a.startOfAppointment));
             setTimeout(() => setLoadingApi(false), 700);
           }
         }),
@@ -72,7 +72,7 @@ const Appointment: React.FC = () => {
 
     dispatch<any>(appointmentAction.getAppointments()).then((res:any) => {
       if (!unMounted) {
-        setData(res);
+        setData((res || []).sort((a: any, b: any) => b.startOfAppointment - a.startOfAppointment));
         setTimeout(() => setLoadingApi(false), 700);
       }
     });
@@ -139,7 +139,7 @@ const Appointment: React.FC = () => {
             <Button className="buttonDisable" disabled>Join
               <span className="tooltiptext">Please comeback on time</span>
             </Button>
-            {user?.role === 'patient' ? (<Button onClick={() => cancelAppointment(row._id)}>Cancel</Button>) : ''}
+            {user?.role === 'patient' ? (<Button disabled={now >= row.startOfAppointment} onClick={() => cancelAppointment(row._id)}>Cancel</Button>) : ''}
           </Space>
         );
       },

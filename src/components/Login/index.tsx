@@ -101,11 +101,11 @@ const Login: React.FC = () => {
                 <img src={gg} className="gg" alt="google" />
               </Link>
             </Form.Item>
-            <Row justify="space-around">
+            {/* <Row justify="space-around">
               <Space>
                 <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
-            </Row>
+            </Row> */}
           </Form>
         </Row>
       </div>

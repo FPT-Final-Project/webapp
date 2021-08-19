@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="wrap-block__section--right">
             <div className="section--h2">Team of Doctors</div>
-            <div className="bottom-number">15</div>
+            <div className="bottom-number">{doctors?.length}</div>
           </div>
         </div>
         <div className="wrap-block__section">
@@ -117,8 +117,8 @@ const Dashboard: React.FC = () => {
             </svg>
           </div>
           <div className="wrap-block__section--right">
-            <div className="section--h2">Patients Treated</div>
-            <div className="bottom-number">127</div>
+            <div className="section--h2">Patients</div>
+            <div className="bottom-number">{(doctors?.length || 0) + 20}</div>
           </div>
         </div>
         <div className="wrap-block__section">
@@ -147,8 +147,8 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="wrap-appointment__topDoctors">
           <div className="topDoctors-title">
-            <div className="topDoctors-title__top">Top 5 Doctors</div>
-            <div className="topDoctors-title__description">List of top 5 best doctors in PsyCare</div>
+            <div className="topDoctors-title__top">Top 3 Doctors</div>
+            <div className="topDoctors-title__description">List of top 3 best doctors in PsyCare</div>
           </div>
 
           <div className="list-top">
