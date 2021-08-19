@@ -1,16 +1,10 @@
 import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import {
-  Redirect,
-  useHistory,
-} from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../../stores/store';
+import { useHistory } from 'react-router-dom';
 
 const MainQuiz = () => {
   const history = useHistory();
-  const user = useSelector((state: IRootState) => state.authentication.user);
 
   const animation = useAnimation();
   const [contenRef, inView] = useInView({
@@ -28,14 +22,6 @@ const MainQuiz = () => {
   const directTest = () => {
     history.push('/login');
   };
-
-  if (user) {
-    return (
-      <>
-        <Redirect to="/app/psychology-test" />
-      </>
-    );
-  }
 
   return (
     <div id="test" className="quiz">
