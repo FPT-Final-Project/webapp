@@ -47,7 +47,7 @@ const PostList = (
     answers: [] as any,
     value: '',
   });
-  const [unMounted, setUnMounted] = useState(true);
+  const [unMounted, setUnMounted] = useState(false);
 
   useEffect(() => {
     questionAnswerService.getComments(_id).then((res: any) => {

@@ -63,7 +63,9 @@ const Quizzes: React.FC<Props> = ({ getQuizzes, quizzes }: Props) => {
         {
           loadingApi
             ? (
-              <Loading />
+              <>
+                <Loading />
+              </>
             ) : (
               <>
                 <div className="banner-quiz">

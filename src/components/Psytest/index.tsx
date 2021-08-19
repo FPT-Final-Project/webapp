@@ -42,7 +42,8 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
       const userId = userDemo ? userDemo._id : uuid();
       createResultOfTest(userId, quizId, score);
       if (user) {
-        history.push(`/quiz/${quiz._id}/result`);
+        // eslint-disable-next-line max-len
+        history.push({ pathname: `/quiz/${quiz._id}/result`, state: { totalQuestions: questions.length, typeOfQuiz: quiz.type } });
       } else {
         history.push(`/register/${userId}`);
       }
@@ -104,7 +105,9 @@ const PsyTest: React.FC<Props> = ({ user, createResultOfTest }: Props) => {
           </div>
         </div>
         {loadingApi ? (
-          <Loading />
+          <>
+            <Loading />
+          </>
         )
           : (
             <div className="psy-test-section">
