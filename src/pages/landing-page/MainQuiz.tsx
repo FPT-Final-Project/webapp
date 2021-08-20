@@ -29,14 +29,6 @@ const MainQuiz = () => {
     history.push('/login');
   };
 
-  if (user) {
-    return (
-      <>
-        <Redirect to="/app/psychology-test" />
-      </>
-    );
-  }
-
   return (
     <div id="test" className="quiz">
       <div className="grid">

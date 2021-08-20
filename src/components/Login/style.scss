@@ -1,22 +1,24 @@
-.header-logo {
-  width: 100%;
-  height: 80px;
-  //   background-color: burlywood;
+.wrap-form {
+  .header-logo {
+    width: 100%;
+    height: 80px;
+    //   background-color: burlywood;
 
-  .logo-psy {
-    width: 140px;
-    height: 100%;
-    background: url(../../assets/LogoPsyCare_Color.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-left: 32px;
+    .logo-psy {
+      width: 140px;
+      height: 100%;
+      background: url(../../assets/LogoPsyCare_Color.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-left: 32px;
+    }
   }
-}
 
-.ant-form-item {
-  margin-bottom: 12px !important;
+  .ant-form-item {
+    margin-bottom: 12px !important;
 
-  .ant-form-item-label {
-    padding-bottom: 0 !important;
+    .ant-form-item-label {
+      padding-bottom: 0 !important;
+    }
   }
 }
