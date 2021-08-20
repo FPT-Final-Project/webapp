@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useState, useRef, useEffect } from 'react';
 import { WechatOutlined, SendOutlined } from '@ant-design/icons';
 import Peer from 'peerjs';
 import { io, Socket } from 'socket.io-client';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import doctor from '../../../assets/doctor.png';
 import phone from '../../../assets/phone.svg';
@@ -23,12 +24,13 @@ const socket: Socket = io(appConfig.backendUrl.split('/v1')[0]);
 
 const VideoChat = () => {
   const { appointmentId } = useParams<{ appointmentId: string }>();
+  const history = useHistory();
   const { user } = useSelector((state: IRootState) => ({ user: state.authentication.user }));
   const peer = new Peer();
   const peers: any = {};
   const listUserInRoom = useState<any[]>([]);
   const location = useLocation<any>();
-  const myVideo = useRef<any>(null);
+  const myVideo = useRef<any>();
   const partnerVideo = useRef<any>(null);
   const [statusPartner, setStatusPartner] = useState(false);
   const [textCameraUser, setTextCameraUser] = useState<any>();
@@ -38,6 +40,7 @@ const VideoChat = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const messageEl = useRef<any>();
   const [partnerId, setPartnerId] = useState<any>();
+  const [doctorId, setDoctorId] = useState('');
   const [partnerName, setPartnerName] = useState('');
 
   const muteUnmute = () => {
@@ -61,6 +64,14 @@ const VideoChat = () => {
       myVideo.current.srcObject.getVideoTracks()[0].enabled = true;
     }
     setTextCameraUser(!textCameraUser);
+  };
+  const endMeeting = () => {
+    history.push({
+      pathname: `/appointment/${appointmentId}/finish`,
+      state: {
+        doctorId,
+      },
+    });
   };
 
   const sendMessage = (e: any) => {
@@ -92,12 +103,16 @@ const VideoChat = () => {
       if (partner) {
         setPartnerId(partner.id);
         setPartnerName(partner.name);
+        if (user?.role === 'patient') {
+          setDoctorId(partner.id);
+        }
       }
     });
   };
 
   useEffect(() => {
     peer.on('open', (peerId) => {
+      console.log(peerId);
       socket.emit('join-room', appointmentId, user?._id, user?.name, peerId);
     });
   }, []);
@@ -107,7 +122,7 @@ const VideoChat = () => {
   }, [listUserInRoom]);
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: { echoCancellation: true, noiseSuppression: true } }).then((stream) => {
       myVideo.current.srcObject = stream;
       if (!location.state.propertyaudio) {
         myVideo.current.srcObject.getAudioTracks()[0].enabled = false;
@@ -201,17 +216,15 @@ const VideoChat = () => {
             )}
             <div className="mainControlsButtonEndMeeting">
               <span className="endMeeting">
-                <Link
-                  to={{
-                    pathname: '/app/feedback',
-                    state: {
-                      appointmentId,
-                      partnerId: '60f7c7848ad7014269483a90',
-                    },
-                  }}
-                >
-                  <img className="mute-phone" src={phone} alt="Hand Up" />
-                </Link>
+                {user?.role === 'patient' ? (
+                  <a onClick={endMeeting}>
+                    <img className="mute-phone" src={phone} alt="Hand Up" />
+                  </a>
+                ) : (
+                  <a href="/app/appointment">
+                    <img className="mute-phone" src={phone} alt="Hand Up" />
+                  </a>
+                )}
               </span>
             </div>
             {videoButton ? (

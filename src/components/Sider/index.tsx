@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Layout, Menu } from 'antd';
 import {
   AppstoreOutlined,
@@ -103,7 +103,6 @@ const SiderMenu: React.FC<Props> = ({ matchPath }: Props) => {
         width="250"
       >
         <div className="sider-logo" onClick={redirectToApp}>
-          {/* <p>PsyCare.</p> */}
           <div className="logo-dashboard" />
         </div>
         <Menu className="custom-menu">

@@ -109,7 +109,7 @@ const JoinRoom = () => {
             <div className="twoButton">
               <Link
                 to={{
-                  pathname: `/appointment/${appointment?._id}/join`,
+                  pathname: `/appointment/${appointmentId}/join`,
                   state: {
                     propertyaudio,
                     propertyvideo,

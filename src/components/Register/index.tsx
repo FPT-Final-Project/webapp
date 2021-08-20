@@ -39,7 +39,9 @@ const Register: React.FC = () => {
 
   return (
     <>
-      <PageHeader title="PSY CARE." />
+      <div className="header-logo">
+        <div className="logo-psy" />
+      </div>
       <div className="form">
         <Title className="title" level={2}>Create Your Account</Title>
         <Row justify="center">
@@ -123,11 +125,11 @@ const Register: React.FC = () => {
                 <img src={gg} className="gg" alt="google" />
               </Link>
             </Form.Item>
-            <Row justify="space-around">
+            {/* <Row justify="space-around">
               <Space>
                 <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
-            </Row>
+            </Row> */}
           </Form>
         </Row>
       </div>

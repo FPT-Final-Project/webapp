@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import { Avatar, Comment, List } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import userService from '../../services/user.service';
 
 const Comments = ({ information } : { information: any }) => {
@@ -9,18 +8,20 @@ const Comments = ({ information } : { information: any }) => {
     name: '',
     avatar: '',
   });
+  const [unMounted, setUnMounted] = useState(false);
   const { description, doctorId } = information;
+
   useEffect(() => {
-    let mounted = false;
     userService.getUserProfile(doctorId).then((res: any) => {
-      if (!mounted) {
+      if (!unMounted) {
         setAuthor(res);
       }
     });
     return () => {
-      mounted = true;
+      setUnMounted(true);
     };
   }, []);
+
   return (
     <Comment
       author={author?.name}
