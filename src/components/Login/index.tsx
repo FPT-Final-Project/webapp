@@ -39,7 +39,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="wrap-form">
       {/* <PageHeader title="PSY CARE." /> */}
       <div className="header-logo">
         <div className="logo-psy" />
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
           </Form>
         </Row>
       </div>
-    </>
+    </div>
   );
 };
 
