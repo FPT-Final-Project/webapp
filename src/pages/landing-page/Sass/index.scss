@@ -1624,70 +1624,98 @@ body {
 // ==========Footer===========
 
 .footer {
-  background-color: chocolate;
   width: 100%;
   height: 400px;
-  padding-top: 160px;
+  padding: 160px 16px 16px 16px;
   background: url(../../../assets/BackgroundFooter.svg);
   background-size: 100%;
   background-repeat: no-repeat;
 
   @include desktop1279 {
-    background-size: 115%;
+    background-size: 145%;
+    height: 490px;
   }
 
   @include desktop1170 {
-    background-size: 120%;
+    background-size: 150%;
+    height: 490px;
   }
 
   @include tablet1024 {
-    height: 360px;
+    height: 490px;
     padding-top: 120px;
-    background-size: 150%;
+    background-size: 180%;
   }
 
   @include tablet768 {
-    background-size: 150%;
-    height: 370px;
+    background-size: 350%;
+    height: 670px;
   }
 
   @include tablet501 {
-    background-size: 350%;
-    height: 490px;
+    background-size: 650%;
+    height: 990px;
   }
 
   &__contain {
     width: 100%;
     height: 200px;
     display: flex;
-
+    @include tablet1024 {
+      flex-wrap: wrap;
+    }
     @include tablet501 {
       flex-wrap: wrap;
     }
 
     &--logo {
       width: 40%;
+      position: relative;
 
+      @include tablet1024 {
+        width: 100%;
+        height: 150px;
+        margin-top: 20px;
+      }
+      @include tablet768 {
+        margin-bottom: 30px;
+      }
       @include tablet501 {
         width: 100%;
+        margin-bottom: 20px;
       }
 
       .logoup {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 80px;
         background: url(../../../assets/LogoPsyCare.svg);
-        background-size: 200px;
+        background-size: 150px;
         background-repeat: no-repeat;
         display: block;
-        margin: 0 auto;
 
         @include tablet1024 {
           background-size: 150px;
+          margin: 0 auto;
         }
 
         @include tablet501 {
           margin-top: 20px;
           height: 100px;
+        }
+      }
+
+      .footer-description {
+        color: #fff;
+        font-size: 16px;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        width: 87%;
+
+        @include tablet1024 {
+          text-align: center;
+          width: 50%;
+          transform: translate(50%);
         }
       }
     }
@@ -1699,6 +1727,7 @@ body {
 
       @include tablet501 {
         margin-top: 20px;
+        flex-wrap: wrap;
       }
 
       &--item {
@@ -1706,6 +1735,10 @@ body {
         width: 30%;
         color: var(--text-color-white);
 
+        @include tablet501 {
+          width: 100%;
+          text-align: center;
+        }
         .footer__title {
           font-size: 20px;
           font-weight: bold;
