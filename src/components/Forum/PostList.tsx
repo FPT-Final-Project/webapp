@@ -1,13 +1,12 @@
-import { Avatar, Button, Comment, Form, Tooltip } from 'antd';
+import { Avatar, Button, Comment, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import axios from 'axios';
 import moment from 'moment';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import questionAnswerService from '../../services/questionAnswer.service';
 import userService from '../../services/user.service';
 import CommentList from './CommentList';
 
-const Editor = ({ onChange, value, onSubmit } : {onChange: any, value: any, onSubmit: any}) => {
+const Editor = ({ onChange, value, onSubmit } : { onChange: any, value: any, onSubmit: any }) => {
   return (
     <>
       <Form.Item>
@@ -25,7 +24,20 @@ const Editor = ({ onChange, value, onSubmit } : {onChange: any, value: any, onSu
     </>
   );
 };
-const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, handleToggle: any, index:any, userLogin: any}) => {
+
+const PostList = (
+  {
+    comment,
+    handleToggle,
+    index,
+    userLogin,
+  } : {
+    comment: any,
+    handleToggle: any,
+    index:any,
+    userLogin: any,
+  },
+) => {
   const { patientId, _id } = comment;
   const [user, setUser] = useState({
     name: '',
@@ -35,10 +47,11 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
     answers: [] as any,
     value: '',
   });
+  const [unMounted, setUnMounted] = useState(false);
+
   useEffect(() => {
-    let mounted = true;
     questionAnswerService.getComments(_id).then((res: any) => {
-      if (mounted) {
+      if (!unMounted) {
         setAnswers({
           value: '',
           answers: [...answers.answers,
@@ -48,27 +61,25 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
       }
     });
     return () => {
-      mounted = false;
+      setUnMounted(true);
     };
   }, []);
-  useEffect(() => {
-    let mounted = true;
 
+  useEffect(() => {
     userService.getUserProfile(patientId).then((res: any) => {
-      if (mounted) {
+      if (!unMounted) {
         setUser(res);
       }
     });
-    return () => {
-      mounted = false;
-    };
   }, []);
+
   const handleChange = (e: ChangeEvent<any>) => {
     setAnswers({
       ...answers,
       value: e.target.value,
     });
   };
+
   const handleSubmit = async () => {
     if (!answers.value) {
       return;
@@ -79,6 +90,7 @@ const PostList = ({ comment, handleToggle, index, userLogin } : {comment: any, h
       answers: [...answers.answers, result],
     });
   };
+
   return (
     <div className="comment">
       <Comment

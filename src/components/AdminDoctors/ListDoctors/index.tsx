@@ -157,92 +157,101 @@ const ListDoctors: React.FC = () => {
   const [listDoctors, setListDoctors] = useState(doctors || []);
   const [nameSearch, setNameSearch] = useState('');
   const [loadingApi, setLoadingApi] = useState(true);
+  const [unMounted, setUnMounted] = useState(false);
 
   useEffect(() => {
     dispatch<any>(doctorAction.getDoctors()).then((res: any) => {
-      setListDoctors(res);
-      setTimeout(() => setLoadingApi(false), 700);
+      if (!unMounted) {
+        setListDoctors(res);
+        setTimeout(() => setLoadingApi(false), 700);
+      }
     });
+
+    return () => {
+      setUnMounted(true);
+    };
   }, []);
 
   const handleSearch = (e: any) => {
-    e.preventDefault();
-    const result : IDoctor[] = [];
-    if (nameSearch && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if (((doctors[i].name).toUpperCase()).includes((nameSearch.toUpperCase()).trim())) {
-          result.push(doctors[i]);
+    if (!unMounted) {
+      e.preventDefault();
+      const result : IDoctor[] = [];
+      if (nameSearch && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if (((doctors[i].name).toUpperCase()).includes((nameSearch.toUpperCase()).trim())) {
+            result.push(doctors[i]);
+          }
         }
+        setListDoctors(result);
+      } else if (doctors) {
+        setListDoctors(doctors);
       }
-      setListDoctors(result);
-    } else if (doctors) {
-      setListDoctors(doctors);
-    }
 
-    setTimeout(() => setLoadingApi(false), 700);
+      setTimeout(() => setLoadingApi(false), 700);
+    }
   };
 
   const handleGenderSearch = (e: any) => {
-    e.preventDefault();
-    const gender = e.target.value;
-    const result : IDoctor[] = [];
-    if (gender === 'male' && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if (doctors[i].gender === 0) {
-          result.push(doctors[i]);
+    if (!unMounted) {
+      e.preventDefault();
+      const gender = e.target.value;
+      const result : IDoctor[] = [];
+      if (gender === 'male' && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if (doctors[i].gender === 0) {
+            result.push(doctors[i]);
+          }
         }
-      }
-      setListDoctors(result);
-    } else if (gender === 'female' && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if (doctors[i].gender === 1) {
-          result.push(doctors[i]);
+        setListDoctors(result);
+      } else if (gender === 'female' && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if (doctors[i].gender === 1) {
+            result.push(doctors[i]);
+          }
         }
+        setListDoctors(result);
+      } else if (gender === 'all' && doctors) {
+        setListDoctors(doctors);
       }
-      setListDoctors(result);
-    } else if (gender === 'all' && doctors) {
-      setListDoctors(doctors);
     }
   };
 
   const handleMajorSearch = (e: any) => {
-    e.preventDefault();
-    const major = e.target.value;
-    const result : IDoctor[] = [];
-    if (major === 'depress' && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if ((doctors[i].major)?.toLocaleUpperCase() === 'Depress'.toLocaleUpperCase()) {
-          result.push(doctors[i]);
+    if (!unMounted) {
+      e.preventDefault();
+      const major = e.target.value;
+      const result : IDoctor[] = [];
+      if (major === 'depress' && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if ((doctors[i].major)?.toLocaleUpperCase() === 'Depress'.toLocaleUpperCase()) {
+            result.push(doctors[i]);
+          }
         }
-      }
-      setListDoctors(result);
-    } else if (major === 'anxious' && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if ((doctors[i].major)?.toLocaleUpperCase() === 'Anxious'.toLocaleUpperCase()) {
-          result.push(doctors[i]);
+        setListDoctors(result);
+      } else if (major === 'anxious' && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if ((doctors[i].major)?.toLocaleUpperCase() === 'Anxious'.toLocaleUpperCase()) {
+            result.push(doctors[i]);
+          }
         }
-      }
-      setListDoctors(result);
-    } else if (major === 'stress' && doctors) {
-      for (let i = 0; i < doctors.length; i += 1) {
-        if ((doctors[i].major)?.toLocaleUpperCase() === 'Stress'.toLocaleUpperCase()) {
-          result.push(doctors[i]);
+        setListDoctors(result);
+      } else if (major === 'stress' && doctors) {
+        for (let i = 0; i < doctors.length; i += 1) {
+          if ((doctors[i].major)?.toLocaleUpperCase() === 'Stress'.toLocaleUpperCase()) {
+            result.push(doctors[i]);
+          }
         }
+        setListDoctors(result);
+      } else if (major === 'all' && doctors) {
+        setListDoctors(doctors);
       }
-      setListDoctors(result);
-    } else if (major === 'all' && doctors) {
-      setListDoctors(doctors);
     }
   };
-
-  if (!user) {
-    return (<></>);
-  }
 
   return (
     <div className="wrap-doctor-list">
       {
-        loadingApi
+        loadingApi || !user
           ? (
             <Loading />
           ) : (
@@ -256,7 +265,7 @@ const ListDoctors: React.FC = () => {
                       className="doctor-search"
                       value={nameSearch || ''}
                       onChange={({ target: { value } }) => setNameSearch(value)}
-                      onKeyUp={(e) => (handleSearch(e))}
+                      onKeyUp={handleSearch}
                       placeholder="Type doctor's name"
                     />
                   </div>

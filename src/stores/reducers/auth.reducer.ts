@@ -77,10 +77,16 @@ const authenticationReducer = (state = initialState, action: Action): IUserState
       const { bookingTime } = (action as UpdateBookingTimeSuccessAction).payload;
       return { ...state, user: { ...state.user, bookingTime } as IUser };
     }
+
     case AuthActions.UPLOAD_AVATAR_SUCCESS: {
       const user = (action as any).payload;
-      return { ...state, user: { ...state.user, ...user } } as any;
+      return { ...state, user: { ...state.user, ...user } as IUser };
     }
+
+    case AuthActions.LOG_OUT: {
+      return initialState;
+    }
+
     default: {
       return state;
     }

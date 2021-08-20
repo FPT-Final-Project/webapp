@@ -1,6 +1,5 @@
 import Dashboard from '../../components/Dashboard';
 import Appointment from '../../components/Appointment';
-import Feedback from '../../components/Feedback';
 import Payment from '../../components/Payment';
 import ListDoctors from '../../components/AdminDoctors/ListDoctors';
 import { Quizzes } from '../../components/Quiz/SelectQuiz';
@@ -32,10 +31,6 @@ export const routes = [
   {
     path: '/forum',
     component: Forum,
-  },
-  {
-    path: '/feedback',
-    component: Feedback,
   },
   {
     path: '/payment',

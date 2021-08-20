@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Row, Form, Input, Button, Divider, Typography, Space, PageHeader,
+  Row, Form, Input, Button, Divider, Typography, Space,
 } from 'antd';
 
 import {
@@ -10,8 +10,8 @@ import '../../shared/css/form.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import gg from '../../assets/gg.png';
 import authAction from '../../stores/actions/auth.action';
-import { IRootState } from '../../stores/store';
 import './style.scss';
+import { IRootState } from '../../stores/store';
 
 const { Title } = Typography;
 const validateEmail = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
                 },
                 {
                   pattern: validatePass,
-                  message: 'The input must be least 6 characters in length!',
+                  message: 'The input must be least 8 characters in length!',
                 },
               ]}
               hasFeedback
@@ -101,11 +101,11 @@ const Login: React.FC = () => {
                 <img src={gg} className="gg" alt="google" />
               </Link>
             </Form.Item>
-            <Row justify="space-around">
+            {/* <Row justify="space-around">
               <Space>
                 <Link to="/resetPass">Forgot login or password?</Link>
               </Space>
-            </Row>
+            </Row> */}
           </Form>
         </Row>
       </div>

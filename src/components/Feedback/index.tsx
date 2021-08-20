@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { Rate, Input, Button } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import feedbackAction from '../../stores/actions/feedback.action';
 import { IRootState } from '../../stores/store';
@@ -21,25 +21,27 @@ const Feedback: React.FC = () => {
   const { user } = useSelector((state: IRootState) => ({ user: state.authentication.user }));
   const { doctor } = useSelector((state: IRootState) => ({ doctor: state.doctor.doctor }));
   const [avaDoctor, setAvaDoctor] = useState<any>();
-
+  const { appointmentId } = useParams<{ appointmentId: string }>();
   const handleChange = (value: any) => setRate({ value });
 
   useEffect(() => {
     if (location.state !== undefined && user?.role === 'patient') {
-      if (location.state.partnerId) {
-        dispatch<any>(doctorAction.getDoctor(location.state.partnerId)).then((res: any) => setAvaDoctor(res.avatar));
+      if (location.state.doctorId) {
+        dispatch<any>(doctorAction.getDoctor(location.state.doctorId)).then((res: any) => setAvaDoctor(res.avatar));
       }
     }
   }, []);
 
   const sendFeedback = () => {
     if (location.state !== undefined && user?.role === 'patient') {
-      dispatch<any>(feedbackAction.createFeedback(location.state.appointmentId, rate.value, des, user._id, location.state.partnerId));
+      dispatch<any>(feedbackAction.createFeedback(appointmentId, rate.value, des, user._id, location.state.doctorId));
       dispatch<any>(doctorAction.getDoctor(''));
     } else {
-      openNotification('success', 'Thanks for your feedback ! Your feedback has been noted, we will try to bring you a better experience');
+      openNotification('error', 'Some thing wrong !');
     }
-    history.push('/app/dashboard');
+    setTimeout(() => {
+      window.location.href = '/app/appointment';
+    }, 3000);
   };
 
   const { value } = rate;
@@ -67,6 +69,41 @@ const Feedback: React.FC = () => {
         <Button onClick={sendFeedback} className="btn-feedback">
           Send Feedback
         </Button>
+      </div>
+      <div className="wrap-button-direct">
+        <div className="button-direct-form">
+          <div className="button-rejoin">
+            <a href={`/appointment/${appointmentId}/start`}>
+              <Button>
+                <span className="button-rejoin-text">
+                Join again
+                </span>
+              </Button>
+            </a>
+          </div>
+          <div className="button-redirect">
+            <a href="/app/appointment">
+              <Button type="primary">
+                <span className="button-redirect-text">
+                  Back to home screen
+                </span>
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="wrap-privacy-feedback">
+        <div className="form-privacy-feedback">
+          <img className="img-privacy-feedback" src="https://www.gstatic.com/meet/security_shield_356739b7c38934eec8fb0c8e93de8543.svg" alt="Your meeting is safe" />
+          <div className="text-privacy-feedback">
+            <div className="text1-privacy-feedback">
+              Your meeting is safe
+            </div>
+            <div className="text2-privacy-feedback">
+              No one can join the meeting unless the organizer invites or allows it
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
