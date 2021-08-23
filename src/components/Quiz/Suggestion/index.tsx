@@ -20,13 +20,13 @@ const Doctor = (
       actions={[
         <VideoCameraTwoTone
           className="icon-suggestion"
-          onClick={() => history.push('/app/dashboard')}
+          onClick={() => history.push('/app/doctor')}
           width="10px"
         />,
         <InfoCircleTwoTone
           className="icon-suggestion"
           onClick={() => history.push({
-            pathname: `/app/doctor/${doctor._id}/details`,
+            pathname: `/app/doctor/${doctor._id}/profile`,
             state: { doctor },
           })}
         />,
