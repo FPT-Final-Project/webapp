@@ -5,6 +5,8 @@ import { AppointmentActions,
   GetAppointmentFailAction,
   GetAppointmentsSuccessAction,
   GetAppointmentsFailAction,
+  GetTotalAppointmentsFailAction,
+  GetTotalAppointmentsSuccessAction,
   CreateAppointmentSuccessAction,
   CreateAppointmentFailAction,
   CancelAppointmentFailAction,
@@ -14,12 +16,14 @@ import { AppointmentActions,
 export interface IAppointmentState {
   appointment: IAppointment | undefined;
   appointments: IAppointment[] | undefined;
+  totalAppointments: number | undefined;
   error: string | undefined;
 }
 
 const initialState: IAppointmentState = {
   appointment: undefined,
   appointments: undefined,
+  totalAppointments: undefined,
   error: undefined,
 };
 
@@ -42,6 +46,17 @@ const appointmentReducer = (state = initialState, action: Action): IAppointmentS
 
     case AppointmentActions.GET_APPOINTMENTS_FAIL: {
       const { error } = (action as GetAppointmentsFailAction).payload;
+      return { ...state, ...{ error } };
+    }
+
+    case AppointmentActions.GET_TOTALAPPOINTMENTS_SUCCESS: {
+      const { totalAppointments } = (action as GetTotalAppointmentsSuccessAction).payload;
+      console.log(totalAppointments);
+      return { ...state, ...{ totalAppointments } };
+    }
+
+    case AppointmentActions.GET_TOTALAPPOINTMENTS_FAIL: {
+      const { error } = (action as GetTotalAppointmentsFailAction).payload;
       return { ...state, ...{ error } };
     }
 

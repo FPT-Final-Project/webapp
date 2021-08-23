@@ -7,6 +7,8 @@ const getAppointment = (appointmentId: string): Promise<IAppointment> => {
 
 const getAppointments = (): Promise<IAppointment[]> => getRequest('appointment');
 
+const getTotalAppointments = () => getRequest('appointment/count/all');
+
 const cancelAnAppointment = (appointmentId: string): Promise<any> => {
   return postRequest(`appointment/${appointmentId}/cancel`);
 };
@@ -37,4 +39,5 @@ export default {
   cancelAnAppointment,
   makeAnAppointment,
   checkAppointment,
+  getTotalAppointments,
 };
