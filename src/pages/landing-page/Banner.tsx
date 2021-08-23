@@ -56,7 +56,7 @@ const Banner = () => {
           animate="visible"
           transition={{ duration: 1, delay: 1.3 }}
         >
-          <a href="/#" id="book_app">Book An Appointment</a>
+          <a href="/login" id="book_app">Book An Appointment</a>
         </motion.div>
       </div>
       <motion.div

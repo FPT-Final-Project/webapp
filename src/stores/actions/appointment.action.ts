@@ -3,7 +3,6 @@ import _ from 'lodash';
 import appointmentService from '../../services/appointment.service';
 import { IAppointment } from '../../types/appointment';
 import { doFailure, doRequest, doSuccess } from './utils';
-import { IUser } from '../../types/user';
 import openNotification from '../../utils/notification';
 
 export const AppointmentActions = {
@@ -14,6 +13,10 @@ export const AppointmentActions = {
   GET_APPOINTMENTS: '[Appointment] Get Appointments',
   GET_APPOINTMENTS_SUCCESS: '[Appointment] Get Appointments Success',
   GET_APPOINTMENTS_FAIL: '[Appointment] Get Appointments Fail',
+
+  GET_TOTALAPPOINTMENTS: '[Appointment] Get Appointments',
+  GET_TOTALAPPOINTMENTS_SUCCESS: '[Appointment] Get Appointments Success',
+  GET_TOTALAPPOINTMENTS_FAIL: '[Appointment] Get Appointments Fail',
 
   CANCEL_APPOINTMENT: '[Appointment] Cancel Appointment',
   CANCEL_APPOINTMENT_SUCCESS: '[Appointment] Cancel Appointment Success',
@@ -55,6 +58,24 @@ export interface GetAppointmentsSuccessAction extends Action {
 }
 
 export interface GetAppointmentsFailAction extends Action {
+  payload: {
+    error: string;
+  };
+}
+
+export interface GetTotalAppointmentsAction extends Action {
+  payload: {
+    userId: string;
+  };
+}
+
+export interface GetTotalAppointmentsSuccessAction extends Action {
+  payload: {
+    totalAppointments: number;
+  };
+}
+
+export interface GetTotalAppointmentsFailAction extends Action {
   payload: {
     error: string;
   };
@@ -110,6 +131,19 @@ const getAppointments = () => async (dispatch: Dispatch) => {
   }
 };
 
+const getTotalAppointments = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(doRequest(AppointmentActions.GET_TOTALAPPOINTMENTS));
+    const totalAppointments = await appointmentService.getTotalAppointments();
+
+    dispatch(doSuccess(AppointmentActions.GET_TOTALAPPOINTMENTS_SUCCESS, { totalAppointments }));
+    return totalAppointments;
+  } catch (error) {
+    dispatch(doFailure(AppointmentActions.GET_TOTALAPPOINTMENTS_FAIL, { error: _.get(error, ['response', 'data', 'message']) }));
+    return error;
+  }
+};
+
 const cancelAppointment = (appointmentId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(doRequest(AppointmentActions.CANCEL_APPOINTMENT));
@@ -153,4 +187,5 @@ export default {
   getAppointments,
   cancelAppointment,
   createAppointment,
+  getTotalAppointments,
 };

@@ -269,7 +269,7 @@ const ListDoctors: React.FC = () => {
                       placeholder="Type doctor's name"
                     />
                   </div>
-                  <div className="doctor-filter-section">
+                  {/* <div className="doctor-filter-section">
                     <span style={{ display: 'block' }}>Major</span>
                     <Select id="doctor-specialty">
                       <Option value="all">All</Option>
@@ -285,7 +285,7 @@ const ListDoctors: React.FC = () => {
                       <Option value="male">Male</Option>
                       <Option value="female">Female</Option>
                     </Select>
-                  </div>
+                  </div> */}
                 </div>
                 { listDoctors && listDoctors.map((doctor: any, i) => <DoctorRow key={i} doctor={doctor} user={user} />)}
               </div>

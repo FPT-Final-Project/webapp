@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
   const history = useHistory();
   const [mounted, setMounted] = useState(false);
   const [listAppointmentToday, setListAppointmentToday] = useState<IAppointment[]>([]);
+  const [totalAppointments, setTotalAppointments] = useState(0);
 
   const { user, doctors } = useSelector(
     (state : IRootState) => ({
@@ -51,6 +52,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     dispatch<any>(doctorAction.getDoctors());
+    dispatch<any>(appointmentAction.getTotalAppointments()).then((res:any) => setTotalAppointments(res));
     dispatch<any>(appointmentAction.getAppointments())
       .then((res: any) => {
         if (!mounted && res) {
@@ -86,7 +88,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="wrap-block__section--right">
             <div className="section--h2">Appointments</div>
-            <div className="bottom-number">105</div>
+            <div className="bottom-number">{totalAppointments}</div>
           </div>
         </div>
         <div className="wrap-block__section">
